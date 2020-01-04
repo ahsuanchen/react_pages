@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 //import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 
@@ -142,6 +143,10 @@ export default function DenseAppBar() {
                                 className={classes.submit}
                                 href="./signup.js"
                                 >
+
+<IconButton color="secondary" aria-label="add an alarm">
+        <ArrowForwardIcon />
+      </IconButton>
 
                                 註冊新帳號
                                 
