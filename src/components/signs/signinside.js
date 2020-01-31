@@ -133,12 +133,12 @@ export default function SignInSide() {
             </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
+                  <Link href="forgot1" variant="body2">
                     忘記密碼？
                 </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup.js" variant="body2">
+                  <Link href="signup" variant="body2">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

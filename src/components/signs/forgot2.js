@@ -106,6 +106,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                href="./signinside"
                             >
                                 完成設定
                             </Button>

@@ -104,6 +104,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                href="./signupinfor"
                             >
                                 <ChevronLeftIcon />
                                 上一步
@@ -115,6 +116,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步

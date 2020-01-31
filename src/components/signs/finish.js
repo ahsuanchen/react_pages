@@ -101,6 +101,7 @@ export default function Finish() {
                                 className={classes.submit}
                                 variant="outlined"
                                 align="center"
+                                href="./signinside"
                                 >
                                     登入
                             </Button>

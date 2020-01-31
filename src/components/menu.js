@@ -11,7 +11,6 @@ export default function MyMenu() {
         MyApp
         <Button component={Link} to='/signinside' color="inherit">signinside</Button>
         <Button component={Link} to='/signup' color="inherit">signup</Button>
-        <Button component={Link} to='/signupinfor' color="inherit">signupinfor</Button>
         <Button component={Link} to='/settingface' color="inherit">face</Button>
         <Button component={Link} to='/forgot1' color="inherit">forgot</Button>
         <Button component={Link} to='/forgot2' color="inherit">forgot2</Button>

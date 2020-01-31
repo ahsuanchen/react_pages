@@ -103,6 +103,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                href="./forgot2"
                             >
                                 傳送登入連結
                             </Button>
@@ -119,7 +120,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signup.js"
+                                href="./signup"
                                 >
 
                                 註冊新帳號
