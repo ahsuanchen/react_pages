@@ -40,9 +40,13 @@ const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
     margin: theme.spacing(10, 15 ),
+
     //borderRadius: 10,
     //border: 0,
     
+  },
+  paperout:{
+    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
   },
 
   image: {
@@ -59,7 +63,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    //background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    color: 'white',
+    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
   },
   avatar: {
     margin: theme.spacing(1),
@@ -82,11 +87,11 @@ export default function SignInSide() {
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={5} md={5} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.paperout}>
           <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
+            {/* <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
-            </Avatar>
+            </Avatar> */}
             <Typography component="h1" variant="h5">
               登入
           </Typography>

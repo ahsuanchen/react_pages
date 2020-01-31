@@ -14,6 +14,9 @@ import Forgot1 from './components/signs/forgot1.js';
 import Forgot2 from './components/signs/forgot2.js';
 import Finish from './components/signs/finish.js';
 import Organizer from './components/activity/organizer.js';
+import New1 from './components/activity/new1.js';
+import New2 from './components/activity/new2.js';
+import New3 from './components/activity/new3.js';
 import Bar from './components/bar.js';
 
 import * as serviceWorker from './serviceWorker';
@@ -30,6 +33,9 @@ ReactDOM.render(
             <Route path="/finish" component={Finish} />
             <Route path="/bar" component={Bar} />
             <Route path="/organizer" component={Organizer} />
+            <Route path="/new1" component={New1} />
+            <Route path="/new2" component={New2} />
+            <Route path="/new3" component={New3} />
             <Route path="/" component={ReactApp} />
         </Switch>
     </BrowserRouter>

@@ -4,8 +4,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-//import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 //import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -37,7 +35,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(5),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(40),
+            height: theme.spacing(30),
         },
     },
 
@@ -74,7 +72,7 @@ export default function DenseAppBar() {
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography component="h1" variant="h5" align="center">
-                    選擇主辦單位
+                    新增主辦單位
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
@@ -124,38 +122,11 @@ export default function DenseAppBar() {
                                     variant="outlined"
                             />
 
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                            >
-                                傳送登入連結
-                            </Button>
 
+                                <IconButton color="primary" aria-label="next step" href="./signup.js">
+                                    <ArrowForwardIcon />
+                                </IconButton>
 
-                                <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                href="./signup.js"
-                                >
-
-<IconButton color="secondary" aria-label="add an alarm">
-        <ArrowForwardIcon />
-      </IconButton>
-
-                                註冊新帳號
-                                
-                                </Button>
-
-
-
-
-                            
                         </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
