@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import grey from '@material-ui/core/colors/grey';
 
 
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
         flexDirection: 'column',
         alignItems: 'center',
-        background: 'lightblue',
+        background: grey['300'],
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),

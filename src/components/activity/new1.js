@@ -1,27 +1,53 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+//import tileData from './tileData';
+import image from './logo1.png';
+import { blue } from '@material-ui/core/colors';
+
+
+const tileData = [
+    {
+
+        img: image,
+        title: 'Image',
+        author: 'author',
+        featured: true,
+    },
+    //     {
+    //    [etc...]
+    //    },
+];
+
 
 const useStyles = makeStyles(theme => ({
     root: {
-        flexGrow: 1,
+        //flexGrow: 1,
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
     },
+
+    gridList: {
+        width: 500,
+        height: 450,
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+    },
+
 
     control: {
         padding: theme.spacing(2),
@@ -47,25 +73,15 @@ const useStyles = makeStyles(theme => ({
     },
 
 
-    form: {
-        width: '100%',
-        height: theme.spacing(1),
 
 
-    },
-    submit: {
-        margin: theme.spacing(3, 0, 2),
-    },
-
-    margin: {
-        margin: theme.spacing(2),
-    },
 
 }));
 
 export default function SpacingGrid() {
-    
+
     const classes = useStyles();
+
 
     return (
         <div className={classes.root}>
@@ -79,12 +95,23 @@ export default function SpacingGrid() {
                     </Typography>
                 </Toolbar>
             </AppBar>
+            <CssBaseline />
+                    <Typography component="h1" variant="h5" align="center">
+                        基本資訊
+                    </Typography>
+                    <GridList cellHeight={160} className={classes.gridList} cols={3}>
+        {tileData.map(tile => (
+          <GridListTile key={tile.img} cols={tile.cols || 1}>
+            <img src={tile.img} alt={tile.title} />
+          </GridListTile>
+        ))}
+      </GridList>
             <IconButton color="primary" aria-label="next step" href="./signup.js">
-                                    <ArrowBackIcon />
-                                </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./signup.js">
-                                    <ArrowForwardIcon />
-                                </IconButton>
+                <ArrowBackIcon />
+            </IconButton>
+            <IconButton color="primary" aria-label="next step" href="./signup.js">
+                <ArrowForwardIcon />
+            </IconButton>
         </div>
     );
 }

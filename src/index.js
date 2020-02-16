@@ -15,6 +15,7 @@ import Forgot2 from './components/signs/forgot2.js';
 import Finish from './components/signs/finish.js';
 import Organizer from './components/activity/organizer.js';
 import New1 from './components/activity/new1.js';
+import New1B from './components/activity/new1-button.js';
 import New2 from './components/activity/new2.js';
 import New3 from './components/activity/new3.js';
 import Bar from './components/bar.js';
@@ -34,6 +35,7 @@ ReactDOM.render(
             <Route path="/bar" component={Bar} />
             <Route path="/organizer" component={Organizer} />
             <Route path="/new1" component={New1} />
+            <Route path="/new1-button" component={New1B} />
             <Route path="/new2" component={New2} />
             <Route path="/new3" component={New3} />
             <Route path="/" component={ReactApp} />
