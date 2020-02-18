@@ -84,7 +84,7 @@ const style = {
     }
   }));
 
-  export default function Profilepage() {
+  export default function Trainingpage() {
     const classes = useStyles();
     
     return(
