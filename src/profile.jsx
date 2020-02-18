@@ -14,6 +14,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SaveIcon from '@material-ui/icons/Save';
+import Link from '@material-ui/core/Link';
 
 const style = {
     toolbar : {
@@ -90,6 +91,8 @@ const style = {
     const handleChange = event => {
       setValue(event.target.value);
     };
+
+    const preventDefault = event => event.preventDefault();
     
     return(
         <div className={classes.root}>
@@ -111,30 +114,42 @@ const style = {
             </AppBar>
             <div>
                 <Typography variant="h5" style={style.text_leftside}>
-                    <Box lineHeight="normal" m={1}>
-                        王小明
-                    </Box>
-                    <Box lineHeight={1} m={4} style={{color : "#000000"}}>
-                        個人檔案
-                    </Box>
-                    <Box lineHeight={1} m={4}>
-                        訓練人臉
-                    </Box>
-                    <Box lineHeight={1} m={4}>
-                        報名狀況
-                    </Box>
+                        <Box lineHeight="normal" m={1}>
+                            王小明
+                        </Box>
+                    <Link href="#" onClick={preventDefault}>
+                        <Box lineHeight={1} m={4} style={{color : "#000000"}}>
+                            個人檔案
+                        </Box>
+                    </Link>
+                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                        <Box lineHeight={1} m={4}>
+                            訓練人臉
+                        </Box>
+                    </Link>
+                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                        <Box lineHeight={1} m={4}>
+                            報名狀況
+                        </Box>
+                    </Link>
                     <Box lineHeight={3} m={1}>
-                        主辦單位名稱
+                        王氏集團
                     </Box>
-                    <Box lineHeight={1} m={4}>
-                        主辦單位資訊
-                    </Box>
-                    <Box lineHeight={1} m={4}>
-                        管理活動
-                    </Box>
-                    <Box lineHeight={3} m={1}>
-                        我的相簿
-                    </Box>
+                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                        <Box lineHeight={1} m={4}>
+                            主辦單位資訊
+                        </Box>
+                    </Link>    
+                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                        <Box lineHeight={1} m={4}>
+                            管理活動
+                        </Box>
+                    </Link>
+                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                        <Box lineHeight={3} m={1}>
+                            我的相簿
+                        </Box>
+                    </Link>
                 </Typography>
                 <div style={style.line1}>
                     <hr width="1" size="145" color="#6C6C6C" />
