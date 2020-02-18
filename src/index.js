@@ -4,21 +4,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
 
 //import App from './App';
-import ReactApp from './components/react-app.js';
-//import signIn from './components/signs/signin.js';
-import signInSide from './components/signs/signinside.js';
-import signUp from './components/signs/signup.js';
-import SignupInfor from './components/signs/signupinfor.js';
-import Face from './components/signs/settingface.js';
-import Forgot1 from './components/signs/forgot1.js';
-import Forgot2 from './components/signs/forgot2.js';
-import Finish from './components/signs/finish.js';
-import Organizer from './components/activity/organizer.js';
-import New1 from './components/activity/new1.js';
-import New1B from './components/activity/new1-button.js';
-import New2 from './components/activity/new2.js';
-import New3 from './components/activity/new3.js';
-import Bar from './components/bar.js';
+import ReactApp from './components/react-app.jsx';
+import signInSide from './components/signs/signinside.jsx';
+import signUp from './components/signs/signup.jsx';
+import SignupInfor from './components/signs/signupinfor.jsx';
+import Face from './components/signs/settingface.jsx';
+import Forgot1 from './components/signs/forgot1.jsx';
+import Forgot2 from './components/signs/forgot2.jsx';
+import Finish from './components/signs/finish.jsx';
+import Organizer from './components/activity/organizer.jsx';
+import New1 from './components/activity/new1.jsx';
+import New1B from './components/activity/new1-button.jsx';
+import New2 from './components/activity/new2.jsx';
+import New3 from './components/activity/new3.jsx';
+import Bar from './components/bar.jsx';
 
 import * as serviceWorker from './serviceWorker';
 
