@@ -138,7 +138,7 @@ export default function SignInSide() {
                 </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2">
+                  <Link href="signUp" variant="body2">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

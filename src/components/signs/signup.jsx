@@ -122,7 +122,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signupinfor"
+                                href="./signupInfor"
                             >
                                 <ChevronRightIcon />
                                 下一步

@@ -5,10 +5,10 @@ import './index.css';
 
 //import App from './App';
 import ReactApp from './components/react-app.jsx';
-import signInSide from './components/signs/signinside.jsx';
-import signUp from './components/signs/signup.jsx';
-import SignupInfor from './components/signs/signupinfor.jsx';
-import Face from './components/signs/settingface.jsx';
+import signIn from './components/signs/signIn.jsx';
+import signUp from './components/signs/signUp.jsx';
+import SignupInfor from './components/signs/signupInfor.jsx';
+import SettingFace from './components/signs/settingFace.jsx';
 import Forgot1 from './components/signs/forgot1.jsx';
 import Forgot2 from './components/signs/forgot2.jsx';
 import Finish from './components/signs/finish.jsx';
@@ -24,10 +24,10 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route path="/signinside" component={signInSide} />
-            <Route path="/signup" component={signUp} />
-            <Route path="/signupinfor" component={SignupInfor} />
-            <Route path="/settingface" component={Face} />
+            <Route path="/signIn" component={signIn} />
+            <Route path="/signUp" component={signUp} />
+            <Route path="/signupInfor" component={SignupInfor} />
+            <Route path="/settingFace" component={SettingFace} />
             <Route path="/forgot1" component={Forgot1} />
             <Route path="/forgot2" component={Forgot2} />
             <Route path="/finish" component={Finish} />
