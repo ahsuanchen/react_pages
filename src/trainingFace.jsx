@@ -168,7 +168,6 @@ const style = {
                                 <img src={profile} style={style.img} alt="img" />
                             </Typography>
                         </Container>
-                        
                     </Box>
                     <Box lineHeight={5} m={1}>
                         <Button
