@@ -8,15 +8,18 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 import profile from '../src/image/profile.jpg';
 import Box from '@material-ui/core/Box';
+import InputBase from '@material-ui/core/InputBase';
+import Button from '@material-ui/core/Button';
 import { Slide } from 'react-slideshow-image';
 import slide_1 from '../src/image/1.jpg';
 import slide_2 from '../src/image/2.jpg';
 import slide_3 from '../src/image/3.jpg';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faHome, faTasks, faUserAlt, faCalendarPlus, faQuestionCircle, faEnvelope, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const style = {
@@ -32,6 +35,16 @@ const style = {
     title : {
         marginLeft : '20px' ,
     } ,
+    leftside_menu : {
+      top : "7.5%" ,
+      left : '10px'
+    } ,
+    avatar : {
+      marginLeft : '1250px' ,
+    } ,
+    right_menu : {
+      top : "6.8%" ,
+    } ,
     slideimage : {  
         width : '50%', 
         position : 'absolute',
@@ -45,14 +58,27 @@ const style = {
         width : '800px' ,
         height : '400px'
     } ,
+    searchbar : {
+      position : 'absolute',
+      background : "linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)" ,
+      borderRadius : "5px" ,
+      width : '35%',
+      top : '72.5%' ,
+      left : '32.5%' ,
+      fontSize : '22px'
+    } ,
+    search_button : {
+      height : '50px',
+      left : '45%' ,
+      borderRadius : "0px 5px 5px 0px" ,
+      background : "rgba(0, 0, 0, 0.4)" ,
+      color : "#fff" ,
+      fontSize : '16px'
+    } ,
     text_title : {
         position : 'absolute',
-        top : '75%' ,
+        top : '82.5%' ,
         left : '5%' ,
-    } ,
-    avatar : {
-        marginLeft : '1260px' ,
-
     } ,
     img : {
         width : '350px' ,
@@ -60,7 +86,8 @@ const style = {
         borderRadius : '10px 10px 0px 0px'
     } ,
     text_in_paper : {
-        marginLeft : '10px'
+        marginLeft : '10px' ,
+        color : '#000000' ,
     } ,
     text_date : {
         color : '#D0D0D0' ,
@@ -70,36 +97,38 @@ const style = {
         color : '#E0E0E0'
     } ,
     paper1 : {
-        width : '350px' ,
-        height : '300px' ,
-        position : 'absolute',
-        top : '85%' ,
-        left : '5%' ,
-        borderRadius : '10px' ,
-        padding : '5' ,
-        color : 'inherit'
-    } ,
-    paper2 : {
-        width : '350px' ,
-        height : '300px' ,
-        position : 'absolute',
-        top : '85%' ,
-        left : '35%' ,
-        borderRadius : '10px' ,
-        padding : '5' ,
-        color : 'inherit'
-    } ,
-    paper3 : {
-        width : '350px' ,
-        height : '300px' ,
-        position : 'absolute',
-        top : '85%' ,
-        left : '65%' ,
-        borderRadius : '10px' ,
-        padding : '5' ,
-        color : 'inherit'
-    }
+      width : '350px' ,
+      height : '330px' ,
+      position : 'absolute',
+      top : '92.5%' ,
+      left : '5%' ,
+      borderRadius : '10px' ,
+      padding : '5' ,
+      color : 'inherit'
+  } ,
+  paper2 : {
+      width : '350px' ,
+      height : '330px' ,
+      position : 'absolute',
+      top : '92.5%' ,
+      left : '35%' ,
+      borderRadius : '10px' ,
+      padding : '5' ,
+      color : 'inherit'
+  } ,
+  paper3 : {
+      width : '350px' ,
+      height : '330px' ,
+      position : 'absolute',
+      top : '92.5%' ,
+      left : '65%' ,
+      borderRadius : '10px' ,
+      padding : '5' ,
+      color : 'inherit'
+  }
 }
+
+const preventDefault = event => event.preventDefault();
 
 const properties = {
     duration: 5000,
@@ -110,19 +139,25 @@ const properties = {
 }
 
 const Slideshow = (
-    <div style={style.slideimage}>
-      <Slide {...properties}>
-        <div style={style.each_slide}>
-            <img src={slide_1} style={style.slide_img_style} alt="img1" />
-        </div>
-        <div style={style.each_slide}>
-            <img src={slide_2} style={style.slide_img_style} alt="img2" />
-        </div>
-        <div style={style.each_slide}>
-            <img src={slide_3} style={style.slide_img_style} alt="img3" />
-        </div>
-      </Slide>
-    </div>
+  <div style={style.slideimage}>
+    <Slide {...properties}>
+      <div style={style.each_slide}>
+          <Link href="#" onClick={preventDefault}>
+              <img src={slide_1} style={style.slide_img_style} alt="img1" />
+          </Link>
+      </div>
+      <div style={style.each_slide}>
+          <Link href="#" onClick={preventDefault}>
+              <img src={slide_2} style={style.slide_img_style} alt="img2" />
+          </Link>
+      </div>
+      <div style={style.each_slide}>
+          <Link href="#" onClick={preventDefault}>
+              <img src={slide_3} style={style.slide_img_style} alt="img3" />
+          </Link>
+      </div>
+    </Slide>
+  </div>
   );
 
 const useStyles = makeStyles(theme => ({
@@ -165,16 +200,35 @@ export default function MenuAppBar() {
         <Menu
             id={leftside_menuid}
             anchorEl={anchorEl}
+            style={style.leftside_menu}
             keepMounted
             open={open1}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>首頁</MenuItem>
-            <MenuItem onClick={handleMenuClose}>活動總覽</MenuItem>
-            <MenuItem onClick={handleMenuClose}>個人資訊</MenuItem>
-            <MenuItem onClick={handleMenuClose}>建立活動</MenuItem>
-            <MenuItem onClick={handleMenuClose}>常見問題</MenuItem>
-            <MenuItem onClick={handleMenuClose}>聯絡我們</MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faHome} />
+              &nbsp;&nbsp;首頁
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faTasks} />
+              &nbsp;&nbsp;活動總覽
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faUserAlt} />
+              &nbsp;&nbsp;個人資訊
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faCalendarPlus} />
+              &nbsp;&nbsp;建立活動
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faQuestionCircle} />
+              &nbsp;&nbsp;常見問題
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <FontAwesomeIcon icon={faEnvelope} />
+              &nbsp;&nbsp;聯絡我們
+            </MenuItem>
         </Menu>
     );  
 
@@ -203,6 +257,7 @@ export default function MenuAppBar() {
                   vertical: 'top',
                   horizontal: 'right',
                 }}
+                style={style.right_menu}
                 keepMounted
                 transformOrigin={{
                   vertical: 'top',
@@ -219,56 +274,85 @@ export default function MenuAppBar() {
       </AppBar>
       {leftside_menu}
       {Slideshow}
-        <Typography variant="h5" style={style.text_title}>
-            熱 門 活 動 /
-        </Typography>
-        <Grid container spacing={3}>
-            <Grid item xs={6} sm={3}>
-                <Paper style={style.paper1}>
-                    <img src={slide_1} style={style.img} alt="img1" />
-                    <Typography variant="h6" style={style.text_in_paper}>
-                         「#管他就跑我的」路跑
-                    </Typography>
-                    <hr />
-                    <Box lineHeight="normal" m={1}>
-                      <Typography variant="h6" style={style.text_date}>
-                        <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
-                        &nbsp; 2020-03-22 (日)
+      <Box lineHeight="normal" m={1} style={style.searchbar}>
+        &nbsp;<FontAwesomeIcon icon={faSearch} />&nbsp;
+        <InputBase
+          placeholder="搜尋你感興趣的活動"
+          inputProps={{ 'aria-label': 'search' }}
+        />
+        <Button style={style.search_button}>搜尋</Button>
+      </Box>
+      <Typography variant="h5" style={style.text_title}>
+          熱 門 活 動 /
+      </Typography>
+      <Grid container spacing={3}>
+          <Grid item xs={6} sm={3}>
+              <Link href="#" onClick={preventDefault}>
+                  <Paper style={style.paper1}>
+                      <img src={slide_1} style={style.img} alt="img1" />
+                      <Typography variant="h6" style={style.text_in_paper}>
+                          「#管他就跑我的」路跑
                       </Typography>
-                    </Box>
-                </Paper>
-            </Grid>
-            <Grid item xs={6} sm={3}>
-                <Paper style={style.paper2}>
-                    <img src={slide_2} style={style.img} alt="img2" />
-                    <Typography variant="h6" style={style.text_in_paper}>
-                             世界巡迴演唱會-高雄場
-                    </Typography>
-                    <hr />
-                    <Box lineHeight="normal" m={1}>
-                      <Typography variant="h6" style={style.text_date}>
-                        <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
-                        &nbsp; 2020-07-25 (六)
-                      </Typography>
-                    </Box>
-                </Paper>
-            </Grid>
-            <Grid item xs={6} sm={3}>
-                <Paper style={style.paper3}>
-                    <img src={slide_3} style={style.img} alt="img3" />
-                    <Typography variant="h6" style={style.text_in_paper}>
-                            Pinkoi Experience | 質感體驗
-                    </Typography>
-                    <hr />
-                    <Box lineHeight="normal" m={1}>
-                      <Typography variant="h6" style={style.text_date}>
-                        <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
-                        &nbsp; 2020-05-20 (六)
-                      </Typography>
-                    </Box>
-                </Paper>
-            </Grid>
-        </Grid>
+                      <hr color="#E0E0E0" />
+                      <Box lineHeight="normal" m={1}>
+                        <Typography variant="h6" style={style.text_date}>
+                          <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
+                          &nbsp; 2020-03-22 (日)
+                        </Typography>
+                      </Box>
+                      <hr color="#E0E0E0" />
+                      <Box lineHeight={1} m={1}>
+                        <Link href="#" onClick={preventDefault}>#running </Link>
+                        <Link href="#" onClick={preventDefault}>#marathon </Link>
+                      </Box>
+                    </Paper>
+              </Link>  
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Link href="#" onClick={preventDefault}>
+              <Paper style={style.paper2}>
+                <img src={slide_2} style={style.img} alt="img2" />
+                <Typography variant="h6" style={style.text_in_paper}>
+                  世界巡迴演唱會-高雄場
+                </Typography>
+                <hr color="#E0E0E0" />
+                <Box lineHeight="normal" m={1}>
+                  <Typography variant="h6" style={style.text_date}>
+                    <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
+                    &nbsp; 2020-07-25 (六)
+                  </Typography>
+                </Box>
+                <hr color="#E0E0E0" />
+                <Box lineHeight={1} m={1}>
+                  <Link href="#" onClick={preventDefault}>#singer </Link>
+                  <Link href="#" onClick={preventDefault}>#concert </Link>
+                </Box>
+              </Paper>
+            </Link>
+          </Grid>
+          <Grid item xs={6} sm={3}>
+            <Link href="#" onClick={preventDefault}>
+              <Paper style={style.paper3}>
+                <img src={slide_3} style={style.img} alt="img3" />
+                <Typography variant="h6" style={style.text_in_paper}>
+                  Pinkoi Experience | 質感體驗
+                </Typography>
+                <hr color="#E0E0E0" />
+                <Box lineHeight="normal" m={1}>
+                  <Typography variant="h6" style={style.text_date}>
+                    <FontAwesomeIcon icon={faClock} style={style.awesomeicon} />
+                    &nbsp; 2020-05-20 (六)
+                  </Typography>
+                </Box>
+                <hr color="#E0E0E0" />
+                <Box lineHeight={1} m={1}>
+                  <Link href="#" onClick={preventDefault}>#fashion </Link>
+                  <Link href="#" onClick={preventDefault}>#experience </Link>
+                </Box>
+              </Paper>
+            </Link>
+          </Grid>
+      </Grid>
     </div>
   );
 }
