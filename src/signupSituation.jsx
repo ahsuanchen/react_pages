@@ -191,7 +191,7 @@ const style = {
                                         <Grid container>
                                             <Grid item xs={4} sm={4}>
                                                 <Typography variant="h5" style={{marginLeft : "25px" , marginTop : "25px"}}>
-                                                    聖誕舞會
+                                                    三校六系聯合聖誕舞會
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={3}>
