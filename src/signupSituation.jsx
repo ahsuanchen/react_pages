@@ -53,6 +53,11 @@ const style = {
         top : '14%' ,
         left : '20%' ,
     } ,
+    awesomeicon : {
+        marginLeft : '10px' ,
+        fontSize : '25px' ,
+        color : 'fff'
+    } ,
     box : {
         position : 'absolute',
         top : '25%' ,

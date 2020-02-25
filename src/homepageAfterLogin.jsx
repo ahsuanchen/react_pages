@@ -17,10 +17,11 @@ import slide_3 from '../src/image/3.jpg';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { faClock, faHome, faTasks, faUserAlt, faCalendarPlus, faQuestionCircle, faEnvelope, faSearch } from "@fortawesome/free-solid-svg-icons";
+import Paper from '@material-ui/core/Paper';
+import { faClock, faHome, faTasks, faUserAlt, faCalendarPlus, faQuestionCircle, faEnvelope, faSearch, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Fab from '@material-ui/core/Fab';
 
 const style = {
     toolbar : {
@@ -125,6 +126,15 @@ const style = {
       borderRadius : '10px' ,
       padding : '5' ,
       color : 'inherit'
+  } ,
+  fab_button : {
+    position: 'absolute',
+    background : "linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)" ,
+    zIndex: '1' ,
+    top: '90%' ,
+    left: '90%' ,
+    right: '0' ,
+    margin: '0 auto',
   }
 }
 
@@ -353,6 +363,9 @@ export default function MenuAppBar() {
             </Link>
           </Grid>
       </Grid>
+      <Fab aria-label="add" style={style.fab_button}>
+        <FontAwesomeIcon icon={faPlus} style={{fontSize : "22px"}}  />
+      </Fab>
     </div>
   );
 }

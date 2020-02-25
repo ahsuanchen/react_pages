@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Homepage from './homepageAfterLogin';
+import Homepage from './signupSituation';
 
 
 ReactDOM.render(<Homepage />, document.getElementById('root'));

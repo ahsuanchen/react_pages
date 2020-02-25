@@ -37,7 +37,7 @@ const style = {
     line2 : {
         position : 'absolute' ,
         left : '4%' ,
-        top : '60%'
+        top : '58.5%'
     } ,
     line3 : {
         position : 'absolute' ,
@@ -155,7 +155,7 @@ const style = {
                     <hr width="1" size="145" color="#6C6C6C" />
                 </div>
                 <div style={style.line2}>
-                    <hr width="1" size="85" color="#6C6C6C" />
+                    <hr width="1" size="95" color="#6C6C6C" />
                 </div>
                 <div style={style.line3}>
                     <hr width="1" size="1220" color="#E0E0E0" />
