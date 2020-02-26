@@ -6,13 +6,15 @@ import logo from './logo.svg';
 import './App.css';
 
 import Layout from 'pages/Layout';
+import Home from 'pages/Test/test';
 
 function App() {
   return (
     <div>
-      <Switch>
+    <Home/>
+     {/*<Switch>
         <Layout routes={ indexRoutes }/>
-      </Switch>
+      </Switch>*/}
     </div>
   );
 }

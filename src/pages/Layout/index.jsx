@@ -4,7 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import indexRoutes from 'routes';
 
 import UserList from 'components/Home/userList.jsx';
-import Header from 'components/Layout/header.jsx';
+import Header from 'components/Home/header.jsx';
 
 import Drawer from '@material-ui/core/Drawer';
 

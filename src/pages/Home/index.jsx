@@ -1,7 +1,7 @@
 import React from 'react';
 
 import UserList from 'components/Home/userList.jsx';
-import HomeTextField from 'components/Home/homeTextField.jsx';
+import HomeTextField from 'components/Layout/homeTextField.jsx';
 import SortButtons from 'components/Layout/sortButtons.jsx';
 import TagButtons from 'components/Layout/tagButtons.jsx';
 import GridList from 'components/Layout/gridList.jsx';
@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
 }));
-
 export default function Home(props) {
   const classes = useStyles();
     return (

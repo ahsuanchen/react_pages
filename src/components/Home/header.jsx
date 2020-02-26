@@ -11,6 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +43,7 @@ export default function (props) {
     setAnchorEl(null);
   };
 
+
   return (
     <div className={classes.root}>
       {/*<FormGroup>
@@ -52,9 +54,21 @@ export default function (props) {
       </FormGroup>*/}
       <AppBar position="static" >
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenu}>
             <MenuIcon />
           </IconButton>
+          <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          >
+          <MenuItem onClick={handleClose}>首頁</MenuItem>
+          <MenuItem onClick={handleClose}>活動總覽</MenuItem>
+          <MenuItem onClick={handleClose}>個人檔案</MenuItem>
+          <MenuItem onClick={handleClose}>建立活動</MenuItem>
+          </Menu>
           <Typography variant="h6" align="center" className={classes.title}>
             ACTFUN
           </Typography>
