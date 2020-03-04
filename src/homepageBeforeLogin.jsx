@@ -22,7 +22,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const style = {
     toolbar : {
-        width : '97%' ,
         height : '50px' ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
@@ -31,27 +30,23 @@ const style = {
         marginRight : '5px' ,
     } ,
     leftside_menu : {
-      top : "7.5%" ,
-      left : '10px'
+      top : "6.3%" ,
     } ,
     title : {
         marginLeft : '20px' ,
     } ,
     loginbutton : {
-        marginLeft : '1240px' ,
+        marginLeft : '1250px' ,
     } ,
     slideimage : {  
-        width : '50%', 
-        position : 'absolute',
-        top : '12%' ,
-        left : '25%' ,
+        marginTop : '5%' ,
     } ,
     each_slide : {
-        height : '400px'
+        height : '425px'
     } ,
     slide_img_style : {
-        width : '800px' ,
-        height : '400px'
+        width : '100%' ,
+        height : '425px'
     } ,
     searchbar : {
       position : 'absolute',
@@ -212,7 +207,7 @@ const Slideshow = (
 
     return(
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar>
                 <Toolbar style={style.toolbar}>
                     <IconButton 
                     edge="start"

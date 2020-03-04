@@ -25,7 +25,6 @@ import Fab from '@material-ui/core/Fab';
 
 const style = {
     toolbar : {
-        width : '97%' ,
         height : '50px' ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
@@ -37,27 +36,23 @@ const style = {
         marginLeft : '20px' ,
     } ,
     leftside_menu : {
-      top : "7.5%" ,
-      left : '10px'
+      top : "6.3%" ,
     } ,
     avatar : {
-      marginLeft : '1250px' ,
+      marginLeft : '1280px' ,
     } ,
     right_menu : {
-      top : "6.8%" ,
+      marginTop : "10px" ,
     } ,
     slideimage : {  
-        width : '50%', 
-        position : 'absolute',
-        top : '12%' ,
-        left : '25%' ,
+        marginTop : '5%' ,
     } ,
     each_slide : {
-        height : '400px'
+        height : '425px'
     } ,
     slide_img_style : {
-        width : '800px' ,
-        height : '400px'
+        width : '100%' ,
+        height : '425px'
     } ,
     searchbar : {
       position : 'absolute',
@@ -205,7 +200,7 @@ export default function MenuAppBar() {
     setAnchorE2(null);
   };
 
-  const leftside_menuid = "menu";
+  const leftside_menuid = "leftside_menu";
   const leftside_menu = (
         <Menu
             id={leftside_menuid}
@@ -215,36 +210,50 @@ export default function MenuAppBar() {
             open={open1}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faHome} />
               &nbsp;&nbsp;首頁
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faTasks} />
               &nbsp;&nbsp;活動總覽
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faUserAlt} />
               &nbsp;&nbsp;個人資訊
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faCalendarPlus} />
               &nbsp;&nbsp;建立活動
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faQuestionCircle} />
               &nbsp;&nbsp;常見問題
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={handleMenuClose}>
               <FontAwesomeIcon icon={faEnvelope} />
               &nbsp;&nbsp;聯絡我們
             </MenuItem>
         </Menu>
-    );  
+    );
+
+    const rightside_menuid = "rightside_menu";
+    const rightside_menu = (
+      <Menu
+                id={rightside_menuid}
+                anchorE2={anchorE2}
+                style={style.right_menu}
+                open={open2}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>個人檔案</MenuItem>
+                <MenuItem onClick={handleClose}>舉辦活動</MenuItem>
+              </Menu>
+    );
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar style={style.toolbar}>
           <IconButton 
             edge="start"
@@ -255,34 +264,14 @@ export default function MenuAppBar() {
           >
             <MenuIcon />
           </IconButton>
-            <Typography variant="h6" style={style.title}>
-                FJU-FUN
-            </Typography>
-            <div>
-              <Avatar  style={style.avatar} src={profile} alt="user" onClick={handleClick} />
-              <Menu
-                id="menu-appbar"
-                anchorE2={anchorE2}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                style={style.right_menu}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open2}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>個人檔案</MenuItem>
-                <MenuItem onClick={handleClose}>舉辦活動</MenuItem>
-              </Menu>
-            </div>
+          <Typography variant="h6" style={style.title}>
+              FJU-FUN
+          </Typography>
+          <Avatar style={style.avatar} src={profile} alt="user" onClick={handleClick} />
         </Toolbar>
       </AppBar>
       {leftside_menu}
+      {rightside_menu}
       {Slideshow}
       <Box lineHeight="normal" m={1} style={style.searchbar}>
         &nbsp;<FontAwesomeIcon icon={faSearch} />&nbsp;

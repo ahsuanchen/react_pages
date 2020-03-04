@@ -9,6 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import profile from '../src/image/profile.jpg';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -22,7 +26,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const style = {
     toolbar : {
-        width : '97%' ,
         height : '50px' ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
@@ -81,7 +84,7 @@ const style = {
     } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        left : "72%"
+        left : "86%"
     }
 }
 
@@ -109,7 +112,7 @@ const style = {
     
     return(
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar>
                 <Toolbar style={style.toolbar}>
                     <Button 
                         edge="start"
@@ -171,86 +174,86 @@ const style = {
                     <hr width="1" size="95" color="#6C6C6C" />
                 </div>
                 <div style={style.line3}>
-                    <hr width="1" size="1300" color="#E0E0E0" />
+                    <hr width="1" size="1220" color="#E0E0E0" />
                 </div>
             </div>
             <div>
                 <Typography variant="h4" style={style.text_title}>
                     個 人 檔 案
-                    <hr width="800" />
+                    <hr width="850" />
                 </Typography>
                 <form style={style.form}>
                     <Box lineHeight="normal" m={1}>
                         <img src={profile} style={style.img} alt="img" />
                     </Box>
+                    <Table>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell>姓名：</TableCell>
+                                <TableCell>
+                                    <TextField label="Name" defaultValue="王小明" />
+                                </TableCell>
+                                <TableCell>身分證字號：</TableCell>
+                                <TableCell>
+                                    <input type="text" name="ID" disabled placeholder="A123456789" />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>性別：</TableCell>
+                                <TableCell>
+                                    <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                                        <FormControlLabel value="male" control={<Radio color="" />} label="男性"/>
+                                        <FormControlLabel value="female" control={<Radio color="" />} label="女性" />
+                                        <FormControlLabel value="other" control={<Radio color="" />} label="暫不透漏" />
+                                    </RadioGroup>
+                                </TableCell>
+                                <TableCell>血型：</TableCell>
+                                <TableCell>
+                                    <FormControl style={style.select}>
+                                        <InputLabel id="blood-type">Blood Type</InputLabel>
+                                        <Select
+                                            labelId="blood-type"
+                                            value={blood}
+                                            onChange={handleSelect}
+                                        >
+                                            <MenuItem value="A">A</MenuItem>
+                                            <MenuItem value="B">B</MenuItem>
+                                            <MenuItem value="AB">AB</MenuItem>
+                                            <MenuItem value="O">O</MenuItem>
+                                            <MenuItem value="RH">RH 陰性</MenuItem>
+                                        </Select>
+                                    </FormControl>
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>生日：</TableCell>
+                                <TableCell>
+                                    <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
+                                </TableCell>
+                                <TableCell>聯絡電話：</TableCell>
+                                <TableCell>
+                                    <TextField label="Cellphone" defaultValue="0919478653" />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>電子郵件：</TableCell>
+                                <TableCell>
+                                    <TextField label="E-mail" defaultValue="aaa12345@gmail.com" />
+                                </TableCell>
+                                <TableCell>聯絡地址：</TableCell>
+                                <TableCell>
+                                    <TextField label="Address" style={{minWidth:"300px"}} defaultValue="新北市新莊區中正路510號" />
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>個人介紹：</TableCell>
+                                <TableCell colSpan="3">
+                                    <TextareaAutosize aria-label="maximum height" style={style.text_area} placeholder="請介紹你自己..." />
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
                     <Box lineHeight={4} m={1}>
-                        <label >
-                            姓名： &nbsp;
-                            <TextField label="Name" defaultValue="王小明" />
-                        </label>
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            電子郵件：&nbsp;
-                            <TextField label="E-mail" defaultValue="aaa12345@gmail.com" />
-                        </label>
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            手機：&nbsp;
-                            <TextField label="Cellphone" defaultValue="0919478653" />
-                        </label>
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <RadioGroup aria-label="gender" name="gender" value={value} onChange={handleChange}>
-                            <label>
-                                性別：&nbsp;&nbsp;
-                                <FormControlLabel value="male" control={<Radio color="" />} label="男性"/>
-                                <FormControlLabel value="female" control={<Radio color="" />} label="女性" />
-                                <FormControlLabel value="other" control={<Radio color="" />} label="暫不透漏" />
-                            </label>
-                        </RadioGroup>       
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            血型：&nbsp;
-                            <FormControl style={style.select}>
-                                <InputLabel id="blood-type">Blood Type</InputLabel>
-                                <Select
-                                    labelId="blood-type"
-                                    value={blood}
-                                    onChange={handleSelect}
-                                >
-                                    <MenuItem value="A">A</MenuItem>
-                                    <MenuItem value="B">B</MenuItem>
-                                    <MenuItem value="AB">AB</MenuItem>
-                                    <MenuItem value="O">O</MenuItem>
-                                    <MenuItem value="RH">RH 陰性</MenuItem>
-                                </Select>
-                            </FormControl>&nbsp;型
-                        </label>
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            生日：&nbsp;
-                            <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
-                        </label>
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            身分證字號：&nbsp;
-                        </label>
-                        <input type="text" name="ID" disabled placeholder="A123456789" />
-                    </Box>
-                    <Box lineHeight={4} m={1}>
-                        <label>
-                            個人介紹：
-                        </label>
-                    </Box>
-                    <Box lineHeight="normal" m={1}>
-                        <TextareaAutosize aria-label="maximum height" style={style.text_area} placeholder="請介紹你自己..." />
-                    </Box>
-                    <Box lineHeight={5} m={1}>
                         <Button
                             variant="contained"
                             color="primary"

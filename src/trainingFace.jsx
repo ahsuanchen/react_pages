@@ -18,7 +18,6 @@ import Fade from '@material-ui/core/Fade';
 
 const style = {
     toolbar : {
-        width : '97%' ,
         height : '50px' ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
@@ -123,7 +122,7 @@ const style = {
 
     return(
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar>
                 <Toolbar style={style.toolbar}>
                     <Button 
                         edge="start"
