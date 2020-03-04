@@ -8,7 +8,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Homepage from 'components/Homepage/homepageBeforeLogin.jsx';
 import Profile from 'components/Profile/profile.jsx';
 
-const useStyles = makeStyles(theme => ({
+import Jenny from 'components/jennyang/new1.jsx';
+
+const useStyles =  makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -22,7 +24,7 @@ export default function Test(props) {
     return (
     <>
 
-      <Profile/>
+      <Homepage/>
     </>
     );
 }

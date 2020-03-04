@@ -115,7 +115,7 @@ const Slideshow = (
         <div style={style.each_slide}>
             <img src={Image1} style={style.slide_img_style} alt="img1" />
         </div>
-        <div style={style.each_slide}>
+        <div style={style.each_lide}>
             <img src={Image2} style={style.slide_img_style} alt="img2" />
         </div>
         <div style={style.each_slide}>

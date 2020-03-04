@@ -20,15 +20,21 @@ ReactDOM.render(<ProductList />,document.getElementById('root'));
 */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 
 import './index.css';
 import ReactApp from './App.js';
+import Act from 'pages/Home/index';
+import Index from 'pages/Test/test';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
-    <ReactApp />
+  <Switch>
+      <Route path="/Index" component={Index}/>
+      <Route path="/Act" component={Act}/>
+      <Route path="/" component={ReactApp}/>
+  </Switch>
   </Router>,
   document.getElementById('root')
 

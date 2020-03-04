@@ -58,27 +58,22 @@ export default function (props) {
           label={auth ? 'Logout' : 'Login'}
         />
       </FormGroup>*/}
-      <AppBar position="static" >
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" aria-controls="simple-menu" aria-haspopup="true" onClick={handleMenu}>
-            <MenuIcon />
-          </IconButton>
-          <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          >
-          <MenuItem onClick={handleClose}>首頁</MenuItem>
-          <MenuItem component={Link} to="/Act">活動總覽</MenuItem>
-          <MenuItem onClick={handleClose}>個人檔案</MenuItem>
-          <MenuItem onClick={handleClose}>建立活動</MenuItem>
-          </Menu>
-          <Typography variant="h6" align="center" className={classes.title}>
-            ACTFUN
-          </Typography>
-        </Toolbar>
+      <AppBar position="static">
+          <Toolbar style={style.toolbar}>
+              <IconButton
+              edge="start"
+              style={style.menubutton}
+              color="inherit"
+              aria-controls={leftside_menuid}
+              onClick={handleClick}
+              >
+              <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" style={style.title}>
+              FJU-FUN
+              </Typography>
+              <Button style={style.loginbutton} color="inherit">Log in</Button>
+          </Toolbar>
       </AppBar>
     </div>
   );
