@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { faArrowAltCircleLeft, faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
@@ -11,13 +12,11 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 const style = {
     toolbar : {
-        width : '97%' ,
         height : '50px' ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)"
@@ -52,6 +51,11 @@ const style = {
         position : 'absolute',
         top : '14%' ,
         left : '20%' ,
+    } ,
+    awesomeicon : {
+        marginLeft : '10px' ,
+        fontSize : '25px' ,
+        color : 'fff'
     } ,
     box : {
         position : 'absolute',
@@ -92,18 +96,17 @@ const style = {
   export default function Trainingpage() {
     const classes = useStyles();
 
-    const preventDefault = event => event.preventDefault();
-
     return(
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar>
                 <Toolbar style={style.toolbar}>
                     <Button 
                         edge="start"
                         style={style.back_button} 
                         color="inherit"
                         display="none" 
-                        // onClick={}
+                        component={Link}
+                        to="/homepageAfterLogin"
                     >
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} style={style.awesomeicon} />
                         <Typography variant="h6" style={style.title}>
@@ -115,19 +118,19 @@ const style = {
             <div>
                 <Typography variant="h5" style={style.text_leftside}>
                     <Box lineHeight="normal" m={1}>
-                        王小明
+                         王小明
                     </Box>
-                    <Link href="#" onClick={preventDefault} style={{color : "#D0D0D0"}}>
+                    <Link to="/profile" style={{color : "#D0D0D0"}}>
                         <Box lineHeight={1} m={4}>
                             個人檔案
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/trainingFace" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             訓練人臉
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#000000'}}>
+                    <Link to="/signupSituation" style={{color : '#000000'}}>
                         <Box lineHeight={1} m={4}>
                             報名狀況
                         </Box>
@@ -135,17 +138,17 @@ const style = {
                     <Box lineHeight={3} m={1}>
                         王氏集團
                     </Box>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             主辦單位資訊
                         </Box>
                     </Link>    
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             管理活動
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={3} m={1}>
                             我的相簿
                         </Box>
@@ -186,7 +189,7 @@ const style = {
                                         <Grid container>
                                             <Grid item xs={4} sm={4}>
                                                 <Typography variant="h5" style={{marginLeft : "25px" , marginTop : "25px"}}>
-                                                    聖誕舞會
+                                                    三校六系聯合聖誕舞會
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={3}>
@@ -225,6 +228,8 @@ const style = {
                                                         variant="contained"
                                                         color="primary"
                                                         style={{background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)'}}
+                                                        component={Link}
+                                                        to="/editSignupInformation"
                                                     >
                                                         更改資料
                                                     </Button>

@@ -17,19 +17,21 @@ import New1B from './components/activity/new1-button.jsx';
 import New2 from './components/activity/new2.jsx';
 import New3 from './components/activity/new3.jsx';
 import Bar from './components/bar.jsx';
-import Homepage from './editSignupInformation.jsx';
-import HomepageAfterLogin from './homepageAfterLogin.jsx';
-import HomepageBeforeLogin from './homepageBeforeLogin.jsx';
-import Profile from './profile.jsx';
-import SignupSituation from './signupSituation.jsx';
-import Test from './test.jsx';
-import TrainingFace from './trainingFace.jsx';
+import Homepage from './components/profile/editSignupInformation.jsx';
+import HomepageAfterLogin from './components/homepage/homepageAfterLogin.jsx';
+import HomepageBeforeLogin from './components/homepage/homepageBeforeLogin.jsx';
+import Profile from './components/profile/profile.jsx';
+import SignupSituation from './components/profile/signupSituation.jsx';
+import Test from './components/test.jsx';
+import TrainingFace from './components/profile/trainingFace.jsx';
+
 
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
+            <Route exact path="/" component={HomepageAfterLogin} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
             <Route path="/signupInfor" component={SignupInfor} />
@@ -50,7 +52,6 @@ ReactDOM.render(
             <Route path="/signupSituation" component={SignupSituation} />
             <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
-            <Route path="/" component={ReactApp} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));
