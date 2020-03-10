@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import { faArrowAltCircleLeft, faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
 import FormControl from '@material-ui/core/FormControl';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -119,8 +119,6 @@ const style = {
   export default function Trainingpage() {
     const classes = useStyles();
 
-    const preventDefault = event => event.preventDefault();
-
     const [gender, setgender] = React.useState("male");
     const [blood, setblood] = React.useState("A");
 
@@ -141,7 +139,8 @@ const style = {
                         style={style.back_button} 
                         color="inherit"
                         display="none" 
-                        // onClick={}
+                        component={Link}
+                        to="/signupSituation"
                     >
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} style={style.awesomeicon} />
                         <Typography variant="h6" style={style.title}>
@@ -155,17 +154,17 @@ const style = {
                     <Box lineHeight="normal" m={1}>
                         王小明
                     </Box>
-                    <Link href="#" onClick={preventDefault} style={{color : "#D0D0D0"}}>
+                    <Link to="/profile" style={{color : "#D0D0D0"}}>
                         <Box lineHeight={1} m={4}>
                             個人檔案
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/trainingFace" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             訓練人臉
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/signupSituation" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             報名狀況
                         </Box>
@@ -173,17 +172,17 @@ const style = {
                     <Box lineHeight={3} m={1}>
                         王氏集團
                     </Box>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             主辦單位資訊
                         </Box>
                     </Link>    
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={1} m={4}>
                             管理活動
                         </Box>
                     </Link>
-                    <Link href="#" onClick={preventDefault} style={{color : '#D0D0D0'}}>
+                    <Link to="/" style={{color : '#D0D0D0'}}>
                         <Box lineHeight={3} m={1}>
                             我的相簿
                         </Box>
