@@ -54,62 +54,6 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
     const classes = useStyles();
 
-    const [state, setState] = React.useState({
-      left: false,
-    });
-  
-    const toggleDrawer = (side, open) => event => {
-      if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        return;
-      }
-      setState({ ...state, [side]: open });
-    };
-
-    const sideList = side => (
-      <div
-        className={classes.list}
-        role="presentation"
-        onClick={toggleDrawer(side, false)}
-        onKeyDown={toggleDrawer(side, false)}
-      >
-        <div className={classes.leftbar}>
-          <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >F J U F U N</Link>
-          </Box>
-        </div>
-        <Divider/>
-        <List>
-            <ListItem component={Link} to="/homepageAfterLogin" button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faHome} />
-              </ListItemIcon>
-              <ListItemText primary="首頁" />
-            </ListItem>
-            <Divider/>
-            <ListItem component={Link} to="/profile" button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faTasks} />
-              </ListItemIcon>
-              <ListItemText primary="活動總覽" />
-            </ListItem>
-            <Divider/>
-            <ListItem component={Link} to="/" button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-              </ListItemIcon>
-              <ListItemText primary="常見問題" />
-            </ListItem>
-            <Divider/>
-            <ListItem component={Link} to="/" button>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={faEnvelope} />
-              </ListItemIcon>
-              <ListItemText primary="聯絡我們" />
-            </ListItem>
-        </List>
-      </div>
-    );
-
     return (
         <div className={classes.div}>
             <AppBar>
