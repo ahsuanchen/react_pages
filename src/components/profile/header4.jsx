@@ -31,11 +31,11 @@ export default function MenuAppBar() {
                         color="inherit"
                         className={classes.button}
                         component={Link}
-                        to="/homepageAfterLogin"
+                        to="/signupSituation"
                     >
                         <FontAwesomeIcon icon={faArrowAltCircleLeft} />&nbsp;
                         <Typography variant="h6">
-                            返 回 首 頁
+                            返 回 上 一 頁
                         </Typography>
                     </Button>
                 </Toolbar>
