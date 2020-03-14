@@ -124,7 +124,7 @@ export default function MenuAppBar() {
                                     主辦單位資訊
                                 </Box>
                             </Link>    
-                            <Link to="/" className={classes.link}>
+                            <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>

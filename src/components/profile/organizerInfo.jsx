@@ -46,33 +46,33 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
-    img : {
-        margin : "2% 0" ,
-        minWidth : '150px' ,
-        maxHeight : '200px'
+    topic : {
+        margin : "2% auto" ,
+        textAlign : "center"
     } ,
-    button : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        margin : "0 auto" ,
+    table : {
         display: "flex" ,
         justifyContent : "center" ,
+    } ,
+    button_part : {
+        margin : "2% 2%" ,
+        display: "flex" ,
+        justifyContent : "center" ,
+    } ,
+    button1 : {
+        background : '#ADADAD' ,
+        color : "#fff" ,
+        margin : "auto 2%" ,
+    } ,
+    button2 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        color : "#fff" ,
+        margin : "auto 2%" ,
     }
   }));
 
 export default function MenuAppBar() {
     const classes = useStyles();
-
-    const [value, setValue] = React.useState('male');
-
-    const handleChange = event => {
-      setValue(event.target.value);
-    };
-
-    const [blood, setblood] = React.useState("A");
-
-    const handleSelect = event => {
-        setblood(event.target.value);
-    };
 
     return (
         <div className={classes.div}>
@@ -112,7 +112,7 @@ export default function MenuAppBar() {
                                     主辦單位資訊
                                 </Box>
                             </Link>    
-                            <Link to="/" className={classes.link}>
+                            <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
@@ -139,54 +139,76 @@ export default function MenuAppBar() {
                                         主 辦 單 位 資 訊
                                     </Typography>
                                 </Box>
-                                <Table>
+                                <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>主辦單位名稱：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
+                                                <Typography variant="h6">
+                                                    主辦單位名稱：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField label="Organizer" defaultValue="王氏集團" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>電子信箱：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
+                                                <Typography variant="h6">
+                                                    電子信箱：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField label="E-mail" defaultValue="actforfun@gmail.com" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>連絡電話：</TableCell>
                                             <TableCell>
-                                                <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
+                                                <Typography variant="h6">
+                                                    連絡電話：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField label="ContactPhone" defaultValue="02-29052000" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>聯絡地址：</TableCell>
                                             <TableCell>
-                                                <TextField label="E-mail" defaultValue="aaa12345@gmail.com" />
+                                                <Typography variant="h6">
+                                                    聯絡地址：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                            <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>主辦單位簡介：</TableCell>
                                             <TableCell>
-                                                <TextareaAutosize/>
+                                                <Typography variant="h6">
+                                                    主辦單位簡介：
+                                                </Typography>
                                             </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell></TableCell>
-                                            <TableCell colspan="2">
-                                                <Button
-                                                    className={classes.button}
-                                                    variant="contained"
-                                                    color="primary"
-                                                    startIcon={<SaveIcon />}
-                                                >
-                                                    儲存更新
-                                                </Button>
+                                            <TableCell>
+                                                <TextareaAutosize defaultValue="本集團創立於2020年，有感於世界潮流之所趨及未來社會對資訊網路之需求，我們期望將關懷投注於廣大的社會上，與工商企業界緊密結合，以本集團為中心，結合工商企業界及政府機構之力量，促進提昇全國性資訊網路水準。" style={{minWidth:"350px" , minHeight:"250px"}}/>
                                             </TableCell>
-                                            <TableCell></TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
+                                <Box lineHeight={5} m={1}>
+                                    <div className={classes.button_part}>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button1}
+                                        >
+                                            取消更改
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button2}
+                                        >
+                                            確認更改
+                                        </Button>
+                                    </div>
+                                </Box>
                             </form>
                         </div>  
                 </Container>

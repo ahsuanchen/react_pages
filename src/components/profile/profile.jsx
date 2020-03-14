@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        margin : "0 auto" ,
+        margin : "2% auto" ,
         display: "flex" ,
         justifyContent : "center" ,
     }
@@ -129,7 +129,7 @@ export default function MenuAppBar() {
                                     主辦單位資訊
                                 </Box>
                             </Link>    
-                            <Link to="/" className={classes.link}>
+                            <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
@@ -206,7 +206,7 @@ export default function MenuAppBar() {
                                         <TableRow>
                                             <TableCell>電子郵件：</TableCell>
                                             <TableCell>
-                                                <TextField label="E-mail" defaultValue="aaa12345@gmail.com" />
+                                                <TextField label="E-mail" style={{minWidth:"250px"}} defaultValue="aaa12345@gmail.com" />
                                             </TableCell>
                                             <TableCell>聯絡地址：</TableCell>
                                             <TableCell>
@@ -229,22 +229,18 @@ export default function MenuAppBar() {
                                                 <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
                                             </TableCell>
                                         </TableRow>
-                                        <TableRow>
-                                            <TableCell></TableCell>
-                                            <TableCell colspan="2">
-                                                <Button
-                                                    className={classes.button}
-                                                    variant="contained"
-                                                    color="primary"
-                                                    startIcon={<SaveIcon />}
-                                                >
-                                                    儲存更新
-                                                </Button>
-                                            </TableCell>
-                                            <TableCell></TableCell>
-                                        </TableRow>
                                     </TableBody>
                                 </Table>
+                                <Box lineHeight={5} m={1}>
+                                    <Button
+                                        className={classes.button}
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<SaveIcon />}
+                                    >
+                                        儲存更新
+                                    </Button>
+                                </Box>
                             </form>
                         </div>  
                 </Container>
