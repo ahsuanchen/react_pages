@@ -25,6 +25,7 @@ import Profile from './components/profile/profile.jsx';
 import SignupSituation from './components/profile/signupSituation.jsx';
 import Test from './components/test.jsx';
 import TrainingFace from './components/profile/trainingFace.jsx';
+import OrganizerInfo from './components/profile/organizerInfo.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -32,7 +33,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Test} />
+            <Route exact path="/" component={Profile} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
             <Route path="/signupInfor" component={SignupInfor} />
@@ -53,6 +54,7 @@ ReactDOM.render(
             <Route path="/signupSituation" component={SignupSituation} />
             <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
+            <Route path="/organizerInfo" component={OrganizerInfo} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

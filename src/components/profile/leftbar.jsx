@@ -109,7 +109,7 @@ export default function MenuAppBar() {
                         王氏集團
                     </Box>
                     <Divider />
-                    <Link to="/" className={classes.link}>
+                    <Link to="/organizerInfo" className={classes.link}>
                         <Box lineHeight={1} m={4} >
                             主辦單位資訊
                         </Box>
