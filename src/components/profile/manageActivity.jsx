@@ -152,32 +152,7 @@ export default function MenuAppBar() {
                                 >
                                 <div>
                                     <Typography variant="h6">
-                                        我 所 主 辦 的 活 動
-                                    </Typography>
-                                </div>
-                                </ExpansionPanelSummary>
-                                <ExpansionPanelDetails>
-                                    <Grid container spacing={5}>
-                                        <Grid item xs={12}>
-                                            <Paper>
-                                            </Paper>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <Paper>
-                                            </Paper>
-                                        </Grid>
-                                    </Grid>
-                                </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                            <ExpansionPanel defaultExpanded>
-                                <ExpansionPanelSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1c-content"
-                                    id="panel1c-header"
-                                >
-                                <div>
-                                    <Typography variant="h6">
-                                        我 所 參 加 的 活 動
+                                        我所主辦的活動
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>

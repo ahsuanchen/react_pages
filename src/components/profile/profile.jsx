@@ -1,4 +1,4 @@
-import React , {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './header3.jsx';
 import { Link } from 'react-router-dom';
@@ -23,47 +23,55 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
+const Axios = axios.create({
+    baseURL: 'http://172.20.10.2:8080',
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'content-type': 'application/json',
+    },
+});
+
 const useStyles = makeStyles(theme => ({
-    div : {
-        boxSizing : "border-box"
-    } ,
-    left_menu : {
-        display: "flex" ,
-        justifyContent : "space-around" ,
-        minHeight : 800 ,
-        color : "#000"
-    } ,
-    left_container : {
-        maxWidth : "280px" , 
-        borderRight : "1px solid" ,
-    } ,
-    avatar : {
-        minWidth : "150px" , 
-        minHeight : "150px" ,
-    } ,
-    link : {
-        textDecoration : "none" , 
-        color : "#D0D0D0" ,
-        '&:hover' : {
-          color : '#00AEAE' 
+    div: {
+        boxSizing: "border-box"
+    },
+    left_menu: {
+        display: "flex",
+        justifyContent: "space-around",
+        minHeight: 800,
+        color: "#000"
+    },
+    left_container: {
+        maxWidth: "280px",
+        borderRight: "1px solid",
+    },
+    avatar: {
+        minWidth: "150px",
+        minHeight: "150px",
+    },
+    link: {
+        textDecoration: "none",
+        color: "#D0D0D0",
+        '&:hover': {
+            color: '#00AEAE'
         }
-    } ,
-    content : {
-        margin : "2% 2%" ,
-        overflow : "visible"
-    } ,
-    img : {
-        margin : "2% 0" ,
-        minWidth : '150px' ,
-        maxHeight : '200px'
-    } ,
-    button : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        margin : "2% auto" ,
-        display: "flex" ,
-        justifyContent : "center" ,
+    },
+    content: {
+        margin: "2% 2%",
+        overflow: "visible"
+    },
+    img: {
+        margin: "2% 0",
+        minWidth: '150px',
+        maxHeight: '200px'
+    },
+    button: {
+        background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        margin: "2% auto",
+        display: "flex",
+        justifyContent: "center",
     }
-  }));
+}));
 
 export default function MenuAppBar() {
     const classes = useStyles();
@@ -71,7 +79,7 @@ export default function MenuAppBar() {
     const [value, setValue] = React.useState('male');
 
     const handleChange = event => {
-      setValue(event.target.value);
+        setValue(event.target.value);
     };
 
     const [blood, setblood] = React.useState("A");
@@ -80,15 +88,21 @@ export default function MenuAppBar() {
         setblood(event.target.value);
     };
 
-    const [Sclass, setClass] = useState([]);//Sclass
-    const classList = ['memberName','memberID','memberGender','memberBloodType','memberBirthday','memberBirthday','memberEmail','memberAddress'];
+    const [member, setMember] = useState([]);//Sclass
+    const classList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchData() {
-            const result = await axios.get(`/HomePage1_s/one/406401628`);
-            setClass(result.data);
-            // console.log(result.data);
+            const result = await axios.get(`/api/member/`)
+                .then(res => {
+                    setMember(res.data)
+                    console.log(res)
+                }).catch(err => {
+                    console.log(err)
+                })
+
         }
         fetchData();
+        console.log(member);
     }, []);
 
     return (
@@ -97,152 +111,152 @@ export default function MenuAppBar() {
             <div className={classes.left_menu}>
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
-                            <Box lineHeight="normal" m={4}>
-                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                        <Box lineHeight="normal" m={4}>
+                            <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                        </Box>
+                        <Box lineHeight={2} m={1}>
+                            王小明
+                                </Box>
+                        <Divider />
+                        <Link to="/profile" className={classes.link}>
+                            <Box lineHeight={1} m={4} color="#000">
+                                個人檔案
+                                </Box>
+                        </Link>
+                        <Link to="/trainingFace" className={classes.link}>
+                            <Box lineHeight={1} m={4}>
+                                訓練人臉
+                                </Box>
+                        </Link>
+                        <Link to="/signupSituation" className={classes.link}>
+                            <Box lineHeight={1} m={4}>
+                                報名狀況
+                                </Box>
+                        </Link>
+                        <Divider />
+                        <Box lineHeight={3} m={1}>
+                            王氏集團
                             </Box>
-                                <Box lineHeight={2} m={1}>
-                                    王小明
+                        <Divider />
+                        <Link to="/organizerInfo" className={classes.link}>
+                            <Box lineHeight={1} m={4} >
+                                主辦單位資訊
                                 </Box>
-                            <Divider />    
-                            <Link to="/profile" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
-                                    個人檔案
+                        </Link>
+                        <Link to="/manageActivity" className={classes.link}>
+                            <Box lineHeight={1} m={4}>
+                                管理活動
                                 </Box>
-                            </Link>
-                            <Link to="/trainingFace" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    訓練人臉
+                        </Link>
+                        <Divider />
+                        <Link to="/" className={classes.link}>
+                            <Box lineHeight={2} m={1}>
+                                我的相簿
                                 </Box>
-                            </Link>
-                            <Link to="/signupSituation" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    報名狀況
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Box lineHeight={3} m={1}>
-                                王氏集團
-                            </Box>
-                            <Divider />
-                            <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} >
-                                    主辦單位資訊
-                                </Box>
-                            </Link>    
-                            <Link to="/manageActivity" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    管理活動
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Link to="/" className={classes.link}>
-                                <Box lineHeight={2} m={1}>
-                                    我的相簿
-                                </Box>
-                            </Link>
+                        </Link>
                     </Typography>
                 </Container>
                 <Container className={classes.content}>
-                        <div>
-                            <Typography variant="h4">
-                                個 人 檔 案
+                    <div>
+                        <Typography variant="h4">
+                            個 人 檔 案
                             </Typography>
-                            <hr />
-                        </div>
-                        <div>
-                            <form>
-                                <Box lineHeight="normal" m={1}>
-                                    <img className={classes.img} src="./img/profile.jpg" alt="img" />
-                                </Box>
-                                <Table>
-                                    <TableBody>
-                                        <TableRow>
-                                            <TableCell>姓名：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
-                                            </TableCell>
-                                            <TableCell>身分證字號：</TableCell>
-                                            <TableCell>
-                                                <input type="text" name="ID" disabled placeholder="A123456789" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>性別：</TableCell>
-                                            <TableCell>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                                    <FormControlLabel value="male" control={<Radio color="default" />} label="男性"/>
-                                                    <FormControlLabel value="female" control={<Radio color="default" />} label="女性" />
-                                                    <FormControlLabel value="other" control={<Radio color="default" />} label="暫不透漏" />
-                                                </RadioGroup>
-                                            </TableCell>
-                                            <TableCell>血型：</TableCell>
-                                            <TableCell>
-                                                <FormControl style={{minWidth: "100px"}}>
-                                                    <InputLabel id="blood-type">Blood Type</InputLabel>
-                                                    <Select
-                                                        labelId="blood-type"
-                                                        value={blood}
-                                                        onChange={handleSelect}
-                                                    >
-                                                        <MenuItem value="A">A</MenuItem>
-                                                        <MenuItem value="B">B</MenuItem>
-                                                        <MenuItem value="AB">AB</MenuItem>
-                                                        <MenuItem value="O">O</MenuItem>
-                                                        <MenuItem value="RH">RH 陰性</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>生日：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
-                                            </TableCell>
-                                            <TableCell>聯絡電話：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Cellphone" defaultValue="0919478653" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>電子郵件：</TableCell>
-                                            <TableCell>
-                                                <TextField label="E-mail" style={{minWidth:"250px"}} defaultValue="aaa12345@gmail.com" />
-                                            </TableCell>
-                                            <TableCell>聯絡地址：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Address" style={{minWidth:"300px"}} defaultValue="新北市新莊區中正路510號" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>緊急聯絡人：</TableCell>
-                                            <TableCell>
-                                                <TextField label="ContactpersonName" defaultValue="王俊凱" />
-                                            </TableCell>
-                                            <TableCell>緊急聯絡人關係：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Relationship" defaultValue="父子" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>緊急連絡人電話：</TableCell>
-                                            <TableCell colspan="3">
-                                                <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableBody>
-                                </Table>
-                                <Box lineHeight={5} m={1}>
-                                    <Button
-                                        className={classes.button}
-                                        variant="contained"
-                                        color="primary"
-                                        startIcon={<SaveIcon />}
-                                    >
-                                        儲存更新
+                        <hr />
+                    </div>
+                    <div>
+                        <form>
+                            <Box lineHeight="normal" m={1}>
+                                <img className={classes.img} src="./img/profile.jpg" alt="img" />
+                            </Box>
+                            <Table>
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell>姓名：</TableCell>
+                                        <TableCell>
+                                            <TextField label="Name" defaultValue="王小明" />
+                                        </TableCell>
+                                        <TableCell>身分證字號：</TableCell>
+                                        <TableCell>
+                                            <input type="text" name="ID" disabled placeholder="A123456789" />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>性別：</TableCell>
+                                        <TableCell>
+                                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                                                <FormControlLabel value="male" control={<Radio color="default" />} label="男性" />
+                                                <FormControlLabel value="female" control={<Radio color="default" />} label="女性" />
+                                                <FormControlLabel value="other" control={<Radio color="default" />} label="暫不透漏" />
+                                            </RadioGroup>
+                                        </TableCell>
+                                        <TableCell>血型：</TableCell>
+                                        <TableCell>
+                                            <FormControl style={{ minWidth: "100px" }}>
+                                                <InputLabel id="blood-type">Blood Type</InputLabel>
+                                                <Select
+                                                    labelId="blood-type"
+                                                    value={blood}
+                                                    onChange={handleSelect}
+                                                >
+                                                    <MenuItem value="A">A</MenuItem>
+                                                    <MenuItem value="B">B</MenuItem>
+                                                    <MenuItem value="AB">AB</MenuItem>
+                                                    <MenuItem value="O">O</MenuItem>
+                                                    <MenuItem value="RH">RH 陰性</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>生日：</TableCell>
+                                        <TableCell>
+                                            <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{ shrink: true, }} />
+                                        </TableCell>
+                                        <TableCell>聯絡電話：</TableCell>
+                                        <TableCell>
+                                            <TextField label="Cellphone" defaultValue="0919478653" />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>電子郵件：</TableCell>
+                                        <TableCell>
+                                            <TextField label="E-mail" style={{ minWidth: "250px" }} defaultValue="aaa12345@gmail.com" />
+                                        </TableCell>
+                                        <TableCell>聯絡地址：</TableCell>
+                                        <TableCell>
+                                            <TextField label="Address" style={{ minWidth: "300px" }} defaultValue="新北市新莊區中正路510號" />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>緊急聯絡人：</TableCell>
+                                        <TableCell>
+                                            <TextField label="ContactpersonName" defaultValue="王俊凱" />
+                                        </TableCell>
+                                        <TableCell>緊急聯絡人關係：</TableCell>
+                                        <TableCell>
+                                            <TextField label="Relationship" defaultValue="父子" />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>緊急連絡人電話：</TableCell>
+                                        <TableCell colspan="3">
+                                            <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
+                                        </TableCell>
+                                    </TableRow>
+                                </TableBody>
+                            </Table>
+                            <Box lineHeight={5} m={1}>
+                                <Button
+                                    className={classes.button}
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<SaveIcon />}
+                                >
+                                    儲存更新
                                     </Button>
-                                </Box>
-                            </form>
-                        </div>  
+                            </Box>
+                        </form>
+                    </div>
                 </Container>
             </div>
         </div>

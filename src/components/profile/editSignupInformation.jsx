@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
         }
     } ,
     content : {
-        margin : "2% 2%" ,
+        margin : "2%" ,
         overflow : "visible"
     } ,
     topic : {

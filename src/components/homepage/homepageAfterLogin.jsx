@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
-import { faClock , faSearch , faPlus , faCalendarPlus ,faPersonBooth} from "@fortawesome/free-solid-svg-icons";
+import { faClock , faSearch , faPlus} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -18,7 +18,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
-import Container from '@material-ui/core/Container';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -27,9 +26,6 @@ const useStyles = makeStyles(theme => ({
     container : {
         maxWidth : "1080px" ,
         margin : "2% auto" ,
-    } ,
-    slide_show : {
-        // maxHeight : "540px" ,
     } ,
     slide : {
         maxHeight : "540px" ,
@@ -169,7 +165,7 @@ export default function MenuApp() {
                 </div>
                 <div className={classes.activity_part}>
                     <Grid container spacing={3}>
-                        <Grid item xs={6} sm={4}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardMedia
@@ -195,7 +191,7 @@ export default function MenuApp() {
                                 </CardActions>
                             </Card>
                         </Grid>
-                        <Grid item xs={6} sm={4}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardMedia
@@ -221,7 +217,7 @@ export default function MenuApp() {
                                 </CardActions>
                             </Card>
                         </Grid>
-                        <Grid item xs={6} sm={4}>
+                        <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardMedia
