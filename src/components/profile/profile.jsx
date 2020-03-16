@@ -23,14 +23,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
-const Axios = axios.create({
-    baseURL: 'http://172.20.10.2:8080',
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'content-type': 'application/json',
-    },
-});
-
 const useStyles = makeStyles(theme => ({
     div: {
         boxSizing: "border-box"
@@ -67,47 +59,38 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
         margin: "2% auto",
         display: "flex",
         justifyContent: "center",
     }
 }));
 
-export default function MenuAppBar() {
+export default function Profile() {
     const classes = useStyles();
 
-    const [value, setValue] = React.useState('male');
-
-    const handleChange = event => {
-        setValue(event.target.value);
-    };
-
-    const [blood, setblood] = React.useState("A");
-
-    const handleSelect = event => {
-        setblood(event.target.value);
-    };
-
     const [member, setMember] = useState([]);//Sclass
-    const classList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchData() {
-            const result = await axios.get(`/api/member/`)
-                .then(res => {
-                    setMember(res.data)
-                    console.log(res)
-                }).catch(err => {
-                    console.log(err)
-                })
+                const result = await axios.get("/api/member/");
+                setMember(result.data);
+                // console.log(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
 
         }
         fetchData();
-        console.log(member);
     }, []);
 
     return (
         <div className={classes.div}>
             <Header />
+            {member.map(member =>
             <div className={classes.left_menu}>
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
@@ -115,13 +98,13 @@ export default function MenuAppBar() {
                             <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                         </Box>
                         <Box lineHeight={2} m={1}>
-                            王小明
-                                </Box>
+                            {member.memberName}
+                        </Box>
                         <Divider />
                         <Link to="/profile" className={classes.link}>
                             <Box lineHeight={1} m={4} color="#000">
                                 個人檔案
-                                </Box>
+                            </Box>
                         </Link>
                         <Link to="/trainingFace" className={classes.link}>
                             <Box lineHeight={1} m={4}>
@@ -173,20 +156,20 @@ export default function MenuAppBar() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField label="Name" defaultValue="王小明" />
+                                            <TextField label="Name" defaultValue={member.memberName} />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
-                                            <input type="text" name="ID" disabled placeholder="A123456789" />
+                                            <input type="text" name="ID" disabled placeholder={member.memberID} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
-                                            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+                                            <RadioGroup aria-label="gender" name="gender1" value={member.memberGender}>
                                                 <FormControlLabel value="male" control={<Radio color="default" />} label="男性" />
                                                 <FormControlLabel value="female" control={<Radio color="default" />} label="女性" />
-                                                <FormControlLabel value="other" control={<Radio color="default" />} label="暫不透漏" />
+                                                <FormControlLabel value="unknown" control={<Radio color="default" />} label="暫不透漏" />
                                             </RadioGroup>
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
@@ -195,8 +178,7 @@ export default function MenuAppBar() {
                                                 <InputLabel id="blood-type">Blood Type</InputLabel>
                                                 <Select
                                                     labelId="blood-type"
-                                                    value={blood}
-                                                    onChange={handleSelect}
+                                                    value={member.memberBloodType}
                                                 >
                                                     <MenuItem value="A">A</MenuItem>
                                                     <MenuItem value="B">B</MenuItem>
@@ -210,37 +192,37 @@ export default function MenuAppBar() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{ shrink: true, }} />
+                                            <TextField label="Birthday" type="date" defaultValue={member.memberBirthday} InputLabelProps={{ shrink: true, }} />
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField label="Cellphone" defaultValue="0919478653" />
+                                            <TextField label="Cellphone" defaultValue={member.memberPhone} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>電子郵件：</TableCell>
                                         <TableCell>
-                                            <TextField label="E-mail" style={{ minWidth: "250px" }} defaultValue="aaa12345@gmail.com" />
+                                            <TextField label="E-mail" style={{ minWidth: "250px" }} defaultValue={member.memberEmail} />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField label="Address" style={{ minWidth: "300px" }} defaultValue="新北市新莊區中正路510號" />
+                                            <TextField label="Address" style={{ minWidth: "300px" }} defaultValue={member.memberAddress} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField label="ContactpersonName" defaultValue="王俊凱" />
+                                            <TextField label="ContactpersonName" defaultValue={member.emergencyContact} />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField label="Relationship" defaultValue="父子" />
+                                            <TextField label="Relationship" defaultValue={member.emergencyContactRelation} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
+                                            <TextField label="ContactpersonCellphone" defaultValue={member.emergencyContactPhone} />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -249,7 +231,6 @@ export default function MenuAppBar() {
                                 <Button
                                     className={classes.button}
                                     variant="contained"
-                                    color="primary"
                                     startIcon={<SaveIcon />}
                                 >
                                     儲存更新
@@ -259,6 +240,7 @@ export default function MenuAppBar() {
                     </div>
                 </Container>
             </div>
+            )}
         </div>
     );
 }

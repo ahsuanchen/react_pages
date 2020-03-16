@@ -75,15 +75,6 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
     return (
         <div className={classes.div}>
             <Header />
