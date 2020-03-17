@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './header3.jsx';
 import { Link } from 'react-router-dom';
@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -69,6 +70,22 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
     const classes = useStyles();
 
+    const [activity, setActivity] = useState([]);
+    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    useEffect(() => {
+        async function fetchDataAct() {
+                const result = await axios.get("/api/activity/");
+                setActivity(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataAct();
+    }, []);
+    
     return (
         <div className={classes.div}>
             <Header />
@@ -127,6 +144,7 @@ export default function MenuAppBar() {
                         </Typography>
                         <hr />
                     </div>
+                    {activity.map(activity => 
                     <div className={classes.activity_part}>
                         <Box lineHeight="normal" m={1}>
                             <ExpansionPanel defaultExpanded>
@@ -148,7 +166,8 @@ export default function MenuAppBar() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            三校六系聯合聖誕舞會
+                                                            {activity.activityName}
+                                                            {/* 三校六系聯合聖誕舞會 */}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
@@ -466,8 +485,10 @@ export default function MenuAppBar() {
                                     </Grid>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
+                            
                         </Box>
-                    </div>  
+                    </div>
+                    )}
                 </Container>
             </div>
         </div>

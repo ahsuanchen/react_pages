@@ -69,28 +69,58 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
     const classes = useStyles();
 
-    const [member, setMember] = useState([]);//Sclass
+    // const constructor = props => {
+    //     super(props)
+    //     this.state = {
+    //         name: '',
+    //         ID: '',
+    //         Gender: 'male'
+    //     }
+    //     this.changeState = this.changeState.bind(this)
+    //     this.submitForm = this.submitForm.bind(this)
+    // }
+    // const changeState = event => {
+    //     //使用setState將值寫到nameVal中
+    //     this.setState({name : event.target.value});
+    // }
+
+    const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
-        async function fetchData() {
-                const result = await axios.get("/api/member/");
+        async function fetchDataMem() {
+                const result = await axios.get("/api/member/actforfun@gmail.com")
                 setMember(result.data);
-                // console.log(result.data);             
+                // console.log(result);           
+                // .then(result => {
+                //     setMember(result.data)
+                //     console.log(result)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataMem();
+    }, []);
+    console.log(member.memberGender);
+
+    const [organizer, setOrganizer] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataOrg() {
+                const result = await axios.get("/api/organizer/actforfun@gmail.com");
+                setOrganizer(result.data);             
                 // .then(res => {
                 //     setMember(res.data)
                 //     console.log(res)
                 // }).catch(err => {
                 //     console.log(err)
                 // })
-
         }
-        fetchData();
+        fetchDataOrg();
     }, []);
 
     return (
         <div className={classes.div}>
             <Header />
-            {member.map(member =>
             <div className={classes.left_menu}>
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
@@ -118,8 +148,8 @@ export default function Profile() {
                         </Link>
                         <Divider />
                         <Box lineHeight={3} m={1}>
-                            王氏集團
-                            </Box>
+                            {organizer.organizerName}
+                        </Box>
                         <Divider />
                         <Link to="/organizerInfo" className={classes.link}>
                             <Box lineHeight={1} m={4} >
@@ -135,7 +165,7 @@ export default function Profile() {
                         <Link to="/" className={classes.link}>
                             <Box lineHeight={2} m={1}>
                                 我的相簿
-                                </Box>
+                            </Box>
                         </Link>
                     </Typography>
                 </Container>
@@ -156,7 +186,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField label="Name" defaultValue={member.memberName} />
+                                            <TextField value={member.memberName} />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
@@ -166,16 +196,15 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
-                                            <RadioGroup aria-label="gender" name="gender1" value={member.memberGender}>
-                                                <FormControlLabel value="male" control={<Radio color="default" />} label="男性" />
-                                                <FormControlLabel value="female" control={<Radio color="default" />} label="女性" />
-                                                <FormControlLabel value="unknown" control={<Radio color="default" />} label="暫不透漏" />
+                                            <RadioGroup name="gender" defaultValue={member.memberGender}>
+                                                <FormControlLabel checked={member.memberGender === "male"} control={<Radio color="default" />} label="男性" />
+                                                <FormControlLabel checked={member.memberGender === "female"} control={<Radio color="default" />} label="女性" />
+                                                <FormControlLabel checked={member.memberGender === "unknown"} control={<Radio color="default" />} label="暫不透漏" />
                                             </RadioGroup>
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
                                             <FormControl style={{ minWidth: "100px" }}>
-                                                <InputLabel id="blood-type">Blood Type</InputLabel>
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}
@@ -192,37 +221,37 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField label="Birthday" type="date" defaultValue={member.memberBirthday} InputLabelProps={{ shrink: true, }} />
+                                            <TextField type="datetime" value={member.memberBirthday} InputLabelProps={{shrink: true}} />
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField label="Cellphone" defaultValue={member.memberPhone} />
+                                            <TextField value={member.memberPhone} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>電子郵件：</TableCell>
                                         <TableCell>
-                                            <TextField label="E-mail" style={{ minWidth: "250px" }} defaultValue={member.memberEmail} />
+                                            <TextField style={{ minWidth: "250px" }} value={member.memberEmail} />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField label="Address" style={{ minWidth: "300px" }} defaultValue={member.memberAddress} />
+                                            <TextField style={{ minWidth: "300px" }} value={member.memberAddress} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField label="ContactpersonName" defaultValue={member.emergencyContact} />
+                                            <TextField value={member.emergencyContact} />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField label="Relationship" defaultValue={member.emergencyContactRelation} />
+                                            <TextField value={member.emergencyContactRelation} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField label="ContactpersonCellphone" defaultValue={member.emergencyContactPhone} />
+                                            <TextField value={member.emergencyContactPhone} />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -240,7 +269,6 @@ export default function Profile() {
                     </div>
                 </Container>
             </div>
-            )}
         </div>
     );
 }

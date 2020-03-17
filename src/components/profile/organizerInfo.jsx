@@ -74,6 +74,38 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
     const classes = useStyles();
 
+    const [member, setMember] = useState([]);
+    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    useEffect(() => {
+        async function fetchDataMem() {
+                const result = await axios.get("/api/member/actforfun@gmail.com");
+                setMember(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataMem();
+    }, []);
+
+    const [organizer, setOrganizer] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' , 'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataOrg() {
+                const result = await axios.get("/api/organizer/actforfun@gmail.com");
+                setOrganizer(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataOrg();
+    }, []);
+
     return (
         <div className={classes.div}>
             <Header />
@@ -83,9 +115,9 @@ export default function MenuAppBar() {
                             <Box lineHeight="normal" m={4}>
                                 <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                             </Box>
-                                <Box lineHeight={2} m={1}>
-                                    王小明
-                                </Box>
+                            <Box lineHeight={2} m={1}>
+                                {member.memberName}
+                            </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
@@ -104,7 +136,7 @@ export default function MenuAppBar() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                王氏集團
+                                {organizer.organizerName}
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
@@ -128,7 +160,7 @@ export default function MenuAppBar() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">
-                                王 氏 集 團
+                                {organizer.organizerName}
                             </Typography>
                             <hr />
                         </div>
@@ -148,7 +180,7 @@ export default function MenuAppBar() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField label="Organizer" defaultValue="王氏集團" />
+                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerName} />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -158,7 +190,7 @@ export default function MenuAppBar() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField label="E-mail" defaultValue="actforfun@gmail.com" />
+                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerEmail} />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -168,7 +200,7 @@ export default function MenuAppBar() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField label="ContactPhone" defaultValue="02-29052000" />
+                                                <TextField value={organizer.organizerPhone} />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -178,7 +210,7 @@ export default function MenuAppBar() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                            <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
+                                            <TextField style={{minWidth:"350px"}} value={organizer.organizerAddress} />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -188,7 +220,7 @@ export default function MenuAppBar() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextareaAutosize defaultValue="本集團創立於2020年，有感於世界潮流之所趨及未來社會對資訊網路之需求，我們期望將關懷投注於廣大的社會上，與工商企業界緊密結合，以本集團為中心，結合工商企業界及政府機構之力量，促進提昇全國性資訊網路水準。" style={{minWidth:"350px" , minHeight:"250px"}}/>
+                                                <TextareaAutosize value={organizer.organizerInfo} style={{minWidth:"350px" , minHeight:"250px"}}/>
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
