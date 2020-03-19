@@ -15,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 
+
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -32,6 +34,7 @@ export default function (props) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const routes = props.routes;
 
 
 
@@ -70,10 +73,11 @@ export default function (props) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
           >
-          <MenuItem onClick={handleClose}>首頁</MenuItem>
-          <MenuItem component={Link} to="/Act">活動總覽</MenuItem>
-          <MenuItem onClick={handleClose}>個人檔案</MenuItem>
-          <MenuItem onClick={handleClose}>建立活動</MenuItem>
+          {
+            routes.map((route, key)=>(
+            <MenuItem component={Link} to={route.path} key={key}>{route.title}</MenuItem>
+            ))
+          }
           </Menu>
           <Typography variant="h6" align="center" className={classes.title}>
             ACTFUN

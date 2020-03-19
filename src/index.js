@@ -21,21 +21,40 @@ ReactDOM.render(<ProductList />,document.getElementById('root'));
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-
 import './index.css';
-import ReactApp from './App.js';
-import Act from 'pages/Home/index';
-import Index from 'pages/Test/test';
-import * as serviceWorker from './serviceWorker';
+import Layout from 'pages/Layout';
+import Home from 'pages/Home/index';
+import News from 'pages/News/index';
+import routess from 'routes';
+import App from './App';
+//import Act from 'pages/Home/index';
+//import Activity from 'pages/Activity';
+//import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <Router>
   <Switch>
-      <Route path="/Index" component={Index}/>
-      <Route path="/Act" component={Act}/>
-      <Route path="/" component={ReactApp}/>
+    <Layout/>
   </Switch>
-  </Router>,
+  </Router>
+
+
+  ,
   document.getElementById('root')
 
 );
+
+{/*<Router>
+<Switch>
+    <Route exact={true} path="/" component={Home}/>
+    <Route exact={true} path="/news" component={News}/>
+
+</Switch>
+</Router>
+<Router>
+<Switch>
+    <Route exact={true} path="/" component={Home}/>
+    <Route path="/news" component={News}/>
+
+</Switch>
+</Router>*/}
