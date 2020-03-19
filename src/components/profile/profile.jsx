@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Header from './header3.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
@@ -16,12 +17,10 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SaveIcon from '@material-ui/icons/Save';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -90,7 +89,7 @@ export default function Profile() {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
                 setMember(result.data);
-                // console.log(result);           
+                console.log(result);           
                 // .then(result => {
                 //     setMember(result.data)
                 //     console.log(result)
@@ -100,7 +99,6 @@ export default function Profile() {
         }
         fetchDataMem();
     }, []);
-    console.log(member.memberGender);
 
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];

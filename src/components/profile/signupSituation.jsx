@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
     } ,
   }));
 
-export default function MenuAppBar() {
+export default function SignupSituation() {
     const classes = useStyles();
 
     const [activity, setActivity] = useState([]);
@@ -75,7 +75,8 @@ export default function MenuAppBar() {
     useEffect(() => {
         async function fetchDataAct() {
                 const result = await axios.get("/api/activity/");
-                setActivity(result.data);             
+                setActivity(result.data);
+                console.log(result);            
                 // .then(res => {
                 //     setMember(res.data)
                 //     console.log(res)
@@ -144,8 +145,8 @@ export default function MenuAppBar() {
                         </Typography>
                         <hr />
                     </div>
-                    {activity.map(activity => 
                     <div className={classes.activity_part}>
+                        {activity.map(activity => 
                         <Box lineHeight="normal" m={1}>
                             <ExpansionPanel defaultExpanded>
                                 <ExpansionPanelSummary
@@ -173,26 +174,29 @@ export default function MenuAppBar() {
                                                     <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            三創生活園區
+                                                            {activity.activitySpace}
+                                                            {/* 三創生活園區 */}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            2020-12-23 (三)
+                                                            {activity.activityStartDate}
+                                                            {/* 2020-12-23 (三) */}
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={6} md={8} className={classes.content_part}>
                                                         <Typography>
-                                                        「對岸的城堡，總是在黑夜中綻放動人的光芒，誰也不知道它的主人來自何方，
+                                                        {activity.activityInfo}
+                                                        {/* 「對岸的城堡，總是在黑夜中綻放動人的光芒，誰也不知道它的主人來自何方，
                                                         而耗之不盡的財富又源自何處？眾人只曉得，每當夜幕低垂，他壯觀的堡壘即聚滿了整個城市的活力......」
                                                         <br/>
                                                         「看著紙醉金迷、沈浸在歡愉喜樂當中的各方人士，
                                                         城堡的主人 — 蓋茲比，卻無法與他的客人們同樂⋯⋯」
                                                         <br/>
-                                                        🚩12/23 星期三 晚上六點 我們在🔸三創生活園區🔸 繼續我們的未完待續...
+                                                        🚩12/23 星期三 晚上六點 我們在🔸三創生活園區🔸 繼續我們的未完待續... */}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={6} md={3} className={classes.button_part}>
@@ -238,7 +242,7 @@ export default function MenuAppBar() {
                                                 </Grid>
                                             </Paper>
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        {/* <Grid item xs={12}>
                                             <Paper>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
@@ -309,7 +313,7 @@ export default function MenuAppBar() {
                                                     </Grid>
                                                 </Grid>
                                             </Paper>
-                                        </Grid>
+                                        </Grid> */}
                                     </Grid>
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
@@ -406,7 +410,7 @@ export default function MenuAppBar() {
                                                 </Grid>
                                             </Paper>
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        {/* <Grid item xs={12}>
                                             <Paper>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
@@ -481,14 +485,13 @@ export default function MenuAppBar() {
                                                     </Grid>
                                                 </Grid>
                                             </Paper>
-                                        </Grid>
+                                        </Grid> */}
                                     </Grid>
                                 </ExpansionPanelDetails>
-                            </ExpansionPanel>
-                            
+                            </ExpansionPanel>  
                         </Box>
+                        )}
                     </div>
-                    )}
                 </Container>
             </div>
         </div>

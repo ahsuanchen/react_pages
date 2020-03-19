@@ -1,5 +1,6 @@
-import React from 'react';
+import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Header from './header3.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
@@ -13,6 +14,11 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
@@ -42,6 +48,9 @@ const useStyles = makeStyles(theme => ({
           color : '#00AEAE' 
         }
     } ,
+    table : {
+        margin : "auto" ,
+    } , 
     content : {
         margin : "2% 2%" ,
     } ,
@@ -62,7 +71,8 @@ const useStyles = makeStyles(theme => ({
     } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        color : "#fff"
+        color : "#fff" ,
+        minWidth : "125px"
     } ,
     open_paper : {
         maxWidth : '500px' ,
@@ -72,8 +82,24 @@ const useStyles = makeStyles(theme => ({
     } ,
   }));
 
-export default function MenuAppBar() {
+export default function ManageActivity() {
     const classes = useStyles();
+
+    const [activity, setActivity] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataOrg() {
+                const result = await axios.get("/api/activity/actforfun@gmail.com");
+                setActivity(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataOrg();
+    }, []);
 
     return (
         <div className={classes.div}>
@@ -151,10 +177,62 @@ export default function MenuAppBar() {
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
                                             <Paper>
-                                            </Paper>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            <Paper>
+                                                <Table className={classes.table}>
+                                                    <TableHead stickyHeader>
+                                                        <TableRow>
+                                                            <TableCell align="center">活動名稱</TableCell>
+                                                            <TableCell align="center">活動時間</TableCell>
+                                                            <TableCell align="center">可報名總額/已報名人數</TableCell>
+                                                            <TableCell align="center">功能</TableCell>
+                                                            <TableCell align="center">活動狀況</TableCell>
+                                                        </TableRow>
+                                                    </TableHead>
+                                                    <TableBody>
+                                                        <TableRow hover>
+                                                            <TableCell align="center">三校六系聯合聖誕舞會</TableCell>
+                                                            <TableCell align="center">2020-12-23 (三)</TableCell>
+                                                            <TableCell align="center">600/300</TableCell>
+                                                            <TableCell align="center">
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/"
+                                                                >
+                                                                    參加者名單
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/"
+                                                                >
+                                                                    分發/上傳照片
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/"
+                                                                >
+                                                                    修改活動
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/"
+                                                                >
+                                                                    刪除活動
+                                                                </Button>
+                                                            </TableCell>
+                                                            <TableCell align="center">報名中</TableCell>
+                                                        </TableRow>
+                                                    </TableBody>
+                                                </Table>
                                             </Paper>
                                         </Grid>
                                     </Grid>
