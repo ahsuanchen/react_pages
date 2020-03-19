@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './header2.jsx';
+import Header from '../header/HM_header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
