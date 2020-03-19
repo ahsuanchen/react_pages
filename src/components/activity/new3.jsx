@@ -1,7 +1,7 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -11,16 +11,22 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-//下拉式選單
-import InputLabel from '@material-ui/core/InputLabel';
-//import MenuItem from '@material-ui/core/MenuItem';
+// 下拉式選單
+// import InputLabel from '@material-ui/core/InputLabel';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import FormControl from '@material-ui/core/FormControl';
+// import FormHelperText from '@material-ui/core/FormHelperText';
+// import Select from '@material-ui/core/Select';
+// import NativeSelect from '@material-ui/core/NativeSelect';
+ import InputBase from '@material-ui/core/InputBase';
+// 以上
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-//import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import InputBase from '@material-ui/core/InputBase';
-//以上
+import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
+
 
 
 const BootstrapInput = withStyles(theme => ({
@@ -65,22 +71,20 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
 
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
+    space: {
+        marginTop: theme.spacing(5),
     },
 
     paper: {
-        marginTop: theme.spacing(8),
-
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: 'lightgrey',
+        background: '#dcedc8',
         display: 'flex',
         '& > *': {
-            marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
+            marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(40),
+            height: theme.spacing(50),
         },
     },
 
@@ -97,148 +101,213 @@ const useStyles = makeStyles(theme => ({
 
     margin: {
         margin: theme.spacing(2),
+        width:'40%'
+    },
+
+    //下拉式
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
     },
 
 
 }));
 
+
+
 export default function DenseAppBar() {
     const classes = useStyles();
 
+    const  [activityName,setactivityName] =  useState("");
+    const  [activityAddress,setactivityAddress] =  useState("");
+    const  [activitySpace,setactivitySpace] =  useState("");
+    const  [activityStartDate,setactivityStartDate] =  useState("");
+    const  [activityEndDate,setactivityEndDate] =  useState("");
+    const  [startSignUpDate,setstartSignUpDate] =  useState("");
+    const  [endSignUpDate,setendSignUpDate] =  useState("");
+    const  [activityWeb,setactivityWeb] =  useState("");
+    const  [activityWebLink,setactivityWebLink] =  useState("");
+    const  [activityMeal,setactivityMeal] =  useState("");
 
-    const [startdate, setStartDate] = React.useState('');
-    const handleChange1 = event => {
-        setStartDate(event.target.value);
-    };
+    const today  = new Date();
+    const year   = today.getFullYear();
+    const month  = today.getMonth()+1;
+    const day  = today.getDate();
+    const hour = today.getHours();
+    const minute = today.getMinutes();
+    const second  = today.getSeconds();
+    console.log(year + "/" + month + "/" + day + " " + hour + ":"+ minute + ":" +second);
 
-    const [starttime, setStartTime] = React.useState('');
-    const handleChange2 = event => {
-        setStartTime(event.target.value);
-    };
 
-    const [enddate, setEndDate] = React.useState('');
-    const handleChange3 = event => {
-        setEndDate(event.target.value);
-    };
 
-    const [endtime, setEndTime] = React.useState('');
-    const handleChange4 = event => {
-        setEndTime(event.target.value);
-    };
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+        const activity={
+            activityName:activityName,
+            activityAddress:activityAddress,
+            activitySpace:activitySpace,
+            activityStartDate:activityStartDate,
+            activityEndDate:activityEndDate,
+            startSignUpDate:startSignUpDate,
+            endSignUpDate:endSignUpDate,
+            activityWeb:activityWeb,
+            activityWebLink:activityWebLink,
+            activityMeal:activityMeal
+        };
+            alert("1")
+        axios.post("/api/activity/", activity,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+          .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        
+    }
 
-    const [city, setCity] = React.useState('');
-    const handleChange5 = event => {
-        setCity(event.target.value);
-    };
+    const [value, setValue] = React.useState('yes');
 
-    const [area, setArea] = React.useState('');
-    const handleChange6 = event => {
-        setArea(event.target.value);
-    };
+    const handleChange = event => {
+        setValue(event.target.value);
+    }
+
+
+    
+
+
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        返回首頁
-          </Typography>
-                </Toolbar>
-            </AppBar>
-            <Grid >
-                <Container component="main" maxWidth="xs">
+            <Header/>
+            <Grid className={classes.space}>
+                <Container component="main" maxWidth="md">
                     <CssBaseline />
                     <Typography component="h1" variant="h5" align="center">
                         基本資訊
                     </Typography>
                     <div className={classes.paper}>
                         <paper>
-                            <form className={classes.form} noValidate>
+                            <form className={classes.form} noValidate onSubmit={handleSubmit}>
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="name"
+                                    id="activityName"
                                     label="活動名稱"
-                                    name="name"
-                                    autoFocus
+                                    name="activityName"
                                     variant="outlined"
                                     placeholder="請填寫活動名稱"
+                                    onChange={e=>setactivityName(e.target.value)}
                                 />
 
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>開始日期</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={startdate}
-                                        onChange={handleChange1}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>01/11</option>
-                                        <option value={2}>01/12</option>
-                                        <option value={3}>01/13</option>
-                                    </NativeSelect>
+                                <TextField 
+                                    margin="normal"
+                                    width="70%"
+                                    label="活動開始日期" 
+                                    type="date" 
+                                    id="activityStartDate"
+                                    name="activityStartDate"
+                                    defaultValue={new Date().getFullYear()}
+                                    InputLabelProps={{shrink: true,}}
+                                    onChange={e=>setactivityStartDate(e.target.value)}
+                                />
 
-                                </FormControl>
+                                <TextField 
+                                margin="normal"
+                                Width='60'
+                                label="活動開始時間" 
+                                type="time" 
+                                id="activityStartDate"
+                                name="activityStartDate"
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setactivityStartDate(e.target.value)}
+                                />
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>開始時間</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={starttime}
-                                        onChange={handleChange2}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>01:00</option>
-                                        <option value={2}>02:00</option>
-                                        <option value={3}>03:00</option>
-                                    </NativeSelect>
 
-                                </FormControl>
+                                <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="活動結束日期" 
+                                type="date" 
+                                id="activityEndDate"
+                                name="activityEndDate"
+                                defaultValue={new Date().getFullYear()}
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setactivityEndDate(e.target.value)}
+                                />
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>結束日期</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={enddate}
-                                        onChange={handleChange3}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>01/12</option>
-                                        <option value={2}>01/13</option>
-                                        <option value={3}>01/14</option>
-                                    </NativeSelect>
+                                <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="活動結束時間" 
+                                type="time" 
+                                id="activityEndDate"
+                                name="activityEndDate"
+                                InputLabelProps={{shrink: true,}}
+                                onChange={e=>setactivityEndDate(e.target.value)} 
+                                />
 
-                                </FormControl>
+                                <TextField 
+                                margin="normal"
+                                width="70%"
+                                label="報名開始日期" 
+                                type="date" 
+                                id="startSignUpDate"
+                                name="startSignUpDate"
+                                defaultValue={new Date().getFullYear()}
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setstartSignUpDate(e.target.value)}
+                                />
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>結束時間</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={endtime}
-                                        onChange={handleChange4}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>01:00</option>
-                                        <option value={2}>02:00</option>
-                                        <option value={3}>03:00</option>
-                                    </NativeSelect>
+                                <TextField 
+                                margin="normal"
+                                Width='60'
+                                label="報名開始時間" 
+                                type="time" 
+                                id="startSignUpDate"
+                                name="startSignUpDate"
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setstartSignUpDate(e.target.value)}
+                                />
 
-                                </FormControl>
 
-                                <FormControl className={classes.margin}>
+                                <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="報名結束日期" 
+                                type="date" 
+                                id="endSignUpDate"
+                                name="endSignUpDate"
+                                defaultValue={new Date().getFullYear()}
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setendSignUpDate(e.target.value)}
+                                />
+
+                                <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="報名結束時間" 
+                                type="time" 
+                                id="endSignUpDate"
+                                name="endSignUpDate"
+                                InputLabelProps={{shrink: true,}} 
+                                onChange={e=>setendSignUpDate(e.target.value)}
+                                />
+
+                                {/* <FormControl className={classes.margin}>
                                     <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
                                     <FormHelperText>縣市</FormHelperText>
                                     <NativeSelect
@@ -273,47 +342,77 @@ export default function DenseAppBar() {
                                         <option value={3}>三重區</option>
                                     </NativeSelect>
 
-                                </FormControl>
-
-                                <FormControl className={classes.margin}>
-
-                                    <InputLabel htmlFor="demo-customized-textbox"></InputLabel>
-                                    <FormHelperText>地址</FormHelperText>
-                                    <BootstrapInput id="demo-customized-textbox" />
-
-                                </FormControl>
-
+                                </FormControl> */}
 
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="phone"
+                                    label="地址"
+                                    id="activityAddress"
+                                    name="activityAddress"
+                                    variant="outlined"
+                                    onChange={e=>setactivityAddress(e.target.value)}
+                                />
+
+
+                                <TextField
+                                    margin="normal"
+                                    fullWidth
                                     label="參考網站名稱（例：Facebook）"
-                                    name="phone"
-                                    autoFocus
+                                    id="activityWeb"
+                                    name="activityWeb"
                                     variant="outlined"
+                                    onChange={e=>setactivityWeb(e.target.value)}
                                 />
 
                                 <TextField
                                     margin="normal"
-                                    required
                                     fullWidth
-                                    id="phone"
+                                    type="url"
                                     label="參考網站連結"
-                                    name="phone"
-                                    autoFocus
+                                    id="activityLink"
+                                    name="activityLink"
                                     variant="outlined"
+                                    onChange={e=>setactivityWebLink(e.target.value)}
                                 />
 
+                                
+                             <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">是否供餐</FormLabel>
+                                <RadioGroup 
+                                    aria-label="是否供餐" 
+                                    name="activityMeal" 
+                                    // value={value} 
+                                    // onChange={e=>setactivityMeal(e.target.value)} 
+                                >
+                                    <Grid container>
+                                        <Grid item> 
+                                        <FormControlLabel 
+                                            value="yes" 
+                                            control={<Radio />} 
+                                            label="是" 
+                                        />
+                                        </Grid>
 
-
-                                <IconButton color="primary" aria-label="next step" href="./signup.js">
+                                        <Grid item>
+                                            <FormControlLabel 
+                                            value="no" 
+                                            control={<Radio />} 
+                                            label="否" 
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </RadioGroup>
+                            </FormControl>
+                                <Grid>
+                                <IconButton color="primary" aria-label="next step" href="./new2">
                                     <ArrowBackIcon />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./signup.js">
+                                <IconButton color="primary" aria-label="next step" href="./new4">
                                     <ArrowForwardIcon />
                                 </IconButton>
+                                </Grid>
 
                             </form>
                         </paper>

@@ -1,216 +1,268 @@
 import React from 'react';
-import Header from './homepage/header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
+import Header from './profile/header4.jsx';
 import { Link } from 'react-router-dom';
-import { Slide } from 'react-slideshow-image';
-import Box from '@material-ui/core/Box';
-import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import { faClock , faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles(theme => ({
     div : {
-        boxSizing : "border-box" ,
+        boxSizing : "border-box"
     } ,
-    container : {
-        maxWidth : "1080px" ,
-        margin : "2% auto" ,
-    } ,
-    slide_show : {
-        // maxHeight : "540px" ,
-    } ,
-    slide : {
-        maxHeight : "540px" ,
-    } , 
-    slide_img : {
-        maxWidth : "100%" ,
-        maxHeight : "100%" 
-    } ,
-    search: {
-        margin : "2% auto" ,
+    left_menu : {
         display: "flex" ,
-        justifyContent : "center" ,
+        justifyContent : "space-around" ,
+        minHeight : 800 ,
+        color : "#000"
     } ,
-    search_bar : {
-        margin : "auto" ,
-        borderRadius : "10px" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+    left_container : {
+        maxWidth : "280px" , 
+        borderRight : "1px solid" ,
     } ,
-    inputBase : {
-        minWidth : "450px" ,
-        padding : "5px 20px" ,
-    } ,
-    search_butoon : {
-        padding : "10px 0" ,
-    } ,
-    activity_part : {
-        margin : "2% auto" ,
-    } ,
-    card : {
-        maxWidth : "400px" ,
-    } ,
-    card_content : {
-        width : "100%" ,
-        height : "200px"
-    } ,
-    img : {
-        width : "100%" ,
-        maxHeight : "200px" ,
-        borderRadius : '10px 10px 0 0'
+    avatar : {
+        minWidth : "150px" , 
+        minHeight : "150px" ,
     } ,
     link : {
         textDecoration : "none" , 
-        color : "#000" ,
+        color : "#D0D0D0" ,
         '&:hover' : {
           color : '#00AEAE' 
         }
-      }
+    } ,
+    content : {
+        margin : "2% 2%" ,
+        overflow : "visible"
+    } ,
+    topic : {
+        margin : "2% auto" ,
+        textAlign : "center"
+    } ,
+    button_part : {
+        margin : "2% 2%" ,
+        display: "flex" ,
+        justifyContent : "center" ,
+    } ,
+    button1 : {
+        background : '#ADADAD' ,
+        color : "fff" ,
+        margin : "auto 2%" ,
+    } ,
+    button2 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        color : "fff" ,
+        margin : "auto 2%" ,
+    }
   }));
-
-const properties = {
-    duration: 5000,
-    transitionDuration: 400,
-    infinite: true,
-    indicators: true,
-    arrows: true,
-}
 
 export default function MenuAppBar() {
     const classes = useStyles();
 
+    const [gender, setgender] = React.useState("male");
+    const [blood, setblood] = React.useState("A");
+
+    const handleSelectGender = event => {
+        setgender(event.target.value);
+    };
+
+    const handleSelectBlood = event => {
+        setblood(event.target.value);
+    };
+
     return (
         <div className={classes.div}>
             <Header />
-            <div className={classes.container}>
-                <div>
-                    <Slide {...properties}>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide1.jpg" alt="img1" />
-                            </Link>
-                        </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide2.jpg" alt="img2" />
-                            </Link>
-                        </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide3.jpg" alt="img3" />
-                            </Link>
-                        </div>
-                    </Slide>
-                </div>
-                <div className={classes.search}>
-                    <Box lineHeight="normal" m={1} className={classes.search_bar}>
-                        <InputBase
-                            placeholder="搜尋你感興趣的活動"
-                            className={classes.inputBase}
-                        />
-                        <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon}>
-                                &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
-                            </Button>
-                        </Tooltip>
-                    </Box>
-                </div>
-                <div>
+            <div className={classes.left_menu}>
+                <Container className={classes.left_container}>
                     <Typography variant="h5">
-                        熱 門 活 動 /
+                                <Box lineHeight="normal" m={4}>
+                                    <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                                </Box>
+                                <Box lineHeight={2} m={1}>
+                                    王小明
+                                </Box>
+                            <Divider />    
+                            <Link to="/profile" className={classes.link}>
+                                <Box lineHeight={1} m={4}>
+                                    個人檔案
+                                </Box>
+                            </Link>
+                            <Link to="/trainingFace" className={classes.link}>
+                                <Box lineHeight={1} m={4}>
+                                    訓練人臉
+                                </Box>
+                            </Link>
+                            <Link to="/signupSituation" className={classes.link}>
+                                <Box lineHeight={1} m={4}>
+                                    報名狀況
+                                </Box>
+                            </Link>
+                            <Divider />
+                            <Box lineHeight={3} m={1}>
+                                王氏集團
+                            </Box>
+                            <Divider />
+                            <Link to="/" className={classes.link}>
+                                <Box lineHeight={1} m={4} >
+                                    主辦單位資訊
+                                </Box>
+                            </Link>    
+                            <Link to="/" className={classes.link}>
+                                <Box lineHeight={1} m={4}>
+                                    管理活動
+                                </Box>
+                            </Link>
+                            <Divider />
+                            <Link to="/" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    我的相簿
+                                </Box>
+                            </Link>
                     </Typography>
-                </div>
-                <div className={classes.activity_part}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={6} sm={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="../img/slide1.jpg"
-                                        title="act_1"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            「#管他就跑我的」路跑
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-03-22 (日)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#running </Link>
-                                    <Link to="/" className={classes.link}>#marathon </Link>
-                                </CardActions>
-                            </Card>
+                </Container>
+                <Container className={classes.content}>
+                    <div>
+                        <Grid container>
+                            <Grid item xs={10}>
+                                <Typography variant="h3">
+                                    三校六系聯合聖誕舞會
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6">
+                                    <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;&nbsp;
+                                    三創生活園區
+                                </Typography>
+                                <Typography variant="h6">
+                                    <FontAwesomeIcon icon={faClock} />&nbsp;
+                                    2020-12-23 (三)
+                                </Typography>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6} sm={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide2.jpg"
-                                        title="act_2"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            世界巡迴演唱會-高雄場
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-07-25 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#singer </Link>
-                                    <Link to="/" className={classes.link}>#concert </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={6} sm={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide3.jpg"
-                                        title="act_3"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            Pinkoi Experience | 質感體驗
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-05-20 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#fashion </Link>
-                                    <Link to="/" className={classes.link}>#experience </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </div>
+                        <hr /> 
+                    </div> 
+                        <div>
+                            <form>
+                                <Box lineHeight="normal" m={1}>
+                                    <Typography variant="h4" className={classes.topic}>
+                                        報名資料
+                                    </Typography>
+                                </Box>
+                                <Table>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>姓名：</TableCell>
+                                            <TableCell>
+                                                <TextField label="Name" defaultValue="王小明" />
+                                            </TableCell>
+                                            <TableCell>身分證字號：</TableCell>
+                                            <TableCell>
+                                                <input type="text" name="ID" disabled placeholder="A123456789" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>性別：</TableCell>
+                                            <TableCell>
+                                                <FormControl style={{minWidth: "100px"}}>
+                                                    <InputLabel id="gender">Gender</InputLabel>
+                                                    <Select
+                                                        labelId="gender"
+                                                        value={gender}
+                                                        onChange={handleSelectGender}
+                                                    >
+                                                        <MenuItem value="male">男</MenuItem>
+                                                        <MenuItem value="female">女</MenuItem>
+                                                        <MenuItem value="unknown">暫不透漏</MenuItem>
+                                                    </Select>
+                                                </FormControl>   
+                                            </TableCell>
+                                            <TableCell>血型：</TableCell>
+                                            <TableCell>
+                                                <FormControl style={{minWidth: "100px"}}>
+                                                    <InputLabel id="blood-type">Blood Type</InputLabel>
+                                                    <Select
+                                                        labelId="blood-type"
+                                                        value={blood}
+                                                        onChange={handleSelectBlood}
+                                                    >
+                                                        <MenuItem value="A">A</MenuItem>
+                                                        <MenuItem value="B">B</MenuItem>
+                                                        <MenuItem value="AB">AB</MenuItem>
+                                                        <MenuItem value="O">O</MenuItem>
+                                                        <MenuItem value="RH">RH 陰性</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>生日：</TableCell>
+                                            <TableCell>
+                                                <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
+                                            </TableCell>
+                                            <TableCell>聯絡電話：</TableCell>
+                                            <TableCell>
+                                                <TextField label="Cellphone" defaultValue="0919478653" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>聯絡地址：</TableCell>
+                                            <TableCell colspan="3">
+                                                <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>緊急聯絡人：</TableCell>
+                                            <TableCell>
+                                                <TextField label="ContactpersonName" defaultValue="王俊凱" />
+                                            </TableCell>
+                                            <TableCell>緊急聯絡人關係：</TableCell>
+                                            <TableCell>
+                                                <TextField label="Relationship" defaultValue="父子" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>緊急連絡人電話：</TableCell>
+                                            <TableCell colspan="3">
+                                                <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                                <Box lineHeight={5} m={1}>
+                                    <div className={classes.button_part}>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button1}
+                                        >
+                                            取消更改
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button2}
+                                        >
+                                            確認更改
+                                        </Button>
+                                    </div>
+                                </Box>
+                            </form>
+                        </div>  
+                </Container>
             </div>
         </div>
     );

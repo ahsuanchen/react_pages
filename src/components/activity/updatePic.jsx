@@ -1,5 +1,4 @@
-import React ,{useState}from 'react';
-import axios from 'axios';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
@@ -61,7 +60,7 @@ const useStyles = makeStyles(theme => ({
 export default function DenseAppBar() {
     const classes = useStyles();
 
-    
+
 
     return (
         <div className={classes.root}>
@@ -70,7 +69,7 @@ export default function DenseAppBar() {
                 <Container component="main" maxWidth="md">
                     <CssBaseline />
                     <Typography component="h1" variant="h5" align="center">
-                        封面照
+                        修改封面照
                     </Typography>
                     <div className={classes.paper}>
                         <paper>
@@ -90,14 +89,10 @@ export default function DenseAppBar() {
                                 variant="outlined"
                                 align="center"
                                 >
-                                    上傳檔案
+                                    重新上傳
                             </Button>
 
-
-                                <IconButton color="primary" aria-label="next step" href="./new1">
-                                    <ArrowBackIcon />
-                                </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./new3">
+                                <IconButton color="primary" aria-label="next step" href="./updateInfo">
                                     <ArrowForwardIcon />
                                 </IconButton>
 

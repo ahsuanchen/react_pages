@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-
 import Container from '@material-ui/core/Container';
 
 
@@ -20,20 +18,18 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
+    space: {
+        marginTop: theme.spacing(5),
     },
 
     paper: {
-        marginTop: theme.spacing(8),
-
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: 'lightgrey',
+        background: '#dcedc8',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(40),
             height: theme.spacing(30),
         },
@@ -58,17 +54,8 @@ export default function DenseAppBar() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        返回首頁
-          </Typography>
-                </Toolbar>
-            </AppBar>
-            <Grid >
+            <Header/>
+            <Grid className={classes.space}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography component="h1" variant="h5" align="center">

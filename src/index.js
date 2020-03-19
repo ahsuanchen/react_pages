@@ -6,7 +6,7 @@ import './index.css';
 import ReactApp from './components/react-app.jsx';
 import signIn from './components/signs/signIn.jsx';
 import signUp from './components/signs/signup.jsx';
-import SignupInfor from './components/signs/signupinfor.jsx';
+import SignupInfo from './components/signs/signupinfo.jsx';
 import SettingFace from './components/signs/settingface.jsx';
 import Forgot1 from './components/signs/forgot1.jsx';
 import Forgot2 from './components/signs/forgot2.jsx';
@@ -16,6 +16,10 @@ import New1 from './components/activity/new1.jsx';
 import New1B from './components/activity/new1-button.jsx';
 import New2 from './components/activity/new2.jsx';
 import New3 from './components/activity/new3.jsx';
+import New4 from './components/activity/new4.jsx';
+import UpdatePic from './components/activity/updatePic.jsx';
+import UpdateInfo from './components/activity/updateInfo.jsx';
+import UpdateDetails from './components/activity/updateDetails.jsx';
 import Bar from './components/bar.jsx';
 import Homepage from './components/profile/editSignupInformation.jsx';
 import HomepageAfterLogin from './components/homepage/homepageAfterLogin.jsx';
@@ -24,6 +28,8 @@ import Profile from './components/profile/profile.jsx';
 import SignupSituation from './components/profile/signupSituation.jsx';
 import Test from './components/test.jsx';
 import TrainingFace from './components/profile/trainingFace.jsx';
+import OrganizerInfo from './components/profile/organizerInfo.jsx';
+import ManageActivity from './components/profile/manageActivity.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -31,10 +37,10 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={HomepageAfterLogin} />
+            <Route exact path="/" component={Profile} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
-            <Route path="/signupInfor" component={SignupInfor} />
+            <Route path="/signupInfo" component={SignupInfo} />
             <Route path="/settingFace" component={SettingFace} />
             <Route path="/forgot1" component={Forgot1} />
             <Route path="/forgot2" component={Forgot2} />
@@ -45,6 +51,10 @@ ReactDOM.render(
             <Route path="/new1-button" component={New1B} />
             <Route path="/new2" component={New2} />
             <Route path="/new3" component={New3} />
+            <Route path="/new4" component={New4} />
+            <Route path="/updatePic" component={UpdatePic} />
+            <Route path="/updateInfo" component={UpdateInfo} />
+            <Route path="/updateDetails" component={UpdateDetails} />
             <Route path="/editSignupInformation" component={Homepage} />
             <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
             <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
@@ -52,6 +62,8 @@ ReactDOM.render(
             <Route path="/signupSituation" component={SignupSituation} />
             <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
+            <Route path="/organizerInfo" component={OrganizerInfo} />
+            <Route path="/manageActivity" component={ManageActivity} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

@@ -20,7 +20,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        活動管理系統
+        ACTFUN
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -82,6 +82,10 @@ const useStyles = makeStyles(theme => ({
 export default function SignInSide() {
   const classes = useStyles();
 
+  
+
+  
+
   return (
     
       <Grid container component="main" className={classes.root}>
@@ -95,17 +99,15 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               登入
           </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate action = "/login" method = "post">
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="username"
                 label="帳號"
-                name="email"
-                autoComplete="email"
-                autoFocus
+                name="username"
               />
               <TextField
                 variant="outlined"
@@ -116,7 +118,6 @@ export default function SignInSide() {
                 label="密碼"
                 type="password"
                 id="password"
-                autoComplete="current-password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

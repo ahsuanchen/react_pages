@@ -11,14 +11,8 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import SaveIcon from '@material-ui/icons/Save';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -52,44 +46,33 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
-    img : {
-        margin : "2% 0" ,
-        minWidth : '150px' ,
-        maxHeight : '200px'
-    } ,
-    button : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+    topic : {
         margin : "2% auto" ,
+        textAlign : "center"
+    } ,
+    table : {
         display: "flex" ,
         justifyContent : "center" ,
+    } ,
+    button_part : {
+        margin : "2% 2%" ,
+        display: "flex" ,
+        justifyContent : "center" ,
+    } ,
+    button1 : {
+        background : '#ADADAD' ,
+        color : "#fff" ,
+        margin : "auto 2%" ,
+    } ,
+    button2 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        color : "#fff" ,
+        margin : "auto 2%" ,
     }
   }));
 
 export default function MenuAppBar() {
     const classes = useStyles();
-
-    const [value, setValue] = React.useState('male');
-
-    const handleChange = event => {
-      setValue(event.target.value);
-    };
-
-    const [blood, setblood] = React.useState("A");
-
-    const handleSelect = event => {
-        setblood(event.target.value);
-    };
-
-    const [Sclass, setClass] = useState([]);//Sclass
-    const classList = ['memberName','memberID','memberGender','memberBloodType','memberBirthday','memberBirthday','memberEmail','memberAddress'];
-    useEffect(() => {
-        async function fetchData() {
-            const result = await axios.get(`/HomePage1_s/one/406401628`);
-            setClass(result.data);
-            // console.log(result.data);
-        }
-        fetchData();
-    }, []);
 
     return (
         <div className={classes.div}>
@@ -105,7 +88,7 @@ export default function MenuAppBar() {
                                 </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
+                                <Box lineHeight={1} m={4}>
                                     個人檔案
                                 </Box>
                             </Link>
@@ -125,7 +108,7 @@ export default function MenuAppBar() {
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} >
+                                <Box lineHeight={1} m={4} color="#000">
                                     主辦單位資訊
                                 </Box>
                             </Link>    
@@ -145,101 +128,86 @@ export default function MenuAppBar() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">
-                                個 人 檔 案
+                                王 氏 集 團
                             </Typography>
                             <hr />
                         </div>
                         <div>
                             <form>
                                 <Box lineHeight="normal" m={1}>
-                                    <img className={classes.img} src="./img/profile.jpg" alt="img" />
+                                    <Typography variant="h4" className={classes.topic}>
+                                        主 辦 單 位 資 訊
+                                    </Typography>
                                 </Box>
-                                <Table>
+                                <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>姓名：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
+                                                <Typography variant="h6">
+                                                    主辦單位名稱：
+                                                </Typography>
                                             </TableCell>
-                                            <TableCell>身分證字號：</TableCell>
                                             <TableCell>
-                                                <input type="text" name="ID" disabled placeholder="A123456789" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>性別：</TableCell>
-                                            <TableCell>
-                                                <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
-                                                    <FormControlLabel value="male" control={<Radio color="default" />} label="男性"/>
-                                                    <FormControlLabel value="female" control={<Radio color="default" />} label="女性" />
-                                                    <FormControlLabel value="other" control={<Radio color="default" />} label="暫不透漏" />
-                                                </RadioGroup>
-                                            </TableCell>
-                                            <TableCell>血型：</TableCell>
-                                            <TableCell>
-                                                <FormControl style={{minWidth: "100px"}}>
-                                                    <InputLabel id="blood-type">Blood Type</InputLabel>
-                                                    <Select
-                                                        labelId="blood-type"
-                                                        value={blood}
-                                                        onChange={handleSelect}
-                                                    >
-                                                        <MenuItem value="A">A</MenuItem>
-                                                        <MenuItem value="B">B</MenuItem>
-                                                        <MenuItem value="AB">AB</MenuItem>
-                                                        <MenuItem value="O">O</MenuItem>
-                                                        <MenuItem value="RH">RH 陰性</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <TextField label="Organizer" defaultValue="王氏集團" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>生日：</TableCell>
                                             <TableCell>
-                                                <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
+                                                <Typography variant="h6">
+                                                    電子信箱：
+                                                </Typography>
                                             </TableCell>
-                                            <TableCell>聯絡電話：</TableCell>
                                             <TableCell>
-                                                <TextField label="Cellphone" defaultValue="0919478653" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>電子郵件：</TableCell>
-                                            <TableCell>
-                                                <TextField label="E-mail" style={{minWidth:"250px"}} defaultValue="aaa12345@gmail.com" />
-                                            </TableCell>
-                                            <TableCell>聯絡地址：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Address" style={{minWidth:"300px"}} defaultValue="新北市新莊區中正路510號" />
+                                                <TextField label="E-mail" defaultValue="actforfun@gmail.com" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>緊急聯絡人：</TableCell>
                                             <TableCell>
-                                                <TextField label="ContactpersonName" defaultValue="王俊凱" />
+                                                <Typography variant="h6">
+                                                    連絡電話：
+                                                </Typography>
                                             </TableCell>
-                                            <TableCell>緊急聯絡人關係：</TableCell>
                                             <TableCell>
-                                                <TextField label="Relationship" defaultValue="父子" />
+                                                <TextField label="ContactPhone" defaultValue="02-29052000" />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>緊急連絡人電話：</TableCell>
-                                            <TableCell colspan="3">
-                                                <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
+                                            <TableCell>
+                                                <Typography variant="h6">
+                                                    聯絡地址：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                            <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Typography variant="h6">
+                                                    主辦單位簡介：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextareaAutosize defaultValue="本集團創立於2020年，有感於世界潮流之所趨及未來社會對資訊網路之需求，我們期望將關懷投注於廣大的社會上，與工商企業界緊密結合，以本集團為中心，結合工商企業界及政府機構之力量，促進提昇全國性資訊網路水準。" style={{minWidth:"350px" , minHeight:"250px"}}/>
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
                                 </Table>
                                 <Box lineHeight={5} m={1}>
-                                    <Button
-                                        className={classes.button}
-                                        variant="contained"
-                                        color="primary"
-                                        startIcon={<SaveIcon />}
-                                    >
-                                        儲存更新
-                                    </Button>
+                                    <div className={classes.button_part}>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button1}
+                                        >
+                                            取消更改
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            className={classes.button2}
+                                        >
+                                            確認更改
+                                        </Button>
+                                    </div>
                                 </Box>
                             </form>
                         </div>  

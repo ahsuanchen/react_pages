@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Header from './header3.jsx';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
@@ -74,16 +75,7 @@ export default function SpacingGrid() {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        返回首頁
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <Header/>
             <CssBaseline />
             <Typography component="h1" variant="h5" align="center">
                 基本資訊
