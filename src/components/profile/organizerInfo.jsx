@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "center" ,
     } ,
     button_part : {
-        margin : "2% 2%" ,
+        margin : "2%" ,
         display: "flex" ,
         justifyContent : "center" ,
     } ,

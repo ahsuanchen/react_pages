@@ -1,5 +1,6 @@
-import React from 'react';
+import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Header from '../header/PF_header2.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
@@ -85,18 +86,51 @@ export default function MenuAppBar() {
         setblood(event.target.value);
     };
 
+    const [member, setMember] = useState([]);
+    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    useEffect(() => {
+        async function fetchDataMem() {
+                const result = await axios.get("/api/member/actforfun@gmail.com")
+                setMember(result.data);
+                console.log(result);           
+                // .then(result => {
+                //     setMember(result.data)
+                //     console.log(result)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataMem();
+    }, []);
+
+    const [organizer, setOrganizer] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataOrg() {
+                const result = await axios.get("/api/organizer/actforfun@gmail.com");
+                setOrganizer(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataOrg();
+    }, []);
+
     return (
         <div className={classes.div}>
             <Header />
             <div className={classes.left_menu}>
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
-                                <Box lineHeight="normal" m={4}>
-                                    <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                                </Box>
-                                <Box lineHeight={2} m={1}>
-                                    王小明
-                                </Box>
+                            <Box lineHeight="normal" m={4}>
+                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                            </Box>
+                            <Box lineHeight={2} m={1}>
+                                {member.memberName}
+                            </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
@@ -115,7 +149,7 @@ export default function MenuAppBar() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                王氏集團
+                                {organizer.organizerName}
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>

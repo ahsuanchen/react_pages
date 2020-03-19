@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Header from '../header/PF_header1.jsx';
+import Header from '../header/PF_header2.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -22,6 +22,7 @@ import TableCell from '@material-ui/core/TableCell';
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -57,29 +58,25 @@ const useStyles = makeStyles(theme => ({
     activity_part : {
         margin : "5% auto" ,
     } ,
-    topic_part : {
-        margin : "2%" ,
-    } ,
-    content_part : {
-        margin : "2%" ,
-        borderRight : "2px solid" ,
-    } ,
     button_part : {
-        margin : "auto 2%" ,
-        display: "grid" ,
-        justifyContent : "center" ,
+        margin : "2%" ,
+        display: "flex" ,
+        justifyContent : "flex-start" ,
     } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
-        minWidth : "125px"
+    } , 
+    button1 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        color : "#fff" ,
+        margin : "2% 1%" ,
     } ,
-    open_paper : {
-        maxWidth : '500px' ,
-        maxHeight : '600px' ,
-        background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
-        margin : "auto" ,
-    } ,
+    button2 : {
+        background : 'linear-gradient(50deg, #FF0000 30%, #EA0000 70%)' ,
+        color : "#fff" ,
+        margin : "2% 1%" ,
+    }
   }));
 
 export default function ManageActivity() {
@@ -91,13 +88,7 @@ export default function ManageActivity() {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
                 setMember(result.data);
-                console.log(result);           
-                // .then(result => {
-                //     setMember(result.data)
-                //     console.log(result)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                // console.log(result);
         }
         fetchDataMem();
     }, []);
@@ -107,13 +98,7 @@ export default function ManageActivity() {
     useEffect(() => {
         async function fetchDataOrg() {
                 const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);             
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                setOrganizer(result.data);
         }
         fetchDataOrg();
     }, []);
@@ -122,7 +107,7 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/activity/actforfun@gmail.com");
+                const result = await axios.get("/api/activity/1");
                 setActivity(result.data);             
                 // .then(res => {
                 //     setMember(res.data)
@@ -188,7 +173,7 @@ export default function ManageActivity() {
                 <Container className={classes.content}>
                     <div>
                         <Typography variant="h4">
-                            管 理 活 動
+                            參 加 者 名 單
                         </Typography>
                         <hr />
                     </div>
@@ -201,8 +186,8 @@ export default function ManageActivity() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
-                                        我所主辦的活動
+                                    <Typography variant="h5">
+                                        三校六系聯合聖誕舞會 參加者名單
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
@@ -210,21 +195,54 @@ export default function ManageActivity() {
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
                                             <Paper>
+                                                <Box lineHeight={5} m={1}>
+                                                    <div className={classes.button_part}>
+                                                        <Button
+                                                            variant="contained"
+                                                            className={classes.button1}
+                                                        >
+                                                            新增參加者
+                                                        </Button>
+                                                        <Tooltip title="匯出成Excel檔">
+                                                            <Button
+                                                                variant="contained"
+                                                                className={classes.button1}
+                                                            >
+                                                                匯出名單
+                                                            </Button>
+                                                        </Tooltip>
+                                                        <Button
+                                                            variant="contained"
+                                                            className={classes.button2}
+                                                        >
+                                                            一鍵刪除
+                                                        </Button>
+                                                    </div>
+                                                </Box>
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">活動名稱</TableCell>
-                                                            <TableCell align="center">活動時間</TableCell>
-                                                            <TableCell align="center">可報名總額/已報名人數</TableCell>
+                                                            <TableCell align="center">
+                                                                <input type="checkbox"/>
+                                                            </TableCell>
+                                                            <TableCell align="center">編號</TableCell>
+                                                            <TableCell align="center">姓名</TableCell>
+                                                            <TableCell align="center">手機</TableCell>
+                                                            <TableCell align="center">Email</TableCell>
+                                                            <TableCell align="center">報名狀況</TableCell>
                                                             <TableCell align="center">功能</TableCell>
-                                                            <TableCell align="center">活動狀況</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">三校六系聯合聖誕舞會</TableCell>
-                                                            <TableCell align="center">2020-12-23 (三)</TableCell>
-                                                            <TableCell align="center">600/300</TableCell>
+                                                            <TableCell align="center">
+                                                                <input type="checkbox"/>
+                                                            </TableCell>
+                                                            <TableCell align="center">001</TableCell>
+                                                            <TableCell align="center">劉志宏</TableCell>
+                                                            <TableCell align="center">0989-753491</TableCell>
+                                                            <TableCell align="center">test1@gmial.com</TableCell>
+                                                            <TableCell align="center">報名成功</TableCell>
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -232,7 +250,7 @@ export default function ManageActivity() {
                                                                     component={Link}
                                                                     to="/participantList"
                                                                 >
-                                                                    參加者名單
+                                                                    編輯資料
                                                                 </Button>
                                                                 <br /><br />
                                                                 <Button
@@ -241,28 +259,9 @@ export default function ManageActivity() {
                                                                     component={Link}
                                                                     to="/"
                                                                 >
-                                                                    分發/上傳照片
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
-                                                                >
-                                                                    修改活動
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
-                                                                >
-                                                                    刪除活動
+                                                                    刪除資料
                                                                 </Button>
                                                             </TableCell>
-                                                            <TableCell align="center">報名中</TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                 </Table>

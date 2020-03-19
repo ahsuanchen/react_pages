@@ -27,6 +27,7 @@ import Test from './components/test.jsx';
 import TrainingFace from './components/profile/trainingFace.jsx';
 import OrganizerInfo from './components/profile/organizerInfo.jsx';
 import ManageActivity from './components/profile/manageActivity.jsx';
+import ParticipantList from './components/profile/participantList.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -57,6 +58,7 @@ ReactDOM.render(
             <Route path="/trainingFace" component={TrainingFace} />
             <Route path="/organizerInfo" component={OrganizerInfo} />
             <Route path="/manageActivity" component={ManageActivity} />
+            <Route path="/participantList" component={ParticipantList} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

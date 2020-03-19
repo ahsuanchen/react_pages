@@ -70,6 +70,39 @@ const useStyles = makeStyles(theme => ({
 export default function SignupSituation() {
     const classes = useStyles();
 
+    const [member, setMember] = useState([]);
+    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    useEffect(() => {
+        async function fetchDataMem() {
+                const result = await axios.get("/api/member/actforfun@gmail.com")
+                setMember(result.data);
+                console.log(result);           
+                // .then(result => {
+                //     setMember(result.data)
+                //     console.log(result)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataMem();
+    }, []);
+
+    const [organizer, setOrganizer] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataOrg() {
+                const result = await axios.get("/api/organizer/actforfun@gmail.com");
+                setOrganizer(result.data);             
+                // .then(res => {
+                //     setMember(res.data)
+                //     console.log(res)
+                // }).catch(err => {
+                //     console.log(err)
+                // })
+        }
+        fetchDataOrg();
+    }, []);
+
     const [activity, setActivity] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
@@ -97,7 +130,7 @@ export default function SignupSituation() {
                                 <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                             </Box>
                             <Box lineHeight={2} m={1}>
-                                王小明
+                                {member.memberName}
                             </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
@@ -117,7 +150,7 @@ export default function SignupSituation() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                王氏集團
+                                {organizer.organizerName}
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>

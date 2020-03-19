@@ -27,7 +27,7 @@ export default function MenuAppBar() {
             <AppBar className={classes.appbar}>
                 <Toolbar>
                     <Button 
-                         edge="start"
+                        edge="start"
                         color="inherit"
                         className={classes.button}
                         component={Link}
