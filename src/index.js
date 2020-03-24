@@ -64,7 +64,6 @@ import HomepageAfterLogin from './components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from './components/Homepage/homepageBeforeLogin.jsx';
 import Profile from './components/Profile/profile.jsx';
 import SignupSituation from './components/Profile/signupSituation.jsx';
-import Test from './components/test.jsx';
 import TrainingFace from './components/Profile/trainingFace.jsx';
 import OrganizerInfo from './components/Profile/organizerInfo.jsx';
 import ManageActivity from './components/Profile/manageActivity.jsx';
@@ -96,7 +95,6 @@ ReactDOM.render(
             <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
             <Route path="/profile" component={Profile} />
             <Route path="/signupSituation" component={SignupSituation} />
-            <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
             <Route path="/organizerInfo" component={OrganizerInfo} />
             <Route path="/manageActivity" component={ManageActivity} />
