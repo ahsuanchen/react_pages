@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 export default function News(props) {
   const classes = useStyles();
     return (
-      <div>
+
       <Container maxWidth="md">
         <Grid container direction="column" className={classes.root}>
           <HomeTextField/>
@@ -30,6 +30,6 @@ export default function News(props) {
 
         </Grid>
       </Container>
-      </div>
+
     );
 }
