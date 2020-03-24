@@ -8,13 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+// import Grid from '@material-ui/core/Grid';
+// import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -22,10 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-// import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -82,7 +78,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ManageActivity() {
+export default function AddParticipant() {
     const classes = useStyles();
 
     const [gender, setgender] = React.useState();
