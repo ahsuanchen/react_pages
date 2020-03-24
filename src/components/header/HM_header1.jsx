@@ -1,21 +1,21 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Drawer from '@material-ui/core/Drawer';
-import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Button from '@material-ui/core/Button';
-import { faHome , faTasks , faQuestionCircle , faEnvelope , } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React from './node_modules/react';
+import { makeStyles } from './node_modules/@material-ui/core/styles';
+import { Link } from './node_modules/react-router-dom';
+import AppBar from './node_modules/@material-ui/core/AppBar';
+import Toolbar from './node_modules/@material-ui/core/Toolbar';
+import Drawer from './node_modules/@material-ui/core/Drawer';
+import Box from './node_modules/@material-ui/core/Box';
+import Divider from './node_modules/@material-ui/core/Divider';
+import List from './node_modules/@material-ui/core/List';
+import ListItem from './node_modules/@material-ui/core/ListItem';
+import ListItemIcon from './node_modules/@material-ui/core/ListItemIcon';
+import ListItemText from './node_modules/@material-ui/core/ListItemText';
+import Typography from './node_modules/@material-ui/core/Typography';
+import IconButton from './node_modules/@material-ui/core/IconButton';
+import MenuIcon from './node_modules/@material-ui/icons/Menu';
+import Button from './node_modules/@material-ui/core/Button';
+import { faHome , faTasks , faQuestionCircle , faEnvelope , } from "./node_modules/@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "./node_modules/@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles(theme => ({
     div : {

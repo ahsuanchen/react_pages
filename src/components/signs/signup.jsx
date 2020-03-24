@@ -1,17 +1,17 @@
-import React from 'react';
+import React from './node_modules/react';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
+import Button from './node_modules/@material-ui/core/Button';
+import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
+import TextField from './node_modules/@material-ui/core/TextField';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
+import Typography from './node_modules/@material-ui/core/Typography';
 //import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import Grid from './node_modules/@material-ui/core/Grid';
 //import { ICON_NAME } from "react-icons/io";
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import ChevronRightIcon from './node_modules/@material-ui/icons/ChevronRight';
+import { makeStyles } from './node_modules/@material-ui/core/styles';
+import Container from './node_modules/@material-ui/core/Container';
 
 
 

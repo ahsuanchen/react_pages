@@ -1,20 +1,20 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
+import React from './node_modules/react';
+import { makeStyles } from './node_modules/@material-ui/core/styles';
+import AppBar from './node_modules/@material-ui/core/AppBar';
+import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
+import Toolbar from './node_modules/@material-ui/core/Toolbar';
+import Typography from './node_modules/@material-ui/core/Typography';
+import IconButton from './node_modules/@material-ui/core/IconButton';
+import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
+import ArrowBackIcon from './node_modules/@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from './node_modules/@material-ui/icons/ArrowForward';
+import GridList from './node_modules/@material-ui/core/GridList';
+import GridListTile from './node_modules/@material-ui/core/GridListTile';
+import GridListTileBar from './node_modules/@material-ui/core/GridListTileBar';
+import StarBorderIcon from './node_modules/@material-ui/icons/StarBorder';
 //import tileData from './tileData';
 import image from './logo1.png';
-import { blue } from '@material-ui/core/colors';
+import { blue } from './node_modules/@material-ui/core/colors';
 
 
 const tileData = [

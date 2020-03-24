@@ -1,17 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
+import React from './node_modules/react';
+import { makeStyles } from './node_modules/@material-ui/core/styles';
+import AppBar from './node_modules/@material-ui/core/AppBar';
+import Toolbar from './node_modules/@material-ui/core/Toolbar';
+import Typography from './node_modules/@material-ui/core/Typography';
+import IconButton from './node_modules/@material-ui/core/IconButton';
+import TextField from './node_modules/@material-ui/core/TextField';
 //import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
+import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
+import ArrowForwardIcon from './node_modules/@material-ui/icons/ArrowForward';
+import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
+import Grid from './node_modules/@material-ui/core/Grid';
 
-import Container from '@material-ui/core/Container';
+import Container from './node_modules/@material-ui/core/Container';
 
 
 
