@@ -184,18 +184,17 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberName} />
+                                            <TextField variant="outlined" value={member.memberName} disabled />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
                                             <TextField variant="outlined" value={member.memberID} disabled />
-                                            {/* <input type="text" name="ID" disabled placeholder={member.memberID} /> */}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
-                                            <RadioGroup name="gender" defaultValue={member.memberGender}>
+                                            <RadioGroup name="gender" value={member.memberGender} disabled>
                                                 <FormControlLabel checked={member.memberGender === "male"} control={<Radio color="default" />} label="男性" />
                                                 <FormControlLabel checked={member.memberGender === "female"} control={<Radio color="default" />} label="女性" />
                                                 <FormControlLabel checked={member.memberGender === "unknown"} control={<Radio color="default" />} label="暫不透漏" />
@@ -203,7 +202,7 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
-                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
+                                            <FormControl style={{ minWidth: "100px" }} variant="outlined" disabled>
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}
@@ -220,37 +219,37 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}} />
+                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}} disabled />
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberPhone} />
+                                            <TextField variant="outlined" value={member.memberPhone} disabled />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>電子郵件：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} />
+                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} />
+                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} disabled />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContact} />
+                                            <TextField variant="outlined" value={member.emergencyContact} disabled />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContactRelation} />
+                                            <TextField variant="outlined" value={member.emergencyContactRelation} disabled/>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField variant="outlined" value={member.emergencyContactPhone} />
+                                            <TextField variant="outlined" value={member.emergencyContactPhone} disabled />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
