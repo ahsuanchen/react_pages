@@ -183,8 +183,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signUp"
-                                
+                                href="./signup"
                             >
                                 <ChevronLeftIcon />
                                 上一步
@@ -195,7 +194,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./settingFace"
+                                href="./settingface"
                             >
                                 <ChevronRightIcon />
                                 下一步

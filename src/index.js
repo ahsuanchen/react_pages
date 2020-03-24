@@ -1,3 +1,44 @@
+/*
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ProductList from './components/click.js';
+
+ReactDOM.render(<ProductList />,document.getElementById('root'));
+*/
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+
+// import './index.css';
+// import ReactApp from './App.js';
+// import Act from 'pages/Home/index';
+// import Index from 'pages/Test/test';
+// import * as serviceWorker from './serviceWorker';
+
+// ReactDOM.render(
+//   <Router>
+//   <Switch>
+//       <Route path="/Index" component={Index}/>
+//       <Route path="/Act" component={Act}/>
+//       <Route path="/" component={ReactApp}/>
+//   </Switch>
+//   </Router>,
+//   document.getElementById('root')
+
+// );
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -21,15 +62,16 @@ import UpdatePic from './components/activity/updatePic.jsx';
 import UpdateInfo from './components/activity/updateInfo.jsx';
 import UpdateDetails from './components/activity/updateDetails.jsx';
 import Bar from './components/bar.jsx';
-import Homepage from './components/profile/editSignupInformation.jsx';
-import HomepageAfterLogin from './components/homepage/homepageAfterLogin.jsx';
-import HomepageBeforeLogin from './components/homepage/homepageBeforeLogin.jsx';
-import Profile from './components/profile/profile.jsx';
-import SignupSituation from './components/profile/signupSituation.jsx';
-import Test from './components/test.jsx';
-import TrainingFace from './components/profile/trainingFace.jsx';
-import OrganizerInfo from './components/profile/organizerInfo.jsx';
-import ManageActivity from './components/profile/manageActivity.jsx';
+import Homepage from './components/Profile/editSignupInformation.jsx';
+import HomepageAfterLogin from './components/Homepage/homepageAfterLogin.jsx';
+import HomepageBeforeLogin from './components/Homepage/homepageBeforeLogin.jsx';
+import Profile from './components/Profile/profile.jsx';
+import SignupSituation from './components/Profile/signupSituation.jsx';
+import TrainingFace from './components/Profile/trainingFace.jsx';
+import OrganizerInfo from './components/Profile/organizerInfo.jsx';
+import ManageActivity from './components/Profile/manageActivity.jsx';
+import ParticipantList from './components/Profile/participantList.jsx';
+import AddParticipant from './components/Profile/addParticipant.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -37,7 +79,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={Profile} />
+            <Route exact path="/" component={HomepageAfterLogin} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
             <Route path="/signupInfo" component={SignupInfo} />
@@ -60,10 +102,11 @@ ReactDOM.render(
             <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
             <Route path="/profile" component={Profile} />
             <Route path="/signupSituation" component={SignupSituation} />
-            <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
             <Route path="/organizerInfo" component={OrganizerInfo} />
             <Route path="/manageActivity" component={ManageActivity} />
+            <Route path="/participantList" component={ParticipantList} />
+            <Route path="/addParticipant" component={AddParticipant} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 
 
 
+
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
@@ -101,7 +102,7 @@ export default function Finish() {
                                 className={classes.submit}
                                 variant="outlined"
                                 align="center"
-                                href="./signin"
+                                href="./signinside"
                                 >
                                     登入
                             </Button>
