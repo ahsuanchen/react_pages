@@ -283,6 +283,8 @@ export default function MenuAppBar() {
                                         <Button
                                             variant="contained"
                                             className={classes.button1}
+                                            component={Link}
+                                            to="/signupSituation"
                                         >
                                             取消更改
                                         </Button>

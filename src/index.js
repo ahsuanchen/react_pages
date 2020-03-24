@@ -36,7 +36,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
     <BrowserRouter>
         <Switch>
-            <Route exact path="/" component={HomepageBeforeLogin} />
+            <Route exact path="/" component={HomepageAfterLogin} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
             <Route path="/signupInfor" component={SignupInfor} />

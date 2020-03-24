@@ -279,6 +279,8 @@ export default function ManageActivity() {
                                     <Button
                                         className={classes.button1}
                                         variant="contained"
+                                        component={Link}
+                                        to="/participantList"
                                     >
                                         取消新增
                                     </Button>
