@@ -153,7 +153,8 @@ export default function MenuApp() {
                     <Tooltip title="新增">
                         <Fab 
                             className={classes.fab}
-                            
+                            component={Link}
+                            to="/"
                         >
                             <FontAwesomeIcon icon={faPlus} />
                         </Fab>
