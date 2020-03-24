@@ -51,7 +51,7 @@ export default function NestedList(props) {
       {
         //路徑連結
         props.routes.map((page, key) => (
-        <ListItem button component={ MyLink } to={ page.path } onClick={ handleClick }>
+        <ListItem button component={ MyLink } to={ page.path } onClick={ handleClick } key={key}>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
