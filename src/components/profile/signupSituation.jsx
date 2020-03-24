@@ -76,7 +76,7 @@ export default function SignupSituation() {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
                 setMember(result.data);
-                console.log(result);           
+                // console.log(result);           
                 // .then(result => {
                 //     setMember(result.data)
                 //     console.log(result)
@@ -107,7 +107,7 @@ export default function SignupSituation() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataAct() {
-                const result = await axios.get("/api/activity/");
+                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com");
                 setActivity(result.data);
                 console.log(result);            
                 // .then(res => {
@@ -178,8 +178,7 @@ export default function SignupSituation() {
                         </Typography>
                         <hr />
                     </div>
-                    <div className={classes.activity_part}>
-                        {activity.map(activity => 
+                    <div className={classes.activity_part}> 
                         <Box lineHeight="normal" m={1}>
                             <ExpansionPanel defaultExpanded>
                                 <ExpansionPanelSummary
@@ -193,6 +192,7 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
+                                {activity.map(activity =>
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -275,6 +275,7 @@ export default function SignupSituation() {
                                                 </Grid>
                                             </Paper>
                                         </Grid>
+                                        
                                         {/* <Grid item xs={12}>
                                             <Paper>
                                                 <Grid container>
@@ -349,7 +350,9 @@ export default function SignupSituation() {
                                         </Grid> */}
                                     </Grid>
                                 </ExpansionPanelDetails>
+                                )}
                             </ExpansionPanel>
+                            
                             <ExpansionPanel defaultExpanded>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -523,7 +526,6 @@ export default function SignupSituation() {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>  
                         </Box>
-                        )}
                     </div>
                 </Container>
             </div>

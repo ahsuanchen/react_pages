@@ -122,7 +122,7 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/activity/actforfun@gmail.com");
+                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com");
                 setActivity(result.data);             
                 // .then(res => {
                 //     setMember(res.data)
@@ -221,10 +221,20 @@ export default function ManageActivity() {
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
+                                                    {activity.map(activity =>
                                                         <TableRow hover>
-                                                            <TableCell align="center">三校六系聯合聖誕舞會</TableCell>
-                                                            <TableCell align="center">2020-12-23 (三)</TableCell>
-                                                            <TableCell align="center">600/300</TableCell>
+                                                            <TableCell align="center">
+                                                                {activity.activityName}
+                                                                {/* 三校六系聯合聖誕舞會 */}
+                                                            </TableCell>
+                                                            <TableCell align="center">
+                                                                {activity.activityStartDate}
+                                                                {/* 2020-12-23 (三) */}
+                                                            </TableCell>
+                                                            <TableCell align="center">
+                                                                {activity.attendPeople}
+                                                                {/* 600/300 */}
+                                                            </TableCell>
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -264,6 +274,7 @@ export default function ManageActivity() {
                                                             </TableCell>
                                                             <TableCell align="center">報名中</TableCell>
                                                         </TableRow>
+                                                        )}
                                                     </TableBody>
                                                 </Table>
                                             </Paper>

@@ -28,6 +28,7 @@ import TrainingFace from './components/profile/trainingFace.jsx';
 import OrganizerInfo from './components/profile/organizerInfo.jsx';
 import ManageActivity from './components/profile/manageActivity.jsx';
 import ParticipantList from './components/profile/participantList.jsx';
+import AddParticipant from './components/profile/addParticipant.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -59,6 +60,7 @@ ReactDOM.render(
             <Route path="/organizerInfo" component={OrganizerInfo} />
             <Route path="/manageActivity" component={ManageActivity} />
             <Route path="/participantList" component={ParticipantList} />
+            <Route path="/addParticipant" component={AddParticipant} />
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

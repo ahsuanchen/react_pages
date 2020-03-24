@@ -19,8 +19,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+// import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -158,7 +158,7 @@ export default function ManageActivity() {
                                 </Box>
                             </Link>    
                             <Link to="/manageActivity" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
+                                <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
                             </Link>
@@ -200,6 +200,8 @@ export default function ManageActivity() {
                                                         <Button
                                                             variant="contained"
                                                             className={classes.button1}
+                                                            component={Link}
+                                                            to="/addParticipant"
                                                         >
                                                             新增參加者
                                                         </Button>
@@ -207,6 +209,7 @@ export default function ManageActivity() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button1}
+                                                                // onClick={}
                                                             >
                                                                 匯出名單
                                                             </Button>

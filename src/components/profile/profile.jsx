@@ -184,11 +184,12 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField value={member.memberName} />
+                                            <TextField variant="outlined" value={member.memberName} />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
-                                            <input type="text" name="ID" disabled placeholder={member.memberID} />
+                                            <TextField variant="outlined" value={member.memberID} disabled />
+                                            {/* <input type="text" name="ID" disabled placeholder={member.memberID} /> */}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -202,7 +203,7 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
-                                            <FormControl style={{ minWidth: "100px" }}>
+                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}
@@ -219,37 +220,37 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField type="datetime" value={member.memberBirthday} InputLabelProps={{shrink: true}} />
+                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}} />
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField value={member.memberPhone} />
+                                            <TextField variant="outlined" value={member.memberPhone} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>電子郵件：</TableCell>
                                         <TableCell>
-                                            <TextField style={{ minWidth: "250px" }} value={member.memberEmail} />
+                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField style={{ minWidth: "300px" }} value={member.memberAddress} />
+                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField value={member.emergencyContact} />
+                                            <TextField variant="outlined" value={member.emergencyContact} />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField value={member.emergencyContactRelation} />
+                                            <TextField variant="outlined" value={member.emergencyContactRelation} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField value={member.emergencyContactPhone} />
+                                            <TextField variant="outlined" value={member.emergencyContactPhone} />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
