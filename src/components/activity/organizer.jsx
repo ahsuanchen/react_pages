@@ -68,10 +68,9 @@ export default function DenseAppBar() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="name"
+                                id="organizerName"
                                 label="主辦單位名稱"
-                                name="name"
-                                autoFocus
+                                name="organizerName"
                                 variant="outlined"
                             />
 
@@ -79,10 +78,9 @@ export default function DenseAppBar() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
+                                id="organizerEmail"
                                 label="主辦單位信箱"
-                                name="email"
-                                autoFocus
+                                name="organizerEmail"
                                 variant="outlined"
                             />
 
@@ -90,29 +88,29 @@ export default function DenseAppBar() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="phone"
+                                id="organizerPhone"
                                 label="主辦單位電話號碼"
-                                name="phone"
-                                autoFocus
+                                name="organizerPhone"
                                 variant="outlined"
                             />
 
                             <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="intro"
-                                    label="主辦單位簡介"
-                                    multiline
-                                    rows="4"
-                                    placeholder="上限一百字"
-                                    variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="organizerInfo"
+                                name="organizerInfo"
+                                label="主辦單位簡介"
+                                multiline
+                                rows="4"
+                                placeholder="上限一百字"
+                                variant="outlined"
                             />
 
 
-                                <IconButton color="primary" aria-label="next step" href="./new1-button">
-                                    <ArrowForwardIcon />
-                                </IconButton>
+                            <IconButton color="primary" aria-label="next step" href="./new1-button">
+                                <ArrowForwardIcon />
+                            </IconButton>
 
                         </form>
                     </paper>

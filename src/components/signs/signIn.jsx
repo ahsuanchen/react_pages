@@ -38,23 +38,26 @@ const useStyles = makeStyles(theme => ({
 },
 
   root: {
-    height: '100vh',
-    margin: theme.spacing(10, 15 ),
+    height: '80vh',
+    width:'85%',
+    margin: theme.spacing(10,25),
+    // height: '100vh',
+    // margin: theme.spacing(10, 15),
 
     //borderRadius: 10,
     //border: 0,
     
   },
   paperout:{
-    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    background: '#a5d6a7',
   },
 
   image: {
     //backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundImage: 'url(./img/logo1.png)',
+    backgroundImage: 'url(./img/logot.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor: 
-      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+      theme.palette.type === 'dark' ? theme.palette.grey[500] : theme.palette.grey[50],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -64,14 +67,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     color: 'white',
-    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    background: '#a5d6a7',
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -139,7 +142,7 @@ export default function SignInSide() {
                 </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signUp" variant="body2">
+                  <Link href="signup" variant="body2">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

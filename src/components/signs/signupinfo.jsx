@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
-//單選
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';

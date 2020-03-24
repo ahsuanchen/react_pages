@@ -10,18 +10,14 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-//下拉式選單
-import InputLabel from '@material-ui/core/InputLabel';
-//import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-//import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-//以上
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
-import blue from '@material-ui/core/colors/blue';
-
+import { green } from '@material-ui/core/colors';
 
 const BootstrapInput = withStyles(theme => ({
     root: {
@@ -101,6 +97,17 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+//radio 顏色設定
+const GreenRadio = withStyles({
+    root: {
+        color: green[400],
+        '&$checked': {
+            color: green[600],
+        },
+    },
+    checked: {},
+})(props => <Radio color="default" {...props} />);
+
 export default function DenseAppBar() {
     const classes = useStyles();
 
@@ -130,51 +137,63 @@ export default function DenseAppBar() {
                     <div className={classes.paper}>
                         <paper>
                             <form className={classes.form} noValidate>
-                                <TextField
+                            <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="name"
+                                    id="activityName"
                                     label="活動名稱"
-                                    name="name"
+                                    name="activityName"
                                     variant="outlined"
                                     placeholder="請填寫活動名稱"
+                                    //onChange={e=>setactivityName(e.target.value)}
                                 />
 
 
-                                <TextField 
+                            <TextField 
                                     margin="normal"
                                     width="70%"
                                     label="活動開始日期" 
                                     type="date" 
+                                    id="activityStartDate"
+                                    name="activityStartDate"
                                     defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
+                                    InputLabelProps={{shrink: true,}}
+                                    //onChange={e=>setactivityStartDate(e.target.value)}
                                 />
 
-                                <TextField 
-                                    margin="normal"
-                                    Width='60'
-                                    label="活動開始時間" 
-                                    type="time" 
-                                    InputLabelProps={{shrink: true,}} 
+                            <TextField 
+                                margin="normal"
+                                Width='60'
+                                label="活動開始時間" 
+                                type="time" 
+                                id="activityStartDate"
+                                name="activityStartDate"
+                                InputLabelProps={{shrink: true,}} 
+                                //onChange={e=>setactivityStartDate(e.target.value)}
                                 />
 
-                                <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束日期" 
-                                    type="date" 
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
+                            <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="活動結束日期" 
+                                type="date" 
+                                id="activityEndDate"
+                                name="activityEndDate"
+                                defaultValue={new Date().getFullYear()}
+                                InputLabelProps={{shrink: true,}} 
+                                //onChange={e=>setactivityEndDate(e.target.value)}
                                 />
 
-                                <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束時間" 
-                                    type="time" 
-                                    defaultValue="07:00"
-                                    InputLabelProps={{shrink: true,}} 
+                            <TextField 
+                                margin="normal"
+                                Width="50%"
+                                label="活動結束時間" 
+                                type="time" 
+                                id="activityEndDate"
+                                name="activityEndDate"
+                                InputLabelProps={{shrink: true,}}
+                                //onChange={e=>setactivityEndDate(e.target.value)} 
                                 />
 
                                 <TextField 
@@ -212,80 +231,79 @@ export default function DenseAppBar() {
                                     InputLabelProps={{shrink: true,}} 
                                 />
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>縣市</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={city}
-                                        onChange={handleChange5}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>台北市</option>
-                                        <option value={2}>新北市</option>
-                                        <option value={3}>桃園市</option>
-                                        <option value={4}>台中市</option>
-                                        <option value={5}>台南市</option>
-                                        <option value={6}>高雄市</option>
-                                    </NativeSelect>
 
-                                </FormControl>
 
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>區/鄉/鎮</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={area}
-                                        onChange={handleChange6}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>新莊區</option>
-                                        <option value={2}>板橋區</option>
-                                        <option value={3}>三重區</option>
-                                    </NativeSelect>
 
-                                </FormControl>
-
+                                
                                 <TextField
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="phone"
                                     label="地址"
-                                    name="adress"
+                                    id="activityAddress"
+                                    name="activityAddress"
                                     variant="outlined"
+                                    //onChange={e=>setactivityAddress(e.target.value)}
                                 />
 
 
                                 <TextField
                                     margin="normal"
                                     fullWidth
-                                    id="name"
                                     label="參考網站名稱（例：Facebook）"
-                                    name="name"
+                                    id="activityWeb"
+                                    name="activityWeb"
                                     variant="outlined"
+                                    //onChange={e=>setactivityWeb(e.target.value)}
                                 />
 
                                 <TextField
                                     margin="normal"
                                     fullWidth
                                     type="url"
-                                    id="link"
                                     label="參考網站連結"
-                                    name="link"
+                                    id="activityLink"
+                                    name="activityLink"
                                     variant="outlined"
+                                    //onChange={e=>setactivityWebLink(e.target.value)}
                                 />
 
+                                
+                             <FormControl component="fieldset" className={classes.formControl}>
+                                <FormLabel component="legend">是否供餐</FormLabel>
+                                <RadioGroup 
+                                    aria-label="是否供餐" 
+                                    name="activityMeal" 
+                                    // value={value} 
+                                    // onChange={e=>setactivityMeal(e.target.value)} 
+                                >
+                                    <Grid container>
+                                        <Grid item> 
+                                        <FormControlLabel 
+                                            value="yes" 
+                                            control={<GreenRadio />} 
+                                            label="是" 
+                                        />
+                                        </Grid>
+
+                                        <Grid item>
+                                            <FormControlLabel 
+                                            value="no" 
+                                            control={<GreenRadio />} 
+                                            label="否" 
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </RadioGroup>
+                            </FormControl>
+                            <Grid>
                                 <IconButton color="primary" aria-label="next step" href="./updatePic">
                                     <ArrowBackIcon />
                                 </IconButton>
                                 <IconButton color="primary" aria-label="next step" href="./updateDetails">
                                     <ArrowForwardIcon />
                                 </IconButton>
-
+                            </Grid>
                             </form>
                         </paper>
                         <Grid align-items-xs-flex-end>

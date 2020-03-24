@@ -11,21 +11,15 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-// 下拉式選單
-// import InputLabel from '@material-ui/core/InputLabel';
-// import MenuItem from '@material-ui/core/MenuItem';
-// import FormControl from '@material-ui/core/FormControl';
-// import FormHelperText from '@material-ui/core/FormHelperText';
-// import Select from '@material-ui/core/Select';
-// import NativeSelect from '@material-ui/core/NativeSelect';
- import InputBase from '@material-ui/core/InputBase';
-// 以上
+import InputBase from '@material-ui/core/InputBase';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
+
+import { green } from '@material-ui/core/colors';
 
 
 
@@ -113,8 +107,19 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
     },
 
-
 }));
+
+ //radio 顏色設定
+ const GreenRadio = withStyles({
+    root: {
+        color: green[400],
+        '&$checked': {
+            color: green[600],
+        },
+    },
+    checked: {},
+})(props => <Radio color="default" {...props} />);
+
 
 
 
@@ -307,42 +312,6 @@ export default function DenseAppBar() {
                                 onChange={e=>setendSignUpDate(e.target.value)}
                                 />
 
-                                {/* <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>縣市</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={city}
-                                        onChange={handleChange5}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>台北市</option>
-                                        <option value={2}>新北市</option>
-                                        <option value={3}>桃園市</option>
-                                        <option value={4}>台中市</option>
-                                        <option value={5}>台南市</option>
-                                        <option value={6}>高雄市</option>
-                                    </NativeSelect>
-
-                                </FormControl>
-
-                                <FormControl className={classes.margin}>
-                                    <InputLabel htmlFor="demo-customized-select-native"></InputLabel>
-                                    <FormHelperText>區/鄉/鎮</FormHelperText>
-                                    <NativeSelect
-                                        id="demo-customized-select-native"
-                                        value={area}
-                                        onChange={handleChange6}
-                                        input={<BootstrapInput />}
-                                    >
-                                        <option value="" />
-                                        <option value={1}>新莊區</option>
-                                        <option value={2}>板橋區</option>
-                                        <option value={3}>三重區</option>
-                                    </NativeSelect>
-
-                                </FormControl> */}
 
                                 <TextField
                                     margin="normal"
@@ -390,7 +359,7 @@ export default function DenseAppBar() {
                                         <Grid item> 
                                         <FormControlLabel 
                                             value="yes" 
-                                            control={<Radio />} 
+                                            control={<GreenRadio />} 
                                             label="是" 
                                         />
                                         </Grid>
@@ -398,7 +367,7 @@ export default function DenseAppBar() {
                                         <Grid item>
                                             <FormControlLabel 
                                             value="no" 
-                                            control={<Radio />} 
+                                            control={<GreenRadio />} 
                                             label="否" 
                                             />
                                         </Grid>

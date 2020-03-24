@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(30),
+            height: theme.spacing(43),
         },
     },
 
@@ -106,7 +106,7 @@ export default function DenseAppBar() {
                     <div className={classes.paper}>
                         <paper>
                             <form className={classes.form} noValidate>
-                                <TextField
+                            <TextField
                                     margin="normal"
                                     required
                                     fullWidth
@@ -114,6 +114,8 @@ export default function DenseAppBar() {
                                     label="活動摘要"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="4"
                                     placeholder="請填寫活動摘要（限三十字）"
                                 />
 
@@ -125,6 +127,8 @@ export default function DenseAppBar() {
                                     label="活動簡介"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="4"
                                     placeholder="請填寫活動簡介（限一千字）"
                                 />
 
@@ -136,6 +140,8 @@ export default function DenseAppBar() {
                                     label="更多內容"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="8"
                                     placeholder="請填寫更多內容"
                                 />
 
@@ -148,8 +154,11 @@ export default function DenseAppBar() {
                                     label="注意事項"
                                     name="noticed"
                                     variant="outlined"
+                                    multiline
+                                    rows="5"
                                     placeholder="請填寫注意事項（限五十字）"
                                 />
+
                                 
                                 <IconButton color="primary" aria-label="next step" href="./updateInfo">
                                     <ArrowBackIcon />

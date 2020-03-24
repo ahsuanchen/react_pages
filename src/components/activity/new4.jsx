@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(30),
+            height: theme.spacing(43),
         },
     },
 
@@ -95,36 +95,6 @@ export default function DenseAppBar() {
     const classes = useStyles();
 
 
-    const [startdate, setStartDate] = React.useState('');
-    const handleChange1 = event => {
-        setStartDate(event.target.value);
-    };
-
-    const [starttime, setStartTime] = React.useState('');
-    const handleChange2 = event => {
-        setStartTime(event.target.value);
-    };
-
-    const [enddate, setEndDate] = React.useState('');
-    const handleChange3 = event => {
-        setEndDate(event.target.value);
-    };
-
-    const [endtime, setEndTime] = React.useState('');
-    const handleChange4 = event => {
-        setEndTime(event.target.value);
-    };
-
-    const [city, setCity] = React.useState('');
-    const handleChange5 = event => {
-        setCity(event.target.value);
-    };
-
-    const [area, setArea] = React.useState('');
-    const handleChange6 = event => {
-        setArea(event.target.value);
-    };
-
 
     
 
@@ -148,6 +118,8 @@ export default function DenseAppBar() {
                                     label="活動摘要"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="4"
                                     placeholder="請填寫活動摘要（限三十字）"
                                 />
 
@@ -159,6 +131,8 @@ export default function DenseAppBar() {
                                     label="活動簡介"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="4"
                                     placeholder="請填寫活動簡介（限一千字）"
                                 />
 
@@ -170,6 +144,8 @@ export default function DenseAppBar() {
                                     label="更多內容"
                                     name="name"
                                     variant="outlined"
+                                    multiline
+                                    rows="8"
                                     placeholder="請填寫更多內容"
                                 />
 
@@ -182,6 +158,8 @@ export default function DenseAppBar() {
                                     label="注意事項"
                                     name="noticed"
                                     variant="outlined"
+                                    multiline
+                                    rows="5"
                                     placeholder="請填寫注意事項（限五十字）"
                                 />
 
