@@ -1,18 +1,18 @@
-import React from './node_modules/react';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
-import AppBar from './node_modules/@material-ui/core/AppBar';
-import Toolbar from './node_modules/@material-ui/core/Toolbar';
-import Typography from './node_modules/@material-ui/core/Typography';
-import IconButton from './node_modules/@material-ui/core/IconButton';
-import Button from './node_modules/@material-ui/core/Button';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 //import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
-import ArrowBackIcon from './node_modules/@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from './node_modules/@material-ui/icons/ArrowForward';
-import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
-import Grid from './node_modules/@material-ui/core/Grid';
-import Container from './node_modules/@material-ui/core/Container';
-import grey from './node_modules/@material-ui/core/colors/grey';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import grey from '@material-ui/core/colors/grey';
 
 
 

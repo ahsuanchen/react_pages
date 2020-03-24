@@ -1,11 +1,11 @@
-import React from './node_modules/react';
-import Button from './node_modules/@material-ui/core/Button';
-import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
-import TextField from './node_modules/@material-ui/core/TextField';
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from './node_modules/@material-ui/core/Typography';
-import Grid from './node_modules/@material-ui/core/Grid';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 //日期的部分import Birthday from './birthday.js';
 // import 'date-fns';
 // import DateFnsUtils from '@date-io/date-fns';
@@ -16,7 +16,7 @@ import { makeStyles } from './node_modules/@material-ui/core/styles';
 // } from '@material-ui/pickers';
 //以上
 
-import Container from './node_modules/@material-ui/core/Container';
+import Container from '@material-ui/core/Container';
 
 
 

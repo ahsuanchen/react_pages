@@ -1,12 +1,12 @@
-import React from './node_modules/react';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
-import { Link } from './node_modules/react-router-dom';
-import AppBar from './node_modules/@material-ui/core/AppBar';
-import Toolbar from './node_modules/@material-ui/core/Toolbar';
-import Typography from './node_modules/@material-ui/core/Typography';
-import Button from './node_modules/@material-ui/core/Button';
-import { faArrowAltCircleLeft } from "./node_modules/@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "./node_modules/@fortawesome/react-fontawesome"
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles(theme => ({
     appbar: {

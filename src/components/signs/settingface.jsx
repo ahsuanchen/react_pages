@@ -1,12 +1,12 @@
-import React from './node_modules/react';
-import Button from './node_modules/@material-ui/core/Button';
-import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
-import Typography from './node_modules/@material-ui/core/Typography';
-import Grid from './node_modules/@material-ui/core/Grid';
-import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from './node_modules/@material-ui/icons/ChevronRight';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
-import Container from './node_modules/@material-ui/core/Container';
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 
 
 

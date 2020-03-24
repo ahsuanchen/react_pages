@@ -1,27 +1,27 @@
-import React from './node_modules/react';
-import Button from './node_modules/@material-ui/core/Button';
-import CssBaseline from './node_modules/@material-ui/core/CssBaseline';
-import TextField from './node_modules/@material-ui/core/TextField';
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from './node_modules/@material-ui/core/Typography';
-import Grid from './node_modules/@material-ui/core/Grid';
-import ChevronLeftIcon from './node_modules/@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from './node_modules/@material-ui/icons/ChevronRight';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { makeStyles } from '@material-ui/core/styles';
 //單選
-import { withStyles } from './node_modules/@material-ui/core/styles';
-import { green } from './node_modules/@material-ui/core/colors';
-import Radio from './node_modules/@material-ui/core/Radio';
-import RadioGroup from './node_modules/@material-ui/core/RadioGroup';
-import FormControlLabel from './node_modules/@material-ui/core/FormControlLabel';
-import FormControl from './node_modules/@material-ui/core/FormControl';
-import FormLabel from './node_modules/@material-ui/core/FormLabel';
+import { withStyles } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 //下拉式
-import InputLabel from './node_modules/@material-ui/core/InputLabel';
-import FormHelperText from './node_modules/@material-ui/core/FormHelperText';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
-import Select from './node_modules/@material-ui/core/Select';
-import NativeSelect from './node_modules/@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 //日期的部分import Birthday from './birthday.js';
 // import 'date-fns';
@@ -33,7 +33,7 @@ import NativeSelect from './node_modules/@material-ui/core/NativeSelect';
 // } from '@material-ui/pickers';
 //以上
 
-import Container from './node_modules/@material-ui/core/Container';
+import Container from '@material-ui/core/Container';
 
 
 
