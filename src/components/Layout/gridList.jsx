@@ -34,22 +34,18 @@ export default function TestGridList(props) {
     <div>
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
         <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-          <ListSubheader component="div" className={classes.title}>全部活動</ListSubheader>
+          <ListSubheader component="div" className={classes.title}>
+          全部活動
+          </ListSubheader>
         </GridListTile>
         {imageList.map(tile => (
-          <GridListTile cols={1} key={tile}>
-            <img src={`/assets/images/${tile}.jpg`} alt={tile} />
-            <GridListTileBar
-              title={tile.title}
-              subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/Activity">
-                  <InfoIcon/>
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        ))}
+        <GridListTile cols={1} key={tile}>
+          <img src={`/assets/images/${tile}.jpg`} alt={tile} />
+        <GridListTileBar title={tile.title} subtitle={<span>by: {tile.author}</span>} actionIcon={
+          <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/ActivityInfo">
+            <InfoIcon/>
+          </IconButton>}/>
+        </GridListTile>))}
       </GridList>
     </div>
   );

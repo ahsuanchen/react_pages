@@ -9,13 +9,15 @@ import Avatar from '@material-ui/core/Avatar';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 import React, { useState,useEffect } from 'react';
 
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
 }));
@@ -38,22 +40,34 @@ export default function ActivityInfo() {
   },[]);
 
   return (
+    <Container maxWidth="md">
+    <Typography variant="h5">&nbsp;
+        台北設計電波
+    </Typography>
     <List className={classes.root}>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <LocationOnIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText primary="活動地點" secondary="Jan 7, 2014" />
+    </ListItem>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
             <DateRangeIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Photos" secondary="Jan 9, 2014" />
+        <ListItemText primary="活動時間" secondary="Jan 9, 2014" />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <LocationOnIcon />
+            <ScheduleIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Work" secondary="Jan 7, 2014" />
+        <ListItemText primary="報名時間" secondary="July 20, 2014" />
       </ListItem>
       <ListItem>
         <ListItemAvatar>
@@ -61,8 +75,9 @@ export default function ActivityInfo() {
             <LinkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Vacation" secondary="July 20, 2014" />
+        <ListItemText primary="相關連結" secondary="July 20, 2014" />
       </ListItem>
     </List>
+    </Container>
   );
 }

@@ -221,7 +221,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signup"
+                                href="./signUp"
                             >
                                 <ChevronLeftIcon />
                                 上一步
@@ -233,7 +233,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./settingface"
+                                href="./settingFace"
                             >
                                 <ChevronRightIcon />
                                 下一步
