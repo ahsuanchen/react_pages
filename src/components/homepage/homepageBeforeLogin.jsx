@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../header/HM_header1.jsx';
+import Header from '../Header/HM_header1.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
-import { faClock , faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faClock , faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Grid from '@material-ui/core/Grid';

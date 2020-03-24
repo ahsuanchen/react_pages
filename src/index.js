@@ -5,30 +5,29 @@ import './index.css';
 
 //import App from './App';
 import ReactApp from './components/react-app.jsx';
-import signIn from './components/signs/signIn.jsx';
-import signUp from './components/signs/signup.jsx';
-import SignupInfor from './components/signs/signupinfor.jsx';
-import SettingFace from './components/signs/settingface.jsx';
-import Forgot1 from './components/signs/forgot1.jsx';
-import Forgot2 from './components/signs/forgot2.jsx';
-import Finish from './components/signs/finish.jsx';
-import Organizer from './components/activity/organizer.jsx';
-import New1 from './components/activity/new1.jsx';
-import New1B from './components/activity/new1-button.jsx';
-import New2 from './components/activity/new2.jsx';
-import New3 from './components/activity/new3.jsx';
+import signIn from './components/Signs/signIn.jsx';
+import signUp from './components/Signs/signup.jsx';
+import SignupInfor from './components/Signs/signupinfor.jsx';
+import SettingFace from './components/Signs/settingface.jsx';
+import Forgot1 from './components/Signs/forgot1.jsx';
+import Forgot2 from './components/Signs/forgot2.jsx';
+import Finish from './components/Signs/finish.jsx';
+import Organizer from './components/Activity/organizer.jsx';
+import New1 from './components/Activity/new1.jsx';
+import New1B from './components/Activity/new1-button.jsx';
+import New2 from './components/Activity/new2.jsx';
+import New3 from './components/Activity/new3.jsx';
 import Bar from './components/bar.jsx';
-import Homepage from './components/profile/editSignupInformation.jsx';
-import HomepageAfterLogin from './components/homepage/homepageAfterLogin.jsx';
-import HomepageBeforeLogin from './components/homepage/homepageBeforeLogin.jsx';
-import Profile from './components/profile/profile.jsx';
-import SignupSituation from './components/profile/signupSituation.jsx';
-import Test from './components/test.jsx';
-import TrainingFace from './components/profile/trainingFace.jsx';
-import OrganizerInfo from './components/profile/organizerInfo.jsx';
-import ManageActivity from './components/profile/manageActivity.jsx';
-import ParticipantList from './components/profile/participantList.jsx';
-import AddParticipant from './components/profile/addParticipant.jsx';
+import Homepage from './components/Profile/editSignupInformation.jsx';
+import HomepageAfterLogin from './components/Homepage/homepageAfterLogin.jsx';
+import HomepageBeforeLogin from './components/Homepage/homepageBeforeLogin.jsx';
+import Profile from './components/Profile/profile.jsx';
+import SignupSituation from './components/Profile/signupSituation.jsx';
+import TrainingFace from './components/Profile/trainingFace.jsx';
+import OrganizerInfo from './components/Profile/organizerInfo.jsx';
+import ManageActivity from './components/Profile/manageActivity.jsx';
+import ParticipantList from './components/Profile/participantList.jsx';
+import AddParticipant from './components/Profile/addParticipant.jsx';
 
 
 import * as serviceWorker from './serviceWorker';
@@ -55,7 +54,6 @@ ReactDOM.render(
             <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
             <Route path="/profile" component={Profile} />
             <Route path="/signupSituation" component={SignupSituation} />
-            <Route path="/test" component={Test} />
             <Route path="/trainingFace" component={TrainingFace} />
             <Route path="/organizerInfo" component={OrganizerInfo} />
             <Route path="/manageActivity" component={ManageActivity} />

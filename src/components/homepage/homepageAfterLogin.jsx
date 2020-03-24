@@ -1,23 +1,23 @@
-import React from './node_modules/react';
-import Header from '../header/HM_header2.jsx';
-import { makeStyles } from './node_modules/@material-ui/core/styles';
-import { Link } from './node_modules/react-router-dom';
-import { Slide } from './node_modules/react-slideshow-image';
-import Box from './node_modules/@material-ui/core/Box';
-import InputBase from './node_modules/@material-ui/core/InputBase';
-import { faClock , faSearch , faPlus} from "./node_modules/@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "./node_modules/@fortawesome/react-fontawesome"
-import Button from './node_modules/@material-ui/core/Button';
-import Tooltip from './node_modules/@material-ui/core/Tooltip';
-import Grid from './node_modules/@material-ui/core/Grid';
-import Card from './node_modules/@material-ui/core/Card';
-import CardActionArea from './node_modules/@material-ui/core/CardActionArea';
-import CardActions from './node_modules/@material-ui/core/CardActions';
-import CardContent from './node_modules/@material-ui/core/CardContent';
-import CardMedia from './node_modules/@material-ui/core/CardMedia';
-import Typography from './node_modules/@material-ui/core/Typography';
-import Divider from './node_modules/@material-ui/core/Divider';
-import Fab from './node_modules/@material-ui/core/Fab';
+import React from 'react';
+import Header from '../Header/HM_header2.jsx';
+import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
+import { Slide } from 'react-slideshow-image';
+import Box from '@material-ui/core/Box';
+import InputBase from '@material-ui/core/InputBase';
+import { faClock , faSearch , faPlus} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Fab from '@material-ui/core/Fab';
 
 const useStyles = makeStyles(theme => ({
     div : {
