@@ -1,7 +1,7 @@
 //活動總覽
 import React from 'react';
 
-import UserList from 'components/Home/userList.jsx';
+
 import HomeTextField from 'components/Layout/homeTextField.jsx';
 import SortButtons from 'components/Layout/sortButtons.jsx';
 import TagButtons from 'components/Layout/tagButtons.jsx';

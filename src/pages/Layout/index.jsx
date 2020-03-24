@@ -8,13 +8,13 @@ import News from 'pages/News/index.jsx'
 import Home from 'pages/Home/index.jsx'
 
 import ReactApp from 'components/react-app.jsx';
-import SignIn from 'components/signs/signIn.jsx';
-import SignUp from 'components/signs/signup.jsx';
-import SignupInfor from 'components/signs/signupinfor.jsx';
-import SettingFace from 'components/signs/settingface.jsx';
-import Forgot1 from 'components/signs/forgot1.jsx';
-import Forgot2 from 'components/signs/forgot2.jsx';
-import Finish from 'components/signs/finish.jsx';
+import SignIn from 'components/Signs/signIn.jsx';
+import SignUp from 'components/Signs/signup.jsx';
+import SignupInfor from 'components/Signs/signupinfor.jsx';
+import SettingFace from 'components/Signs/settingface.jsx';
+import Forgot1 from 'components/Signs/forgot1.jsx';
+import Forgot2 from 'components/Signs/forgot2.jsx';
+import Finish from 'components/Signs/finish.jsx';
 import Organizer from 'components/Activity/organizer.jsx';
 import New1 from 'components/Activity/new1.jsx';
 import New1B from 'components/Activity/new1-button.jsx';
