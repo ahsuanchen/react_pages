@@ -31,10 +31,10 @@ const useStyles = makeStyles(theme => ({
     } ,
     slide : {
         maxHeight : "540px" ,
-    } , 
+    } ,
     slide_img : {
         maxWidth : "100%" ,
-        maxHeight : "100%" 
+        maxHeight : "100%"
     } ,
     search: {
         margin : "2% auto" ,
@@ -69,10 +69,10 @@ const useStyles = makeStyles(theme => ({
         borderRadius : '10px 10px 0 0'
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#000" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
       }
   }));
