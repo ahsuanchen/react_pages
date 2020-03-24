@@ -7,6 +7,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+//import Webcam from "./react-webcam.tsx";
+
+
 
 
 
@@ -73,6 +76,11 @@ const useStyles = makeStyles(theme => ({
           margin: theme.spacing(1),
         },
       },
+
+    location: {
+        gridRowGap: '20px',
+        
+      },
 }));
 
 export default function SignUp() {
@@ -91,20 +99,27 @@ export default function SignUp() {
                             設定使用者人臉
                         </Typography>
                         <form className={classes.form} noValidate>
-
+                        {/* <input type='file'
+                            className={classes.picker}
+                            accept='image/*'
+                            multiple
+                            capture="camera"
+                            onChange={this.onfileChange} /> */}
+                           {/* <Webcam />; */}
                         <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img>
 
-
+                            <Grid>
                             <Button className={classes.button} color="primary">開啟相機</Button>
                             <Button className={classes.button} color="primary">開啟相簿</Button>
-                            
+                            </Grid>
+                            <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary"
+                                color="primary" 
                                 className={classes.submit}
-                                href="./signupinfor"
+                                href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
                                 上一步
@@ -121,7 +136,7 @@ export default function SignUp() {
                                 <ChevronRightIcon />
                                 下一步
                              </Button>
-
+                             </Grid>
 
                         </form>
                     </paper>

@@ -1,9 +1,10 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 //import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -21,20 +22,19 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
 
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
+    space: {
+        marginTop: theme.spacing(5),
     },
 
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(5),
 
         flexDirection: 'column',
         alignItems: 'center',
-        background: grey['300'],
+        background: '#dcedc8',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(30),
             height: theme.spacing(20),
         },
@@ -61,21 +61,12 @@ const useStyles = makeStyles(theme => ({
 export default function DenseAppBar() {
     const classes = useStyles();
 
-
+    
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        返回首頁
-          </Typography>
-                </Toolbar>
-            </AppBar>
-            <Grid >
+            <Header />
+            <Grid className={classes.space}>
                 <Container component="main" maxWidth="md">
                     <CssBaseline />
                     <Typography component="h1" variant="h5" align="center">
@@ -84,6 +75,14 @@ export default function DenseAppBar() {
                     <div className={classes.paper}>
                         <paper>
                             <form className={classes.form} noValidate>
+
+                            <TextField 
+                                margin="normal"
+                                fullWidth
+                                label="選擇檔案" 
+                                type="file" 
+                                />
+
                             <Button 
                                 //type="submit"
                                 width="50"

@@ -20,7 +20,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        活動管理系統
+        ACTFUN
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -38,23 +38,26 @@ const useStyles = makeStyles(theme => ({
 },
 
   root: {
-    height: '100vh',
-    margin: theme.spacing(10, 15 ),
+    height: '80vh',
+    width:'85%',
+    margin: theme.spacing(10,25),
+    // height: '100vh',
+    // margin: theme.spacing(10, 15),
 
     //borderRadius: 10,
     //border: 0,
     
   },
   paperout:{
-    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    background: '#a5d6a7',
   },
 
   image: {
     //backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundImage: 'url(./img/logo1.png)',
+    backgroundImage: 'url(./img/logot.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor: 
-      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+      theme.palette.type === 'dark' ? theme.palette.grey[500] : theme.palette.grey[50],
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
@@ -64,14 +67,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     color: 'white',
-    background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    background: '#a5d6a7',
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%',
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -81,6 +84,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignInSide() {
   const classes = useStyles();
+
+  
+
+  
 
   return (
     
@@ -95,17 +102,15 @@ export default function SignInSide() {
             <Typography component="h1" variant="h5">
               登入
           </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} noValidate action = "/login" method = "post">
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
+                id="username"
                 label="帳號"
-                name="email"
-                autoComplete="email"
-                autoFocus
+                name="username"
               />
               <TextField
                 variant="outlined"
@@ -116,7 +121,6 @@ export default function SignInSide() {
                 label="密碼"
                 type="password"
                 id="password"
-                autoComplete="current-password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -138,7 +142,7 @@ export default function SignInSide() {
                 </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signUp" variant="body2">
+                  <Link href="signup" variant="body2">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

@@ -8,7 +8,6 @@ import Grid from '@material-ui/core/Grid';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
-//單選
 import { withStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import Radio from '@material-ui/core/Radio';
@@ -16,24 +15,9 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-//下拉式
-import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-
-import Select from '@material-ui/core/Select';
-import NativeSelect from '@material-ui/core/NativeSelect';
-
-//日期的部分import Birthday from './birthday.js';
-// import 'date-fns';
-// import DateFnsUtils from '@date-io/date-fns';
-// import {
-//     MuiPickersUtilsProvider,
-//     KeyboardTimePicker,
-//     KeyboardDatePicker,
-// } from '@material-ui/pickers';
-//以上
-
 import Container from '@material-ui/core/Container';
+import { spacing } from '@material-ui/system';
+import Box from '@material-ui/core/Box';
 
 
 
@@ -46,8 +30,9 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '90vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
         color: 'white',
         //borderRadius: 10,
         //borderColor: ,
@@ -64,10 +49,11 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
-            marginTop: theme.spacing(5),
+            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
             //margin: theme.spacing(1),
-            width: theme.spacing(40),
-            height: theme.spacing(20),
+            width: "100%",
+            height: "210px",
         },
     },
 
@@ -77,10 +63,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.main,
     },
     form: {
-        width: '100%',
+        width: '85%',
         height: theme.spacing(1),
-
-
+        marginLeft: theme.spacing(3),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -131,9 +116,10 @@ export default function SignUp() {
                 <CssBaseline />
                 <Typography className={classes.font} component="h1" variant="h5" align="center">
                     註 冊
-                    </Typography>
+                </Typography>
                 <div className={classes.paper}>
                     <paper>
+                        <Grid>
                         <form className={classes.form} noValidate>
                             <TextField
                                 margin="normal"
@@ -143,55 +129,32 @@ export default function SignUp() {
                                 label="姓名"
                                 name="name"
                                 autoComplete="name"
-                            //autoFocus
+                            
                             />
 
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">性別</FormLabel>
                                 <RadioGroup aria-label="性別" name="gender1" value={value} onChange={handleChange} >
-                                    <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
-                                    <FormControlLabel value="male" control={<Radio size="small" />} label="男性" />
-                                    <FormControlLabel value="other" control={<Radio size="small" />} label="其他" />
+                                <Grid container>
+                                        <Grid item> 
+                                    <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" /></Grid>
+                                    <Grid item> 
+                                    <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" /></Grid>
+                                    <Grid item>
+                                    <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" /></Grid>
+                                    </Grid>
                                 </RadioGroup>
                             </FormControl>
 
-                            {/* <FormControl className={classes.formControl}>
-                                <InputLabel htmlFor="age-native-simple">Age</InputLabel>
-                                <Select
-                                    native
-                                    value={state.age}
-                                    onChange={handleChange('age')}
-                                    inputProps={{
-                                        name: 'age',
-                                        id: 'age-native-simple',
-                                    }}
-                                >
-                                    <option value="" />
-                                    <option value={10}>Ten</option>
-                                    <option value={20}>Twenty</option>
-                                    <option value={30}>Thirty</option>
-                                </Select>
-                            </FormControl> */}
 
-
-                            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                <Grid container justify="space-around">
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Date picker inline"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                    />
-                                </Grid>
-                            </MuiPickersUtilsProvider> */}
-
+                            <TextField 
+                                margin="normal"
+                                fullWidth
+                                label="生日" 
+                                type="date" 
+                                defaultValue={new Date().getFullYear()}
+                                InputLabelProps={{shrink: true,}} 
+                            />
 
                             <TextField
                                 margin="normal"
@@ -201,7 +164,6 @@ export default function SignUp() {
                                 label="聯絡電話"
                                 type="phone"
                                 id="phone"
-                            //autoComplete="current-password"
                             />
 
                             <TextField
@@ -212,9 +174,9 @@ export default function SignUp() {
                                 label="聯絡地址"
                                 type="address"
                                 id="address"
-                            //autoComplete="current-password"
                             />
-
+                        <Grid container justify="center"  key={10}>
+                        
                             <Button
                                 type="submit"
                                 width="50"
@@ -225,8 +187,7 @@ export default function SignUp() {
                             >
                                 <ChevronLeftIcon />
                                 上一步
-                    </Button>
-
+                            </Button>
                             <Button
                                 type="submit"
                                 Width="50"
@@ -237,9 +198,12 @@ export default function SignUp() {
                             >
                                 <ChevronRightIcon />
                                 下一步
-                    </Button>
+                            </Button>
+                        </Grid>
+                        
 
                         </form>
+                        </Grid>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

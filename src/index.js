@@ -43,21 +43,24 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './index.css';
-
 //import App from './App';
 import ReactApp from './components/react-app.jsx';
-import signIn from './components/Signs/signIn.jsx';
-import signUp from './components/Signs/signup.jsx';
-import SignupInfor from './components/Signs/signupinfor.jsx';
-import SettingFace from './components/Signs/settingface.jsx';
-import Forgot1 from './components/Signs/forgot1.jsx';
-import Forgot2 from './components/Signs/forgot2.jsx';
-import Finish from './components/Signs/finish.jsx';
-import Organizer from './components/Activity/organizer.jsx';
-import New1 from './components/Activity/new1.jsx';
-import New1B from './components/Activity/new1-button.jsx';
-import New2 from './components/Activity/new2.jsx';
-import New3 from './components/Activity/new3.jsx';
+import signIn from './components/signs/signIn.jsx';
+import signUp from './components/signs/signup.jsx';
+import SignupInfo from './components/signs/signupinfo.jsx';
+import SettingFace from './components/signs/settingface.jsx';
+import Forgot1 from './components/signs/forgot1.jsx';
+import Forgot2 from './components/signs/forgot2.jsx';
+import Finish from './components/signs/finish.jsx';
+import Organizer from './components/activity/organizer.jsx';
+import New1 from './components/activity/new1.jsx';
+import New1B from './components/activity/new1-button.jsx';
+import New2 from './components/activity/new2.jsx';
+import New3 from './components/activity/new3.jsx';
+import New4 from './components/activity/new4.jsx';
+import UpdatePic from './components/activity/updatePic.jsx';
+import UpdateInfo from './components/activity/updateInfo.jsx';
+import UpdateDetails from './components/activity/updateDetails.jsx';
 import Bar from './components/bar.jsx';
 import Homepage from './components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from './components/Homepage/homepageAfterLogin.jsx';
@@ -79,7 +82,7 @@ ReactDOM.render(
             <Route exact path="/" component={HomepageAfterLogin} />
             <Route path="/signIn" component={signIn} />
             <Route path="/signUp" component={signUp} />
-            <Route path="/signupInfor" component={SignupInfor} />
+            <Route path="/signupInfo" component={SignupInfo} />
             <Route path="/settingFace" component={SettingFace} />
             <Route path="/forgot1" component={Forgot1} />
             <Route path="/forgot2" component={Forgot2} />
@@ -90,6 +93,10 @@ ReactDOM.render(
             <Route path="/new1-button" component={New1B} />
             <Route path="/new2" component={New2} />
             <Route path="/new3" component={New3} />
+            <Route path="/new4" component={New4} />
+            <Route path="/updatePic" component={UpdatePic} />
+            <Route path="/updateInfo" component={UpdateInfo} />
+            <Route path="/updateDetails" component={UpdateDetails} />
             <Route path="/editSignupInformation" component={Homepage} />
             <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
             <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
