@@ -55,9 +55,9 @@ import Finish from './components/Signs/finish.jsx';
 import Organizer from './components/Activity/organizer.jsx';
 import New1 from './components/Activity/new1.jsx';
 import New1B from './components/Activity/new1-button.jsx';
-import New2 from './components/Activity/new2.jsx';
-import New3 from './components/Activity/new3.jsx';
-import New4 from './components/Activity/new4.jsx';
+import NewPic from './components/Activity/newPic.jsx';
+import NewInfo from './components/Activity/newInfo.jsx';
+import NewDetail from './components/Activity/newDetail.jsx';
 import UpdatePic from './components/Activity/updatePic.jsx';
 import UpdateInfo from './components/Activity/updateInfo.jsx';
 import UpdateDetails from './components/Activity/updateDetails.jsx';
@@ -91,9 +91,9 @@ ReactDOM.render(
             <Route path="/organizer" component={Organizer} />
             <Route path="/new1" component={New1} />
             <Route path="/new1-button" component={New1B} />
-            <Route path="/new2" component={New2} />
-            <Route path="/new3" component={New3} />
-            <Route path="/new4" component={New4} />
+            <Route path="/newPic" component={NewPic} />
+            <Route path="/newInfo" component={NewInfo} />
+            <Route path="/newDetail" component={NewDetail} />
             <Route path="/updatePic" component={UpdatePic} />
             <Route path="/updateInfo" component={UpdateInfo} />
             <Route path="/updateDetails" component={UpdateDetails} />

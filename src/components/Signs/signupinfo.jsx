@@ -40,7 +40,6 @@ const useStyles = makeStyles(theme => ({
 
     },
 
-
     paper: {
         marginTop: theme.spacing(8),
 
@@ -125,24 +124,25 @@ export default function SignUp() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="name"
+                                id="memberName"
                                 label="姓名"
-                                name="name"
-                                autoComplete="name"
                             
                             />
 
                             <FormControl component="fieldset" className={classes.formControl}>
                                 <FormLabel component="legend">性別</FormLabel>
-                                <RadioGroup aria-label="性別" name="gender1" value={value} onChange={handleChange} >
+                                <RadioGroup aria-label="性別" id="memberGender" value={value} onChange={handleChange} >
                                 <Grid container>
-                                        <Grid item> 
-                                    <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" /></Grid>
                                     <Grid item> 
-                                    <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" /></Grid>
-                                    <Grid item>
-                                    <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" /></Grid>
+                                        <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
                                     </Grid>
+                                    <Grid item> 
+                                        <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" />
+                                    </Grid>
+                                    <Grid item>
+                                    <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" />
+                                    </Grid>
+                                </Grid>
                                 </RadioGroup>
                             </FormControl>
 
@@ -150,30 +150,28 @@ export default function SignUp() {
                             <TextField 
                                 margin="normal"
                                 fullWidth
+                                required
                                 label="生日" 
                                 type="date" 
+                                id="memberBirthday"
                                 defaultValue={new Date().getFullYear()}
                                 InputLabelProps={{shrink: true,}} 
                             />
 
                             <TextField
                                 margin="normal"
-                                required
                                 fullWidth
-                                name="phone"
+                                required
+                                id="memberPhone"
                                 label="聯絡電話"
-                                type="phone"
-                                id="phone"
                             />
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="address"
+                                id="memberAddress"
                                 label="聯絡地址"
-                                type="address"
-                                id="address"
                             />
                         <Grid container justify="center"  key={10}>
                         

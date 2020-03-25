@@ -110,7 +110,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
  //radio 顏色設定
- const GreenRadio = withStyles({
+const GreenRadio = withStyles({
     root: {
         color: green[400],
         '&$checked': {
@@ -125,6 +125,19 @@ const useStyles = makeStyles(theme => ({
 
 export default function DenseAppBar() {
     const classes = useStyles();
+
+    // //宣吿要接值的變數
+    // const [inputs, setInputs] = React.useState({
+    //     activityName:'',
+    //     activitySpace:'',
+    //     activityStartDate:'',
+    //     activityEndDate:'',
+    //     startSignUpDate:'',
+    //     endSignUpDate:'',
+    //     activityLinkName:'',
+    //     activityLink:'',
+    //     activityMeal:'',
+    // });
 
     const  [activityName,setactivityName] =  useState("");
     const  [activitySpace,setactivitySpace] =  useState("");

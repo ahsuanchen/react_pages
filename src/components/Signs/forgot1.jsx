@@ -6,16 +6,6 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
-//日期的部分import Birthday from './birthday.js';
-// import 'date-fns';
-// import DateFnsUtils from '@date-io/date-fns';
-// import {
-//     MuiPickersUtilsProvider,
-//     KeyboardTimePicker,
-//     KeyboardDatePicker,
-// } from '@material-ui/pickers';
-//以上
-
 import Container from '@material-ui/core/Container';
 
 
@@ -54,10 +44,6 @@ const useStyles = makeStyles(theme => ({
     },
 
 
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
     form: {
         width: '100%',
         height: theme.spacing(1),
@@ -90,11 +76,9 @@ export default function SignUp() {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
+                                id="memberEmail"
                                 label="電子信箱"
-                                name="email"
-                                autoComplete="email"
-                                autoFocus
+                                name="memberEmail"
                             />
 
                             <Button
