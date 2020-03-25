@@ -98,6 +98,19 @@ export default function DenseAppBar() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                id="organizerAddress"
+                                label="主辦單位地址"
+                                multiline
+                                rows="2"
+                                name="organizerAddress"
+                                variant="outlined"
+                            />
+
+
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
                                 id="organizerInfo"
                                 name="organizerInfo"
                                 label="主辦單位簡介"
