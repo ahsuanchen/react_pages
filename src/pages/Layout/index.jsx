@@ -4,8 +4,8 @@ import { Route, Switch, Router} from 'react-router-dom';
 import routess from 'routes';
 
 import Header from 'components/Home/header.jsx';
-import News from 'pages/News/index.jsx'
-import Home from 'pages/Home/index.jsx'
+import News from 'pages/News/index.jsx';
+import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
 import ReactApp from 'components/react-app.jsx';
 import SignIn from 'components/Signs/signIn.jsx';
@@ -30,6 +30,8 @@ import TrainingFace from 'components/Profile/trainingFace.jsx';
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import Activity from 'pages/Activity/index.jsx'
+import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
+import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
 
 class Layout extends React.Component {
 
@@ -65,6 +67,8 @@ class Layout extends React.Component {
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
+      <Route path="/ActivityAlbum" component={ActivityAlbum} />
+      <Route path="/ActivityPhoto" component={ActivityPhoto} />
       </>
     );
   }

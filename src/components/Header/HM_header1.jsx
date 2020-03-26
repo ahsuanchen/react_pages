@@ -43,21 +43,21 @@ const useStyles = makeStyles(theme => ({
       height: "64px" ,
     } ,
     link : {
-      textDecoration : "none" , 
+      textDecoration : "none" ,
       color : "#9D9D9D" ,
       '&:hover' : {
-        color : '#00AEAE' 
+        color : '#00AEAE'
       }
     }
   }));
 
-export default function MenuAppBar() {
+export default function (props) {
     const classes = useStyles();
 
     const [state, setState] = React.useState({
       left: false,
     });
-  
+
     const toggleDrawer = (side, open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
@@ -114,9 +114,9 @@ export default function MenuAppBar() {
         <div className={classes.div}>
             <AppBar className={classes.appbar}>
                 <Toolbar className={classes.toolbar}>
-                  <IconButton 
+                  <IconButton
                     edge="start"
-                    color="inherit" 
+                    color="inherit"
                     onClick={toggleDrawer('left', true)}
                   >
                     <MenuIcon />
@@ -124,7 +124,7 @@ export default function MenuAppBar() {
                   <Typography variant="h6">
                     FJU-FUN
                   </Typography>
-                  <Button 
+                  <Button
                     color="inherit"
                     component={Link}
                     to="/signIn"
