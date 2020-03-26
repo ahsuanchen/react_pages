@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header1.jsx';
 import { Link } from 'react-router-dom';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
+import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -74,7 +72,7 @@ export default function BulidActivity() {
         <div className={classes.div}>
             <Header/>
             <div>
-                
+                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h4">
