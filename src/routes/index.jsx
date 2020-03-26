@@ -13,12 +13,6 @@ const routess = [
     title: '首頁',
   },
   {
-    path: '/news',
-    name: 'news',
-    component: News,
-    title: '最新消息',
-  },
-  {
     path: '/activity',
     name: "activity",
     component: Activity,
