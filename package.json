@@ -17,6 +17,7 @@
     "material-design-icons": "^3.0.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-draggable": "^4.2.0",
     "react-floating-button-menu": "^2.0.8",
     "react-image-gallery": "^1.0.6",
     "react-router": "^5.1.2",
@@ -47,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.6",
+    "eslint": "^4.19.1"
   }
 }

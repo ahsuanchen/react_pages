@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     } ,
   }));
 
-export default function MenuAppBar() {
+export default function TrainingFace() {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);

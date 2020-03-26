@@ -17,7 +17,6 @@ import Forgot2 from 'components/Signs/forgot2.jsx';
 import Finish from 'components/Signs/finish.jsx';
 import Organizer from 'components/Activity/organizer.jsx';
 import New1 from 'components/Activity/new1.jsx';
-import New1B from 'components/Activity/new1-button.jsx';
 import New2 from 'components/Activity/new2.jsx';
 import New3 from 'components/Activity/new3.jsx';
 import Bar from 'components/bar.jsx';
@@ -57,7 +56,6 @@ class Layout extends React.Component {
       <Route path="/bar" component={Bar} />
       <Route path="/organizer" component={Organizer} />
       <Route path="/new1" component={New1} />
-      <Route path="/new1-button" component={New1B} />
       <Route path="/new2" component={New2} />
       <Route path="/new3" component={New3} />
       {/* <Route path="/editSignupInformation" component={Homepage} /> */}
