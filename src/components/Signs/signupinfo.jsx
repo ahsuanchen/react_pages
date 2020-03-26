@@ -1,4 +1,5 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -107,6 +108,43 @@ export default function SignUp() {
     }
 
 
+    const  [memberName,setMemberName] =  useState("");
+    const  [memberGender,setMemberGender] =  useState("");
+    const  [memberBirthday,setMemberBirthday] =  useState("");
+    const  [memberPhone,setMemberPhone] =  useState("");
+    const  [memberAddress,setMemberAddress] =  useState("");
+    const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
+
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+        const member={
+            memberName:memberName,
+            memberGender:memberGender,
+            memberBirthday:memberBirthday,
+            memberPhone:memberPhone,
+            memberAddress:memberAddress,
+            memberType:memberType,
+        };
+            alert("1")
+        axios.post("/api/member/", member,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+          .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        
+    }
+
 
 
     return (
@@ -119,14 +157,14 @@ export default function SignUp() {
                 <div className={classes.paper}>
                     <paper>
                         <Grid>
-                        <form className={classes.form} noValidate>
+                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
                                 id="memberName"
                                 label="姓名"
-                            
+                                onChange={e=>setMemberName(e.target.value)}
                             />
 
                             <FormControl component="fieldset" className={classes.formControl}>
@@ -155,7 +193,8 @@ export default function SignUp() {
                                 type="date" 
                                 id="memberBirthday"
                                 defaultValue={new Date().getFullYear()}
-                                InputLabelProps={{shrink: true,}} 
+                                InputLabelProps={{shrink: true,}}
+                                onChange={e=>setMemberBirthday(e.target.value)} 
                             />
 
                             <TextField
@@ -164,6 +203,7 @@ export default function SignUp() {
                                 required
                                 id="memberPhone"
                                 label="聯絡電話"
+                                onChange={e=>setMemberPhone(e.target.value)}
                             />
 
                             <TextField
@@ -172,6 +212,7 @@ export default function SignUp() {
                                 fullWidth
                                 id="memberAddress"
                                 label="聯絡地址"
+                                onChange={e=>setMemberAddress(e.target.value)}
                             />
                         <Grid container justify="center"  key={10}>
                         
@@ -192,7 +233,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./settingface"
+                                // href="./settingface"
                             >
                                 <ChevronRightIcon />
                                 下一步

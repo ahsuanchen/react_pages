@@ -96,6 +96,7 @@ export default function SignUp() {
             console.log("test")
             console.log(res);
             console.log(res.data);
+            //再新增！判斷後為ok就跳到下一頁
             
           }).catch(function(error){
               alert(error);
