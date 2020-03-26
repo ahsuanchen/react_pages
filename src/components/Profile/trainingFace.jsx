@@ -195,7 +195,6 @@ export default function MenuAppBar() {
                                     </Container>
                                 </Box>
                                 <Box lineHeight={1} m={1}>
-                                    
                                     <Modal
                                         open={open}
                                         onClose={handleClose}

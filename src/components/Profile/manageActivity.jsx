@@ -20,6 +20,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
+import { Confirm } from 'semantic-ui-react'
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -82,6 +83,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function ManageActivity() {
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
@@ -264,8 +275,9 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={handleOpen}
+                                                                    // component={Link}
+                                                                    // to="/"
                                                                 >
                                                                     刪除活動
                                                                 </Button>

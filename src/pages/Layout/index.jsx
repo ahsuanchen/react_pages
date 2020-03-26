@@ -21,14 +21,17 @@ import New1B from 'components/Activity/new1-button.jsx';
 import New2 from 'components/Activity/new2.jsx';
 import New3 from 'components/Activity/new3.jsx';
 import Bar from 'components/bar.jsx';
-import Homepage from 'components/Profile/editSignupInformation.jsx';
+// import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
 import Profile from 'components/Profile/profile.jsx';
 import SignupSituation from 'components/Profile/signupSituation.jsx';
+import EditSignupInfo from 'components/Profile/editSignupInformation.jsx';
 import TrainingFace from 'components/Profile/trainingFace.jsx';
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
+import ParticipantList from 'components/Profile/participantList.jsx';
+import AddParticipant from 'components/Profile/addParticipant.jsx';
 import Activity from 'pages/Activity/index.jsx'
 
 class Layout extends React.Component {
@@ -57,7 +60,7 @@ class Layout extends React.Component {
       <Route path="/new1-button" component={New1B} />
       <Route path="/new2" component={New2} />
       <Route path="/new3" component={New3} />
-      <Route path="/editSignupInformation" component={Homepage} />
+      {/* <Route path="/editSignupInformation" component={Homepage} /> */}
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/profile" component={Profile} />
@@ -65,6 +68,9 @@ class Layout extends React.Component {
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
+      <Route path="/participantList" component={ParticipantList} />
+      <Route path="/addParticipant" component={AddParticipant} />
+      <Route path="/editSignupInformation" component={EditSignupInfo} />
       </>
     );
   }
