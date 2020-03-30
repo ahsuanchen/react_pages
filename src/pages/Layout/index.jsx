@@ -19,6 +19,7 @@ import Organizer from 'components/Activity/organizer.jsx';
 import New1 from 'components/Activity/new1.jsx';
 import New2 from 'components/Activity/new2.jsx';
 import New3 from 'components/Activity/new3.jsx';
+import New4 from 'components/Activity/new4.jsx';
 import Bar from 'components/bar.jsx';
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
@@ -57,6 +58,7 @@ class Layout extends React.Component {
       <Route path="/new1" component={New1} />
       <Route path="/new2" component={New2} />
       <Route path="/new3" component={New3} />
+      <Route path="/new4" component={New4} />
       {/* <Route path="/editSignupInformation" component={Homepage} /> */}
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />

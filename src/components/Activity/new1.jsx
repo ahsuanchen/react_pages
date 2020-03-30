@@ -80,7 +80,7 @@ export default function BulidActivity() {
                 </Typography>
                 <br/>
                 <Typography variant="h5">
-                    (選擇活動類別)
+                    (選擇一種活動類別)
                 </Typography>
             </div>
             <div>
