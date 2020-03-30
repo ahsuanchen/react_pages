@@ -18,6 +18,11 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import EventIcon from '@material-ui/icons/Event';
+import GroupIcon from '@material-ui/icons/Group';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -79,7 +84,25 @@ const useStyles = makeStyles(theme => ({
         bottom : "5%" ,
         right : "5%" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)'
-    }
+    } ,
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    choose_type : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        width : "250px" ,
+        height : "250px" ,
+        color : "#E0E0E0" ,
+        fontSize : "32px" ,
+        textAlign : "center" ,
+        display: 'flex',
+        alignItems: 'center',
+    } ,
+    icon_part : {
+        fontSize : "150px"
+    } , 
   }));
 
 const properties = {
@@ -90,8 +113,48 @@ const properties = {
     arrows: true,
 }
 
+// const Fade = React.forwardRef(function Fade(props, ref) {
+//     const { in: open, children, onEnter, onExited, ...other } = props;
+//     const style = useSpring({
+//       from: { opacity: 0 },
+//       to: { opacity: open ? 1 : 0 },
+//       onStart: () => {
+//         if (open && onEnter) {
+//           onEnter();
+//         }
+//       },
+//       onRest: () => {
+//         if (!open && onExited) {
+//           onExited();
+//         }
+//       },
+//     });
+  
+//     return (
+//       <animated.div ref={ref} style={style} {...other}>
+//         {children}
+//       </animated.div>
+//     );
+//   });
+  
+//   Fade.propTypes = {
+//     children: PropTypes.element,
+//     in: PropTypes.bool.isRequired,
+//     onEnter: PropTypes.func,
+//     onExited: PropTypes.func,
+// };
+
+
 export default function MenuApp() {
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     return (
         <div className={classes.div}>
@@ -137,28 +200,55 @@ export default function MenuApp() {
                     justify="flex-end"
                     alignItems="flex-end"
                 >
-                    {/* <Container>
-                        <Link to="/"
-                            tooltip="建立活動"
-                            icon={faCalendarPlus} />
-                        <Link to="/"
-                            tooltip="新增主辦單位"
-                            icon={faPersonBooth} />
-                        <Button
-                            tooltip="新增"
-                            icon={faPlus}
-                            rotate={true}
-                            onClick={() => alert('FAB Rocks!')} />
-                    </Container> */}
                     <Tooltip title="新增">
                         <Fab 
                             className={classes.fab}
-                            component={Link}
-                            to="/"
+                            onClick={handleOpen}
                         >
                             <FontAwesomeIcon icon={faPlus} />
                         </Fab>
                     </Tooltip>
+                    <Modal
+                        className={classes.modal}
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 1000,
+                        }}
+                    >
+                        <Fade in={open}>
+                            <div>
+                                <Grid container spacing={10}>
+                                    <Grid item xs={12} sm={6}>
+                                        <Card className={classes.choose_type} title="type_1">
+                                            <CardActionArea component={Link} to="/">
+                                                <CardMedia>
+                                                    <GroupIcon className={classes.icon_part} />
+                                                </CardMedia>
+                                                <CardContent>
+                                                    申請主辦單位
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Card className={classes.choose_type} title="type_2">
+                                            <CardActionArea component={Link} to="/new1">
+                                                <CardMedia>
+                                                    <EventIcon className={classes.icon_part} />
+                                                </CardMedia>
+                                                <CardContent>
+                                                    建立活動
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                            </div>
+                        </Fade>
+                    </Modal>
                 </Grid>
             </div>
             <div className={classes.container}>

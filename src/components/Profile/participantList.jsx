@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Header from '../Header/PF_header2.jsx';
+import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -21,13 +21,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Draggable from 'react-draggable';
-import ErrorIcon from '@material-ui/icons/Error';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -93,14 +86,6 @@ const useStyles = makeStyles(theme => ({
         }
     }
   }));
-
-  function PaperComponent(props) {
-    return (
-      <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'} disabled>
-        <Paper style={{minWidth : '600px' , minHeight : '200px' ,}} {...props} />
-      </Draggable>
-    );
-  }
 
 export default function ParticipantList() {
     const classes = useStyles();
@@ -228,14 +213,6 @@ export default function ParticipantList() {
                                             <Paper>
                                                 <Box lineHeight={5} m={1}>
                                                     <div className={classes.button_part}>
-                                                        <Button
-                                                            variant="contained"
-                                                            className={classes.button1}
-                                                            component={Link}
-                                                            to="/addParticipant"
-                                                        >
-                                                            新增參加者
-                                                        </Button>
                                                         <Tooltip title="匯出成Excel檔">
                                                             <Button
                                                                 variant="contained"
@@ -245,82 +222,25 @@ export default function ParticipantList() {
                                                                 匯出名單
                                                             </Button>
                                                         </Tooltip>
-                                                        <Button
-                                                            variant="contained"
-                                                            className={classes.button2}
-                                                        >
-                                                            一鍵刪除
-                                                        </Button>
                                                     </div>
                                                 </Box>
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">
-                                                                <input type="checkbox"/>
-                                                            </TableCell>
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
                                                             <TableCell align="center">手機</TableCell>
                                                             <TableCell align="center">Email</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
-                                                            <TableCell align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">
-                                                                <input type="checkbox"/>
-                                                            </TableCell>
                                                             <TableCell align="center">001</TableCell>
                                                             <TableCell align="center">劉志宏</TableCell>
                                                             <TableCell align="center">0989-753491</TableCell>
                                                             <TableCell align="center">test1@gmial.com</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
-                                                            <TableCell align="center">
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to="/participantList"
-                                                                >
-                                                                    編輯資料
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    onClick={handleOpen}
-                                                                >
-                                                                    刪除資料
-                                                                </Button>
-                                                                <Dialog
-                                                                    open={open}
-                                                                    onClose={handleClose}
-                                                                    PaperComponent={PaperComponent}
-                                                                    aria-labelledby="draggable-dialog-title"
-                                                                >
-                                                                    <DialogTitle id="draggable-dialog-title">
-                                                                        <Typography variant="h5">
-                                                                            <ErrorIcon className={classes.Exclamation_Mark} />
-                                                                            刪除參加者
-                                                                        </Typography>
-                                                                    </DialogTitle>
-                                                                    <DialogContent>
-                                                                        <DialogContentText style={{fontSize:"20px"}}>
-                                                                            您確定要刪除該參加者資料嗎？
-                                                                        </DialogContentText>
-                                                                    </DialogContent>
-                                                                    <DialogActions>
-                                                                        <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
-                                                                            取消
-                                                                        </Button>
-                                                                        <Button onClick={handleClose} className={classes.dig_butoon}>
-                                                                            確定
-                                                                        </Button>
-                                                                    </DialogActions>
-                                                                </Dialog>
-                                                            </TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                 </Table>

@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Header from '../Header/PF_header1.jsx';
+import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -68,19 +68,28 @@ const useStyles = makeStyles(theme => ({
 export default function Profile() {
     const classes = useStyles();
 
-    // const constructor = props => {
-    //     super(props)
-    //     this.state = {
-    //         name: '',
-    //         ID: '',
-    //         Gender: 'male'
-    //     }
-    //     this.changeState = this.changeState.bind(this)
-    //     this.submitForm = this.submitForm.bind(this)
+    // const [intputs , setInputs] = React.useState({
+    //     Name : "" ,
+    //     Gender : "" ,
+    //     BloodType : "" ,
+    //     Birthday : "" ,
+    //     Phone : "" ,
+    //     Email : "" ,
+    //     Address : "" ,
+    //     ContactPerson : "" ,
+    //     ContactRelation : "" ,
+    //     ContactPhone : "" ,
+    // });
+
+    // const handlechange = member => event => {
+    //     event.persist();
+    //     setInputs(inputs => ({...inputs , [member] : event.target.value}));
     // }
-    // const changeState = event => {
-    //     //使用setState將值寫到nameVal中
-    //     this.setState({name : event.target.value});
+    // let post ;
+    // let history = useHistory();
+    // const handleSubmit = () =>
+    // {
+    //     if (inputs.)
     // }
 
     const [member, setMember] = useState([]);
@@ -184,7 +193,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberName} disabled />
+                                            <TextField variant="outlined" value={member.memberName} />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
@@ -194,7 +203,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
-                                            <RadioGroup name="gender" value={member.memberGender} disabled>
+                                            <RadioGroup name="gender" value={member.memberGender}>
                                                 <FormControlLabel checked={member.memberGender === "male"} control={<Radio color="default" />} label="男性" />
                                                 <FormControlLabel checked={member.memberGender === "female"} control={<Radio color="default" />} label="女性" />
                                                 <FormControlLabel checked={member.memberGender === "unknown"} control={<Radio color="default" />} label="暫不透漏" />
@@ -219,37 +228,37 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}} disabled />
+                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}}/>
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberPhone} disabled />
+                                            <TextField variant="outlined" value={member.memberPhone} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>電子郵件：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
+                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} disabled />
+                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContact} disabled />
+                                            <TextField variant="outlined" value={member.emergencyContact} />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContactRelation} disabled/>
+                                            <TextField variant="outlined" value={member.emergencyContactRelation} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField variant="outlined" value={member.emergencyContactPhone} disabled />
+                                            <TextField variant="outlined" value={member.emergencyContactPhone} />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>

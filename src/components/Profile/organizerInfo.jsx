@@ -1,6 +1,6 @@
 import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from '../Header/PF_header1.jsx';
+import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -59,12 +58,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex" ,
         justifyContent : "center" ,
     } ,
-    button1 : {
-        background : '#ADADAD' ,
-        color : "#fff" ,
-        margin : "auto 2%" ,
-    } ,
-    button2 : {
+    button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
@@ -229,13 +223,7 @@ export default function OrganizerInfo() {
                                     <div className={classes.button_part}>
                                         <Button
                                             variant="contained"
-                                            className={classes.button1}
-                                        >
-                                            取消更改
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            className={classes.button2}
+                                            className={classes.button}
                                         >
                                             確認更改
                                         </Button>
