@@ -29,8 +29,8 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
     toolbar : {
-        maxWidth: "1080px" ,
         width : "100%" ,
+        maxWidth : "1440px" ,
         margin : "0 auto" ,
         display: "flex" ,
         justifyContent : "space-between"
