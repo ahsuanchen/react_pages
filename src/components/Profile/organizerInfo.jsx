@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function MenuAppBar() {
+export default function OrganizerInfo() {
     const classes = useStyles();
 
     const [member, setMember] = useState([]);

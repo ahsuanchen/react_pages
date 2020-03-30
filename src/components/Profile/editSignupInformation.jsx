@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function MenuAppBar() {
+export default function EditSignupInfo() {
     const classes = useStyles();
 
     const [gender, setgender] = React.useState("male");

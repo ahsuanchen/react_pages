@@ -171,7 +171,7 @@ export default function Profile() {
                     <div>
                         <Typography variant="h4">
                             個 人 檔 案
-                            </Typography>
+                        </Typography>
                         <hr />
                     </div>
                     <div>
@@ -202,7 +202,7 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
-                                            <FormControl style={{ minWidth: "100px" }} variant="outlined" disabled>
+                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}

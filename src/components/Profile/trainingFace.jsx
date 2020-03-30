@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme => ({
     } ,
   }));
 
-export default function MenuAppBar() {
+export default function TrainingFace() {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -195,7 +195,6 @@ export default function MenuAppBar() {
                                     </Container>
                                 </Box>
                                 <Box lineHeight={1} m={1}>
-                                    
                                     <Modal
                                         open={open}
                                         onClose={handleClose}

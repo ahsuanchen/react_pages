@@ -1,7 +1,7 @@
 //活動總覽
 import React from 'react';
 
-import UserList from 'components/Home/userList.jsx';
+
 import HomeTextField from 'components/Layout/homeTextField.jsx';
 import SortButtons from 'components/Layout/sortButtons.jsx';
 import TagButtons from 'components/Layout/tagButtons.jsx';
@@ -22,17 +22,15 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Home(props) {
   const classes = useStyles();
-    return (
-      <>
-      <Header/>
-      <Container maxWidth="md">
-        <Grid container direction="column" className={classes.root}>
-          <HomeTextField/>
-          <SortButtons/>
-          <TagButtons/>
-          <GridList/>
-        </Grid>
-      </Container>
-      </>
-    );
+  return (
+
+    <Container maxWidth="md">
+      <Grid container direction="column" className={classes.root}>
+        <HomeTextField />
+        <SortButtons />
+        <TagButtons />
+        <GridList />
+      </Grid>
+    </Container>
+  );
 }

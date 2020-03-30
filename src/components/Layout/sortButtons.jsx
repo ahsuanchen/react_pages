@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SortButtons() {
   const classes = useStyles();
+  const typeList = [""];
 
   return (
     <div className={classes.root}>
@@ -27,7 +28,7 @@ export default function SortButtons() {
       <Button classes={{root:classes.test}} variant="contained">
         Default
       </Button>
-      <Button variant="contained" color="">
+      <Button variant="contained" color="default">
         Primary
       </Button>
       <Button variant="contained" color="secondary">

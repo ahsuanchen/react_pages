@@ -19,9 +19,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Draggable from 'react-draggable';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -74,16 +79,36 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         minWidth : "125px"
     } ,
-    open_paper : {
-        maxWidth : '500px' ,
-        maxHeight : '600px' ,
-        background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
-        margin : "auto" ,
-    } ,
+    Exclamation_Mark : {
+        fontSize : "40px" ,
+        color : "red" ,
+    } , 
+    dig_butoon : {
+        color : "#000" ,
+        '&:hover' : {
+          color : '#00AEAE' 
+        }
+    }
   }));
+
+  function PaperComponent(props) {
+    return (
+      <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'} disabled>
+        <Paper style={{minWidth : '600px' , minHeight : '200px' ,}} {...props} />
+      </Draggable>
+    );
+  }
 
 export default function ManageActivity() {
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
@@ -266,11 +291,36 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={handleOpen}
                                                                 >
                                                                     刪除活動
                                                                 </Button>
+                                                                <Dialog
+                                                                    open={open}
+                                                                    onClose={handleClose}
+                                                                    PaperComponent={PaperComponent}
+                                                                    aria-labelledby="draggable-dialog-title"
+                                                                >
+                                                                    <DialogTitle id="draggable-dialog-title">
+                                                                        <Typography variant="h5">
+                                                                            <ErrorIcon className={classes.Exclamation_Mark} />
+                                                                            刪除活動
+                                                                        </Typography>
+                                                                    </DialogTitle>
+                                                                    <DialogContent>
+                                                                        <DialogContentText style={{fontSize:"20px"}}>
+                                                                            您確定要刪除該活動嗎？
+                                                                        </DialogContentText>
+                                                                    </DialogContent>
+                                                                    <DialogActions>
+                                                                        <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            取消
+                                                                        </Button>
+                                                                        <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            確定
+                                                                        </Button>
+                                                                    </DialogActions>
+                                                                </Dialog>
                                                             </TableCell>
                                                             <TableCell align="center">報名中</TableCell>
                                                         </TableRow>
