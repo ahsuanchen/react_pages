@@ -10,8 +10,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import Image from 'assets/images/1.jpg';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  div: {
+      boxSizing: "border-box"
+  },
   gridList: {
     width: 900,
     height: 500,
@@ -33,13 +37,15 @@ export default function TestGridList(props) {
 
 
   return (
-    <Container maxWidth="md">
+    <Container className={classes.div}>
+      <div>
+        <Typography variant="h4">
+           活動相簿
+            </Typography>
+        <hr />
+      </div>
+
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-          <ListSubheader component="div" className={classes.title}>
-          活動相簿
-          </ListSubheader>
-        </GridListTile>
         {imageList.map(tile => (
         <GridListTile cols={1} key={tile}>
           <img src={`/assets/images/${tile}.jpg`} alt={tile} />
@@ -52,3 +58,11 @@ export default function TestGridList(props) {
     </Container>
   );
 }
+
+{/*
+  <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+    <ListSubheader component="div" className={classes.title}>
+    活動相簿
+    </ListSubheader>
+  </GridListTile>
+  */}

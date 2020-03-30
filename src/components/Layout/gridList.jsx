@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   gridList: {
-    width: 900,
-    height: 500,
+    width: "100%",
+    height: "100%",
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -40,9 +40,9 @@ export default function TestGridList(props) {
         </GridListTile>
         {imageList.map(tile => (
         <GridListTile cols={1} key={tile}>
-          <img src={`/assets/images/${tile}.jpg`} alt={tile} />
+          <img src={`/assets/images/${tile}.jpg`} alt={tile}/>
         <GridListTileBar title={tile.title} subtitle={<span>by: {tile.author}</span>} actionIcon={
-          <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/ActivityInfo">
+          <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/ActivityInformation">
             <InfoIcon/>
           </IconButton>}/>
         </GridListTile>))}

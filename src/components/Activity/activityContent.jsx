@@ -10,6 +10,9 @@ import Container from '@material-ui/core/Container';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    maxWidth : "1080px" ,
+    margin : "2% auto" ,
+
   },
   bullet: {
     display: 'inline-block',
@@ -29,7 +32,7 @@ export default function SimpleCard() {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <Container maxWidth="md">
+
     <Card className={classes.root}>
       <CardContent>
         <Typography  className={classes.title} color="textSecondary" gutterBottom>
@@ -45,6 +48,6 @@ export default function SimpleCard() {
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
-    </Container>
+
   );
 }

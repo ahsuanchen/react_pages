@@ -10,8 +10,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import Image from 'assets/images/1.jpg';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
+  div: {
+      boxSizing: "border-box"
+  },
   gridList: {
     width: 900,
     height: 500,

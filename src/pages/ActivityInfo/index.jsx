@@ -1,6 +1,6 @@
 //活動內容頁面
 import React from 'react';
-import ActivityInfo from 'components/Activity/activityInfo.jsx';
+import ActivityInformation from 'components/Activity/activityInfo.jsx';
 import ActivityContent from 'components/Activity/activityContent.jsx';
 
 class ActivityInfo extends React.Component {
@@ -9,7 +9,7 @@ class ActivityInfo extends React.Component {
 
     return (
       <>
-        <ActivityInfo />
+        <ActivityInformation />
         <ActivityContent/>
       </>
     )

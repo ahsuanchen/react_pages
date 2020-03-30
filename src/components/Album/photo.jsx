@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
 
 import Cat1 from 'assets/images/11.jpg';
 import Cat2 from 'assets/images/12.jpg';
@@ -21,6 +22,9 @@ import Cat8 from 'assets/images/18.jpg';
 import Cat9 from 'assets/images/19.jpg';
 
 const useStyles = makeStyles(theme => ({
+  div: {
+      boxSizing: "border-box"
+  },
   gridList: {
     width: 900,
     height: 500,

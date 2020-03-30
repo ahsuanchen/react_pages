@@ -3,7 +3,7 @@ import { Route, Switch, Router} from 'react-router-dom';
 
 import routess from 'routes';
 
-import Header from 'components/Home/header.jsx';
+import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
 import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
@@ -32,20 +32,18 @@ import ManageActivity from 'components/Profile/manageActivity.jsx';
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
 import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
+import ActivityInformation from 'pages/ActivityInfo/index.jsx';
+import Album from 'pages/MyAlbum/index.jsx';
 
 class Layout extends React.Component {
 
   render() {
     const routes = routess;
     return (
-
       <>
       <Header routes={routes}/>
-      {routes.map((page,key) => (
-        <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
-      ))}
 
-      <Route path="/ActivityInfo" component={Activity}/>
+      <Route path="/ActivityInformation" component={ActivityInformation}/>
       <Route path="/signIn" component={SignIn} />
       <Route path="/signUp" component={SignUp} />
       <Route path="/signupInfor" component={SignupInfor} />
@@ -69,6 +67,9 @@ class Layout extends React.Component {
       <Route path="/manageActivity" component={ManageActivity} />
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
+      <Route path="/Activity" component={Activity} />
+      <Route path="/Album" component={Album} />
+
       </>
     );
   }
@@ -80,4 +81,9 @@ export default Layout;
   routes.map((page,key) => (
     <Route path={page.path} component={page.component} key={key}/>
   ))
+
+  放在<header>下面
+  {routes.map((page,key) => (
+    <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
+  ))}
 */}

@@ -16,19 +16,22 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
+    maxWidth : "1080px" ,
+    margin : "2% auto" ,
   },
 }));
 export default function Home(props) {
   const classes = useStyles();
   return (
 
-    <Container maxWidth="md">
+
       <Grid container direction="column" className={classes.root}>
         <HomeTextField />
         <SortButtons />
         <TagButtons />
         <GridList />
       </Grid>
-    </Container>
+    
   );
 }
+//<Container maxWidth="md">
