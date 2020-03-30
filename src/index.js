@@ -105,6 +105,8 @@ ReactDOM.render(
             <Route path="/manageActivity" component={ManageActivity} />
             <Route path="/participantList" component={ParticipantList} />
             <Route path="/addParticipant" component={AddParticipant} />
+            {/* <Route exact path="/pass-text"> <PassTextPage /></Route>
+            <Route exact path="/view-text"><ViewTextPage /></Route> */}
         </Switch>
     </BrowserRouter>
     , document.getElementById('root'));

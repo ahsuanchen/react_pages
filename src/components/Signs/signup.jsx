@@ -1,4 +1,5 @@
 import React ,{useState} from 'react';
+import { Router,Route,hashHistory} from 'react-router';
 import axios from 'axios';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
@@ -80,6 +81,20 @@ export default function SignUp() {
     //     history.push("/signupinfo");
     // }
 
+    const PassTextPage = () => {
+        const history = useHistory();
+      
+        const passText= () => {
+          history.push({
+            pathname: "/signupinfo",
+            state: { id: "123", pw:"123" }
+          });
+        };
+      
+        return <button onClick={passText}>pass</button>;
+      };
+
+
     const  [memberEmail,setMemberEmail] =  useState("");
     const  [memberPassword,setMemberPassword] =  useState("");
 
@@ -88,7 +103,6 @@ export default function SignUp() {
         const member={
             memberEmail:memberEmail,
             memberPassword:memberPassword};
-            alert("1")
         axios.post("api/member/check/", member,
         {
             auth:
@@ -102,8 +116,7 @@ export default function SignUp() {
             console.log(res);
             console.log(res.data);
             //再新增！判斷後為ok就跳到下一頁
-            alert("2")
-            //handleClick();
+            //PassTextPage();
             
           }).catch(function(error){
               alert(error);

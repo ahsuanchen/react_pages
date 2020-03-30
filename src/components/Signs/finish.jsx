@@ -20,8 +20,10 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '120vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
+        color: 'white',
         //borderRadius: 10,
         //borderColor: ,
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
@@ -56,6 +58,8 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
         margin: theme.spacing(13, 15),
+        color: 'white',
+        borderColor:'white'
     },
 
     icon: {
