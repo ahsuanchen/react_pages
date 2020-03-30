@@ -22,8 +22,10 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '120vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
+        color: 'white',
         //borderRadius: 10,
         //borderColor: ,
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
@@ -83,7 +85,7 @@ const useStyles = makeStyles(theme => ({
       },
 }));
 
-export default function SignUp() {
+export default function SettingFace() {
     const classes = useStyles();
 
     return (
@@ -99,19 +101,16 @@ export default function SignUp() {
                             設定使用者人臉
                         </Typography>
                         <form className={classes.form} noValidate>
-                        {/* <input type='file'
-                            className={classes.picker}
-                            accept='image/*'
-                            multiple
-                            capture="camera"
-                            onChange={this.onfileChange} /> */}
-                           {/* <Webcam />; */}
-                        <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img>
+                       
+                        {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
+                        <Grid container justify="center">
+                        <input type="file" />
+                        </Grid>
 
-                            <Grid>
+                            {/* <Grid>
                             <Button className={classes.button} color="primary">開啟相機</Button>
                             <Button className={classes.button} color="primary">開啟相簿</Button>
-                            </Grid>
+                            </Grid> */}
                             <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"

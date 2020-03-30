@@ -1,4 +1,5 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -16,8 +17,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
-import { spacing } from '@material-ui/system';
-import Box from '@material-ui/core/Box';
+import { borders } from '@material-ui/system';
+
 
 
 
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '90vh',
+        height: '135vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -40,7 +41,6 @@ const useStyles = makeStyles(theme => ({
 
     },
 
-
     paper: {
         marginTop: theme.spacing(8),
 
@@ -49,11 +49,10 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
-            marginTop: theme.spacing(3),
-            marginBottom: theme.spacing(3),
+            marginTop: theme.spacing(2),
             //margin: theme.spacing(1),
-            width: "100%",
-            height: "210px",
+            width: theme.spacing(40),
+            height: theme.spacing(49),
         },
     },
 
@@ -98,19 +97,88 @@ const GreenRadio = withStyles({
 
 
 
-export default function SignUp() {
+export default function SignUpInfo() {
     const classes = useStyles();
 
-    const [value, setValue] = React.useState('female');
+    const [valueG, setValueG] = React.useState('female');
+    const [valueB, setValueB] = React.useState('A');
 
-    const handleChange = event => {
-        setValue(event.target.value);
+    const handleChangeG = event => {
+        setValueB(event.target.value);
+    }
+
+    const handleChangeB = event => {
+        setValueB(event.target.value);
+    }
+
+    const ViewTextPage = props => {
+        const text = props.location.state.name;
+      
+        const viewText = () => {
+          console.log(text);
+        };
+      
+        return <button onClick={viewText}>view</button>;
+      };
+
+
+    // const  [memberEmail,setMemberEmail] =  useState("");
+    // const  [memberPassword,setMemberPassword] =  useState("");
+    const  [memberName,setMemberName] =  useState("");
+    const  [memberGender,setMemberGender] =  useState("");
+    const  [memberBloodType,setMemberBloodType] =  useState("");
+    const  [memberID,setMemberID] =  useState("");
+    const  [memberBirthday,setMemberBirthday] =  useState("");
+    const  [memberPhone,setMemberPhone] =  useState("");
+    const  [memberAddress,setMemberAddress] =  useState("");
+    const  [emergencyContact,setEmergencyContact] =  useState("");
+    const  [emergencyContactRelation,setEmergencyContactRelation] =  useState("");
+    const  [emergencyContactPhone,setEmergencyContactPhone] =  useState("");
+    const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
+    const  [memberEnabled,setMemberEnabled] =  useState("1");
+
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+        const member={
+            memberName:memberName,
+            memberGender:memberGender,
+            memberBloodType:memberBloodType,
+            memberID:memberID,
+            memberBirthday:memberBirthday,
+            memberPhone:memberPhone,
+            memberAddress:memberAddress,
+            emergencyContact:emergencyContact,
+            emergencyContactRelation:emergencyContactRelation,
+            emergencyContactPhone:emergencyContactPhone,
+            memberType:memberType,
+            memberEnabled:memberEnabled,
+        };
+
+        axios.post("/api/member", member,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+          .then(res => {
+            alert("yes")
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            
+          }).catch(function(error){
+              alert(error);
+              alert("y2")
+          });
+        
     }
 
 
 
-
     return (
+        
         <Grid className={classes.root}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -120,61 +188,140 @@ export default function SignUp() {
                 <div className={classes.paper}>
                     <paper>
                         <Grid>
-                        <form className={classes.form} noValidate>
+                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="name"
+                                id="memberName"
                                 label="姓名"
-                                name="name"
-                                autoComplete="name"
-                            
+                                onChange={e=>setMemberName(e.target.value)}
                             />
 
-                            <FormControl component="fieldset" className={classes.formControl}>
+                            {/* <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">性別</FormLabel>
-                                <RadioGroup aria-label="性別" name="gender1" value={value} onChange={handleChange} >
+                                <RadioGroup aria-label="性別" id="memberGender" value={valueG} onChange={e=>setMemberGender(e.target.value)} >
                                 <Grid container>
-                                        <Grid item> 
-                                    <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" /></Grid>
                                     <Grid item> 
-                                    <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" /></Grid>
-                                    <Grid item>
-                                    <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" /></Grid>
+                                        <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
                                     </Grid>
+                                    <Grid item> 
+                                        <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" />
+                                    </Grid>
+                                    <Grid item>
+                                    <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" />
+                                    </Grid>
+                                </Grid>
                                 </RadioGroup>
                             </FormControl>
+
+                            <FormControl component="fieldset" className={classes.formControl} required>
+                                <FormLabel component="legend">血型</FormLabel>
+                                <RadioGroup aria-label="血型" id="memberBloodType" value={valueB} onChange={e=>setMemberBloodType(e.target.value)} >
+                                <Grid container>
+                                    <Grid item> 
+                                        <FormControlLabel value="A" control={<GreenRadio size="small" />} label="A" />
+                                    </Grid>
+                                    <Grid item> 
+                                        <FormControlLabel value="B" control={<GreenRadio size="small" />} label="B" />
+                                    </Grid>
+                                    <Grid item>
+                                    <FormControlLabel value="O" control={<GreenRadio size="small" />} label="O" />
+                                    </Grid>
+                                    <Grid item>
+                                    <FormControlLabel value="AB" control={<GreenRadio size="small" />} label="AB" />
+                                    </Grid>
+                                </Grid>
+                                </RadioGroup>
+                            </FormControl> */}
+
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                required
+                                id="memberGender"
+                                label="性別"
+                                onChange={e=>setMemberGender(e.target.value)}
+                            />
+
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                required
+                                id="memberBloodType"
+                                label="血型"
+                                onChange={e=>setMemberBloodType(e.target.value)}
+                            />
+
+
+
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                required
+                                id="memberID"
+                                label="身分證字號"
+                                onChange={e=>setMemberID(e.target.value)}
+                            />
 
 
                             <TextField 
                                 margin="normal"
                                 fullWidth
+                                required
                                 label="生日" 
                                 type="date" 
+                                id="memberBirthday"
                                 defaultValue={new Date().getFullYear()}
-                                InputLabelProps={{shrink: true,}} 
+                                InputLabelProps={{shrink: true,}}
+                                onChange={e=>setMemberBirthday(e.target.value)} 
                             />
 
                             <TextField
                                 margin="normal"
-                                required
                                 fullWidth
-                                name="phone"
+                                required
+                                id="memberPhone"
                                 label="聯絡電話"
-                                type="phone"
-                                id="phone"
+                                onChange={e=>setMemberPhone(e.target.value)}
                             />
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="address"
+                                id="memberAddress"
                                 label="聯絡地址"
-                                type="address"
-                                id="address"
+                                onChange={e=>setMemberAddress(e.target.value)}
                             />
+
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="emergencyContact"
+                                label="緊急聯絡人"
+                                onChange={e=>setEmergencyContact(e.target.value)}
+                            /> 
+                            
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="emergencyContactRelation"
+                                label="緊急聯絡人關係"
+                                onChange={e=>setEmergencyContactRelation(e.target.value)}
+                            />
+
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="emergencyContactPhone"
+                                label="緊急聯絡人電話"
+                                onChange={e=>setEmergencyContactPhone(e.target.value)}
+                            />
+
                         <Grid container justify="center"  key={10}>
                         
                             <Button
@@ -194,15 +341,20 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./settingface"
+                                // href="./settingface"
+                                onChange={e=>setMemberType(0)}
+                                onChange={e=>setMemberEnabled(1)}
+                                onClick={handleSubmit}
+                                
                             >
+
                                 <ChevronRightIcon />
                                 下一步
                             </Button>
                         </Grid>
                         
 
-                        </form>
+                        {/* </form> */}
                         </Grid>
                     </paper>
                     <Grid align-items-xs-flex-end>
