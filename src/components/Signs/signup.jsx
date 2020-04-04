@@ -1,4 +1,5 @@
 import React ,{useState} from 'react';
+import { Router,Route,hashHistory} from 'react-router';
 import axios from 'axios';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
@@ -13,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -73,6 +75,24 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
     const classes = useStyles();
+    //let history = useHistory();
+
+    // function handleClick() {
+    //     history.push("/signupinfo");
+    // }
+
+    const PassTextPage = () => {
+        const history = useHistory();
+      
+        const passText= () => {
+          history.push({
+            pathname: "/signupinfo",
+            state: { id: "123", pw:"123" }
+          });
+        };
+      
+        return <button onClick={passText}>pass</button>;
+      };
 
 
     const  [memberEmail,setMemberEmail] =  useState("");
@@ -83,8 +103,7 @@ export default function SignUp() {
         const member={
             memberEmail:memberEmail,
             memberPassword:memberPassword};
-            alert("1")
-        axios.post("/api/member/", member,
+        axios.post("api/member/check/", member,
         {
             auth:
             {
@@ -92,10 +111,12 @@ export default function SignUp() {
                 password : "123"
             }
         })
-          .then(res => {
+        .then(res => {
             console.log("test")
             console.log(res);
             console.log(res.data);
+            //再新增！判斷後為ok就跳到下一頁
+            //PassTextPage();
             
           }).catch(function(error){
               alert(error);
@@ -112,7 +133,7 @@ export default function SignUp() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
                             <TextField
                                 variant="outlined"
                                 margin="normal"
@@ -153,13 +174,15 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
+                                //onClick={handleClick}
+                                onClick={handleSubmit}
                                 // href="./signupinfo"
                             >
                                 <ChevronRightIcon />
                                 下一步
                             </Button>
 
-                        </form>
+                        {/* </form> */}
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

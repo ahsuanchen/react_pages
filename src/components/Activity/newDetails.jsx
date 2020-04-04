@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Header from './header3.jsx';
+import Header from '../Header/PF_header.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -114,9 +114,8 @@ export default function DenseAppBar() {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="name"
+                                    id="activitySummary"
                                     label="活動摘要"
-                                    name="name"
                                     variant="outlined"
                                     multiline
                                     rows="4"
@@ -127,9 +126,8 @@ export default function DenseAppBar() {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="name"
+                                    id="activityInfo"
                                     label="活動簡介"
-                                    name="name"
                                     variant="outlined"
                                     multiline
                                     rows="4"
@@ -140,9 +138,8 @@ export default function DenseAppBar() {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="name"
+                                    id="activityMoreContent"
                                     label="更多內容"
-                                    name="name"
                                     variant="outlined"
                                     multiline
                                     rows="8"
@@ -154,9 +151,8 @@ export default function DenseAppBar() {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    id="notice"
+                                    id="activityPrecautions"
                                     label="注意事項"
-                                    name="noticed"
                                     variant="outlined"
                                     multiline
                                     rows="5"

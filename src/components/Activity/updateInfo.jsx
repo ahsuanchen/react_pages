@@ -112,19 +112,6 @@ export default function DenseAppBar() {
     const classes = useStyles();
 
     
-    const [city, setCity] = React.useState('');
-    const handleChange5 = event => {
-        setCity(event.target.value);
-    };
-
-    const [area, setArea] = React.useState('');
-    const handleChange6 = event => {
-        setArea(event.target.value);
-    };
-
-
-    
-
     return (
         <div className={classes.root}>
             <Header/>

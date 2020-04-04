@@ -17,10 +17,13 @@ import Forgot2 from 'components/Signs/forgot2.jsx';
 import Finish from 'components/Signs/finish.jsx';
 import Organizer from 'components/Activity/organizer.jsx';
 import New1 from 'components/Activity/new1.jsx';
-import New2 from 'components/Activity/new2.jsx';
-import New3 from 'components/Activity/new3.jsx';
-import New4 from 'components/Activity/new4.jsx';
-import Bar from 'components/bar.jsx';
+import NewPic from 'components/Activity/newPic.jsx';
+import NewInfo from 'components/Activity/newInfo.jsx';
+import NewDetails from 'components/Activity/newDetails.jsx';
+import UpdatePic from 'components/Activity/newPic.jsx';
+import UpdateInfo from 'components/Activity/newInfo.jsx';
+import UpdateDetails from 'components/Activity/newDetails.jsx';
+// import Bar from 'components/bar.jsx';
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
@@ -53,12 +56,15 @@ class Layout extends React.Component {
       <Route path="/forgot1" component={Forgot1} />
       <Route path="/forgot2" component={Forgot2} />
       <Route path="/finish" component={Finish} />
-      <Route path="/bar" component={Bar} />
+      {/* <Route path="/bar" component={Bar} /> */}
       <Route path="/organizer" component={Organizer} />
       <Route path="/new1" component={New1} />
-      <Route path="/new2" component={New2} />
-      <Route path="/new3" component={New3} />
-      <Route path="/new4" component={New4} />
+      <Route path="/newPic" component={NewPic} />
+      <Route path="/newInfo" component={NewInfo} />
+      <Route path="/newDetails" component={NewDetails} />
+      <Route path="/updatePic" component={UpdatePic} />
+      <Route path="/updateInfo" component={UpdateInfo} />
+      <Route path="/updateDetails" component={UpdateDetails} />
       {/* <Route path="/editSignupInformation" component={Homepage} /> */}
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />

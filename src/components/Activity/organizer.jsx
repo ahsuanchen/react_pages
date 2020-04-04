@@ -49,8 +49,49 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function DenseAppBar() {
+export default function Organizer() {
     const classes = useStyles();
+
+    const[inputs, setInputs] = React.useState({
+        organizerName:'',
+        organizerEmail:'',
+        organizerPhone:'',
+        organizerAddress:'',
+        organizerInfo:''
+    });
+
+    const handleChange = user => event =>{
+        event.persist();
+        setInputs(inputs =>({...inputs, [user]: event.target.value}));
+    }
+
+    const handleSubmit = () =>{
+        fetch('/organizer', {
+            method: 'post',
+            
+            headers: {
+              'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                organizerName: inputs.organizerName,
+                organizerEmail: inputs.organizerEmail,
+                organizerPhone: inputs.organizerPhone,
+                organizerAddress: inputs.organizerAddress,
+                organizerInfo: inputs.organizerInfo
+            }),
+          
+          })
+
+          .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            
+          }).catch(function(error){
+              alert(error);
+          });
+    }
 
     return (
         <div className={classes.root}>
@@ -63,7 +104,7 @@ export default function DenseAppBar() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate>
+                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
                             <TextField
                                 margin="normal"
                                 required
@@ -72,6 +113,7 @@ export default function DenseAppBar() {
                                 label="主辦單位名稱"
                                 name="organizerName"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
                             <TextField
@@ -82,6 +124,7 @@ export default function DenseAppBar() {
                                 label="主辦單位信箱"
                                 name="organizerEmail"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
                             <TextField
@@ -92,7 +135,22 @@ export default function DenseAppBar() {
                                 label="主辦單位電話號碼"
                                 name="organizerPhone"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
+
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="organizerAddress"
+                                label="主辦單位地址"
+                                multiline
+                                rows="2"
+                                name="organizerAddress"
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+
 
                             <TextField
                                 margin="normal"
@@ -105,10 +163,11 @@ export default function DenseAppBar() {
                                 rows="4"
                                 placeholder="上限一百字"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
 
-                            <IconButton color="primary" aria-label="next step" href="./new1-button">
+                            <IconButton type="submit" color="primary" aria-label="next step">
                                 <ArrowForwardIcon />
                             </IconButton>
 

@@ -1,7 +1,7 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Header from './header3.jsx';
+import Header from '../Header/PF_header.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -110,7 +110,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
  //radio 顏色設定
- const GreenRadio = withStyles({
+const GreenRadio = withStyles({
     root: {
         color: green[400],
         '&$checked': {
@@ -126,15 +126,27 @@ const useStyles = makeStyles(theme => ({
 export default function DenseAppBar() {
     const classes = useStyles();
 
+    // //宣吿要接值的變數
+    // const [inputs, setInputs] = React.useState({
+    //     activityName:'',
+    //     activitySpace:'',
+    //     activityStartDate:'',
+    //     activityEndDate:'',
+    //     startSignUpDate:'',
+    //     endSignUpDate:'',
+    //     activityLinkName:'',
+    //     activityLink:'',
+    //     activityMeal:'',
+    // });
+
     const  [activityName,setactivityName] =  useState("");
-    const  [activityAddress,setactivityAddress] =  useState("");
     const  [activitySpace,setactivitySpace] =  useState("");
     const  [activityStartDate,setactivityStartDate] =  useState("");
     const  [activityEndDate,setactivityEndDate] =  useState("");
     const  [startSignUpDate,setstartSignUpDate] =  useState("");
     const  [endSignUpDate,setendSignUpDate] =  useState("");
-    const  [activityWeb,setactivityWeb] =  useState("");
-    const  [activityWebLink,setactivityWebLink] =  useState("");
+    const  [activityLinkName,setactivityLinkName] =  useState("");
+    const  [activityLink,setactivityLink] =  useState("");
     const  [activityMeal,setactivityMeal] =  useState("");
 
     const today  = new Date();
@@ -152,25 +164,27 @@ export default function DenseAppBar() {
         //event.preventDefault();
         const activity={
             activityName:activityName,
-            activityAddress:activityAddress,
             activitySpace:activitySpace,
             activityStartDate:activityStartDate,
             activityEndDate:activityEndDate,
             startSignUpDate:startSignUpDate,
             endSignUpDate:endSignUpDate,
-            activityWeb:activityWeb,
-            activityWebLink:activityWebLink,
+            activityLinkName:activityLinkName,
+            activityLink:activityLink,
             activityMeal:activityMeal
         };
-            alert("1")
-        axios.post("/api/activity/", activity,
-        {
+           
+        axios({
+            method: 'post',
+            baseURL: 'http://localhost:8080',
+            url: '/api/activity/',
+            'Content-Type': 'application/json',
             auth:
             {
                 username : "user",
                 password : "123"
             }
-        })
+          })
           .then(res => {
             console.log("test")
             console.log(res);
@@ -179,7 +193,25 @@ export default function DenseAppBar() {
           }).catch(function(error){
               alert(error);
           });
-        
+
+        // axios.post("/api/activity/", activity,
+        // {
+            
+        //     auth:
+        //     {
+        //         username : "user",
+        //         password : "123"
+        //     }
+        // })
+        //   .then(res => {
+        //     console.log("test")
+        //     console.log(res);
+        //     console.log(res.data);
+            
+        //   }).catch(function(error){
+        //       alert(error);
+        //   });
+        console.log(activity);
     }
 
     const [value, setValue] = React.useState('yes');
@@ -318,10 +350,10 @@ export default function DenseAppBar() {
                                     required
                                     fullWidth
                                     label="地址"
-                                    id="activityAddress"
-                                    name="activityAddress"
+                                    id="activitySpace"
+                                    name="activitySpace"
                                     variant="outlined"
-                                    onChange={e=>setactivityAddress(e.target.value)}
+                                    onChange={e=>setactivitySpace(e.target.value)}
                                 />
 
 
@@ -329,10 +361,10 @@ export default function DenseAppBar() {
                                     margin="normal"
                                     fullWidth
                                     label="參考網站名稱（例：Facebook）"
-                                    id="activityWeb"
-                                    name="activityWeb"
+                                    id="activityLinkName"
+                                    name="activityLinkName"
                                     variant="outlined"
-                                    onChange={e=>setactivityWeb(e.target.value)}
+                                    onChange={e=>setactivityLinkName(e.target.value)}
                                 />
 
                                 <TextField
@@ -343,7 +375,7 @@ export default function DenseAppBar() {
                                     id="activityLink"
                                     name="activityLink"
                                     variant="outlined"
-                                    onChange={e=>setactivityWebLink(e.target.value)}
+                                    onChange={e=>setactivityLink(e.target.value)}
                                 />
 
                                 
@@ -352,8 +384,8 @@ export default function DenseAppBar() {
                                 <RadioGroup 
                                     aria-label="是否供餐" 
                                     name="activityMeal" 
-                                    // value={value} 
-                                    // onChange={e=>setactivityMeal(e.target.value)} 
+                                    value={value} 
+                                    onChange={e=>setactivityMeal(e.target.value)} 
                                 >
                                     <Grid container>
                                         <Grid item> 
@@ -378,7 +410,7 @@ export default function DenseAppBar() {
                                 <IconButton color="primary" aria-label="next step" href="./new2">
                                     <ArrowBackIcon />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./new4">
+                                <IconButton type="submit" color="primary" aria-label="next step" >
                                     <ArrowForwardIcon />
                                 </IconButton>
                                 </Grid>
