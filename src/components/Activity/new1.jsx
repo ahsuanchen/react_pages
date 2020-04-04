@@ -212,7 +212,7 @@ export default function BulidActivity() {
                                 <Button 
                                     className={classes.button_part}
                                     component={Link}
-                                    to="/new2"
+                                    to="/newPic"
                                 >
                                     下一步
                                 </Button>

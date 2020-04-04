@@ -1,7 +1,7 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import Header from './header3.jsx';
+import Header from '../Header/PF_header.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -97,7 +97,7 @@ export default function DenseAppBar() {
                                 <IconButton color="primary" aria-label="next step" href="./new1">
                                     <ArrowBackIcon />
                                 </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./new3">
+                                <IconButton color="primary" aria-label="next step" href="./newInfo">
                                     <ArrowForwardIcon />
                                 </IconButton>
 
