@@ -2,15 +2,16 @@ import React ,{useState}from 'react';
 import axios from 'axios';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
+import { Link } from 'react-router-dom';
+import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import TextField from '@material-ui/core/TextField';
-//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -18,6 +19,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
+import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
 
 import { green } from '@material-ui/core/colors';
 
@@ -61,10 +64,36 @@ const BootstrapInput = withStyles(theme => ({
 
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-
+    div: {
+        boxSizing: "border-box"
     },
+    topic_part : {
+        textAlign : "center" , 
+        margin : "2% auto"
+    } ,
+    button_part : {
+        display: "flex" ,
+        justifyContent : "space-between"
+    } ,
+    button_part1 : {
+        background : '#00CACA',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        '&:hover' : {
+            background : "none" ,
+            color : "#000"
+        } , 
+    } ,
+    button_part2 : {
+        background : '#00CACA',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        marginLeft : "80%" ,
+        '&:hover' : {
+            background : "none" ,
+            color : "#000"
+        } , 
+    } ,
     space: {
         marginTop: theme.spacing(5),
     },
@@ -73,7 +102,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: '#dcedc8',
+        background: '#D9FFFF',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(3),
@@ -220,210 +249,228 @@ export default function DenseAppBar() {
         setValue(event.target.value);
     }
 
-
-    
-
-
-
     return (
         <div className={classes.root}>
             <Header/>
-            <Grid className={classes.space}>
-                <Container component="main" maxWidth="md">
-                    <CssBaseline />
-                    <Typography component="h1" variant="h5" align="center">
-                        基本資訊
-                    </Typography>
-                    <div className={classes.paper}>
-                        <paper>
-                            <form className={classes.form} noValidate onSubmit={handleSubmit}>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activityName"
-                                    label="活動名稱"
-                                    name="activityName"
-                                    variant="outlined"
-                                    placeholder="請填寫活動名稱"
-                                    onChange={e=>setactivityName(e.target.value)}
-                                />
+            <div>
+                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={2} />
+            </div>
+            <div className={classes.topic_part}>
+                <Typography variant="h4">
+                    Step3 : 活動基本資訊
+                </Typography>
+                <br/>
+                <Typography variant="h5">
+                    (填寫活動資訊)
+                </Typography>
+            </div>
+            <div>
+                <Grid className={classes.space}>
+                    <Container component="main" maxWidth="md">
+                        <CssBaseline />
+                        <div className={classes.paper}>
+                            <paper>
+                                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="activityName"
+                                        label="活動名稱"
+                                        name="activityName"
+                                        variant="outlined"
+                                        placeholder="請填寫活動名稱"
+                                        onChange={e=>setactivityName(e.target.value)}
+                                    />
 
+                                    <TextField 
+                                        margin="normal"
+                                        width="70%"
+                                        label="活動開始日期" 
+                                        type="date" 
+                                        id="activityStartDate"
+                                        name="activityStartDate"
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}}
+                                        onChange={e=>setactivityStartDate(e.target.value)}
+                                    />
 
-                                <TextField 
+                                    <TextField 
                                     margin="normal"
-                                    width="70%"
-                                    label="活動開始日期" 
-                                    type="date" 
+                                    Width='60'
+                                    label="活動開始時間" 
+                                    type="time" 
                                     id="activityStartDate"
                                     name="activityStartDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}}
+                                    InputLabelProps={{shrink: true,}} 
                                     onChange={e=>setactivityStartDate(e.target.value)}
-                                />
+                                    />
 
-                                <TextField 
-                                margin="normal"
-                                Width='60'
-                                label="活動開始時間" 
-                                type="time" 
-                                id="activityStartDate"
-                                name="activityStartDate"
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setactivityStartDate(e.target.value)}
-                                />
-
-
-                                <TextField 
-                                margin="normal"
-                                Width="50%"
-                                label="活動結束日期" 
-                                type="date" 
-                                id="activityEndDate"
-                                name="activityEndDate"
-                                defaultValue={new Date().getFullYear()}
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setactivityEndDate(e.target.value)}
-                                />
-
-                                <TextField 
-                                margin="normal"
-                                Width="50%"
-                                label="活動結束時間" 
-                                type="time" 
-                                id="activityEndDate"
-                                name="activityEndDate"
-                                InputLabelProps={{shrink: true,}}
-                                onChange={e=>setactivityEndDate(e.target.value)} 
-                                />
-
-                                <TextField 
-                                margin="normal"
-                                width="70%"
-                                label="報名開始日期" 
-                                type="date" 
-                                id="startSignUpDate"
-                                name="startSignUpDate"
-                                defaultValue={new Date().getFullYear()}
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setstartSignUpDate(e.target.value)}
-                                />
-
-                                <TextField 
-                                margin="normal"
-                                Width='60'
-                                label="報名開始時間" 
-                                type="time" 
-                                id="startSignUpDate"
-                                name="startSignUpDate"
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setstartSignUpDate(e.target.value)}
-                                />
-
-
-                                <TextField 
-                                margin="normal"
-                                Width="50%"
-                                label="報名結束日期" 
-                                type="date" 
-                                id="endSignUpDate"
-                                name="endSignUpDate"
-                                defaultValue={new Date().getFullYear()}
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setendSignUpDate(e.target.value)}
-                                />
-
-                                <TextField 
-                                margin="normal"
-                                Width="50%"
-                                label="報名結束時間" 
-                                type="time" 
-                                id="endSignUpDate"
-                                name="endSignUpDate"
-                                InputLabelProps={{shrink: true,}} 
-                                onChange={e=>setendSignUpDate(e.target.value)}
-                                />
-
-
-                                <TextField
+                                    <TextField 
                                     margin="normal"
-                                    required
-                                    fullWidth
-                                    label="地址"
-                                    id="activitySpace"
-                                    name="activitySpace"
-                                    variant="outlined"
-                                    onChange={e=>setactivitySpace(e.target.value)}
-                                />
+                                    Width="50%"
+                                    label="活動結束日期" 
+                                    type="date" 
+                                    id="activityEndDate"
+                                    name="activityEndDate"
+                                    defaultValue={new Date().getFullYear()}
+                                    InputLabelProps={{shrink: true,}} 
+                                    onChange={e=>setactivityEndDate(e.target.value)}
+                                    />
 
-
-                                <TextField
+                                    <TextField 
                                     margin="normal"
-                                    fullWidth
-                                    label="參考網站名稱（例：Facebook）"
-                                    id="activityLinkName"
-                                    name="activityLinkName"
-                                    variant="outlined"
-                                    onChange={e=>setactivityLinkName(e.target.value)}
-                                />
+                                    Width="50%"
+                                    label="活動結束時間" 
+                                    type="time" 
+                                    id="activityEndDate"
+                                    name="activityEndDate"
+                                    InputLabelProps={{shrink: true,}}
+                                    onChange={e=>setactivityEndDate(e.target.value)} 
+                                    />
 
-                                <TextField
+                                    <TextField 
                                     margin="normal"
-                                    fullWidth
-                                    type="url"
-                                    label="參考網站連結"
-                                    id="activityLink"
-                                    name="activityLink"
-                                    variant="outlined"
-                                    onChange={e=>setactivityLink(e.target.value)}
-                                />
+                                    width="70%"
+                                    label="報名開始日期" 
+                                    type="date" 
+                                    id="startSignUpDate"
+                                    name="startSignUpDate"
+                                    defaultValue={new Date().getFullYear()}
+                                    InputLabelProps={{shrink: true,}} 
+                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                    />
 
-                                
-                             <FormControl component="fieldset" className={classes.formControl}>
-                                <FormLabel component="legend">是否供餐</FormLabel>
-                                <RadioGroup 
-                                    aria-label="是否供餐" 
-                                    name="activityMeal" 
-                                    value={value} 
-                                    onChange={e=>setactivityMeal(e.target.value)} 
-                                >
-                                    <Grid container>
-                                        <Grid item> 
-                                        <FormControlLabel 
-                                            value="yes" 
-                                            control={<GreenRadio />} 
-                                            label="是" 
-                                        />
-                                        </Grid>
+                                    <TextField 
+                                    margin="normal"
+                                    Width='60'
+                                    label="報名開始時間" 
+                                    type="time" 
+                                    id="startSignUpDate"
+                                    name="startSignUpDate"
+                                    InputLabelProps={{shrink: true,}} 
+                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                    />
 
-                                        <Grid item>
-                                            <FormControlLabel 
-                                            value="no" 
-                                            control={<GreenRadio />} 
-                                            label="否" 
-                                            />
-                                        </Grid>
+                                    <TextField 
+                                    margin="normal"
+                                    Width="50%"
+                                    label="報名結束日期" 
+                                    type="date" 
+                                    id="endSignUpDate"
+                                    name="endSignUpDate"
+                                    defaultValue={new Date().getFullYear()}
+                                    InputLabelProps={{shrink: true,}} 
+                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                    />
+
+                                    <TextField 
+                                    margin="normal"
+                                    Width="50%"
+                                    label="報名結束時間" 
+                                    type="time" 
+                                    id="endSignUpDate"
+                                    name="endSignUpDate"
+                                    InputLabelProps={{shrink: true,}} 
+                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        label="地址"
+                                        id="activitySpace"
+                                        name="activitySpace"
+                                        variant="outlined"
+                                        onChange={e=>setactivitySpace(e.target.value)}
+                                    />
+
+
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        label="參考網站名稱（例：Facebook）"
+                                        id="activityLinkName"
+                                        name="activityLinkName"
+                                        variant="outlined"
+                                        onChange={e=>setactivityLinkName(e.target.value)}
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        type="url"
+                                        label="參考網站連結"
+                                        id="activityLink"
+                                        name="activityLink"
+                                        variant="outlined"
+                                        onChange={e=>setactivityLink(e.target.value)}
+                                    />
+
+                                    <FormControl component="fieldset" className={classes.formControl}>
+                                        <FormLabel component="legend">是否供餐</FormLabel>
+                                        <RadioGroup 
+                                            aria-label="是否供餐" 
+                                            name="activityMeal" 
+                                            value={value} 
+                                            onChange={e=>setactivityMeal(e.target.value)} 
+                                        >
+                                            <Grid container>
+                                                <Grid item> 
+                                                    <FormControlLabel 
+                                                        value="yes" 
+                                                        control={<GreenRadio />} 
+                                                        label="是" 
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <FormControlLabel 
+                                                    value="no" 
+                                                    control={<GreenRadio />} 
+                                                    label="否" 
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </RadioGroup>
+                                    </FormControl>
+                                    <Grid item xs={12} sm={6} className={classes.button_part}>
+                                        <Box lineHeight="normal" m={1}>
+                                            <Button 
+                                                className={classes.button_part1}
+                                                component={Link}
+                                                to="/newPic"
+                                            >
+                                                上一步
+                                            </Button>
+                                        </Box>
+                                        <Box lineHeight="normal" m={1}>
+                                            <Button 
+                                                className={classes.button_part2}
+                                                component={Link}
+                                                to="/newDetails"
+                                            >
+                                                下一步
+                                            </Button>
+                                        </Box>
                                     </Grid>
-                                </RadioGroup>
-                            </FormControl>
-                                <Grid>
-                                <IconButton color="primary" aria-label="next step" href="./new2">
-                                    <ArrowBackIcon />
-                                </IconButton>
-                                <IconButton type="submit" color="primary" aria-label="next step" >
-                                    <ArrowForwardIcon />
-                                </IconButton>
-                                </Grid>
+                                    {/* <Grid>
+                                        <IconButton color="primary" aria-label="next step" href="./new2">
+                                            <ArrowBackIcon />
+                                        </IconButton>
+                                        <IconButton type="submit" color="primary" aria-label="next step" >
+                                            <ArrowForwardIcon />
+                                        </IconButton>
+                                    </Grid> */}
+                                </form>
+                            </paper>
+                            <Grid align-items-xs-flex-end></Grid>
+                        </div>
 
-                            </form>
-                        </paper>
-                        <Grid align-items-xs-flex-end>
-                        </Grid>
-
-                    </div>
-
-                </Container>
-            </Grid>
+                    </Container>
+                </Grid>
+            </div>
+            
         </div>
 
 
