@@ -1,14 +1,17 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Header from './header3.jsx';
+import Header from '../Header/PF_header.jsx';
+import { Link } from 'react-router-dom';
+import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-//import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
 import Container from '@material-ui/core/Container';
 
@@ -52,10 +55,36 @@ const BootstrapInput = withStyles(theme => ({
 
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-
+    div: {
+        boxSizing: "border-box"
     },
+    topic_part : {
+        textAlign : "center" , 
+        margin : "2% auto"
+    } ,
+    button_part : {
+        display: "flex" ,
+        justifyContent : "space-between"
+    } ,
+    button_part1 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        '&:hover' : {
+            background : "none" ,
+            color : "#000"
+        } , 
+    } ,
+    button_part2 : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        marginLeft : "80%" ,
+        '&:hover' : {
+            background : "none" ,
+            color : "#000"
+        } , 
+    } ,
     space: {
         marginTop: theme.spacing(5),
     },
@@ -64,7 +93,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: '#dcedc8',
+        background: '#f4f4f4',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(3),
@@ -87,26 +116,29 @@ const useStyles = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(2),
     },
-
-
 }));
 
-export default function DenseAppBar() {
+export default function BulidActivity_step4() {
     const classes = useStyles();
-
-
-
-    
 
     return (
         <div className={classes.root}>
             <Header/>
+            <div>
+                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={3} />
+            </div>
+            <div className={classes.topic_part}>
+                <Typography variant="h4">
+                    Step4 : 活動內容
+                </Typography>
+                <br/>
+                <Typography variant="h5">
+                    (填寫活動細節)
+                </Typography>
+            </div>
             <Grid className={classes.space}>
                 <Container component="main" maxWidth="md">
                     <CssBaseline />
-                    <Typography component="h1" variant="h5" align="center">
-                        活動內容
-                    </Typography>
                     <div className={classes.paper}>
                         <paper>
                             <form className={classes.form} noValidate>
@@ -146,7 +178,6 @@ export default function DenseAppBar() {
                                     placeholder="請填寫更多內容"
                                 />
 
-
                                 <TextField
                                     margin="normal"
                                     required
@@ -159,14 +190,33 @@ export default function DenseAppBar() {
                                     placeholder="請填寫注意事項（限五十字）"
                                 />
 
-
-
-                                <IconButton color="primary" aria-label="next step" href="./new3">
+                                <Grid item xs={12} sm={6} className={classes.button_part}>
+                                    <Box lineHeight="normal" m={1}>
+                                        <Button 
+                                            className={classes.button_part1}
+                                            component={Link}
+                                            to="/newInfo"
+                                        >
+                                            上一步
+                                        </Button>
+                                    </Box>
+                                    <Box lineHeight="normal" m={1}>
+                                        <Button
+                                            type="submit"
+                                            className={classes.button_part2}
+                                            component={Link}
+                                            to="/homepageAfterLogin"
+                                        >
+                                            完成送出
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                                {/* <IconButton color="primary" aria-label="next step" href="./new3">
                                     <ArrowBackIcon />
                                 </IconButton>
                                 <IconButton color="primary" aria-label="next step" href="./">
                                     <ArrowForwardIcon />
-                                </IconButton>
+                                </IconButton> */}
 
                             </form>
                         </paper>

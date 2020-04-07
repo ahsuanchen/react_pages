@@ -23,7 +23,11 @@ import NewDetails from 'components/Activity/newDetails.jsx';
 import UpdatePic from 'components/Activity/newPic.jsx';
 import UpdateInfo from 'components/Activity/newInfo.jsx';
 import UpdateDetails from 'components/Activity/newDetails.jsx';
+<<<<<<< HEAD
 //import Bar from 'components/bar.jsx';
+=======
+// import Bar from 'components/bar.jsx';
+>>>>>>> af202736e50b281ac7d4e358031b1afe5749ba31
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
