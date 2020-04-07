@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "space-between"
     } ,
     button_part1 : {
-        background : '#00CACA',
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         '&:hover' : {
@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
         } , 
     } ,
     button_part2 : {
-        background : '#00CACA',
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: '#D9FFFF',
+        background: '#f4f4f4',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(3),
@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function DenseAppBar() {
+export default function BulidActivity_step4() {
     const classes = useStyles();
 
     return (
@@ -178,7 +178,6 @@ export default function DenseAppBar() {
                                     placeholder="請填寫更多內容"
                                 />
 
-
                                 <TextField
                                     margin="normal"
                                     required
@@ -202,12 +201,13 @@ export default function DenseAppBar() {
                                         </Button>
                                     </Box>
                                     <Box lineHeight="normal" m={1}>
-                                        <Button 
+                                        <Button
+                                            type="submit"
                                             className={classes.button_part2}
                                             component={Link}
                                             to="/homepageAfterLogin"
                                         >
-                                            下一步
+                                            完成送出
                                         </Button>
                                     </Box>
                                 </Grid>

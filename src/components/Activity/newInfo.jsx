@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "space-between"
     } ,
     button_part1 : {
-        background : '#00CACA',
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         '&:hover' : {
@@ -85,7 +85,7 @@ const useStyles = makeStyles(theme => ({
         } , 
     } ,
     button_part2 : {
-        background : '#00CACA',
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: '#D9FFFF',
+        background: '#f4f4f4',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(3),
@@ -152,7 +152,7 @@ const GreenRadio = withStyles({
 
 
 
-export default function DenseAppBar() {
+export default function BulidActivity_step3() {
     const classes = useStyles();
 
     // //宣吿要接值的變數

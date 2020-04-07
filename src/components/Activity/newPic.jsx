@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function DenseAppBar() {
+export default function BulidActivity_step2() {
     const classes = useStyles();
 
     return (
