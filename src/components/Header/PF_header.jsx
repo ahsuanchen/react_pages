@@ -100,7 +100,7 @@ export default function MenuAppBar() {
               <ListItemIcon>
                 <FontAwesomeIcon icon={faEnvelope} />
               </ListItemIcon>
-              <ListItemText primary="聯絡我們" />
+              <ListItemText primary="關於我們" />
             </ListItem>
         </List>
       </div>
