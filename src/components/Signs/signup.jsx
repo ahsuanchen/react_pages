@@ -1,5 +1,7 @@
 import React ,{useState} from 'react';
-import { Router,Route,hashHistory} from 'react-router';
+import {Router, Route, hashHistory} from 'react-router';
+import {Link} from 'react-router-dom';
+import { HashRouter } from 'react-router-dom'
 import axios from 'axios';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
@@ -15,6 +17,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
+import SignupInfo from 'components/Signs/signupinfo.jsx';
 
 
 
@@ -81,19 +84,29 @@ export default function SignUp() {
     //     history.push("/signupinfo");
     // }
 
-    const PassTextPage = () => {
-        const history = useHistory();
+    // const PassTextPage = () => {
+    //     const history = useHistory();
       
-        const passText= () => {
-          history.push({
-            pathname: "/signupinfo",
-            state: { id: "123", pw:"123" }
-          });
-        };
+    //     const passText= () => {
+    //       history.push({
+    //         pathname: "/signupinfo",
+    //         state: { id: "123", pw:"123" }
+    //       });
+    //     };
       
-        return <button onClick={passText}>pass</button>;
-      };
+    //     return <button onClick={passText}>pass</button>;
+    //   };
 
+    
+    var data = {id:'user',password:'123'};
+    var path = {
+    pathname:'/signupinfo',
+    state:data}
+
+
+    //hashHistory.push(path);
+    
+    
 
     const  [memberEmail,setMemberEmail] =  useState("");
     const  [memberPassword,setMemberPassword] =  useState("");
@@ -126,6 +139,11 @@ export default function SignUp() {
 
     return (
         <Grid className={classes.root}>
+            {/* <Router history={hashHistory}> */}
+            <Link to={path}></Link>
+            <HashRouter>
+            <Route path='/signupinfo' component={SignupInfo}/>
+            </HashRouter>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography className={classes.font} component="h1" variant="h5" align="center">

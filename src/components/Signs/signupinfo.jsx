@@ -18,6 +18,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import { borders } from '@material-ui/system';
+import { Router,Route,hashHistory} from 'react-router';
+
 
 
 
@@ -97,11 +99,11 @@ const GreenRadio = withStyles({
 
 
 
-export default function SignUpInfo() {
+export default function SignUpInfo(props) {
     const classes = useStyles();
 
-    const [valueG, setValueG] = React.useState('female');
-    const [valueB, setValueB] = React.useState('A');
+    const [valueG, setValueG] = React.useState('');
+    const [valueB, setValueB] = React.useState('');
 
     const handleChangeG = event => {
         setValueB(event.target.value);
@@ -111,15 +113,22 @@ export default function SignUpInfo() {
         setValueB(event.target.value);
     }
 
-    const ViewTextPage = props => {
-        const text = props.location.state.name;
+    // const ViewTextPage = props => {
+    //     const text = props.location.state.name;
       
-        const viewText = () => {
-          console.log(text);
-        };
+    //     const viewText = () => {
+    //       console.log(text);
+    //     };
       
-        return <button onClick={viewText}>view</button>;
-      };
+    //     return <button onClick={viewText}>view</button>;
+    //   };
+
+
+
+
+    //hashHistory.push(path);
+    // var data = this.props.location.state;
+    // var {id,password} = data;
 
 
     // const  [memberEmail,setMemberEmail] =  useState("");
