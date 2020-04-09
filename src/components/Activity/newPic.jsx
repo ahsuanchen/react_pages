@@ -9,6 +9,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -19,14 +20,17 @@ const useStyles = makeStyles(theme => ({
         margin : "2% auto"
     } ,
     container : {
-        minHeight : "400px" ,
+        minHeight : "600px" ,
         background : "#f4f4f4" , 
-        textAlign : "center" ,
-    } ,
-    label_part : {
         display: "flex" , 
         alignItems : "center" , 
+        justifyContent : "center" ,
         textAlign : "center" ,
+    } ,
+    upload_btn_wrapper : {
+        position: "relative" ,
+        overflow: "hidden" ,
+        display: "block" ,
     } ,
     upload_button : {
         border: 0 ,
@@ -37,18 +41,15 @@ const useStyles = makeStyles(theme => ({
         fontSize: "20px",
         marginBottom : "10%" ,
         '&:hover' : {
-            background : '#E0E0E0',
+            background : 'none',
             color : "#000"
         }
     } ,
     btn_file : {
-        display : "none" ,
-        alignItems : "center" ,
-        justifyItems : "center" ,
-        // fontSize : "50px" ,
-        // position: "absolute" ,
-        // left: 0 ,
-        // top: 0 ,
+        fontSize : "30px" ,
+        position: "absolute" ,
+        left: 0 ,
+        top: 0 ,
         opacity: 0 ,
     } ,
     span : {
@@ -84,6 +85,21 @@ const useStyles = makeStyles(theme => ({
 export default function BulidActivity_step2() {
     const classes = useStyles();
 
+    const [image, setImage] = useState({preview: '', raw: ''});
+    const handleChange = (e) => {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0]
+      })
+    };    
+    // const handleUpload = async (e) => {
+    //   e.preventDefault()
+    //   const formData = new FormData()
+    //   formData.append('image', image.raw)
+    //   const config = { headers: { 'content-type': 'multipart/form-data' } }
+    //   await uploadToBackend('endpoint', {image: image.raw}, config)
+    // };
+
     return (
         <div className={classes.div}>
             <Header />
@@ -101,34 +117,41 @@ export default function BulidActivity_step2() {
             </div>
             <div>
                 <Container className={classes.container}>
-                    <div >
-                        <label htmlFor="upload-button">
-                            <Button className={classes.upload_button} variant="outlined">
-                                新增檔案
-                            </Button>
-                        </label>
-                        <input type="file" id="upload-button" accept="image/*" className={classes.btn_file} multiple/>
-                        {/* <TextField
-                                    accept="image/*"
-                                    className={classes.btn_file}
-                                    multiple
-                                    type="file"
-                                    // label=""
-                                /> */}
-                        {/* <Button
-                            className={classes.button}
-                            variant="outlined"
-                            type="file"
-                        >
-                            上傳檔案
-                        </Button> */}
-                    </div>
-                    <div>
-                        <span className={classes.span}>* </span>
-                        <Typography variant="overline">
-                            本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
-                        </Typography>
-                        <span className={classes.span}> 1GB</span>
+                    <div className={classes.upload_btn_wrapper}>
+                        {
+                            image.preview ? 
+                            <>
+                                <img src={ image.preview } width="800" height="480" />
+                                <br/>
+                                <Button className={classes.upload_button} variant="outlined">
+                                    <CropOriginalIcon/>
+                                    &nbsp;新增檔案
+                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+                                <div>
+                                    <span className={classes.span}>* </span>
+                                    <Typography variant="overline">
+                                        本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
+                                    </Typography>
+                                    <span className={classes.span}> 1GB</span>
+                                </div>
+                            </>
+                            :(
+                            <>
+                                <Button className={classes.upload_button} variant="outlined">
+                                    <CropOriginalIcon/>
+                                    &nbsp;新增檔案
+                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+                                <div>
+                                    <span className={classes.span}>* </span>
+                                    <Typography variant="overline">
+                                        本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
+                                    </Typography>
+                                    <span className={classes.span}> 1GB</span>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </Container>
                 <Grid item xs={12} sm={6} className={classes.button_part}>
@@ -152,48 +175,6 @@ export default function BulidActivity_step2() {
                     </Box>
                 </Grid> 
             </div>
-            {/* <Grid className={classes.space}>
-                <Container component="main" maxWidth="md">
-                    <CssBaseline />
-                    <div className={classes.paper}>
-                        <paper>
-                            <form className={classes.form} noValidate>
-
-                            <TextField 
-                                margin="normal"
-                                fullWidth
-                                label="選擇檔案" 
-                                type="file" 
-                                />
-
-                            <Button 
-                                //type="submit"
-                                width="50"
-                                className={classes.submit}
-                                variant="outlined"
-                                align="center"
-                                >
-                                    上傳檔案
-                            </Button>
-
-
-                                <IconButton color="primary" aria-label="next step" href="./new1">
-                                    <ArrowBackIcon />
-                                </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./newInfo">
-                                    <ArrowForwardIcon />
-                                </IconButton>
-
-                            </form>
-                        </paper>
-                        <Grid align-items-xs-flex-end>
-                        </Grid>
-                    </div>
-                </Container>
-            </Grid> */}
         </div>
-
-
-
     );
 }

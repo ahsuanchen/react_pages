@@ -5,9 +5,6 @@ import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -19,12 +16,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 
 import { green } from '@material-ui/core/colors';
-
-
 
 const BootstrapInput = withStyles(theme => ({
     root: {
@@ -61,8 +55,6 @@ const BootstrapInput = withStyles(theme => ({
     },
 }))(InputBase);
 
-
-
 const useStyles = makeStyles(theme => ({
     div: {
         boxSizing: "border-box"
@@ -97,7 +89,6 @@ const useStyles = makeStyles(theme => ({
     space: {
         marginTop: theme.spacing(5),
     },
-
     paper: {
         marginTop: theme.spacing(5),
         flexDirection: 'column',
@@ -110,23 +101,17 @@ const useStyles = makeStyles(theme => ({
             height: theme.spacing(50),
         },
     },
-
-
     form: {
         width: '100%',
         height: theme.spacing(1),
-
-
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
-
     margin: {
         margin: theme.spacing(2),
         width:'40%'
     },
-
     //下拉式
     formControl: {
         margin: theme.spacing(1),
@@ -135,7 +120,6 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
-
 }));
 
  //radio 顏色設定
@@ -243,8 +227,7 @@ export default function BulidActivity_step3() {
         console.log(activity);
     }
 
-    const [value, setValue] = React.useState('yes');
-
+    const [value, setValue] = React.useState();
     const handleChange = event => {
         setValue(event.target.value);
     }
