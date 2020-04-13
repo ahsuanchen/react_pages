@@ -19,6 +19,8 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import { borders } from '@material-ui/system';
 import { Router,Route,hashHistory} from 'react-router';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -54,7 +56,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(2),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(49),
+            height: theme.spacing(45),
         },
     },
 
@@ -69,7 +71,14 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(3),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        border: 0 ,
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        borderRadius: "5px",
+        fontSize: "10px",
+        marginTop : "10%" ,
+        margin:"1% 10%"
     },
     font: {
         color: theme.palette.grey,
@@ -96,7 +105,16 @@ const GreenRadio = withStyles({
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+const SignUpInfoPage = props => {
+    const location = useLocation();
 
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+
+};
 
 
 export default function SignUpInfo(props) {
@@ -122,6 +140,8 @@ export default function SignUpInfo(props) {
       
     //     return <button onClick={viewText}>view</button>;
     //   };
+
+    
 
 
 
@@ -331,38 +351,6 @@ export default function SignUpInfo(props) {
                                 onChange={e=>setEmergencyContactPhone(e.target.value)}
                             />
 
-                        <Grid container justify="center"  key={10}>
-                        
-                            <Button
-                                type="submit"
-                                width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                href="./signup"
-                            >
-                                <ChevronLeftIcon />
-                                上一步
-                            </Button>
-                            <Button
-                                type="submit"
-                                Width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                // href="./settingface"
-                                onChange={e=>setMemberType(0)}
-                                onChange={e=>setMemberEnabled(1)}
-                                onClick={handleSubmit}
-                                
-                            >
-
-                                <ChevronRightIcon />
-                                下一步
-                            </Button>
-                        </Grid>
-                        
-
                         {/* </form> */}
                         </Grid>
                     </paper>
@@ -370,7 +358,36 @@ export default function SignUpInfo(props) {
                     </Grid>
 
                 </div>
+                <Grid container justify="center"  key={10}>
+                        
+                        <Button
+                            type="submit"
+                            width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            href="./signup"
+                        >
+                            <ChevronLeftIcon />
+                            上一步
+                        </Button>
+                        <Button
+                            type="submit"
+                            Width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            // href="./settingface"
+                            onChange={e=>setMemberType(0)}
+                            onChange={e=>setMemberEnabled(1)}
+                            onClick={handleSubmit}
+                            
+                        >
 
+                            <ChevronRightIcon />
+                            下一步
+                        </Button>
+                    </Grid>
             </Container>
         </Grid>
     );

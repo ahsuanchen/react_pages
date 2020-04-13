@@ -1,7 +1,7 @@
 import React ,{useState} from 'react';
 import {Router, Route, hashHistory} from 'react-router';
 import {Link} from 'react-router-dom';
-import { HashRouter } from 'react-router-dom'
+import { HashRouter, withRouter } from 'react-router-dom'
 import axios from 'axios';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
@@ -18,6 +18,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
 import SignupInfo from 'components/Signs/signupinfo.jsx';
+
 
 
 
@@ -76,138 +77,145 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
-    const classes = useStyles();
-    //let history = useHistory();
-
-    // function handleClick() {
-    //     history.push("/signupinfo");
-    // }
-
-    // const PassTextPage = () => {
-    //     const history = useHistory();
-      
-    //     const passText= () => {
-    //       history.push({
-    //         pathname: "/signupinfo",
-    //         state: { id: "123", pw:"123" }
-    //       });
-    //     };
-      
-    //     return <button onClick={passText}>pass</button>;
-    //   };
-
-    
-    var data = {id:'user',password:'123'};
-    var path = {
-    pathname:'/signupinfo',
-    state:data}
-
-
-    //hashHistory.push(path);
+const SignUpPage = props => {
+    let history = useHistory();
+  
+    const passText= event => {
+      history.push({
+        pathname: "/signupinfo",
+        state: { id: "123", pw:"123" }
+      });
+    };
+  
     
     
-
-    const  [memberEmail,setMemberEmail] =  useState("");
-    const  [memberPassword,setMemberPassword] =  useState("");
-
-    const handleSubmit=(event)=> {
-        //event.preventDefault();
-        const member={
-            memberEmail:memberEmail,
-            memberPassword:memberPassword};
-        axios.post("api/member/check/", member,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
-        .then(res => {
-            console.log("test")
-            console.log(res);
-            console.log(res.data);
-            //再新增！判斷後為ok就跳到下一頁
-            //PassTextPage();
-            
-          }).catch(function(error){
-              alert(error);
-          });
+        const classes = useStyles();
+        //let history = useHistory();
+    
+        // function handleClick() {
+        //     history.push("/signupinfo");
+        // }
+    
         
-    }
+    
+          
+    
+        
+        // var data = {id:'user',password:'123'};
+        // var path = {
+        // pathname:'/signupinfo',
+        // state:data}
+    
+    
+        //hashHistory.push(path);
+        
+        
+    
+        const  [memberEmail,setMemberEmail] =  useState("");
+        const  [memberPassword,setMemberPassword] =  useState("");
+    
+        const handleSubmit=(event)=> {
+            //event.preventDefault();
+            const member={
+                memberEmail:memberEmail,
+                memberPassword:memberPassword};
+            axios.post("api/member/check/", member,
+            {
+                auth:
+                {
+                    username : "user",
+                    password : "123"
+                }
+            })
+            .then(res => {
+                console.log("test")
+                console.log(res);
+                console.log(res.data);
+                //再新增！判斷後為ok就跳到下一頁
+                //PassTextPage();
+                
+              }).catch(function(error){
+                  alert(error);
+              });
+            
+        }
+    
+        return (
+            <Grid className={classes.root}>
+                {/* <Router history={hashHistory}> */}
+                {/* <Link to={path}></Link>
+                <HashRouter>
+                <Route path='/signupinfo' component={SignupInfo}/>
+                </HashRouter> */}
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Typography className={classes.font} component="h1" variant="h5" align="center">
+                        註 冊
+                        </Typography>
+                    <div className={classes.paper}>
+                        <paper>
+                            {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="memberEmail"
+                                    label="帳號"
+                                    name="email"
+                                    onChange={e=>setMemberEmail(e.target.value)}
+                                />
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="密碼"
+                                    type="password"
+                                    id="memberPassword"
+                                    onChange={e=>setMemberPassword(e.target.value)}
+                                />
+    
+                                <TextField
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    name="checkpassword"
+                                    label="確認密碼"
+                                    type="password"
+                                    id="checkpassword"
+                                    autoComplete="current-password"
+                                />
+    
+                                <Button
+                                    type="submit"
+                                    fullWidth
+                                    variant="contained"
+                                    color="primary"
+                                    className={classes.submit}
+                                    //onClick={handleClick}
+                                    onClick={handleSubmit}
+                                    // href="./signupinfo"
+                                >
+                                    <ChevronRightIcon />
+                                    下一步
+                                </Button>
 
-    return (
-        <Grid className={classes.root}>
-            {/* <Router history={hashHistory}> */}
-            <Link to={path}></Link>
-            <HashRouter>
-            <Route path='/signupinfo' component={SignupInfo}/>
-            </HashRouter>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Typography className={classes.font} component="h1" variant="h5" align="center">
-                    註 冊
-                    </Typography>
-                <div className={classes.paper}>
-                    <paper>
-                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="memberEmail"
-                                label="帳號"
-                                name="email"
-                                onChange={e=>setMemberEmail(e.target.value)}
-                            />
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="password"
-                                label="密碼"
-                                type="password"
-                                id="memberPassword"
-                                onChange={e=>setMemberPassword(e.target.value)}
-                            />
-
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                name="checkpassword"
-                                label="確認密碼"
-                                type="password"
-                                id="checkpassword"
-                                autoComplete="current-password"
-                            />
-
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                //onClick={handleClick}
-                                onClick={handleSubmit}
-                                // href="./signupinfo"
-                            >
-                                <ChevronRightIcon />
-                                下一步
-                            </Button>
-
-                        {/* </form> */}
-                    </paper>
-                    <Grid align-items-xs-flex-end>
-                    </Grid>
-
-                </div>
-
-            </Container>
-        </Grid>
-    );
+                                <Button onClick={passText}>pass</Button>;
+    
+                            {/* </form> */}
+                        </paper>
+                        <Grid align-items-xs-flex-end>
+                        </Grid>
+    
+                    </div>
+    
+                </Container>
+            </Grid>
+        );
+    
 }
+export default withRouter(SignUpPage);
+

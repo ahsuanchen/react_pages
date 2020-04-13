@@ -10,6 +10,7 @@ import Home from 'pages/Home/index.jsx'
 import ReactApp from 'components/react-app.jsx';
 import SignIn from 'components/Signs/signIn.jsx';
 import SignUp from 'components/Signs/signup.jsx';
+import SignUpTest from 'components/Signs/signup_test.jsx';
 import SignupInfo from 'components/Signs/signupinfo.jsx';
 import SettingFace from 'components/Signs/settingface.jsx';
 import Forgot1 from 'components/Signs/forgot1.jsx';
@@ -20,9 +21,9 @@ import New1 from 'components/Activity/new1.jsx';
 import NewPic from 'components/Activity/newPic.jsx';
 import NewInfo from 'components/Activity/newInfo.jsx';
 import NewDetails from 'components/Activity/newDetails.jsx';
-import UpdatePic from 'components/Activity/newPic.jsx';
-import UpdateInfo from 'components/Activity/newInfo.jsx';
-import UpdateDetails from 'components/Activity/newDetails.jsx';
+import UpdatePic from 'components/Activity/updatePic.jsx';
+import UpdateInfo from 'components/Activity/updateInfo.jsx';
+import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
@@ -51,6 +52,7 @@ class Layout extends React.Component {
       <Route path="/ActivityInfo" component={Activity}/>
       <Route path="/signIn" component={SignIn} />
       <Route path="/signUp" component={SignUp} />
+      <Route path="/signUptest" component={SignUpTest} />
       <Route path="/signupInfo" component={SignupInfo} />
       <Route path="/settingFace" component={SettingFace} />
       <Route path="/forgot1" component={Forgot1} />
