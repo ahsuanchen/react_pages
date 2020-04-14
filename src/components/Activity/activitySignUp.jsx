@@ -1,14 +1,8 @@
-
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -18,10 +12,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Fab from '@material-ui/core/Fab';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Button from '@material-ui/core/Button';
 import React, { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,11 +24,23 @@ const useStyles = makeStyles(theme => ({
   },
   fab: {
     position : "fixed" ,
+    opacity: "0.8" ,
     bottom : "5%" ,
     right : "5%" ,
   },
   extendedIcon: {
     marginRight: theme.spacing(1),
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+  pos: {
+    marginBottom: 12,
   },
 }));
 
@@ -143,81 +148,45 @@ export default function ActivityInfo() {
   return (
     <>
       <Table align = "center" style = {{width : "85%"}}>
-        <TableHead>
-            <TableRow>
-              <TableCell colSpan={2}><Typography variant="h5">{act.activityName}</Typography></TableCell>
-            </TableRow>
-        </TableHead>
         <TableBody>
           <TableRow >
-            <TableCell style={{width: '40%'}} rowSpan={5}><img src="assets/images/1.jpg" width = "700"/></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <LocationOnIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="活動地點" secondary={act.activitySpace} />
-                </ListItem>
-              </List>
+            <TableCell style={{width: '40%'}} rowSpan={2}>
+              <img src="assets/images/1.jpg" width = "400"/>
+              <Typography variant="h6" gutterBottom>台北設計展</Typography>
+              <Typography gutterBottom>活動報名截止時間:</Typography>
+              <Typography gutterBottom>202020202020</Typography>
+              <Typography gutterBottom>活動時間:</Typography>
+              <Typography gutterBottom>202020202020</Typography>
+              <Typography gutterBottom>活動地點:</Typography>
+              <Typography gutterBottom>輔大</Typography>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <DateRangeIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="活動時間" secondary={act.activityStartDateString}/>
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ScheduleIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="報名時間" secondary={act.startSignUpDateString} />
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <LinkIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="相關連結" secondary="July 20, 2014" />
-                </ListItem>
-             </List>
+                <Typography variant="h6" gutterBottom>確認參加者資料</Typography>
+                <Card className={classes.root}>
+      <CardContent>
+        <Typography variant="h6" component="h2">
+          姓名:
+        </Typography>
+        <TextField style={{minWidth:"100%"}} defaultValue="鄭貝蒂" />
+        <Typography variant="h6" component="h2">
+          電子郵件:
+        </Typography>
+        <TextField style={{minWidth:"100%"}} defaultValue="bobo22588337@yahoo.com.tw" />
+        <Typography variant="h6" component="h2">
+          行動電話:
+        </Typography>
+        <TextField style={{minWidth:"100%"}} defaultValue="0933035809" />
+      </CardContent>
+      <CardActions>
+        <Button variant="contained" color="secondary">確定報名</Button>
+      </CardActions>
+    </Card>
            </TableCell>
         </TableRow>
       </TableBody>
       </Table>
-      <div className={classes.fab}>
-      <Fab variant="extended" size="medium" color="secondary" component={Link}
-      to="/activitySignUp">
-      <PersonAddIcon className={classes.extendedIcon} />
-        我要報名!
-      </Fab>
-    </div>
-
       </>
 
   );

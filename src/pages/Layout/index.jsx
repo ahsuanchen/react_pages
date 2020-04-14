@@ -33,6 +33,7 @@ import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
 import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
 import ActivityInformation from 'pages/ActivityInfo/index.jsx';
+import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
 import Album from 'pages/MyAlbum/index.jsx';
 
 class Layout extends React.Component {
@@ -69,6 +70,7 @@ class Layout extends React.Component {
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
       <Route path="/Activity" component={Activity} />
       <Route path="/Album" component={Album} />
+      <Route path="/ActivitySignUp" component={ActivitySignUp}/>
 
       </>
     );
