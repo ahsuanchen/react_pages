@@ -40,31 +40,31 @@ const useStyles = makeStyles(theme => ({
 
 const Searchdata = [
     {
-        src : 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
+        src : 'https://images.pexels.com/photos/3418058/pexels-photo-3418058.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
         title : '臺北市政府跨年晚會',
         organizer : '王氏股份有限公司',
         createdAt : 'A week ago',
-        content : '臺北最High新年城-2020跨年晚會將以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！'
+        content : '我們以「臺北」做發想，找出臺北獨有的特色，臺北本是個多元融合的城市，匯集了來自臺灣、世界各地擁有個性故事的人們，在臺北打拼生活、追逐夢想、壯志旅遊，無限想像、無限可能、無時無刻的事情都在發生，這就是臺北，是我們「混」大的地方。因此，以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！'
     },
     {
-        src : 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
-        title : '臺北市政府跨年晚會',
+        src : 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+        title : '三校六系聯合聖誕舞會',
         organizer : '王氏股份有限公司',
-        createdAt : 'A week ago',
-        content : '臺北最High新年城-2020跨年晚會將以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！'
+        createdAt : 'A month ago',
+        content : '「對岸的城堡，總是在黑夜中綻放動人的光芒，誰也不知道它的主人來自何方，而耗之不盡的財富又源自何處？眾人只曉得，每當夜幕低垂，他壯觀的堡壘即聚滿了整個城市的活力......」「看著紙醉金迷、沈浸在歡愉喜樂當中的各方人士，城堡的主人 — 蓋茲比，卻無法與他的客人們同樂⋯⋯」12/23 星期三 晚上六點 我們在三創生活園區 繼續我們的未完待續...'
     },
     {
-        src : 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
-        title : '臺北市政府跨年晚會',
+        src : 'https://images.pexels.com/photos/339620/pexels-photo-339620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+        title : '從「心」開始，你我無「礙」-助人者自我照護活動',
         organizer : '王氏股份有限公司',
         createdAt : 'A week ago',
-        content : '臺北最High新年城-2020跨年晚會將以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！'
+        content : 'ALTC長照網，完整的機構介紹，免費護理師諮詢，給家人第二個溫暖的家'
     }
 ];
 
 const SearchOrganizerdata = [
     {
-        src : 'https://i.ytimg.com/vi/pLqipJNItIo/hqdefault.jpg?sqp=-oaymwEYCNIBEHZIVfKriqkDCwgBFQAAiEIYAXAB&rs=AOn4CLBkklsyaw9FxDmMKapyBYCn9tbPNQ',
+        src : 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
         organizer : '王氏股份有限公司',
         activitycount : "30 Activities" ,
         createdAt : 'Created 1 year ago',
@@ -73,30 +73,44 @@ const SearchOrganizerdata = [
 ];
 
 function SearchResult(props) { 
+
+    const style = {
+        Typography : {
+            color : "#000" ,
+            "&:hover" : {
+                color : "#00AEAE"
+            }
+        } ,
+        link : {
+            textDecoration : "none" , 
+            color : "#ADADAD" , 
+            "&:hover" : {
+                color : "#00AEAE"
+            }
+        } ,
+        content : {
+            overflow: "hidden"
+        }
+    }
+
     return (
         <Grid container spacing={3}>
             {Searchdata.map(Searchdata =>           
             <Grid item xs={12}>
                     <div>
-                        <Container>
+                        <Container component={Link} to="/" style={{textDecoration : "none"}}>
                                 <img 
                                     src={Searchdata.src}
                                     title={Searchdata.title}
                                     style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
                                 />
                                 <Box lineHeight="normal">
-                                    <Typography gutterBottom variant="h6" title={Searchdata.title}>
+                                    <Typography variant="h6" title={Searchdata.title} style={style.Typography}>
                                         {Searchdata.title}
                                     </Typography>
                                     <Link 
-                                        to="/homepageAfterLogin"
-                                        style={{
-                                            textDecoration : "none" , 
-                                            color : "#ADADAD" , 
-                                            "&:hover" : {
-                                                color : "#00AEAE"
-                                            }
-                                        }}
+                                        to="/"
+                                        style={style.link}
                                         title={Searchdata.organizer}
                                     >
                                         <Typography variant="overline">
@@ -107,7 +121,7 @@ function SearchResult(props) {
                                         {` • ${Searchdata.createdAt}`}
                                     </Typography>
                                     <br/>
-                                    <Typography variant="caption" color="textSecondary" overflow="hidden">
+                                    <Typography variant="caption" color="textSecondary" style={style.content}>
                                         {Searchdata.content}
                                     </Typography>
                                 </Box>
@@ -137,7 +151,7 @@ function SearchOrgResult(props) {
                                         marginRight : "6%" , }}
                                 />
                                 <Box lineHeight="normal">
-                                    <Typography gutterBottom variant="h6" style={{color: "#000"}}>
+                                    <Typography variant="h6" style={{color: "#000"}}>
                                         {SearchOrganizerdata.organizer}
                                     </Typography>
                                     <Typography variant="caption" color="textSecondary">
@@ -204,6 +218,7 @@ export default function SearchInfo() {
                     <br/>
                     <Box overflow="hidden">
                         <SearchOrgResult />
+                        <br/>
                         <SearchResult />
                     </Box>
                 </div>

@@ -241,8 +241,8 @@ export default function ManageActivity() {
                                                             <TableCell align="center">活動名稱</TableCell>
                                                             <TableCell align="center">活動時間</TableCell>
                                                             <TableCell align="center">可報名總額/已報名人數</TableCell>
-                                                            <TableCell align="center">功能</TableCell>
                                                             <TableCell align="center">活動狀況</TableCell>
+                                                            <TableCell align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
@@ -250,16 +250,18 @@ export default function ManageActivity() {
                                                         <TableRow hover>
                                                             <TableCell align="center">
                                                                 {activity.activityName}
-                                                                {/* 三校六系聯合聖誕舞會 */}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                {activity.activityStartDate}
-                                                                {/* 2020-12-23 (三) */}
+                                                                {activity.activityStartDateString}
+                                                                <br/>
+                                                                <span>|</span>
+                                                                <br/>
+                                                                {activity.activityEndDateString}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                {activity.attendPeople}
-                                                                {/* 600/300 */}
+                                                                {activity.attendPeople}&nbsp;/&nbsp;
                                                             </TableCell>
+                                                            <TableCell align="center">報名中</TableCell>
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -268,6 +270,15 @@ export default function ManageActivity() {
                                                                     to="/participantList"
                                                                 >
                                                                     參加者名單
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/"
+                                                                >
+                                                                    活動簽到
                                                                 </Button>
                                                                 <br /><br />
                                                                 <Button
@@ -322,7 +333,6 @@ export default function ManageActivity() {
                                                                     </DialogActions>
                                                                 </Dialog>
                                                             </TableCell>
-                                                            <TableCell align="center">報名中</TableCell>
                                                         </TableRow>
                                                         )}
                                                     </TableBody>
