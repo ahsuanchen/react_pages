@@ -17,7 +17,6 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useHistory } from "react-router-dom";
-import SignupInfo from 'components/Signs/signupinfo.jsx';
 
 
 
@@ -79,35 +78,8 @@ const useStyles = makeStyles(theme => ({
 
 const SignUpPage = props => {
     let history = useHistory();
-  
-    // const passText= event => {
-    //   history.push({
-    //     pathname: "/signupinfo",
-    //     // state: { id: "123", pw:"123" }
-    //   });
-    // };
-  
     
-    
-        const classes = useStyles();
-        //let history = useHistory();
-    
-        // function handleClick() {
-        //     history.push("/signupinfo");
-        // }
-    
-        
-        // var data = {id:'user',password:'123'};
-        // var path = {
-        // pathname:'/signupinfo',
-        // state:data}
-    
-    
-        //hashHistory.push(path);
-
-       
-        
-        
+        const classes = useStyles();    
     
         const  [memberEmail,setMemberEmail] =  useState("");
         const  [memberPassword,setMemberPassword] =  useState("");
