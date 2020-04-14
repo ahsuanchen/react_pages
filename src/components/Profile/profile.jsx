@@ -62,6 +62,13 @@ const useStyles = makeStyles(theme => ({
         margin: "2% auto",
         display: "flex",
         justifyContent: "center",
+    } ,
+    change_password : {
+        background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
+        margin: "2%",
+        // display: "flex",
+        // justifyContent: "center",
     }
 }));
 
@@ -280,9 +287,17 @@ export default function Profile() {
                                                 // onChange={handleChange("Name")}
                                             />
                                         </TableCell>
-                                        <TableCell>身分證字號：</TableCell>
+                                        <TableCell>電子郵件(帳號)：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberID} disabled />
+                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
+                                            <Button
+                                                className={classes.change_password}
+                                                compoent={Link}
+                                                to=""
+                                                variant="contained"
+                                            >
+                                                更改密碼
+                                            </Button>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -296,8 +311,8 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
-                                            {/* <TextField variant="outlined" value={member.memberBloodType} disabled /> */}
-                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
+                                            <TextField variant="outlined" value={member.memberBloodType} disabled />
+                                            {/* <FormControl style={{ minWidth: "100px" }} variant="outlined">
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}
@@ -308,7 +323,7 @@ export default function Profile() {
                                                     <MenuItem value="O">O</MenuItem>
                                                     <MenuItem value="RH">RH 陰性</MenuItem>
                                                 </Select>
-                                            </FormControl>
+                                            </FormControl> */}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -322,9 +337,9 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>電子郵件(帳號)：</TableCell>
+                                        <TableCell>身分證字號：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
+                                            <TextField variant="outlined" value={member.memberID} disabled />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
@@ -357,7 +372,7 @@ export default function Profile() {
                                     startIcon={<SaveIcon />}
                                 >
                                     儲存更新
-                                    </Button>
+                                </Button>
                             </Box>
                         </form>
                     </div>
