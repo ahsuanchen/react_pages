@@ -10,7 +10,6 @@ import Home from 'pages/Home/index.jsx'
 import ReactApp from 'components/react-app.jsx';
 import SignIn from 'components/Signs/signIn.jsx';
 import SignUp from 'components/Signs/signup.jsx';
-import SignUpTest from 'components/Signs/signup_test.jsx';
 import SignupInfo from 'components/Signs/signupinfo.jsx';
 import SettingFace from 'components/Signs/settingface.jsx';
 import Forgot1 from 'components/Signs/forgot1.jsx';
@@ -53,13 +52,11 @@ class Layout extends React.Component {
       <Route path="/ActivityInfo" component={Activity}/>
       <Route path="/signIn" component={SignIn} />
       <Route path="/signUp" component={SignUp} />
-      <Route path="/signUptest" component={SignUpTest} />
       <Route path="/signupInfo" component={SignupInfo} />
       <Route path="/settingFace" component={SettingFace} />
       <Route path="/forgot1" component={Forgot1} />
       <Route path="/forgot2" component={Forgot2} />
       <Route path="/finish" component={Finish} />
-      {/* <Route path="/bar" component={Bar} /> */}
       <Route path="/organizer" component={Organizer} />
       <Route path="/new1" component={New1} />
       <Route path="/newPic" component={NewPic} />
