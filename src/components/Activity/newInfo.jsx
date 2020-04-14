@@ -18,7 +18,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
-import { green } from '@material-ui/core/colors';
 
 const BootstrapInput = withStyles(theme => ({
     root: {
@@ -123,11 +122,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
  //radio 顏色設定
-const GreenRadio = withStyles({
+const RadioColor = withStyles({
     root: {
-        color: green[400],
+        color: "#E0E0E0",
         '&$checked': {
-            color: green[600],
+            color: "#00CACA",
         },
     },
     checked: {},
@@ -406,14 +405,14 @@ export default function BulidActivity_step3() {
                                                 <Grid item> 
                                                     <FormControlLabel 
                                                         value="yes" 
-                                                        control={<GreenRadio />} 
+                                                        control={<RadioColor />} 
                                                         label="是" 
                                                     />
                                                 </Grid>
                                                 <Grid item>
                                                     <FormControlLabel 
                                                     value="no" 
-                                                    control={<GreenRadio />} 
+                                                    control={<RadioColor />} 
                                                     label="否" 
                                                     />
                                                 </Grid>

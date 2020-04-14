@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     container : {
         maxWidth : '550px' ,
-        minHeight : '550px' ,
+        minHeight : '580px' ,
         background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
         overflow : "visible"
     } ,
@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "center" ,
     } ,
     button : {
-        margin : "2% auto" ,
+        margin : "5% auto" ,
         display: "flex" ,
         justifyContent : "center" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,

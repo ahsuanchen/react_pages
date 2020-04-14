@@ -50,14 +50,11 @@ const useStyles = makeStyles(theme => ({
         margin : "5% auto" ,
     } ,
     topic_part : {
-        margin : "2% auto" ,
-    } ,
-    content_part : {
         margin : "2%" ,
-        borderRight : "2px solid" ,
+        borderRight : "2px solid"
     } ,
     button_part : {
-        margin : "auto 0" ,
+        margin : "auto 2%" ,
         display: "flex" ,
         justifyContent : "center"
     } ,
@@ -198,49 +195,30 @@ export default function SignupSituation() {
                                         <Grid item xs={12}>
                                             <Paper>
                                                 <Grid container>
-                                                    <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
+                                                    <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
                                                             {activity.activityName}
-                                                            {/* 三校六系聯合聖誕舞會 */}
                                                         </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
+                                                        <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
                                                             {activity.activitySpace}
-                                                            {/* 三創生活園區 */}
                                                         </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
+                                                        <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            {activity.activityStartDate}
-                                                            {/* 2020-12-23 (三) */}
+                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
-                                                </Grid>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={8} className={classes.content_part}>
-                                                        <Typography>
-                                                        {activity.activityInfo}
-                                                        {/* 「對岸的城堡，總是在黑夜中綻放動人的光芒，誰也不知道它的主人來自何方，
-                                                        而耗之不盡的財富又源自何處？眾人只曉得，每當夜幕低垂，他壯觀的堡壘即聚滿了整個城市的活力......」
-                                                        <br/>
-                                                        「看著紙醉金迷、沈浸在歡愉喜樂當中的各方人士，
-                                                        城堡的主人 — 蓋茲比，卻無法與他的客人們同樂⋯⋯」
-                                                        <br/>
-                                                        🚩12/23 星期三 晚上六點 我們在🔸三創生活園區🔸 繼續我們的未完待續... */}
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.button_part}>
+                                                    <Grid item xs={12} sm={3} className={classes.button_part}>
                                                         <Box lineHeight="normal" m={1}>
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/editSignupInformation"
+                                                                to="/"
                                                             >
-                                                                更改資料
+                                                                活動頁面
                                                             </Button>
                                                             <br /><br />
                                                             <Button
@@ -249,7 +227,7 @@ export default function SignupSituation() {
                                                                 component={Link}
                                                                 to="/editSignupInformation"
                                                             >
-                                                                活動簽到
+                                                                更改資料
                                                             </Button>
                                                         </Box>
                                                         <Box lineHeight="normal" m={1}>
@@ -275,79 +253,6 @@ export default function SignupSituation() {
                                                 </Grid>
                                             </Paper>
                                         </Grid>
-                                        
-                                        {/* <Grid item xs={12}>
-                                            <Paper>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
-                                                        <Typography variant="h5">
-                                                            臺北市政府跨年晚會
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
-                                                        <Typography variant="h6">
-                                                            <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            臺北市府前廣場
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
-                                                        <Typography variant="h6">
-                                                            <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            2020-12-31 (四)
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={8} className={classes.content_part}>
-                                                        <Typography>
-                                                        我們以「臺北」做發想，找出臺北獨有的特色，臺北本是個多元融合的城市，匯集了來自臺灣、世界各地擁有個性故事的人們，在臺北打拼生活、追逐夢想、壯志旅遊，無限想像、無限可能、無時無刻的事情都在發生，這就是臺北，是我們「混」大的地方。
-                                                        <br/>
-                                                        因此，臺北最High新年城-2020跨年晚會將以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.button_part}>
-                                                        <Box lineHeight="normal" m={1}>
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/editSignupInformation"
-                                                            >
-                                                                更改資料
-                                                            </Button>
-                                                            <br /><br />
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/editSignupInformation"
-                                                            >
-                                                                活動簽到
-                                                            </Button>
-                                                        </Box>
-                                                        <Box lineHeight="normal" m={1}>
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/"
-                                                            >
-                                                                前往繳費
-                                                            </Button>
-                                                            <br /><br />
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/editSignupInformation"
-                                                            >
-                                                                取消報名
-                                                            </Button>
-                                                        </Box>
-                                                    </Grid>
-                                                </Grid>
-                                            </Paper>
-                                        </Grid> */}
                                     </Grid>
                                 </ExpansionPanelDetails>
                                 )}
@@ -365,45 +270,28 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
+                                {activity.map(activity =>
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
                                             <Paper>
                                                 <Grid container>
-                                                    <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
-                                                        <Typography variant="h5">
-                                                            星光夜跑 Just running
+                                                    <Grid item xs={12} sm={8} className={classes.topic_part}>
+                                                        <Typography variant="h5" >
+                                                            {activity.activityName}
                                                         </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
+                                                        <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            輔仁大學
+                                                            {activity.activitySpace}
                                                         </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
+                                                        <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            2019-12-20 (五)
+                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
-                                                </Grid>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={8} className={classes.content_part}>
-                                                        <Typography>
-                                                            報名時間：108年11月16日(六)~12月7日(六)17：00 報名截止！
-                                                            <br/>
-                                                            活動日期：108年12月20日(星期五) 晚上17:30~21:00
-                                                            <br/>
-                                                            活動地點：本校校園      參加對象：本校教職員工生
-                                                            <br/>
-                                                            人數限制：名額上限總計2200人
-                                                            <br/>
-                                                            參賽組別：
-                                                            一、教職員工組  二、學生甲組  三、學生乙組
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.button_part}>
+                                                    <Grid item xs={12} sm={3} className={classes.button_part}>
                                                         <Box lineHeight="normal" m={1}>
                                                             <Button
                                                                 variant="contained"
@@ -430,7 +318,7 @@ export default function SignupSituation() {
                                                                 component={Link}
                                                                 to="/"
                                                             >
-                                                                給予評論
+                                                                給予回饋
                                                             </Button>
                                                             <br /><br />
                                                             <Button
@@ -446,84 +334,9 @@ export default function SignupSituation() {
                                                 </Grid>
                                             </Paper>
                                         </Grid>
-                                        {/* <Grid item xs={12}>
-                                            <Paper>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={4} className={classes.topic_part}>
-                                                        <Typography variant="h5">
-                                                            李友廷小型演奏會
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
-                                                        <Typography variant="h6">
-                                                            <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            BonSpace 蹦空間
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.topic_part}>
-                                                        <Typography variant="h6">
-                                                            <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            2019-11-09 (六)
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid container>
-                                                    <Grid item xs={12} sm={6} md={8} className={classes.content_part}>
-                                                        <Typography>
-                                                        與生俱來的孤獨 聲嘶力竭 城市輕易的消化
-                                                        <br/>
-                                                        茫茫人海中 該怎麼證明自己值得存在 你會找到我嗎?
-                                                        <br/>
-                                                        從2012年在streetvoice上傳第一首作品《微風》波折至今，所有故事線終於彙成一個點，一張彈唱作互相耽誤矛盾又偏執的作品誕生。
-                                                        <br/>
-                                                        把每一個我 用最李友廷的方式唱給你聽。
-                                                        </Typography>
-                                                    </Grid>
-                                                    <Grid item xs={12} sm={6} md={3} className={classes.button_part}>
-                                                        <Box lineHeight="normal" m={1}>
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/"
-                                                            >
-                                                                查看資訊
-                                                            </Button>
-                                                            <br /><br />
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/"
-                                                            >
-                                                                活動照片
-                                                            </Button>
-                                                        </Box>
-                                                        <Box lineHeight="normal" m={1}>
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/"
-                                                            >
-                                                                給予評論
-                                                            </Button>
-                                                            <br /><br />
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to="/"
-                                                            >
-                                                                我的照片
-                                                            </Button>
-                                                        </Box>
-                                                    </Grid>
-                                                </Grid>
-                                            </Paper>
-                                        </Grid> */}
                                     </Grid>
                                 </ExpansionPanelDetails>
+                                )}
                             </ExpansionPanel>  
                         </Box>
                     </div>

@@ -184,7 +184,7 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerEmail} />
+                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerEmail} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>

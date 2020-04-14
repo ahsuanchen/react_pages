@@ -70,7 +70,7 @@ export default function MenuAppBar() {
       >
         <div className={classes.leftbar}>
           <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >F J U F U N</Link>
+            <Link className={classes.link} to="/homepageAfterLogin" >A C T F U N</Link>
           </Box>
         </div>
         <Divider/>
@@ -118,7 +118,7 @@ export default function MenuAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6">
-                        FJU-FUN
+                        ACT-FUN
                     </Typography>
                     <IconButton 
                         edge="start"

@@ -186,7 +186,7 @@ export default function MenuApp() {
                             className={classes.inputBase}
                         />
                         <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon}>
+                            <Button className={classes.search_butoon} component={Link} to="/searchInfo">
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
                         </Tooltip>
