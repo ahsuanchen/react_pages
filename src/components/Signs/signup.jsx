@@ -80,12 +80,12 @@ const useStyles = makeStyles(theme => ({
 const SignUpPage = props => {
     let history = useHistory();
   
-    const passText= event => {
-      history.push({
-        pathname: "/signupinfo",
-        state: { id: "123", pw:"123" }
-      });
-    };
+    // const passText= event => {
+    //   history.push({
+    //     pathname: "/signupinfo",
+    //     // state: { id: "123", pw:"123" }
+    //   });
+    // };
   
     
     
@@ -97,10 +97,6 @@ const SignUpPage = props => {
         // }
     
         
-    
-          
-    
-        
         // var data = {id:'user',password:'123'};
         // var path = {
         // pathname:'/signupinfo',
@@ -108,6 +104,8 @@ const SignUpPage = props => {
     
     
         //hashHistory.push(path);
+
+       
         
         
     
@@ -119,6 +117,12 @@ const SignUpPage = props => {
             const member={
                 memberEmail:memberEmail,
                 memberPassword:memberPassword};
+            //隔頁傳值
+            localStorage.setItem('memberEmail',memberEmail);
+            localStorage.setItem('memberPassword',memberPassword);
+
+            
+
             axios.post("api/member/check/", member,
             {
                 auth:
@@ -133,25 +137,27 @@ const SignUpPage = props => {
                 console.log(res.data);
                 //再新增！判斷後為ok就跳到下一頁
                 //PassTextPage();
+                history.push({
+                    pathname: "/signupinfo",
+                    // state: { id: "123", pw:"123" }
+                  });
                 
               }).catch(function(error){
                   alert(error);
               });
+
+
+                         
             
         }
     
         return (
             <Grid className={classes.root}>
-                {/* <Router history={hashHistory}> */}
-                {/* <Link to={path}></Link>
-                <HashRouter>
-                <Route path='/signupinfo' component={SignupInfo}/>
-                </HashRouter> */}
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />
                     <Typography className={classes.font} component="h1" variant="h5" align="center">
                         註 冊
-                        </Typography>
+                    </Typography>
                     <div className={classes.paper}>
                         <paper>
                             {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
@@ -195,17 +201,15 @@ const SignUpPage = props => {
                                     variant="contained"
                                     color="primary"
                                     className={classes.submit}
-                                    //onClick={handleClick}
+                                    //onClick={passText}
                                     onClick={handleSubmit}
-                                    // href="./signupinfo"
                                 >
                                     <ChevronRightIcon />
                                     下一步
                                 </Button>
 
-                                <Button onClick={passText}>pass</Button>;
+                                {/* <Button onClick={passText}>pass</Button>; */}
     
-                            {/* </form> */}
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>

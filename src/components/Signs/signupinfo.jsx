@@ -114,7 +114,12 @@ const SignUpInfoPage = props => {
        console.log(location.state.detail); // result: 'some_value'
     }, [location]);
 
+    
+
 };
+
+
+
 
 
 export default function SignUpInfo(props) {
@@ -142,7 +147,17 @@ export default function SignUpInfo(props) {
     //   };
 
     
+    // function componentWillMount(){
+    //     let email = '';
 
+    //      this.setState({email: email})
+    //   }
+
+    //   if (window.localStorage && localStorage.fontSize) {
+    //     fontSize = localStorage.getItem("fontSize");
+    //     document.getElementById("output").textContent =
+    //       "The font size has carried over pages, and is: " + fontSize;
+    //   }
 
 
 
@@ -151,8 +166,9 @@ export default function SignUpInfo(props) {
     // var {id,password} = data;
 
 
-    // const  [memberEmail,setMemberEmail] =  useState("");
-    // const  [memberPassword,setMemberPassword] =  useState("");
+
+    const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
+    const  [memberPassword,setMemberPassword] =  useState(localStorage.getItem('memberPassword'));
     const  [memberName,setMemberName] =  useState("");
     const  [memberGender,setMemberGender] =  useState("");
     const  [memberBloodType,setMemberBloodType] =  useState("");
@@ -166,9 +182,12 @@ export default function SignUpInfo(props) {
     const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
     const  [memberEnabled,setMemberEnabled] =  useState("1");
 
+
     const handleSubmit=(event)=> {
         //event.preventDefault();
         const member={
+            // memberEmail:memberEmail,
+            // memberPassword:memberPassword,
             memberName:memberName,
             memberGender:memberGender,
             memberBloodType:memberBloodType,
@@ -218,6 +237,22 @@ export default function SignUpInfo(props) {
                     <paper>
                         <Grid>
                         {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+
+                            <input
+                                //type="hidden"
+                                id="memberEmail"
+                                label="帳號"
+                                value={memberEmail}
+                            />
+
+                            <input
+                                //type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={memberPassword}
+                            />
+
+                        
                             <TextField
                                 margin="normal"
                                 required
