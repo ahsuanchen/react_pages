@@ -27,6 +27,7 @@ import UpdateDetails from 'components/Activity/newDetails.jsx';
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
+import SearchInfo from 'components/Homepage/searchInfo.jsx';
 import Profile from 'components/Profile/profile.jsx';
 import SignupSituation from 'components/Profile/signupSituation.jsx';
 import EditSignupInfo from 'components/Profile/editSignupInformation.jsx';
@@ -68,6 +69,7 @@ class Layout extends React.Component {
       {/* <Route path="/editSignupInformation" component={Homepage} /> */}
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
+      <Route path="/searchInfo" component={SearchInfo} />
       <Route path="/profile" component={Profile} />
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/trainingFace" component={TrainingFace} />

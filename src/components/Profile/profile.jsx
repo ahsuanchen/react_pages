@@ -1,8 +1,8 @@
 import React , { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles , withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
-import { Link } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -65,32 +65,112 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+ //radio 顏色設定
+ const RadioColor = withStyles({
+    root: {
+        color: "#E0E0E0",
+        '&$checked': {
+            color: "#00CACA",
+        },
+    },
+    checked: {},
+})(props => <Radio color="default" {...props} />);
+
 export default function Profile() {
     const classes = useStyles();
 
-    // const [intputs , setInputs] = React.useState({
-    //     Name : "" ,
-    //     Gender : "" ,
-    //     BloodType : "" ,
-    //     Birthday : "" ,
-    //     Phone : "" ,
-    //     Email : "" ,
-    //     Address : "" ,
-    //     ContactPerson : "" ,
-    //     ContactRelation : "" ,
-    //     ContactPhone : "" ,
-    // });
+    // const [value, setValue] = React.useState();
 
-    // const handlechange = member => event => {
-    //     event.persist();
-    //     setInputs(inputs => ({...inputs , [member] : event.target.value}));
-    // }
-    // let post ;
-    // let history = useHistory();
-    // const handleSubmit = () =>
-    // {
-    //     if (inputs.)
-    // }
+    // const handleChange = (event) => {
+    //     setValue(event.target.value);
+    // };
+
+    const [inputs , setInputs] = React.useState({
+        Name : "" ,
+        // Gender : "" ,
+        // BloodType : "" ,
+        Phone : "" ,
+        Email : "" ,
+        Address : "" ,
+        ContactPerson : "" ,
+        ContactRelation : "" ,
+        ContactPhone : "" ,
+    });
+
+    const handlechange = member => event => {
+        event.persist();
+        setInputs(inputs => ({...inputs , [member] : event.target.value}));
+    }
+
+    let update; //宣告一個布林值變數
+    let history = useHistory(); //傳值跳頁的方法
+    const handleSubmit = () =>
+    {
+        if(inputs.name.length > 0 
+            || inputs.Name.length > 0 
+            || inputs.Phone.length > 0
+            || inputs.Address.length > 0
+            || inputs.ContactPerson.length > 0
+            || inputs.ContactRelation.length > 0
+            || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
+            {
+                fetch('/member',{
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        memberName : inputs.Name ,
+                        memberPhone : inputs.Phone ,
+                        memberAddress : inputs.Address ,
+                        emergencyContact : inputs.ContactPerson ,
+                        emergencyContactPhone : inputs.ContactPhone ,
+                        emergencyContactRelation : inputs.ContactRelation
+                    })
+                })
+                .then(res => {
+                    async function fetchres(){
+                    const test = await res.text();  //接收後端傳來的訊息
+                    if(test === "request failed. Email format error!") //信箱不包含@
+                    {
+                        alert("信箱格式有誤 請輸入有效信箱！");
+                        update = false;
+                        console.log(1);
+                        return update;
+                    }
+                    else if(inputs.Phone.length !== 10) //手機長度不等於10
+                    {
+                        alert("手機長度有誤 請重新輸入！");
+                        update = false;
+                        console.log(2);
+                        return update;
+                    }
+                    else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
+                    {
+                        alert("手機長度有誤 請重新輸入！");
+                        update = false;
+                        console.log(3);
+                        return update;
+                    }
+                    else
+                    {
+                        alert("修改成功！");
+                        update = true;
+                        console.log(0);
+                        history.push("/login");
+                        return update;                        
+                    }
+                    
+                } fetchres() })
+                // .then(res => console.log(post))
+                .then(res => console.log(res))
+                .catch(err => console.log(`Error with message: ${err}`))
+            }            
+        else
+        {
+            alert("請再次確認!!")
+        }  
+    }
 
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
@@ -193,7 +273,12 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberName} />
+                                            <TextField 
+                                                variant="outlined"
+                                                value={member.memberName}
+                                                id="name"
+                                                // onChange={handleChange("Name")}
+                                            />
                                         </TableCell>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
@@ -204,13 +289,14 @@ export default function Profile() {
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
                                             <RadioGroup name="gender" value={member.memberGender}>
-                                                <FormControlLabel checked={member.memberGender === "male"} control={<Radio color="default" />} label="男性" />
-                                                <FormControlLabel checked={member.memberGender === "female"} control={<Radio color="default" />} label="女性" />
-                                                <FormControlLabel checked={member.memberGender === "unknown"} control={<Radio color="default" />} label="暫不透漏" />
+                                                <FormControlLabel checked={member.memberGender === "male"} control={<RadioColor />} label="男性" />
+                                                <FormControlLabel checked={member.memberGender === "female"} control={<RadioColor />} label="女性" />
+                                                <FormControlLabel checked={member.memberGender === "unknown"} control={<RadioColor />} label="暫不透漏" />
                                             </RadioGroup>
                                         </TableCell>
                                         <TableCell>血型：</TableCell>
                                         <TableCell>
+                                            {/* <TextField variant="outlined" value={member.memberBloodType} disabled /> */}
                                             <FormControl style={{ minWidth: "100px" }} variant="outlined">
                                                 <Select
                                                     labelId="blood-type"
@@ -228,7 +314,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField type="date-time" variant="outlined" value={member.memberBirthday} InputLabelProps={{shrink: true}}/>
+                                            <TextField type="datetime" variant="outlined" value={member.memberBirthdayString} InputLabelProps={{shrink: true}} disabled/>
                                         </TableCell>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
@@ -236,9 +322,9 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>電子郵件：</TableCell>
+                                        <TableCell>電子郵件(帳號)：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} />
+                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
@@ -266,6 +352,7 @@ export default function Profile() {
                             <Box lineHeight={5} m={1}>
                                 <Button
                                     className={classes.button}
+                                    onClick={handleSubmit}
                                     variant="contained"
                                     startIcon={<SaveIcon />}
                                 >
