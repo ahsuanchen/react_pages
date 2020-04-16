@@ -91,107 +91,131 @@ export default function Profile() {
     // const handleChange = (event) => {
     //     setValue(event.target.value);
     // };
+    
+    let history = useHistory();
 
-    const [inputs , setInputs] = React.useState({
-        Name : "" ,
-        // Gender : "" ,
-        // BloodType : "" ,
-        Phone : "" ,
-        Email : "" ,
-        Address : "" ,
-        ContactPerson : "" ,
-        ContactRelation : "" ,
-        ContactPhone : "" ,
-    });
-
-    const handlechange = member => event => {
-        event.persist();
-        setInputs(inputs => ({...inputs , [member] : event.target.value}));
-    }
-
-    let update; //宣告一個布林值變數
-    let history = useHistory(); //傳值跳頁的方法
-    const handleSubmit = () =>
+    function goSignin()
     {
-        if(inputs.name.length > 0 
-            || inputs.Name.length > 0 
-            || inputs.Phone.length > 0
-            || inputs.Address.length > 0
-            || inputs.ContactPerson.length > 0
-            || inputs.ContactRelation.length > 0
-            || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
-            {
-                fetch('/member',{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        memberName : inputs.Name ,
-                        memberPhone : inputs.Phone ,
-                        memberAddress : inputs.Address ,
-                        emergencyContact : inputs.ContactPerson ,
-                        emergencyContactPhone : inputs.ContactPhone ,
-                        emergencyContactRelation : inputs.ContactRelation
-                    })
-                })
-                .then(res => {
-                    async function fetchres(){
-                    const test = await res.text();  //接收後端傳來的訊息
-                    if(test === "request failed. Email format error!") //信箱不包含@
-                    {
-                        alert("信箱格式有誤 請輸入有效信箱！");
-                        update = false;
-                        console.log(1);
-                        return update;
-                    }
-                    else if(inputs.Phone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(2);
-                        return update;
-                    }
-                    else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(3);
-                        return update;
-                    }
-                    else
-                    {
-                        alert("修改成功！");
-                        update = true;
-                        console.log(0);
-                        history.push("/login");
-                        return update;                        
-                    }
-                    
-                } fetchres() })
-                // .then(res => console.log(post))
-                .then(res => console.log(res))
-                .catch(err => console.log(`Error with message: ${err}`))
-            }            
-        else
-        {
-            alert("請再次確認!!")
-        }  
+        history.push("/signin");
     }
+
+    function goHomePage()
+    {
+        history.push("/");
+    }
+
+    // const [inputs , setInputs] = React.useState({
+    //     Name : "" ,
+    //     // Gender : "" ,
+    //     // BloodType : "" ,
+    //     Phone : "" ,
+    //     Email : "" ,
+    //     Address : "" ,
+    //     ContactPerson : "" ,
+    //     ContactRelation : "" ,
+    //     ContactPhone : "" ,
+    // });
+
+    // const handlechange = member => event => {
+    //     event.persist();
+    //     setInputs(inputs => ({...inputs , [member] : event.target.value}));
+    // }
+
+    // let update; //宣告一個布林值變數
+    // // let history = useHistory(); //傳值跳頁的方法
+    // const handleSubmit = () =>
+    // {
+    //     if(inputs.name.length > 0 
+    //         || inputs.Name.length > 0 
+    //         || inputs.Phone.length > 0
+    //         || inputs.Address.length > 0
+    //         || inputs.ContactPerson.length > 0
+    //         || inputs.ContactRelation.length > 0
+    //         || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
+    //         {
+    //             fetch('/member',{
+    //                 method: 'PUT',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     memberName : inputs.Name ,
+    //                     memberPhone : inputs.Phone ,
+    //                     memberAddress : inputs.Address ,
+    //                     emergencyContact : inputs.ContactPerson ,
+    //                     emergencyContactPhone : inputs.ContactPhone ,
+    //                     emergencyContactRelation : inputs.ContactRelation
+    //                 })
+    //             })
+    //             .then(res => {
+    //                 async function fetchres(){
+    //                 const test = await res.text();  //接收後端傳來的訊息
+    //                 if(test === "request failed. Email format error!") //信箱不包含@
+    //                 {
+    //                     alert("信箱格式有誤 請輸入有效信箱！");
+    //                     update = false;
+    //                     console.log(1);
+    //                     return update;
+    //                 }
+    //                 else if(inputs.Phone.length !== 10) //手機長度不等於10
+    //                 {
+    //                     alert("手機長度有誤 請重新輸入！");
+    //                     update = false;
+    //                     console.log(2);
+    //                     return update;
+    //                 }
+    //                 else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
+    //                 {
+    //                     alert("手機長度有誤 請重新輸入！");
+    //                     update = false;
+    //                     console.log(3);
+    //                     return update;
+    //                 }
+    //                 else
+    //                 {
+    //                     alert("修改成功！");
+    //                     update = true;
+    //                     console.log(0);
+    //                     history.push("/login");
+    //                     return update;                        
+    //                 }
+                    
+    //             } fetchres() })
+    //             // .then(res => console.log(post))
+    //             .then(res => console.log(res))
+    //             .catch(err => console.log(`Error with message: ${err}`))
+    //         }            
+    //     else
+    //     {
+    //         alert("請再次確認!!")
+    //     }  
+    // }
 
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
-                setMember(result.data);
-                console.log(result);           
-                // .then(result => {
-                //     setMember(result.data)
-                //     console.log(result)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setMember(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataMem();
     }, []);
@@ -200,14 +224,27 @@ export default function Profile() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);             
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setOrganizer(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataOrg();
     }, []);
@@ -329,17 +366,17 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
-                                            <TextField type="datetime" variant="outlined" value={member.memberBirthdayString} InputLabelProps={{shrink: true}} disabled/>
+                                            <TextField type="date" variant="outlined" value={member.memberBirthdayString} InputLabelProps={{shrink: true}}/>
                                         </TableCell>
-                                        <TableCell>聯絡電話：</TableCell>
-                                        <TableCell>
-                                            <TextField variant="outlined" value={member.memberPhone} />
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
                                         <TableCell>身分證字號：</TableCell>
                                         <TableCell>
                                             <TextField variant="outlined" value={member.memberID} disabled />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>聯絡電話：</TableCell>
+                                        <TableCell>
+                                            <TextField variant="outlined" value={member.memberPhone} />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
@@ -367,7 +404,7 @@ export default function Profile() {
                             <Box lineHeight={5} m={1}>
                                 <Button
                                     className={classes.button}
-                                    onClick={handleSubmit}
+                                    // onClick={handleSubmit}
                                     variant="contained"
                                     startIcon={<SaveIcon />}
                                 >
