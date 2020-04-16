@@ -1,7 +1,7 @@
 import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Header from '../Header/PF_header2.jsx';
+import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function MenuAppBar() {
+export default function EditSignupInfo() {
     const classes = useStyles();
 
     const [gender, setgender] = React.useState("male");

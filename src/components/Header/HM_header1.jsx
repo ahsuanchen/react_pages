@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
-import { faHome , faTasks , faQuestionCircle , faEnvelope , } from "@fortawesome/free-solid-svg-icons";
+import { faHome , faTasks , faQuestionCircle , faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles(theme => ({
@@ -74,7 +74,7 @@ export default function (props) {
       >
         <div className={classes.leftbar}>
           <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >F J U F U N</Link>
+            <Link className={classes.link} to="/homepageAfterLogin" >A C T F U N</Link>
           </Box>
         </div>
         <Divider/>
@@ -104,7 +104,7 @@ export default function (props) {
               <ListItemIcon>
                 <FontAwesomeIcon icon={faEnvelope} />
               </ListItemIcon>
-              <ListItemText primary="聯絡我們" />
+              <ListItemText primary="關於我們" />
             </ListItem>
         </List>
       </div>
@@ -122,7 +122,7 @@ export default function (props) {
                     <MenuIcon />
                   </IconButton>
                   <Typography variant="h6">
-                    FJU-FUN
+                    ACT-FUN
                   </Typography>
                   <Button
                     color="inherit"

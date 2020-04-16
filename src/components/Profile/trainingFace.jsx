@@ -1,7 +1,11 @@
 import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+<<<<<<< HEAD
 import Header from '../Header/PF_header1.jsx';
+=======
+import Header from '../Header/PF_header.jsx';
+>>>>>>> 87e36eaebb3ee1bdd272d935e9bb9590c8716fa6
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -48,7 +52,11 @@ const useStyles = makeStyles(theme => ({
     } ,
     container : {
         maxWidth : '550px' ,
+<<<<<<< HEAD
         minHeight : '550px' ,
+=======
+        minHeight : '580px' ,
+>>>>>>> 87e36eaebb3ee1bdd272d935e9bb9590c8716fa6
         background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
         overflow : "visible"
     } ,
@@ -60,7 +68,11 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "center" ,
     } ,
     button : {
+<<<<<<< HEAD
         margin : "2% auto" ,
+=======
+        margin : "5% auto" ,
+>>>>>>> 87e36eaebb3ee1bdd272d935e9bb9590c8716fa6
         display: "flex" ,
         justifyContent : "center" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
@@ -75,7 +87,11 @@ const useStyles = makeStyles(theme => ({
     } ,
   }));
 
+<<<<<<< HEAD
 export default function MenuAppBar() {
+=======
+export default function TrainingFace() {
+>>>>>>> 87e36eaebb3ee1bdd272d935e9bb9590c8716fa6
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);

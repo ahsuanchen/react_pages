@@ -17,8 +17,10 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '120vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
+        color: 'white',
         //borderRadius: 10,
         //borderColor: ,
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
@@ -60,8 +62,19 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function SignUp() {
+export default function ForgotPW() {
     const classes = useStyles();
+
+    const HelloMessage = (props) => (
+        <div>Hello {props.name}</div>
+    );
+
+    // Prop 預設值，若對應 props 沒傳入值將會使用 default 值 Zuck。用法等於 ES5 的 getDefaultProps
+    HelloMessage.defaultProps = {
+     name: 'Zuck',
+    }
+
+    
 
     return (
         <Grid className={classes.root}>
@@ -72,10 +85,11 @@ export default function SignUp() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
+                    
                         <Typography variant="subtitle1" gutterBottom align="center">
-                            abc123, 請重新設定密碼。
-                    </Typography>
-                        <form className={classes.form} noValidate>
+                        <HelloMessage name="Mark" />, 請重新設定密碼。
+                        </Typography>
+                        
 
                             <TextField
                                 margin="normal"
@@ -105,13 +119,12 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signinside"
+                                href="./signin"
                             >
                                 完成設定
                             </Button>
 
 
-                        </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

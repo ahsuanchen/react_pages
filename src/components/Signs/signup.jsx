@@ -1,4 +1,6 @@
-import React from 'react';
+import React ,{useState} from 'react';
+import { Router,Route,hashHistory} from 'react-router';
+import axios from 'axios';
 //import Avatar from '@material-ui/core/Avatar';
 //import { borders } from '@material-ui/system';
 import Button from '@material-ui/core/Button';
@@ -6,12 +8,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-//import Paper from '@material-ui/core/Paper';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 //import { ICON_NAME } from "react-icons/io";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from "react-router-dom";
+
 
 
 
@@ -24,8 +28,9 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '90vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
         color: 'white',
         //borderRadius: 10,
         //borderColor: ,
@@ -70,6 +75,54 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignUp() {
     const classes = useStyles();
+    //let history = useHistory();
+
+    // function handleClick() {
+    //     history.push("/signupinfo");
+    // }
+
+    const PassTextPage = () => {
+        const history = useHistory();
+      
+        const passText= () => {
+          history.push({
+            pathname: "/signupinfo",
+            state: { id: "123", pw:"123" }
+          });
+        };
+      
+        return <button onClick={passText}>pass</button>;
+      };
+
+
+    const  [memberEmail,setMemberEmail] =  useState("");
+    const  [memberPassword,setMemberPassword] =  useState("");
+
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+        const member={
+            memberEmail:memberEmail,
+            memberPassword:memberPassword};
+        axios.post("api/member/check/", member,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+        .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            //再新增！判斷後為ok就跳到下一頁
+            //PassTextPage();
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        
+    }
 
     return (
         <Grid className={classes.root}>
@@ -80,17 +133,16 @@ export default function SignUp() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate>
+                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
                             <TextField
                                 variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
+                                id="memberEmail"
                                 label="帳號"
                                 name="email"
-                                autoComplete="email"
-                                autoFocus
+                                onChange={e=>setMemberEmail(e.target.value)}
                             />
                             <TextField
                                 variant="outlined"
@@ -100,8 +152,8 @@ export default function SignUp() {
                                 name="password"
                                 label="密碼"
                                 type="password"
-                                id="password"
-                                autoComplete="current-password"
+                                id="memberPassword"
+                                onChange={e=>setMemberPassword(e.target.value)}
                             />
 
                             <TextField
@@ -122,13 +174,15 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signupinfor"
+                                //onClick={handleClick}
+                                onClick={handleSubmit}
+                                // href="./signupinfo"
                             >
                                 <ChevronRightIcon />
                                 下一步
-                    </Button>
+                            </Button>
 
-                        </form>
+                        {/* </form> */}
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

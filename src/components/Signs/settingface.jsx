@@ -7,6 +7,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+//import Webcam from "./react-webcam.tsx";
+
+
 
 
 
@@ -19,8 +22,10 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '120vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
+        color: 'white',
         //borderRadius: 10,
         //borderColor: ,
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
@@ -73,9 +78,14 @@ const useStyles = makeStyles(theme => ({
           margin: theme.spacing(1),
         },
       },
+
+    location: {
+        gridRowGap: '20px',
+        
+      },
 }));
 
-export default function SignUp() {
+export default function SettingFace() {
     const classes = useStyles();
 
     return (
@@ -91,20 +101,24 @@ export default function SignUp() {
                             設定使用者人臉
                         </Typography>
                         <form className={classes.form} noValidate>
+                       
+                        {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
+                        <Grid container justify="center">
+                        <input type="file" />
+                        </Grid>
 
-                        <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img>
-
-
+                            {/* <Grid>
                             <Button className={classes.button} color="primary">開啟相機</Button>
                             <Button className={classes.button} color="primary">開啟相簿</Button>
-                            
+                            </Grid> */}
+                            <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary"
+                                color="primary" 
                                 className={classes.submit}
-                                href="./signupinfor"
+                                href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
                                 上一步
@@ -121,7 +135,7 @@ export default function SignUp() {
                                 <ChevronRightIcon />
                                 下一步
                              </Button>
-
+                             </Grid>
 
                         </form>
                     </paper>

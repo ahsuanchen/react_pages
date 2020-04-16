@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
@@ -10,7 +9,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
-
 import Container from '@material-ui/core/Container';
 
 
@@ -20,20 +18,18 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
+    space: {
+        marginTop: theme.spacing(5),
     },
 
     paper: {
-        marginTop: theme.spacing(8),
-
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
-        background: 'lightgrey',
+        background: '#dcedc8',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(40),
             height: theme.spacing(30),
         },
@@ -53,22 +49,54 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function DenseAppBar() {
+export default function Organizer() {
     const classes = useStyles();
+
+    const[inputs, setInputs] = React.useState({
+        organizerName:'',
+        organizerEmail:'',
+        organizerPhone:'',
+        organizerAddress:'',
+        organizerInfo:''
+    });
+
+    const handleChange = user => event =>{
+        event.persist();
+        setInputs(inputs =>({...inputs, [user]: event.target.value}));
+    }
+
+    const handleSubmit = () =>{
+        fetch('/organizer', {
+            method: 'post',
+            
+            headers: {
+              'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify({
+                organizerName: inputs.organizerName,
+                organizerEmail: inputs.organizerEmail,
+                organizerPhone: inputs.organizerPhone,
+                organizerAddress: inputs.organizerAddress,
+                organizerInfo: inputs.organizerInfo
+            }),
+          
+          })
+
+          .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            
+          }).catch(function(error){
+              alert(error);
+          });
+    }
 
     return (
         <div className={classes.root}>
-            <AppBar position="static">
-                <Toolbar variant="dense">
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                        <ChevronLeftIcon />
-                    </IconButton>
-                    <Typography variant="h6" color="inherit">
-                        返回首頁
-          </Typography>
-                </Toolbar>
-            </AppBar>
-            <Grid >
+            <Header/>
+            <Grid className={classes.space}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Typography component="h1" variant="h5" align="center">
@@ -76,56 +104,72 @@ export default function DenseAppBar() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate>
+                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="name"
+                                id="organizerName"
                                 label="主辦單位名稱"
-                                name="name"
-                                autoFocus
+                                name="organizerName"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="email"
+                                id="organizerEmail"
                                 label="主辦單位信箱"
-                                name="email"
-                                autoFocus
+                                name="organizerEmail"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="phone"
+                                id="organizerPhone"
                                 label="主辦單位電話號碼"
-                                name="phone"
-                                autoFocus
+                                name="organizerPhone"
                                 variant="outlined"
+                                onChange={handleChange}
                             />
 
                             <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="intro"
-                                    label="主辦單位簡介"
-                                    multiline
-                                    rows="4"
-                                    placeholder="上限一百字"
-                                    variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="organizerAddress"
+                                label="主辦單位地址"
+                                multiline
+                                rows="2"
+                                name="organizerAddress"
+                                variant="outlined"
+                                onChange={handleChange}
                             />
 
 
-                                <IconButton color="primary" aria-label="next step" href="./new1-button">
-                                    <ArrowForwardIcon />
-                                </IconButton>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="organizerInfo"
+                                name="organizerInfo"
+                                label="主辦單位簡介"
+                                multiline
+                                rows="4"
+                                placeholder="上限一百字"
+                                variant="outlined"
+                                onChange={handleChange}
+                            />
+
+
+                            <IconButton type="submit" color="primary" aria-label="next step">
+                                <ArrowForwardIcon />
+                            </IconButton>
 
                         </form>
                     </paper>

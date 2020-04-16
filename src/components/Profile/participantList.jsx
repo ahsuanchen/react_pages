@@ -1,7 +1,7 @@
 import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
-import Header from '../Header/PF_header2.jsx';
+import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -19,8 +19,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-// import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 
@@ -76,11 +74,29 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #FF0000 30%, #EA0000 70%)' ,
         color : "#fff" ,
         margin : "2% 1%" ,
+    } ,
+    Exclamation_Mark : {
+        fontSize : "40px" ,
+        color : "red" ,
+    } , 
+    dig_butoon : {
+        color : "#000" ,
+        '&:hover' : {
+          color : '#00AEAE' 
+        }
     }
   }));
 
-export default function ManageActivity() {
+export default function ParticipantList() {
     const classes = useStyles();
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
@@ -197,14 +213,6 @@ export default function ManageActivity() {
                                             <Paper>
                                                 <Box lineHeight={5} m={1}>
                                                     <div className={classes.button_part}>
-                                                        <Button
-                                                            variant="contained"
-                                                            className={classes.button1}
-                                                            component={Link}
-                                                            to="/addParticipant"
-                                                        >
-                                                            新增參加者
-                                                        </Button>
                                                         <Tooltip title="匯出成Excel檔">
                                                             <Button
                                                                 variant="contained"
@@ -214,57 +222,25 @@ export default function ManageActivity() {
                                                                 匯出名單
                                                             </Button>
                                                         </Tooltip>
-                                                        <Button
-                                                            variant="contained"
-                                                            className={classes.button2}
-                                                        >
-                                                            一鍵刪除
-                                                        </Button>
                                                     </div>
                                                 </Box>
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">
-                                                                <input type="checkbox"/>
-                                                            </TableCell>
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
                                                             <TableCell align="center">手機</TableCell>
                                                             <TableCell align="center">Email</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
-                                                            <TableCell align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">
-                                                                <input type="checkbox"/>
-                                                            </TableCell>
                                                             <TableCell align="center">001</TableCell>
                                                             <TableCell align="center">劉志宏</TableCell>
                                                             <TableCell align="center">0989-753491</TableCell>
                                                             <TableCell align="center">test1@gmial.com</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
-                                                            <TableCell align="center">
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to="/participantList"
-                                                                >
-                                                                    編輯資料
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
-                                                                >
-                                                                    刪除資料
-                                                                </Button>
-                                                            </TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                 </Table>
