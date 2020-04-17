@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "space-around",
         minHeight: 800,
-        color: "#000"
+        color: "#000" ,
     },
     left_container: {
         maxWidth: "280px",
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         margin: "2% 2%",
-        overflow: "visible"
+        overflow: "visible" ,
     },
     img: {
         margin: "2% 0",
@@ -67,8 +67,6 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         margin: "2%",
-        // display: "flex",
-        // justifyContent: "center",
     }
 }));
 
@@ -93,7 +91,6 @@ export default function Profile() {
     // };
     
     let history = useHistory();
-
     function goSignin()
     {
         history.push("/signin");
@@ -219,7 +216,7 @@ export default function Profile() {
         }
         fetchDataMem();
     }, []);
-
+    
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
@@ -329,12 +326,34 @@ export default function Profile() {
                                             <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
                                             <Button
                                                 className={classes.change_password}
-                                                compoent={Link}
-                                                to=""
+                                                component={Link}
+                                                to="/updatePassword"
                                                 variant="contained"
                                             >
                                                 更改密碼
                                             </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>身分證字號：</TableCell>
+                                        <TableCell>
+                                            <TextField variant="outlined" value={member.memberID} disabled />
+                                        </TableCell>
+                                        <TableCell>血型：</TableCell>
+                                        <TableCell>
+                                            {/* <TextField variant="outlined" value={member.memberBloodType} disabled /> */}
+                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
+                                                <Select
+                                                    labelId="blood-type"
+                                                    value={member.memberBloodType}
+                                                >
+                                                    <MenuItem value="A" >A</MenuItem>
+                                                    <MenuItem value="B" >B</MenuItem>
+                                                    <MenuItem value="AB" >AB</MenuItem>
+                                                    <MenuItem value="O">O</MenuItem>
+                                                    <MenuItem value="RH" >RH 陰性</MenuItem>
+                                                </Select>
+                                            </FormControl>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -346,31 +365,9 @@ export default function Profile() {
                                                 <FormControlLabel checked={member.memberGender === "unknown"} control={<RadioColor />} label="暫不透漏" />
                                             </RadioGroup>
                                         </TableCell>
-                                        <TableCell>血型：</TableCell>
-                                        <TableCell>
-                                            <TextField variant="outlined" value={member.memberBloodType} disabled />
-                                            {/* <FormControl style={{ minWidth: "100px" }} variant="outlined">
-                                                <Select
-                                                    labelId="blood-type"
-                                                    value={member.memberBloodType}
-                                                >
-                                                    <MenuItem value="A">A</MenuItem>
-                                                    <MenuItem value="B">B</MenuItem>
-                                                    <MenuItem value="AB">AB</MenuItem>
-                                                    <MenuItem value="O">O</MenuItem>
-                                                    <MenuItem value="RH">RH 陰性</MenuItem>
-                                                </Select>
-                                            </FormControl> */}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
                                         <TableCell>生日：</TableCell>
                                         <TableCell>
                                             <TextField type="date" variant="outlined" value={member.memberBirthdayString} InputLabelProps={{shrink: true}}/>
-                                        </TableCell>
-                                        <TableCell>身分證字號：</TableCell>
-                                        <TableCell>
-                                            <TextField variant="outlined" value={member.memberID} disabled />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -380,7 +377,7 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} />
+                                            <TextField variant="outlined" style={{ minWidth: "400px" }} value={member.memberAddress} />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
