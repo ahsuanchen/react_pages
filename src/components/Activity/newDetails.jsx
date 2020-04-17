@@ -98,7 +98,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(43),
+            height: theme.spacing(32),
         },
     },
 
@@ -125,15 +125,11 @@ export default function BulidActivity_step4() {
         <div className={classes.root}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={3} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={2} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step4 : 活動內容
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (填寫活動細節)
+                    請填寫活動詳細內容
                 </Typography>
             </div>
             <Grid className={classes.space}>
@@ -147,6 +143,7 @@ export default function BulidActivity_step4() {
                                     margin="normal"
                                     required
                                     fullWidth
+                                    autoFocus
                                     id="activityMoreContent"
                                     label="更多內容"
                                     variant="outlined"
@@ -204,9 +201,9 @@ export default function BulidActivity_step4() {
                                             type="submit"
                                             className={classes.button_part2}
                                             component={Link}
-                                            to="/homepageAfterLogin"
+                                            to="/newPic"
                                         >
-                                            完成送出
+                                            下一步
                                         </Button>
                                     </Box>
                                 </Grid>

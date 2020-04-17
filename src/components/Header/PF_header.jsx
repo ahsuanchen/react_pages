@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     appbar: {
         position : "static" ,
-        color : "#000" ,
+        color : "#fff" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
@@ -118,7 +118,7 @@ export default function MenuAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6">
-                        ACT-FUN
+                        ACTFUN
                     </Typography>
                     <IconButton 
                         edge="start"

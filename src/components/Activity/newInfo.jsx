@@ -64,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     } ,
     button_part : {
         display: "flex" ,
-        justifyContent : "space-between"
+        justifyContent : "space-between",
+        //marginTop: theme.spacing(10),
     } ,
     button_part1 : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
@@ -105,7 +106,8 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(1),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        //margin: theme.spacing(3, 0, 2),
+        marginTop : "10%" ,
     },
     margin: {
         margin: theme.spacing(2),
@@ -235,15 +237,11 @@ export default function BulidActivity_step3() {
         <div className={classes.root}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={2} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step3 : 活動基本資訊
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (填寫活動資訊)
+                    請填寫活動基本資訊
                 </Typography>
             </div>
             <div>
@@ -257,6 +255,7 @@ export default function BulidActivity_step3() {
                                         margin="normal"
                                         required
                                         fullWidth
+                                        autoFocus
                                         id="activityName"
                                         label="活動名稱"
                                         name="activityName"
@@ -278,83 +277,83 @@ export default function BulidActivity_step3() {
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width='60'
-                                    label="活動開始時間" 
-                                    type="time" 
-                                    id="activityStartDate"
-                                    name="activityStartDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setactivityStartDate(e.target.value)}
+                                        margin="normal"
+                                        Width='60'
+                                        label="活動開始時間" 
+                                        type="time" 
+                                        id="activityStartDate"
+                                        name="activityStartDate"
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setactivityStartDate(e.target.value)}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束日期" 
-                                    type="date" 
-                                    id="activityEndDate"
-                                    name="activityEndDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setactivityEndDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="活動結束日期" 
+                                        type="date" 
+                                        id="activityEndDate"
+                                        name="activityEndDate"
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setactivityEndDate(e.target.value)}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束時間" 
-                                    type="time" 
-                                    id="activityEndDate"
-                                    name="activityEndDate"
-                                    InputLabelProps={{shrink: true,}}
-                                    onChange={e=>setactivityEndDate(e.target.value)} 
+                                        margin="normal"
+                                        Width="50%"
+                                        label="活動結束時間" 
+                                        type="time" 
+                                        id="activityEndDate"
+                                        name="activityEndDate"
+                                        InputLabelProps={{shrink: true,}}
+                                        onChange={e=>setactivityEndDate(e.target.value)} 
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    width="70%"
-                                    label="報名開始日期" 
-                                    type="date" 
-                                    id="startSignUpDate"
-                                    name="startSignUpDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        width="70%"
+                                        label="報名開始日期" 
+                                        type="date" 
+                                        id="startSignUpDate"
+                                        name="startSignUpDate"
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setstartSignUpDate(e.target.value)}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width='60'
-                                    label="報名開始時間" 
-                                    type="time" 
-                                    id="startSignUpDate"
-                                    name="startSignUpDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width='60'
+                                        label="報名開始時間" 
+                                        type="time" 
+                                        id="startSignUpDate"
+                                        name="startSignUpDate"
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setstartSignUpDate(e.target.value)}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="報名結束日期" 
-                                    type="date" 
-                                    id="endSignUpDate"
-                                    name="endSignUpDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="報名結束日期" 
+                                        type="date" 
+                                        id="endSignUpDate"
+                                        name="endSignUpDate"
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setendSignUpDate(e.target.value)}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="報名結束時間" 
-                                    type="time" 
-                                    id="endSignUpDate"
-                                    name="endSignUpDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="報名結束時間" 
+                                        type="time" 
+                                        id="endSignUpDate"
+                                        name="endSignUpDate"
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={e=>setendSignUpDate(e.target.value)}
                                     />
 
                                     <TextField
@@ -368,29 +367,29 @@ export default function BulidActivity_step3() {
                                         onChange={e=>setactivitySpace(e.target.value)}
                                     />
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activitySummary"
-                                    label="活動摘要"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動摘要（限三十字）"
-                                />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="activitySummary"
+                                        label="活動摘要"
+                                        variant="outlined"
+                                        multiline
+                                        rows="4"
+                                        placeholder="請填寫活動摘要（限三十字）"
+                                    />
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activityInfo"
-                                    label="活動簡介"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動簡介（限一千字）"
-                                />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="activityInfo"
+                                        label="活動簡介"
+                                        variant="outlined"
+                                        multiline
+                                        rows="4"
+                                        placeholder="請填寫活動簡介（限一千字）"
+                                    />
 
 
                                     <FormControl component="fieldset" className={classes.formControl}>
@@ -424,7 +423,7 @@ export default function BulidActivity_step3() {
                                             <Button 
                                                 className={classes.button_part1}
                                                 component={Link}
-                                                to="/newPic"
+                                                to="/new1"
                                             >
                                                 上一步
                                             </Button>
