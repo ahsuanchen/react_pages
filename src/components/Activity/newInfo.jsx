@@ -157,8 +157,8 @@ export default function BulidActivity_step3() {
     const  [activityEndDate,setactivityEndDate] =  useState("");
     const  [startSignUpDate,setstartSignUpDate] =  useState("");
     const  [endSignUpDate,setendSignUpDate] =  useState("");
-    const  [activityLinkName,setactivityLinkName] =  useState("");
-    const  [activityLink,setactivityLink] =  useState("");
+    const  [activitySummary,setactivitySummary] =  useState("");
+    const  [activityInfo,setactivityInfo] =  useState("");
     const  [activityMeal,setactivityMeal] =  useState("");
 
     const today  = new Date();
@@ -181,8 +181,8 @@ export default function BulidActivity_step3() {
             activityEndDate:activityEndDate,
             startSignUpDate:startSignUpDate,
             endSignUpDate:endSignUpDate,
-            activityLinkName:activityLinkName,
-            activityLink:activityLink,
+            activitySummary:activitySummary,
+            activityInfo:activityInfo,
             activityMeal:activityMeal
         };
            
@@ -368,27 +368,30 @@ export default function BulidActivity_step3() {
                                         onChange={e=>setactivitySpace(e.target.value)}
                                     />
 
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="activitySummary"
+                                    label="活動摘要"
+                                    variant="outlined"
+                                    multiline
+                                    rows="4"
+                                    placeholder="請填寫活動摘要（限三十字）"
+                                />
 
-                                    <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        label="參考網站名稱（例：Facebook）"
-                                        id="activityLinkName"
-                                        name="activityLinkName"
-                                        variant="outlined"
-                                        onChange={e=>setactivityLinkName(e.target.value)}
-                                    />
+                                <TextField
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="activityInfo"
+                                    label="活動簡介"
+                                    variant="outlined"
+                                    multiline
+                                    rows="4"
+                                    placeholder="請填寫活動簡介（限一千字）"
+                                />
 
-                                    <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        type="url"
-                                        label="參考網站連結"
-                                        id="activityLink"
-                                        name="activityLink"
-                                        variant="outlined"
-                                        onChange={e=>setactivityLink(e.target.value)}
-                                    />
 
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">是否供餐</FormLabel>

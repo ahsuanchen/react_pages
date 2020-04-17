@@ -125,7 +125,7 @@ export default function BulidActivity_step2() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -133,7 +133,7 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 1GB</span>
+                                    <span className={classes.span}> 4mb</span>
                                 </div>
                             </>
                             :(
@@ -148,7 +148,7 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 1GB</span>
+                                    <span className={classes.span}> 4mb</span>
                                 </div>
                             </>
                         )}

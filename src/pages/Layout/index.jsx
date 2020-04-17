@@ -20,9 +20,9 @@ import New1 from 'components/Activity/new1.jsx';
 import NewPic from 'components/Activity/newPic.jsx';
 import NewInfo from 'components/Activity/newInfo.jsx';
 import NewDetails from 'components/Activity/newDetails.jsx';
-import UpdatePic from 'components/Activity/newPic.jsx';
-import UpdateInfo from 'components/Activity/newInfo.jsx';
-import UpdateDetails from 'components/Activity/newDetails.jsx';
+import UpdatePic from 'components/Activity/updatePic.jsx';
+import UpdateInfo from 'components/Activity/updateInfo.jsx';
+import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
 // import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
@@ -58,7 +58,6 @@ class Layout extends React.Component {
       <Route path="/forgot1" component={Forgot1} />
       <Route path="/forgot2" component={Forgot2} />
       <Route path="/finish" component={Finish} />
-      {/* <Route path="/bar" component={Bar} /> */}
       <Route path="/organizer" component={Organizer} />
       <Route path="/new1" component={New1} />
       <Route path="/newPic" component={NewPic} />

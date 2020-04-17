@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '120vh',
+        height: '90vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -31,6 +31,45 @@ const useStyles = makeStyles(theme => ({
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
 
     },
+
+    div: {
+        boxSizing: "border-box"
+    },
+
+    container : {
+        maxWidth : "350px" ,
+        maxHeight: "220px",
+        marginTop:"3%",
+        background : '' , 
+        display: "flex" , 
+        alignItems : "center" , 
+        justifyContent : "center" ,
+        textAlign : "center" ,
+    } ,
+
+    upload_btn_wrapper : {
+        position: "relative" ,
+        overflow: "hidden" ,
+        display: "block" ,
+    } ,
+
+    upload_button : {
+        border: 0 ,
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        borderRadius: "5px",
+        fontSize: "15px",
+        marginBottom : "10%" ,
+    } ,
+
+    btn_file : {
+        fontSize : "30px" ,
+        position: "absolute" ,
+        left: 0 ,
+        top: 0 ,
+        opacity: 0 ,
+    } ,
 
 
     paper: {
@@ -42,7 +81,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(5),
             //margin: theme.spacing(1),
-            width: theme.spacing(40),
+            width: theme.spacing(70),
             height: theme.spacing(20),
         },
     },
@@ -59,7 +98,14 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        border: 0 ,
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        borderRadius: "5px",
+        fontSize: "10px",
+        marginTop : "10%" ,
+        margin:"1% 10%"
     },
     font: {
         color: theme.palette.grey,
@@ -88,6 +134,14 @@ const useStyles = makeStyles(theme => ({
 export default function SettingFace() {
     const classes = useStyles();
 
+    const [image, setImage] = useState({preview: '', raw: ''});
+    const handleChange = (e) => {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0]
+      })
+    };    
+
     return (
         <Grid className={classes.root}>
             <Container component="main" maxWidth="xs">
@@ -104,20 +158,57 @@ export default function SettingFace() {
                        
                         {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
                         <Grid container justify="center">
-                        <input type="file" />
+                    <Container className={classes.container}>
+                    <div className={classes.upload_btn_wrapper}>
+                        {
+                            image.preview ? 
+                            <>
+                                <img src={ image.preview } width="200" height="120" />
+                                <br/>
+                                <Button className={classes.upload_button} variant="outlined">
+                                    
+                                    新增檔案
+                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+                                <div>
+                                    <Typography variant="overline">
+                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
+                                    </Typography>
+                                </div>
+                            </>
+                            :(
+                            <>
+                                <Button className={classes.upload_button} variant="outlined">
+                                    
+                                    新增檔案
+                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+                                <div>
+                                    <Typography variant="overline">
+                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
+                                    </Typography>
+                                </div>
+                            </>
+                        )}
+                        </div>
+                        </Container>
                         </Grid>
+                            
 
-                            {/* <Grid>
-                            <Button className={classes.button} color="primary">開啟相機</Button>
-                            <Button className={classes.button} color="primary">開啟相簿</Button>
-                            </Grid> */}
-                            <Grid container justify="center"  key={10}>
+                        </form>
+                    </paper>
+                    <Grid align-items-xs-flex-end>
+                    </Grid>
+
+                </div>
+                <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"
                                 width="50"
                                 variant="contained"
                                 color="primary" 
                                 className={classes.submit}
+                                //onClick={submit}
                                 href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
@@ -136,13 +227,6 @@ export default function SettingFace() {
                                 下一步
                              </Button>
                              </Grid>
-
-                        </form>
-                    </paper>
-                    <Grid align-items-xs-flex-end>
-                    </Grid>
-
-                </div>
 
             </Container>
         </Grid>

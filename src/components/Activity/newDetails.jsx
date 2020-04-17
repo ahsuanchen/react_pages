@@ -142,29 +142,6 @@ export default function BulidActivity_step4() {
                     <div className={classes.paper}>
                         <paper>
                             <form className={classes.form} noValidate>
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activitySummary"
-                                    label="活動摘要"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動摘要（限三十字）"
-                                />
-
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activityInfo"
-                                    label="活動簡介"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動簡介（限一千字）"
-                                />
 
                                 <TextField
                                     margin="normal"
@@ -189,6 +166,28 @@ export default function BulidActivity_step4() {
                                     rows="5"
                                     placeholder="請填寫注意事項（限五十字）"
                                 />
+
+                                <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        label="參考網站名稱（例：Facebook）"
+                                        id="activityLinkName"
+                                        name="activityLinkName"
+                                        variant="outlined"
+                                        //onChange={e=>setactivityLinkName(e.target.value)}
+                                />
+
+                                <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        type="url"
+                                        label="參考網站連結"
+                                        id="activityLink"
+                                        name="activityLink"
+                                        variant="outlined"
+                                        //onChange={e=>setactivityLink(e.target.value)}
+                                />
+
 
                                 <Grid item xs={12} sm={6} className={classes.button_part}>
                                     <Box lineHeight="normal" m={1}>

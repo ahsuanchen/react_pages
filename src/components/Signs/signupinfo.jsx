@@ -18,6 +18,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import { borders } from '@material-ui/system';
+import { Router,Route,hashHistory} from 'react-router';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 
 
 
@@ -52,7 +56,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(2),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(49),
+            height: theme.spacing(45),
         },
     },
 
@@ -67,7 +71,14 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(3),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        border: 0 ,
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        borderRadius: "5px",
+        fontSize: "10px",
+        marginTop : "10%" ,
+        margin:"1% 10%"
     },
     font: {
         color: theme.palette.grey,
@@ -94,14 +105,28 @@ const GreenRadio = withStyles({
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+const SignUpInfoPage = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+
+    
+
+};
 
 
 
-export default function SignUpInfo() {
+
+
+export default function SignUpInfo(props) {
     const classes = useStyles();
 
-    const [valueG, setValueG] = React.useState('female');
-    const [valueB, setValueB] = React.useState('A');
+    const [valueG, setValueG] = React.useState('');
+    const [valueB, setValueB] = React.useState('');
 
     const handleChangeG = event => {
         setValueB(event.target.value);
@@ -111,19 +136,39 @@ export default function SignUpInfo() {
         setValueB(event.target.value);
     }
 
-    const ViewTextPage = props => {
-        const text = props.location.state.name;
+    // const ViewTextPage = props => {
+    //     const text = props.location.state.name;
       
-        const viewText = () => {
-          console.log(text);
-        };
+    //     const viewText = () => {
+    //       console.log(text);
+    //     };
       
-        return <button onClick={viewText}>view</button>;
-      };
+    //     return <button onClick={viewText}>view</button>;
+    //   };
+
+    
+    // function componentWillMount(){
+    //     let email = '';
+
+    //      this.setState({email: email})
+    //   }
+
+    //   if (window.localStorage && localStorage.fontSize) {
+    //     fontSize = localStorage.getItem("fontSize");
+    //     document.getElementById("output").textContent =
+    //       "The font size has carried over pages, and is: " + fontSize;
+    //   }
 
 
-    // const  [memberEmail,setMemberEmail] =  useState("");
-    // const  [memberPassword,setMemberPassword] =  useState("");
+
+    //hashHistory.push(path);
+    // var data = this.props.location.state;
+    // var {id,password} = data;
+
+
+
+    const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
+    const  [memberPassword,setMemberPassword] =  useState(localStorage.getItem('memberPassword'));
     const  [memberName,setMemberName] =  useState("");
     const  [memberGender,setMemberGender] =  useState("");
     const  [memberBloodType,setMemberBloodType] =  useState("");
@@ -137,9 +182,12 @@ export default function SignUpInfo() {
     const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
     const  [memberEnabled,setMemberEnabled] =  useState("1");
 
+
     const handleSubmit=(event)=> {
         //event.preventDefault();
         const member={
+            // memberEmail:memberEmail,
+            // memberPassword:memberPassword,
             memberName:memberName,
             memberGender:memberGender,
             memberBloodType:memberBloodType,
@@ -189,6 +237,22 @@ export default function SignUpInfo() {
                     <paper>
                         <Grid>
                         {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+
+                            <input
+                                //type="hidden"
+                                id="memberEmail"
+                                label="帳號"
+                                value={memberEmail}
+                            />
+
+                            <input
+                                //type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={memberPassword}
+                            />
+
+                        
                             <TextField
                                 margin="normal"
                                 required
@@ -322,38 +386,6 @@ export default function SignUpInfo() {
                                 onChange={e=>setEmergencyContactPhone(e.target.value)}
                             />
 
-                        <Grid container justify="center"  key={10}>
-                        
-                            <Button
-                                type="submit"
-                                width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                href="./signup"
-                            >
-                                <ChevronLeftIcon />
-                                上一步
-                            </Button>
-                            <Button
-                                type="submit"
-                                Width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                // href="./settingface"
-                                onChange={e=>setMemberType(0)}
-                                onChange={e=>setMemberEnabled(1)}
-                                onClick={handleSubmit}
-                                
-                            >
-
-                                <ChevronRightIcon />
-                                下一步
-                            </Button>
-                        </Grid>
-                        
-
                         {/* </form> */}
                         </Grid>
                     </paper>
@@ -361,7 +393,36 @@ export default function SignUpInfo() {
                     </Grid>
 
                 </div>
+                <Grid container justify="center"  key={10}>
+                        
+                        <Button
+                            type="submit"
+                            width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            href="./signup"
+                        >
+                            <ChevronLeftIcon />
+                            上一步
+                        </Button>
+                        <Button
+                            type="submit"
+                            Width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            // href="./settingface"
+                            onChange={e=>setMemberType(0)}
+                            onChange={e=>setMemberEnabled(1)}
+                            onClick={handleSubmit}
+                            
+                        >
 
+                            <ChevronRightIcon />
+                            下一步
+                        </Button>
+                    </Grid>
             </Container>
         </Grid>
     );
