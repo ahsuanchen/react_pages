@@ -130,92 +130,92 @@ export default function Profile() {
     //       });
     // }
 
-    const [inputs , setInputs] = React.useState({
-        Name : "" ,
-        // Gender : "" ,
-        // BloodType : "" ,
-        Phone : "" ,
-        Email : "" ,
-        Address : "" ,
-        ContactPerson : "" ,
-        ContactRelation : "" ,
-        ContactPhone : "" ,
-    });
+    // const [inputs , setInputs] = React.useState({
+    //     Name : "" ,
+    //     // Gender : "" ,
+    //     // BloodType : "" ,
+    //     Phone : "" ,
+    //     Email : "" ,
+    //     Address : "" ,
+    //     ContactPerson : "" ,
+    //     ContactRelation : "" ,
+    //     ContactPhone : "" ,
+    // });
 
-    const handlechange = member => event => {
-        event.persist();
-        setInputs(inputs => ({...inputs , [member] : event.target.value}));
-    }
+    // const handlechange = member => event => {
+    //     event.persist();
+    //     setInputs(inputs => ({...inputs , [member] : event.target.value}));
+    // }
 
-    let update; //宣告一個布林值變數
-    // let history = useHistory(); //傳值跳頁的方法
-    const handleSubmit = () =>
-    {
-        if(inputs.name.length > 0 
-            || inputs.Name.length > 0 
-            || inputs.Phone.length > 0
-            || inputs.Address.length > 0
-            || inputs.ContactPerson.length > 0
-            || inputs.ContactRelation.length > 0
-            || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
-            {
-                fetch('/member',{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        memberName : inputs.Name ,
-                        memberPhone : inputs.Phone ,
-                        memberAddress : inputs.Address ,
-                        emergencyContact : inputs.ContactPerson ,
-                        emergencyContactPhone : inputs.ContactPhone ,
-                        emergencyContactRelation : inputs.ContactRelation
-                    })
-                })
-                .then(res => {
-                    async function fetchres(){
-                    const test = await res.text();  //接收後端傳來的訊息
-                    if(test === "request failed. Email format error!") //信箱不包含@
-                    {
-                        alert("信箱格式有誤 請輸入有效信箱！");
-                        update = false;
-                        console.log(1);
-                        return update;
-                    }
-                    else if(inputs.Phone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(2);
-                        return update;
-                    }
-                    else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(3);
-                        return update;
-                    }
-                    else
-                    {
-                        alert("修改成功！");
-                        update = true;
-                        console.log(0);
-                        history.push("/login");
-                        return update;                        
-                    }
+    // let update; //宣告一個布林值變數
+    // // let history = useHistory(); //傳值跳頁的方法
+    // const handleSubmit = () =>
+    // {
+    //     if(inputs.name.length > 0 
+    //         || inputs.Name.length > 0 
+    //         || inputs.Phone.length > 0
+    //         || inputs.Address.length > 0
+    //         || inputs.ContactPerson.length > 0
+    //         || inputs.ContactRelation.length > 0
+    //         || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
+    //         {
+    //             fetch('/member',{
+    //                 method: 'PUT',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     memberName : inputs.Name ,
+    //                     memberPhone : inputs.Phone ,
+    //                     memberAddress : inputs.Address ,
+    //                     emergencyContact : inputs.ContactPerson ,
+    //                     emergencyContactPhone : inputs.ContactPhone ,
+    //                     emergencyContactRelation : inputs.ContactRelation
+    //                 })
+    //             })
+    //             .then(res => {
+    //                 async function fetchres(){
+    //                 const test = await res.text();  //接收後端傳來的訊息
+    //                 if(test === "request failed. Email format error!") //信箱不包含@
+    //                 {
+    //                     alert("信箱格式有誤 請輸入有效信箱！");
+    //                     update = false;
+    //                     console.log(1);
+    //                     return update;
+    //                 }
+    //                 else if(inputs.Phone.length !== 10) //手機長度不等於10
+    //                 {
+    //                     alert("手機長度有誤 請重新輸入！");
+    //                     update = false;
+    //                     console.log(2);
+    //                     return update;
+    //                 }
+    //                 else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
+    //                 {
+    //                     alert("手機長度有誤 請重新輸入！");
+    //                     update = false;
+    //                     console.log(3);
+    //                     return update;
+    //                 }
+    //                 else
+    //                 {
+    //                     alert("修改成功！");
+    //                     update = true;
+    //                     console.log(0);
+    //                     history.push("/login");
+    //                     return update;                        
+    //                 }
                     
-                } fetchres() })
-                // .then(res => console.log(post))
-                .then(res => console.log(res))
-                .catch(err => console.log(`Error with message: ${err}`))
-            }            
-        else
-        {
-            alert("請再次確認!!")
-        }  
-    }
+    //             } fetchres() })
+    //             // .then(res => console.log(post))
+    //             .then(res => console.log(res))
+    //             .catch(err => console.log(`Error with message: ${err}`))
+    //         }            
+    //     else
+    //     {
+    //         alert("請再次確認!!")
+    //     }  
+    // }
 
     let history = useHistory();
     function goSignin()
@@ -357,7 +357,7 @@ export default function Profile() {
                                                 variant="outlined"
                                                 value={member.memberName}
                                                 id="name"
-                                                // onChange={handleChange("Name")}
+                                                // onChange={e=>setMemberName(e.target.value)}
                                             />
                                         </TableCell>
                                         <TableCell>電子郵件(帳號)：</TableCell>
@@ -412,33 +412,60 @@ export default function Profile() {
                                                 value={member.memberBirthdayString}
                                                 InputLabelProps={{shrink: true}}
                                                 id="memberBirthday"
+                                                // onChange={e=>setMemberBirthday(e.target.value)}
                                             />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.memberPhone} id="memberPhone" />
+                                            <TextField 
+                                                variant="outlined"
+                                                value={member.memberPhone}
+                                                id="memberPhone"
+                                                // onChange={e=>setMemberPhone(e.target.value)}
+                                            />
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "400px" }} value={member.memberAddress} id="memberAddress" />
+                                            <TextField 
+                                                variant="outlined"
+                                                style={{ minWidth: "400px" }}
+                                                value={member.memberAddress}
+                                                id="memberAddress"
+                                                // onChange={e=>setMemberAddress(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContact} id="emergencyContact" />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContact}
+                                                id="emergencyContact"
+                                                // onChange={e=>setEmergencyContact(e.target.value)}
+                                            />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContactRelation} id="emergencyContactRelation" />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContactRelation}
+                                                id="emergencyContactRelation"
+                                                // onChange={e=>setEmergencyContactRelation(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField variant="outlined" value={member.emergencyContactPhone} id="emergencyContactPhone" />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContactPhone}
+                                                id="emergencyContactPhone"
+                                                // onChange={e=>setEmergencyContactPhone(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>

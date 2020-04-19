@@ -208,6 +208,8 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
+    const activity_End_or_not = new Date();
+
     return (
         <div className={classes.div}>
             <Header />
@@ -310,7 +312,11 @@ export default function ManageActivity() {
                                                             <TableCell align="center">
                                                                 {activity.attendPeople}&nbsp;/&nbsp;
                                                             </TableCell>
-                                                            <TableCell align="center">報名中</TableCell>
+                                                            <TableCell align="center">
+                                                                {/* 報名中 */}
+                                                                {(activity.activityEndDateString <= activity_End_or_not.toLocaleTimeString().substring(0,16))
+                                                                    ? "報名中" : "已結束"}
+                                                            </TableCell>
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"

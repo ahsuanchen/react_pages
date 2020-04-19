@@ -165,6 +165,18 @@ export default function SignupSituation() {
         fetchDataAct();
     }, []);
     
+    const activity_End_or_not = new Date();
+    const activity1 = useState([]);
+    const activity2 = useState([]);
+    // if (activity.activityEndDate <= activity_End_or_not.toLocaleTimeString().substring(0,16))
+    // {
+    //     activity1 = activity;
+    // }
+    // else
+    // {
+    //     activity2 = activity;
+    // }
+
     return (
         <div className={classes.div}>
             <Header />
@@ -223,7 +235,7 @@ export default function SignupSituation() {
                         </Typography>
                         <hr />
                     </div>
-                    <div className={classes.activity_part}> 
+                    <div className={classes.activity_part}>
                         <Box lineHeight="normal" m={1}>
                             <ExpansionPanel defaultExpanded>
                                 <ExpansionPanelSummary
@@ -238,6 +250,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {activity.map(activity =>
+                                    (activity.activityEndDateString != activity_End_or_not.toLocaleTimeString().substring(0,16)) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -303,9 +316,8 @@ export default function SignupSituation() {
                                         </Grid>
                                     </Grid>
                                 </ExpansionPanelDetails>
-                                )}
+                                : "")}
                             </ExpansionPanel>
-                            
                             <ExpansionPanel defaultExpanded>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -319,6 +331,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {activity.map(activity =>
+                                    (activity.activityEndDateString <= activity_End_or_not.toLocaleTimeString().substring(0,16)) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -384,8 +397,8 @@ export default function SignupSituation() {
                                         </Grid>
                                     </Grid>
                                 </ExpansionPanelDetails>
-                                )}
-                            </ExpansionPanel>  
+                                : "" )}
+                            </ExpansionPanel>
                         </Box>
                     </div>
                 </Container>
