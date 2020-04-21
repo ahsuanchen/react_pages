@@ -1,5 +1,9 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
@@ -118,8 +122,88 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function BulidActivity_step4() {
+const NewDetails = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+   
+};
+
+export default function BulidActivity_step3() {
     const classes = useStyles();
+
+    const  [activityName,setactivityName] =  useState(localStorage.getItem('activityName'));
+    const  [activityStartDate,setactivityStartDate] =  useState(new Date(localStorage.getItem('activityStartDate')).getTime());
+    const  [activityEndDate,setactivityEndDate] =  useState(new Date(localStorage.getItem('activityEndDate')).getTime());
+    const  [startSignUpDate,setstartSignUpDate] =  useState(new Date(localStorage.getItem('startSignUpDate')).getTime());
+    const  [endSignUpDate,setendSignUpDate] =  useState(new Date(localStorage.getItem('endSignUpDate')).getTime());
+    const  [activityPeople,setactivityPeople] =  useState(localStorage.getItem('activityPeople'));
+    const  [activitySpace,setactivitySpace] =  useState(localStorage.getItem('activitySpace'));
+    const  [activitySummary,setactivitySummary] =  useState(localStorage.getItem('activitySummary'));
+    const  [activityInfo,setactivityInfo] =  useState(localStorage.getItem('activityInfo'));
+    const  [activityMeal,setactivityMeal] =  useState(localStorage.getItem('activityMeal'));
+    const  [activityMoreContent,setactivityMoreContent] =  useState("");
+    const  [activityPrecautions,setactivityPrecautions] =  useState("");
+    const  [activityLinkName,setactivityLinkName] =  useState("");
+    const  [activityLink,setactivityLink] =  useState("");
+    const  [activityOrganizer,setactivityOrganizer] =  useState("87");
+    
+    const activity={
+        activityName:activityName,
+        activityStartDate:activityStartDate,
+        activityEndDate:activityEndDate,
+        startSignUpDate:startSignUpDate,
+        endSignUpDate:endSignUpDate,
+        activityPeople:activityPeople,
+        activitySpace:activitySpace,
+        activitySummary:activitySummary,
+        activityInfo:activityInfo,
+        activityMeal:activityMeal,
+        activityMoreContent:activityMoreContent,
+        activityPrecautions:activityPrecautions,
+        activityLinkName:activityLinkName,
+        activityLink:activityLink,
+        activityOrganizer:activityOrganizer
+    };
+
+    console.log(activity);
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+        
+        //event.preventDefault();
+        
+
+        
+        axios.post("/api/activity/", activity,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+          .then(res => {
+            alert("yes")
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/newPic",
+              });
+            
+            
+          }).catch(function(error){
+              alert(error);
+              alert("no")
+          });
+        
+    }
 
     return (
         <div className={classes.root}>
@@ -139,6 +223,68 @@ export default function BulidActivity_step4() {
                         <paper>
                             <form className={classes.form} noValidate>
 
+                            <input
+                                //type="hidden"
+                                id="activityName"
+                                value={activityName}
+                                onChange={e=>setactivityName(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activityStartDate"
+                                value={activityStartDate}
+                                onChange={e=>setactivityStartDate(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activityEndDate"
+                                value={activityEndDate}
+                                onChange={e=>setactivityEndDate(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="startSignUpDate"
+                                value={startSignUpDate}
+                                onChange={e=>setstartSignUpDate(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="endSignUpDate"
+                                value={endSignUpDate}
+                                onChange={e=>setendSignUpDate(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activityPeople"
+                                value={activityPeople}
+                                onChange={e=>setactivityPeople(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activitySpace"
+                                value={activitySpace}
+                                onChange={e=>setactivitySpace(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activitySummary"
+                                value={activitySummary}
+                                onChange={e=>setactivitySummary(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activityInfo"
+                                value={activityInfo}
+                                onChange={e=>setactivityInfo(e.target.value)}
+                            />
+                            <input
+                                //type="hidden"
+                                id="activityMeal"
+                                value={activityMeal}
+                                onChange={e=>setactivityMeal(e.target.value)}
+                            />
+
+
                                 <TextField
                                     margin="normal"
                                     required
@@ -150,6 +296,7 @@ export default function BulidActivity_step4() {
                                     multiline
                                     rows="8"
                                     placeholder="請填寫更多內容"
+                                    onChange={e=>setactivityMoreContent(e.target.value)}
                                 />
 
                                 <TextField
@@ -162,27 +309,26 @@ export default function BulidActivity_step4() {
                                     multiline
                                     rows="5"
                                     placeholder="請填寫注意事項（限五十字）"
+                                    onChange={e=>setactivityPrecautions(e.target.value)}
                                 />
 
                                 <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        label="參考網站名稱（例：Facebook）"
-                                        id="activityLinkName"
-                                        name="activityLinkName"
-                                        variant="outlined"
-                                        //onChange={e=>setactivityLinkName(e.target.value)}
+                                    margin="normal"
+                                    fullWidth
+                                    label="參考網站名稱（例：Facebook）"
+                                    id="activityLinkName"
+                                    variant="outlined"
+                                    onChange={e=>setactivityLinkName(e.target.value)}
                                 />
 
                                 <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        type="url"
-                                        label="參考網站連結"
-                                        id="activityLink"
-                                        name="activityLink"
-                                        variant="outlined"
-                                        //onChange={e=>setactivityLink(e.target.value)}
+                                    margin="normal"
+                                    fullWidth
+                                    type="url"
+                                    label="參考網站連結"
+                                    id="activityLink"
+                                    variant="outlined"
+                                    onChange={e=>setactivityLink(e.target.value)}
                                 />
 
 
@@ -200,8 +346,8 @@ export default function BulidActivity_step4() {
                                         <Button
                                             type="submit"
                                             className={classes.button_part2}
-                                            component={Link}
-                                            to="/newPic"
+                                            onChange={e=>setactivityOrganizer(87)}
+                                            onClick={handleSubmit}
                                         >
                                             下一步
                                         </Button>

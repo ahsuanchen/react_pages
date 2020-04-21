@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -21,7 +22,6 @@ import { borders } from '@material-ui/system';
 import { Router,Route,hashHistory} from 'react-router';
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-
 
 
 
@@ -115,7 +115,6 @@ const SignUpInfoPage = props => {
     }, [location]);
 
     
-
 };
 
 
@@ -146,26 +145,6 @@ export default function SignUpInfo(props) {
     //     return <button onClick={viewText}>view</button>;
     //   };
 
-    
-    // function componentWillMount(){
-    //     let email = '';
-
-    //      this.setState({email: email})
-    //   }
-
-    //   if (window.localStorage && localStorage.fontSize) {
-    //     fontSize = localStorage.getItem("fontSize");
-    //     document.getElementById("output").textContent =
-    //       "The font size has carried over pages, and is: " + fontSize;
-    //   }
-
-
-
-    //hashHistory.push(path);
-    // var data = this.props.location.state;
-    // var {id,password} = data;
-
-
 
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
     const  [memberPassword,setMemberPassword] =  useState(localStorage.getItem('memberPassword'));
@@ -182,12 +161,14 @@ export default function SignUpInfo(props) {
     const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
     const  [memberEnabled,setMemberEnabled] =  useState("1");
 
+    let history = useHistory();
 
     const handleSubmit=(event)=> {
+        
         //event.preventDefault();
         const member={
-            // memberEmail:memberEmail,
-            // memberPassword:memberPassword,
+            memberEmail:memberEmail,
+            memberPassword:memberPassword,
             memberName:memberName,
             memberGender:memberGender,
             memberBloodType:memberBloodType,
@@ -211,14 +192,17 @@ export default function SignUpInfo(props) {
             }
         })
           .then(res => {
-            alert("yes")
+            //alert("yes")
             console.log("test")
             console.log(res);
             console.log(res.data);
+            history.push({
+                pathname: "/settingface",
+              });
+            
             
           }).catch(function(error){
               alert(error);
-              alert("y2")
           });
         
     }
@@ -243,6 +227,7 @@ export default function SignUpInfo(props) {
                                 id="memberEmail"
                                 label="帳號"
                                 value={memberEmail}
+                                onChange={e=>setMemberEmail(e.target.value)}
                             />
 
                             <input
@@ -250,6 +235,7 @@ export default function SignUpInfo(props) {
                                 id="memberPassword"
                                 label="密碼"
                                 value={memberPassword}
+                                onChange={e=>setMemberPassword(e.target.value)}
                             />
 
                         
@@ -259,6 +245,7 @@ export default function SignUpInfo(props) {
                                 fullWidth
                                 id="memberName"
                                 label="姓名"
+                                autoFocus
                                 onChange={e=>setMemberName(e.target.value)}
                             />
 

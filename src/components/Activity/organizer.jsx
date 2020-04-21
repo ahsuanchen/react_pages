@@ -1,4 +1,6 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from './header3.jsx';
 import Typography from '@material-ui/core/Typography';
@@ -52,45 +54,91 @@ const useStyles = makeStyles(theme => ({
 export default function Organizer() {
     const classes = useStyles();
 
-    const[inputs, setInputs] = React.useState({
-        organizerName:'',
-        organizerEmail:'',
-        organizerPhone:'',
-        organizerAddress:'',
-        organizerInfo:''
-    });
+    // const[inputs, setInputs] = React.useState({
+    //     organizerName:'',
+    //     organizerEmail:'',
+    //     organizerPhone:'',
+    //     organizerAddress:'',
+    //     organizerInfo:''
+    // });
 
-    const handleChange = user => event =>{
-        event.persist();
-        setInputs(inputs =>({...inputs, [user]: event.target.value}));
-    }
+    // const handleChange = user => event =>{
+    //     event.persist();
+    //     setInputs(inputs =>({...inputs, [user]: event.target.value}));
+    // }
 
-    const handleSubmit = () =>{
-        fetch('/organizer', {
-            method: 'post',
+    // const handleSubmit = () =>{
+    //     fetch('/organizer', {
+    //         method: 'post',
             
-            headers: {
-              'Content-Type': 'application/json'
-            },
+    //         headers: {
+    //           'Content-Type': 'application/json'
+    //         },
 
-            body: JSON.stringify({
-                organizerName: inputs.organizerName,
-                organizerEmail: inputs.organizerEmail,
-                organizerPhone: inputs.organizerPhone,
-                organizerAddress: inputs.organizerAddress,
-                organizerInfo: inputs.organizerInfo
-            }),
+    //         body: JSON.stringify({
+    //             organizerName: inputs.organizerName,
+    //             organizerEmail: inputs.organizerEmail,
+    //             organizerPhone: inputs.organizerPhone,
+    //             organizerAddress: inputs.organizerAddress,
+    //             organizerInfo: inputs.organizerInfo
+    //         }),
           
-          })
+    //       })
 
+    //       .then(res => {
+    //         console.log("test")
+    //         console.log(res);
+    //         console.log(res.data);
+            
+    //       }).catch(function(error){
+    //           alert(error);
+    //       });
+    // }
+    const  [organizerName,setorganizerName] =  useState("");
+    const  [organizerEmail,setorganizerEmail] =  useState("");
+    const  [organizerPhone,setorganizerPhone] =  useState("");
+    const  [organizerAddress,setorganizerAddress] =  useState("");
+    const  [organizerInfo,setorganizerInfo] =  useState("");
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+        
+        //event.preventDefault();
+        const organizer={
+            organizerName:organizerName,
+            organizerEmail:organizerEmail,
+            organizerPhone:organizerPhone,
+            organizerAddress:organizerAddress,
+            organizerInfo:organizerInfo
+            // organizerName: inputs.organizerName,
+            // organizerEmail: inputs.organizerEmail,
+            // organizerPhone: inputs.organizerPhone,
+            // organizerAddress: inputs.organizerAddress,
+            // organizerInfo: inputs.organizerInfo
+        };
+
+        axios.post("/api/organizer", organizer,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
           .then(res => {
+            alert("yes")
             console.log("test")
             console.log(res);
             console.log(res.data);
+            // history.push({
+            //     pathname: "/settingface",
+            //   });
             
           }).catch(function(error){
               alert(error);
           });
+        
     }
 
     return (
@@ -104,7 +152,7 @@ export default function Organizer() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
                             <TextField
                                 margin="normal"
                                 required
@@ -113,7 +161,8 @@ export default function Organizer() {
                                 label="主辦單位名稱"
                                 name="organizerName"
                                 variant="outlined"
-                                onChange={handleChange}
+                                onChange={e=>setorganizerName(e.target.value)}
+                                //onChange={handleChange}
                             />
 
                             <TextField
@@ -124,7 +173,8 @@ export default function Organizer() {
                                 label="主辦單位信箱"
                                 name="organizerEmail"
                                 variant="outlined"
-                                onChange={handleChange}
+                                //onChange={handleChange}
+                                onChange={e=>setorganizerEmail(e.target.value)}
                             />
 
                             <TextField
@@ -135,7 +185,8 @@ export default function Organizer() {
                                 label="主辦單位電話號碼"
                                 name="organizerPhone"
                                 variant="outlined"
-                                onChange={handleChange}
+                                //onChange={handleChange}
+                                onChange={e=>setorganizerPhone(e.target.value)}
                             />
 
                             <TextField
@@ -148,7 +199,8 @@ export default function Organizer() {
                                 rows="2"
                                 name="organizerAddress"
                                 variant="outlined"
-                                onChange={handleChange}
+                                //onChange={handleChange}
+                                onChange={e=>setorganizerAddress(e.target.value)}
                             />
 
 
@@ -163,15 +215,16 @@ export default function Organizer() {
                                 rows="4"
                                 placeholder="上限一百字"
                                 variant="outlined"
-                                onChange={handleChange}
+                                // onChange={handleChange}
+                                onChange={e=>setorganizerInfo(e.target.value)}
                             />
 
 
-                            <IconButton type="submit" color="primary" aria-label="next step">
+                            <IconButton type="submit" color="primary" aria-label="next step" onClick={handleSubmit}>
                                 <ArrowForwardIcon />
                             </IconButton>
 
-                        </form>
+                        {/* </form> */}
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

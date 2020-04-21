@@ -1,4 +1,6 @@
 import React ,{useState}from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -7,9 +9,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-//import Webcam from "./react-webcam.tsx";
-
-
 
 
 
@@ -140,7 +139,45 @@ export default function SettingFace() {
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
-    };    
+    }; 
+
+    //update
+    const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+        
+        //event.preventDefault();
+        const pic={
+            memberEmail:memberEmail,
+            //照片？
+            
+        };
+
+        axios.post("/api/files/UploadFace", pic,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+          .then(res => {
+            //alert("yes")
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/finish",
+              });
+            
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        
+    }
 
     return (
         <Grid className={classes.root}>
@@ -185,7 +222,7 @@ export default function SettingFace() {
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
+                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過4MB＊
                                     </Typography>
                                 </div>
                             </>
@@ -221,7 +258,8 @@ export default function SettingFace() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./finish"
+                                onClick={handleSubmit}
+                                //href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步
