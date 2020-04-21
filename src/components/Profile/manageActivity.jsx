@@ -220,7 +220,7 @@ export default function ManageActivity() {
                                 <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                             </Box>
                             <Box lineHeight={2} m={1}>
-                                {member.memberName}
+                                <strong>{member.memberName}</strong>
                             </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
@@ -240,7 +240,7 @@ export default function ManageActivity() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                {organizer.organizerName}
+                                <strong>{organizer.organizerName}</strong>
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>

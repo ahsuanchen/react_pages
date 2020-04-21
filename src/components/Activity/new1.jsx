@@ -124,7 +124,7 @@ export default function BulidActivity_step1() {
         <div className={classes.div}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={0} />
+                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動資訊照片'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h4">
@@ -264,7 +264,7 @@ export default function BulidActivity_step1() {
                                 <Button 
                                     className={classes.button_part}
                                     component={Link}
-                                    to="/newPic"
+                                    to="/newInfo"
                                 >
                                     下一步
                                 </Button>

@@ -70,152 +70,91 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
- //radio 顏色設定
- const RadioColor = withStyles({
-    root: {
-        color: "#E0E0E0",
-        '&$checked': {
-            color: "#00CACA",
+    //radio 顏色設定
+    const RadioColor = withStyles({
+        root: {
+            color: "#E0E0E0",
+            '&$checked': {
+                color: "#00CACA",
+            },
         },
-    },
-    checked: {},
-})(props => <Radio color="default" {...props} />);
+        checked: {},
+    })(props => <Radio color="default" {...props} />);
+    
+    const [updateInfo, setUpdateInfo] = React.useState({
+        Name : '' ,
+        Gender : '' ,
+        Birthday : '' ,
+        Phone : '' ,
+        Address : '' ,
+        emergencyContact : '' ,
+        emergencyContactPhone : '' ,
+        emergencyContactRelation : ''
+    })
+
+    const handleChange = member => event => {
+        event.persist();
+        setUpdateInfo(updateInfo => ({...updateInfo, [member]: event.target.value}));
+    }
+
+    // this.handleChange = this.handleChange.bind(this);
+
+    const handleSubmit = () =>
+    {
+        fetch('http://localhost:8080/api/member/actforfun@gmail.com' , {
+            method : "PATCH" ,
+            body : JSON.stringify({
+                Name : updateInfo.Name ,
+                Gender : updateInfo.Gender ,
+                Birthday : updateInfo.Birthday ,
+                Phone : updateInfo.Phone ,
+                Address : updateInfo.Address ,
+                emergencyContact : updateInfo.emergencyContact ,
+                emergencyContactPhone : updateInfo.emergencyContactPhone ,
+                emergencyContactRelation : updateInfo.emergencyContactRelation
+            }),
+            headers: {
+                "Content-type" : "application/json" , 
+                "charset" : "UTF-8"
+            }
+        })
+        .then(response => response.json())
+        .then(json => console.log(json))
+    }
+
+    
+
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+    //     fetch(`http://localhost:8080/api/member/actforfun@gmail.com`, {
+    //     method: "PATCH",
+    //     headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify({
+    //         member: {
+    //             Name : updateInfo.Name ,
+    //             Gender : updateInfo.Gender ,
+    //             Birthday : updateInfo.Birthday ,
+    //             Phone : updateInfo.Phone ,
+    //             Address : updateInfo.Address ,
+    //             emergencyContact : updateInfo.emergencyContact ,
+    //             emergencyContactPhone : updateInfo.emergencyContactPhone ,
+    //             emergencyContactRelation : updateInfo.emergencyContactRelation
+    //         }
+    //     })
+    //     })
+    //     .then(response => response.json())
+    //     .then(response => {
+    //         this.setState({
+    //         counter: this.props.counter
+    //         });
+    //     })
+    // };
 
 export default function Profile() {
     const classes = useStyles();
-
-    // const [value, setValue] = React.useState();
-
-    // const handleChange = (event) => {
-    //     setValue(event.target.value);
-    // };
-    
-    // const [memberName,setMemberName] =  useState("");
-    // const [memberBirthday,setMemberBirthday] =  useState("");
-    // const [memberPhone,setMemberPhone] =  useState("");
-    // const [memberAddress,setMemberAddress] =  useState("");
-    // const [emergencyContact,setEmergencyContact] =  useState("");
-    // const [emergencyContactRelation,setEmergencyContactRelation] =  useState("");
-    // const [emergencyContactPhone,setEmergencyContactPhone] =  useState("");
-
-
-    // const handleSubmit=(event)=> {
-    //     //event.preventDefault();
-    //     const member={
-    //         memberName : memberName ,
-    //         memberBirthday : memberBirthday ,
-    //         memberPhone : memberPhone ,
-    //         memberAddress : memberAddress ,
-    //         emergencyContact : emergencyContact ,
-    //         emergencyContactRelation : emergencyContactRelation ,
-    //         emergencyContactPhone : emergencyContactPhone
-    //     };
-    //     axios.post("api/member", member,
-    //     {
-    //         auth:
-    //         {
-    //             username : "user",
-    //             password : "123"
-    //         }
-    //     })
-    //     .then(res => {
-    //         console.log("test")
-    //         console.log(res);
-    //         console.log(res.data);
-    //         //再新增！判斷後為ok就跳到下一頁
-    //         //PassTextPage();
-            
-    //       }).catch(function(error){
-    //           alert(error);
-    //       });
-    // }
-
-    // const [inputs , setInputs] = React.useState({
-    //     Name : "" ,
-    //     // Gender : "" ,
-    //     // BloodType : "" ,
-    //     Phone : "" ,
-    //     Email : "" ,
-    //     Address : "" ,
-    //     ContactPerson : "" ,
-    //     ContactRelation : "" ,
-    //     ContactPhone : "" ,
-    // });
-
-    // const handlechange = member => event => {
-    //     event.persist();
-    //     setInputs(inputs => ({...inputs , [member] : event.target.value}));
-    // }
-
-    // let update; //宣告一個布林值變數
-    // // let history = useHistory(); //傳值跳頁的方法
-    // const handleSubmit = () =>
-    // {
-    //     if(inputs.name.length > 0 
-    //         || inputs.Name.length > 0 
-    //         || inputs.Phone.length > 0
-    //         || inputs.Address.length > 0
-    //         || inputs.ContactPerson.length > 0
-    //         || inputs.ContactRelation.length > 0
-    //         || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
-    //         {
-    //             fetch('/member',{
-    //                 method: 'PUT',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                 },
-    //                 body: JSON.stringify({
-    //                     memberName : inputs.Name ,
-    //                     memberPhone : inputs.Phone ,
-    //                     memberAddress : inputs.Address ,
-    //                     emergencyContact : inputs.ContactPerson ,
-    //                     emergencyContactPhone : inputs.ContactPhone ,
-    //                     emergencyContactRelation : inputs.ContactRelation
-    //                 })
-    //             })
-    //             .then(res => {
-    //                 async function fetchres(){
-    //                 const test = await res.text();  //接收後端傳來的訊息
-    //                 if(test === "request failed. Email format error!") //信箱不包含@
-    //                 {
-    //                     alert("信箱格式有誤 請輸入有效信箱！");
-    //                     update = false;
-    //                     console.log(1);
-    //                     return update;
-    //                 }
-    //                 else if(inputs.Phone.length !== 10) //手機長度不等於10
-    //                 {
-    //                     alert("手機長度有誤 請重新輸入！");
-    //                     update = false;
-    //                     console.log(2);
-    //                     return update;
-    //                 }
-    //                 else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
-    //                 {
-    //                     alert("手機長度有誤 請重新輸入！");
-    //                     update = false;
-    //                     console.log(3);
-    //                     return update;
-    //                 }
-    //                 else
-    //                 {
-    //                     alert("修改成功！");
-    //                     update = true;
-    //                     console.log(0);
-    //                     history.push("/login");
-    //                     return update;                        
-    //                 }
-                    
-    //             } fetchres() })
-    //             // .then(res => console.log(post))
-    //             .then(res => console.log(res))
-    //             .catch(err => console.log(`Error with message: ${err}`))
-    //         }            
-    //     else
-    //     {
-    //         alert("請再次確認!!")
-    //     }  
-    // }
 
     let history = useHistory();
     function goSignin()
@@ -225,7 +164,7 @@ export default function Profile() {
 
     function goHomePage()
     {
-        history.push("/");
+        history.push("/homepageAfterLogin");
     }
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
@@ -295,7 +234,7 @@ export default function Profile() {
                             <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                         </Box>
                         <Box lineHeight={2} m={1}>
-                            {member.memberName}
+                            <strong>{member.memberName}</strong>
                         </Box>
                         <Divider />
                         <Link to="/profile" className={classes.link}>
@@ -315,7 +254,7 @@ export default function Profile() {
                         </Link>
                         <Divider />
                         <Box lineHeight={3} m={1}>
-                            {organizer.organizerName}
+                            <strong>{organizer.organizerName}</strong>
                         </Box>
                         <Divider />
                         <Link to="/organizerInfo" className={classes.link}>
@@ -353,11 +292,11 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField 
+                                            <TextField
                                                 variant="outlined"
                                                 value={member.memberName}
-                                                id="name"
-                                                // onChange={e=>setMemberName(e.target.value)}
+                                                name="Name"
+                                                // onChange={handleChange}
                                             />
                                         </TableCell>
                                         <TableCell>電子郵件(帳號)：</TableCell>
@@ -385,6 +324,7 @@ export default function Profile() {
                                                 <Select
                                                     labelId="blood-type"
                                                     value={member.memberBloodType}
+                                                    name="BloodType"
                                                 >
                                                     <MenuItem value="A" >A</MenuItem>
                                                     <MenuItem value="B" >B</MenuItem>
@@ -398,7 +338,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>性別：</TableCell>
                                         <TableCell>
-                                            <RadioGroup name="gender" value={member.memberGender} id="memeberGender">
+                                            <RadioGroup name="Gender" value={member.memberGender}>
                                                 <FormControlLabel checked={member.memberGender === "male"} control={<RadioColor />} label="男性" />
                                                 <FormControlLabel checked={member.memberGender === "female"} control={<RadioColor />} label="女性" />
                                                 <FormControlLabel checked={member.memberGender === "unknown"} control={<RadioColor />} label="暫不透漏" />
@@ -411,7 +351,7 @@ export default function Profile() {
                                                 variant="outlined"
                                                 value={member.memberBirthdayString}
                                                 InputLabelProps={{shrink: true}}
-                                                id="memberBirthday"
+                                                name="Birthday"
                                                 // onChange={e=>setMemberBirthday(e.target.value)}
                                             />
                                         </TableCell>
@@ -422,7 +362,7 @@ export default function Profile() {
                                             <TextField 
                                                 variant="outlined"
                                                 value={member.memberPhone}
-                                                id="memberPhone"
+                                                name="Phone"
                                                 // onChange={e=>setMemberPhone(e.target.value)}
                                             />
                                         </TableCell>
@@ -432,7 +372,7 @@ export default function Profile() {
                                                 variant="outlined"
                                                 style={{ minWidth: "400px" }}
                                                 value={member.memberAddress}
-                                                id="memberAddress"
+                                                name="Address"
                                                 // onChange={e=>setMemberAddress(e.target.value)}
                                             />
                                         </TableCell>
@@ -443,7 +383,7 @@ export default function Profile() {
                                             <TextField
                                                 variant="outlined"
                                                 value={member.emergencyContact}
-                                                id="emergencyContact"
+                                                name="emergencyContact"
                                                 // onChange={e=>setEmergencyContact(e.target.value)}
                                             />
                                         </TableCell>
@@ -452,7 +392,7 @@ export default function Profile() {
                                             <TextField
                                                 variant="outlined"
                                                 value={member.emergencyContactRelation}
-                                                id="emergencyContactRelation"
+                                                name="emergencyContactRelation"
                                                 // onChange={e=>setEmergencyContactRelation(e.target.value)}
                                             />
                                         </TableCell>
@@ -463,7 +403,7 @@ export default function Profile() {
                                             <TextField
                                                 variant="outlined"
                                                 value={member.emergencyContactPhone}
-                                                id="emergencyContactPhone"
+                                                name="emergencyContactPhone"
                                                 // onChange={e=>setEmergencyContactPhone(e.target.value)}
                                             />
                                         </TableCell>

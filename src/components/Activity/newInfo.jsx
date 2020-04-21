@@ -18,7 +18,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 
-
 const BootstrapInput = withStyles(theme => ({
     root: {
         'label + &': {
@@ -235,11 +234,11 @@ export default function BulidActivity_step3() {
         <div className={classes.root}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={2} />
+                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動資訊照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h4">
-                    Step3 : 活動基本資訊
+                    Step2 : 活動基本資訊
                 </Typography>
                 <br/>
                 <Typography variant="h5">
@@ -424,7 +423,7 @@ export default function BulidActivity_step3() {
                                             <Button 
                                                 className={classes.button_part1}
                                                 component={Link}
-                                                to="/newPic"
+                                                to="/new1"
                                             >
                                                 上一步
                                             </Button>
