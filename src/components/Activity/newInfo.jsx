@@ -131,7 +131,7 @@ export default function BulidActivity_step2() {
     const  [startSignUp_Time,setstartSignUp_Time] =  useState("");
     const  [endSignUp_Date,setendSignUp_Date] =  useState("");
     const  [endSignUp_Time,setendSignUp_Time] =  useState("");
-    const  [activityPeople,setactivityPeople] =  useState("");
+    const  [attendPeople,setattendPeople] =  useState("");
     const  [activitySpace,setactivitySpace] =  useState("");
     const  [activitySummary,setactivitySummary] =  useState("");
     const  [activityInfo,setactivityInfo] =  useState("");
@@ -161,7 +161,7 @@ export default function BulidActivity_step2() {
             startSignUp_Time:startSignUp_Time,
             endSignUp_Date:endSignUp_Date,
             endSignUp_Time:endSignUp_Time,
-            activityPeople:activityPeople,
+            attendPeople:attendPeople,
             activitySpace:activitySpace,
             activitySummary:activitySummary,
             activityInfo:activityInfo,
@@ -178,7 +178,7 @@ export default function BulidActivity_step2() {
         localStorage.setItem('activityEndDate', activityEndDate);
         localStorage.setItem('startSignUpDate', startSignUpDate);
         localStorage.setItem('endSignUpDate', endSignUpDate);
-        localStorage.setItem('activityPeople', activityPeople);
+        localStorage.setItem('attendPeople', attendPeople);
         localStorage.setItem('activitySpace', activitySpace);
         localStorage.setItem('activitySummary', activitySummary);
         localStorage.setItem('activityInfo', activityInfo);
@@ -348,12 +348,12 @@ export default function BulidActivity_step2() {
                                         fullWidth
                                         type="int"
                                         label="活動人數上限"
-                                        id="activityPeople"
+                                        id="attendPeople"
                                         variant="outlined"
                                         InputProps={{
                                             endAdornment: <InputAdornment position="end">人</InputAdornment>,
                                           }}
-                                        onChange={e=>setactivityPeople(e.target.value)}
+                                        onChange={e=>setattendPeople(e.target.value)}
                                     />
 
                                     <TextField

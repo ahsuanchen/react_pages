@@ -141,7 +141,7 @@ export default function BulidActivity_step3() {
     const  [activityEndDate,setactivityEndDate] =  useState(new Date(localStorage.getItem('activityEndDate')).getTime());
     const  [startSignUpDate,setstartSignUpDate] =  useState(new Date(localStorage.getItem('startSignUpDate')).getTime());
     const  [endSignUpDate,setendSignUpDate] =  useState(new Date(localStorage.getItem('endSignUpDate')).getTime());
-    const  [activityPeople,setactivityPeople] =  useState(localStorage.getItem('activityPeople'));
+    const  [attendPeople,setattendPeople] =  useState(localStorage.getItem('attendPeople'));
     const  [activitySpace,setactivitySpace] =  useState(localStorage.getItem('activitySpace'));
     const  [activitySummary,setactivitySummary] =  useState(localStorage.getItem('activitySummary'));
     const  [activityInfo,setactivityInfo] =  useState(localStorage.getItem('activityInfo'));
@@ -184,7 +184,7 @@ export default function BulidActivity_step3() {
             activityEndDate:activityEndDate,
             startSignUpDate:startSignUpDate,
             endSignUpDate:endSignUpDate,
-            activityPeople:activityPeople,
+            attendPeople:attendPeople,
             activitySpace:activitySpace,
             activitySummary:activitySummary,
             activityInfo:activityInfo,
@@ -273,9 +273,9 @@ export default function BulidActivity_step3() {
                             />
                             <input
                                 //type="hidden"
-                                id="activityPeople"
-                                value={activityPeople}
-                                onChange={e=>setactivityPeople(e.target.value)}
+                                id="attendPeople"
+                                value={attendPeople}
+                                onChange={e=>setattendPeople(e.target.value)}
                             />
                             <input
                                 //type="hidden"
