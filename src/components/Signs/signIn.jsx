@@ -120,11 +120,13 @@ export default function SignInSide() {
         <CssBaseline />
         <Grid item xs={false} sm={5} md={5} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.paperout}>
-        <div><Snackbar  open={open} autoHideDuration={3500} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="warning">
-                帳號或密碼錯誤！
-              </Alert>
-              </Snackbar></div>
+        <div>
+          <Snackbar  open={open} autoHideDuration={3500} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+              帳號或密碼錯誤！
+            </Alert>
+          </Snackbar>
+        </div>
           <div className={classes.paper}>
             
             <Typography component="h1" variant="h5">

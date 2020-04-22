@@ -1,19 +1,19 @@
-import React , { useState, useEffect } from 'react';
+import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
-import { Link , useHistory } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import SyncAltIcon from '@material-ui/icons/SyncAlt';
-import BackupIcon from '@material-ui/icons/Backup';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -42,51 +42,31 @@ const useStyles = makeStyles(theme => ({
     } ,
     content : {
         margin : "2% 2%" ,
-    } ,
-    form : {
-        margin : "5% auto" ,
-    } ,
-    container : {
-        maxWidth : '550px' ,
-        minHeight : '580px' ,
-        background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
         overflow : "visible"
     } ,
-    img : {
-        minWidth : '400px' ,
-        maxHeight : '500px' ,
-        margin : "auto" ,
+    topic : {
+        margin : "2% auto" ,
+        textAlign : "center"
+    } ,
+    table : {
+        display: "flex" ,
+        justifyContent : "center" ,
+        margin : "5% auto" ,
+    } ,
+    button_part : {
+        margin : "2%" ,
         display: "flex" ,
         justifyContent : "center" ,
     } ,
     button : {
-        margin : "5% auto" ,
-        display: "flex" ,
-        justifyContent : "center" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        color : "#fff"
-    } ,
-    open_paper : {
-        maxWidth : '500px' ,
-        maxHeight : '600px' ,
-        background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
-        margin : "auto" ,
-        alignItems : "center"
-    } ,
+        color : "#fff" ,
+        margin : "auto 2%" ,
+    }
   }));
 
-export default function TrainingFace() {
+export default function Updatepassword() {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
 
     let history = useHistory();
     function goSignin()
@@ -176,7 +156,7 @@ export default function TrainingFace() {
                                 </Box>
                             </Link>
                             <Link to="/trainingFace" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
+                                <Box lineHeight={1} m={4}>
                                     訓練人臉
                                 </Box>
                             </Link>
@@ -191,7 +171,7 @@ export default function TrainingFace() {
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} >
+                                <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
                             </Link>    
@@ -209,50 +189,58 @@ export default function TrainingFace() {
                     </Typography>
                 </Container>
                 <Container className={classes.content}>
-                    <div>
-                        <Typography variant="h4">
-                            訓 練 人 臉
-                        </Typography>
-                        <hr />
-                    </div>
-                    <div>
-                        <form className={classes.form}>
-                                <Box lineHeight="normal" m={1}>
-                                    <Container className={classes.container}>
-                                        <img className={classes.img} src="./img/profile.jpg" alt="img" />
+                        <div>
+                            <Typography variant="h4">
+                                更 改 密 碼
+                            </Typography>
+                            <hr />
+                        </div>
+                        <div>
+                            <form>
+                                <Table className={classes.table}>
+                                    <TableBody>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Typography variant="h6">
+                                                    請輸入舊密碼：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField variant="outlined" name="currentPassword" required />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Typography variant="h6">
+                                                    請輸入新密碼：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField variant="outlined" name="newPassword" required />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+                                                <Typography variant="h6">
+                                                    再次輸入新密碼：
+                                                </Typography>
+                                            </TableCell>
+                                            <TableCell>
+                                                <TextField variant="outlined" name="newPasswordRepeated" required />
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                                <Box lineHeight={5} m={1}>
+                                    <div className={classes.button_part}>
                                         <Button
+                                            type="submit"
                                             variant="contained"
                                             className={classes.button}
-                                            onClick={handleOpen}
-                                            startIcon={<SyncAltIcon />}
                                         >
-                                            開始訓練
+                                            確認更改
                                         </Button>
-                                    </Container>
-                                </Box>
-                                <Box lineHeight={1} m={1}>
-                                    <Modal
-                                        open={open}
-                                        onClose={handleClose}
-                                        closeAfterTransition
-                                        BackdropComponent={Backdrop}
-                                        BackdropProps={{
-                                            timeout: 1000,
-                                        }}
-                                    >
-                                        <Fade in={open}>
-                                            <div className={classes.open_paper}>
-                                                <img className={classes.img} src="./img/profile.jpg" alt="img" />
-                                                <Button
-                                                    variant="contained"
-                                                    className={classes.button}
-                                                    startIcon={<BackupIcon />}
-                                                >
-                                                    完成訓練
-                                                </Button>
-                                            </div>
-                                        </Fade>
-                                    </Modal>
+                                    </div>
                                 </Box>
                             </form>
                         </div>  

@@ -2,7 +2,7 @@ import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
-import { Link } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -21,6 +21,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -84,6 +85,12 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
           color : '#00AEAE' 
         }
+    } ,
+    feedback_Link : {
+        color : "#000" ,
+        '&:hover' : {
+            color : '#00AEAE' 
+        }
     }
   }));
 
@@ -98,13 +105,42 @@ export default function ParticipantList() {
       setOpen(false);
     };
 
+    let history = useHistory();
+    function goSignin()
+    {
+        history.push("/signin");
+    }
+
+    function goHomePage()
+    {
+        history.push("/");
+    }
+
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
-                setMember(result.data);
-                // console.log(result);
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setMember(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataMem();
     }, []);
@@ -113,8 +149,27 @@ export default function ParticipantList() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);
+                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setOrganizer(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataOrg();
     }, []);
@@ -122,17 +177,30 @@ export default function ParticipantList() {
     const [activity, setActivity] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
-        async function fetchDataOrg() {
-                const result = await axios.get("/api/activity/1");
-                setActivity(result.data);             
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+        async function fetchDataAct() {
+                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setActivity(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
-        fetchDataOrg();
+        fetchDataAct();
     }, []);
 
     return (
@@ -145,7 +213,7 @@ export default function ParticipantList() {
                                 <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                             </Box>
                             <Box lineHeight={2} m={1}>
-                                {member.memberName}
+                                <strong>{member.memberName}</strong>
                             </Box>
                             <Divider />    
                             <Link to="/profile" className={classes.link}>
@@ -165,7 +233,7 @@ export default function ParticipantList() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                {organizer.organizerName}
+                                <strong>{organizer.organizerName}</strong>
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
@@ -232,6 +300,7 @@ export default function ParticipantList() {
                                                             <TableCell align="center">手機</TableCell>
                                                             <TableCell align="center">Email</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
+                                                            <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
@@ -241,6 +310,13 @@ export default function ParticipantList() {
                                                             <TableCell align="center">0989-753491</TableCell>
                                                             <TableCell align="center">test1@gmial.com</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
+                                                            <TableCell align="center">
+                                                                <Tooltip title="予後回饋">
+                                                                    <Link to="/" className={classes.feedback_Link}>
+                                                                        <CommentIcon />
+                                                                    </Link>
+                                                                </Tooltip>
+                                                            </TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                 </Table>
