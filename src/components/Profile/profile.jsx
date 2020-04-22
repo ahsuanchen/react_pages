@@ -21,6 +21,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -70,8 +71,8 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-    //radio 顏色設定
-    const RadioColor = withStyles({
+//radio 顏色設定
+const RadioColor = withStyles({
         root: {
             color: "#E0E0E0",
             '&$checked': {
@@ -79,8 +80,16 @@ const useStyles = makeStyles(theme => ({
             },
         },
         checked: {},
-    })(props => <Radio color="default" {...props} />);
+})(props => <Radio color="default" {...props} />);
+
+
+
     
+
+export default function Profile() {
+    const classes = useStyles();
+    // const [memberName , setMemberName] = useState("");
+    // localStorage.setItem('memberName', memberName);
     const [updateInfo, setUpdateInfo] = React.useState({
         Name : '' ,
         Gender : '' ,
@@ -91,19 +100,20 @@ const useStyles = makeStyles(theme => ({
         emergencyContactPhone : '' ,
         emergencyContactRelation : ''
     })
-
     const handleChange = member => event => {
         event.persist();
         setUpdateInfo(updateInfo => ({...updateInfo, [member]: event.target.value}));
-    }
-
-    // this.handleChange = this.handleChange.bind(this);
-
-    const handleSubmit = () =>
-    {
-        fetch('http://localhost:8080/api/member/actforfun@gmail.com' , {
-            method : "PATCH" ,
-            body : JSON.stringify({
+    } 
+    const handleSubmit = event => {
+        event.preventDefault();
+        fetch('http://localhost:8080/api/member/actforfun@gmail.com', {
+        method: "PATCH",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            member: {
                 Name : updateInfo.Name ,
                 Gender : updateInfo.Gender ,
                 Birthday : updateInfo.Birthday ,
@@ -112,49 +122,12 @@ const useStyles = makeStyles(theme => ({
                 emergencyContact : updateInfo.emergencyContact ,
                 emergencyContactPhone : updateInfo.emergencyContactPhone ,
                 emergencyContactRelation : updateInfo.emergencyContactRelation
-            }),
-            headers: {
-                "Content-type" : "application/json" , 
-                "charset" : "UTF-8"
             }
+        })
         })
         .then(response => response.json())
         .then(json => console.log(json))
-    }
-
-    
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();
-    //     fetch(`http://localhost:8080/api/member/actforfun@gmail.com`, {
-    //     method: "PATCH",
-    //     headers: {
-    //         Accept: "application/json",
-    //         "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify({
-    //         member: {
-    //             Name : updateInfo.Name ,
-    //             Gender : updateInfo.Gender ,
-    //             Birthday : updateInfo.Birthday ,
-    //             Phone : updateInfo.Phone ,
-    //             Address : updateInfo.Address ,
-    //             emergencyContact : updateInfo.emergencyContact ,
-    //             emergencyContactPhone : updateInfo.emergencyContactPhone ,
-    //             emergencyContactRelation : updateInfo.emergencyContactRelation
-    //         }
-    //     })
-    //     })
-    //     .then(response => response.json())
-    //     .then(response => {
-    //         this.setState({
-    //         counter: this.props.counter
-    //         });
-    //     })
-    // };
-
-export default function Profile() {
-    const classes = useStyles();
+    };
 
     let history = useHistory();
     function goSignin()
@@ -296,20 +269,22 @@ export default function Profile() {
                                                 variant="outlined"
                                                 value={member.memberName}
                                                 name="Name"
-                                                // onChange={handleChange}
+                                                // onChange={e => setMemberName(e.target.value)}
                                             />
                                         </TableCell>
                                         <TableCell>電子郵件(帳號)：</TableCell>
                                         <TableCell>
                                             <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
-                                            <Button
-                                                className={classes.change_password}
-                                                component={Link}
-                                                to="/updatePassword"
-                                                variant="contained"
-                                            >
-                                                更改密碼
-                                            </Button>
+                                            <Tooltip title="修改密碼">
+                                                <Button
+                                                    className={classes.change_password}
+                                                    component={Link}
+                                                    to="/updatePassword"
+                                                    variant="contained"
+                                                >
+                                                    更改密碼
+                                                </Button>
+                                            </Tooltip>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -352,7 +327,7 @@ export default function Profile() {
                                                 value={member.memberBirthdayString}
                                                 InputLabelProps={{shrink: true}}
                                                 name="Birthday"
-                                                // onChange={e=>setMemberBirthday(e.target.value)}
+                                                // onChange={e => setMemberBirthday(e.target.value)}
                                             />
                                         </TableCell>
                                     </TableRow>
@@ -411,14 +386,17 @@ export default function Profile() {
                                 </TableBody>
                             </Table>
                             <Box lineHeight={5} m={1}>
-                                <Button
-                                    className={classes.button}
-                                    // onClick={handleSubmit}
-                                    variant="contained"
-                                    startIcon={<SaveIcon />}
-                                >
-                                    儲存更新
-                                </Button>
+                                <Tooltip title="確認儲存">
+                                    <Button
+                                        type="submit"
+                                        className={classes.button}
+                                        onClick={handleSubmit}
+                                        variant="contained"
+                                        startIcon={<SaveIcon />}
+                                    >
+                                        儲存更新
+                                    </Button>
+                                </Tooltip>
                             </Box>
                         </form>
                     </div>
