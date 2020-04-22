@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(32),
+            height: theme.spacing(40),
         },
     },
 
@@ -150,33 +150,51 @@ export default function BulidActivity_step3() {
     const  [activityPrecautions,setactivityPrecautions] =  useState("");
     const  [activityLinkName,setactivityLinkName] =  useState("");
     const  [activityLink,setactivityLink] =  useState("");
-    const  [activityOrganizer,setactivityOrganizer] =  useState("87");
+    const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
-    const activity={
-        activityName:activityName,
-        activityStartDate:activityStartDate,
-        activityEndDate:activityEndDate,
-        startSignUpDate:startSignUpDate,
-        endSignUpDate:endSignUpDate,
-        activityPeople:activityPeople,
-        activitySpace:activitySpace,
-        activitySummary:activitySummary,
-        activityInfo:activityInfo,
-        activityMeal:activityMeal,
-        activityMoreContent:activityMoreContent,
-        activityPrecautions:activityPrecautions,
-        activityLinkName:activityLinkName,
-        activityLink:activityLink,
-        activityOrganizer:activityOrganizer
-    };
+    // const activity={
+    //     activityName:activityName,
+    //     activityStartDate:activityStartDate,
+    //     activityEndDate:activityEndDate,
+    //     startSignUpDate:startSignUpDate,
+    //     endSignUpDate:endSignUpDate,
+    //     activityPeople:activityPeople,
+    //     activitySpace:activitySpace,
+    //     activitySummary:activitySummary,
+    //     activityInfo:activityInfo,
+    //     activityMeal:activityMeal,
+    //     activityMoreContent:activityMoreContent,
+    //     activityPrecautions:activityPrecautions,
+    //     activityLinkName:activityLinkName,
+    //     activityLink:activityLink,
+    //     activityOrganizer:activityOrganizer
+    // };
 
-    console.log(activity);
+    //console.log(activity);
 
     let history = useHistory();
 
     const handleSubmit=(event)=> {
         
         //event.preventDefault();
+
+        const activity={
+            activityName:activityName,
+            activityStartDate:activityStartDate,
+            activityEndDate:activityEndDate,
+            startSignUpDate:startSignUpDate,
+            endSignUpDate:endSignUpDate,
+            activityPeople:activityPeople,
+            activitySpace:activitySpace,
+            activitySummary:activitySummary,
+            activityInfo:activityInfo,
+            activityMeal:activityMeal,
+            activityMoreContent:activityMoreContent,
+            activityPrecautions:activityPrecautions,
+            activityLinkName:activityLinkName,
+            activityLink:activityLink,
+            activityOrganizer:activityOrganizer
+        };
         
 
         
@@ -221,7 +239,7 @@ export default function BulidActivity_step3() {
                     <CssBaseline />
                     <div className={classes.paper}>
                         <paper>
-                            <form className={classes.form} noValidate>
+                            {/* <form className={classes.form} noValidate> */}
 
                             <input
                                 //type="hidden"
@@ -283,6 +301,11 @@ export default function BulidActivity_step3() {
                                 value={activityMeal}
                                 onChange={e=>setactivityMeal(e.target.value)}
                             />
+                            <input
+                                //type="hidden"
+                                id="activityOrganizer"
+                                onChange={e=>setactivityOrganizer(e.target.value)}
+                            />
 
 
                                 <TextField
@@ -324,7 +347,6 @@ export default function BulidActivity_step3() {
                                 <TextField
                                     margin="normal"
                                     fullWidth
-                                    type="url"
                                     label="參考網站連結"
                                     id="activityLink"
                                     variant="outlined"
@@ -346,7 +368,7 @@ export default function BulidActivity_step3() {
                                         <Button
                                             type="submit"
                                             className={classes.button_part2}
-                                            onChange={e=>setactivityOrganizer(87)}
+                                            // onChange={e=>setactivityOrganizer("87")}
                                             onClick={handleSubmit}
                                         >
                                             下一步
@@ -360,7 +382,7 @@ export default function BulidActivity_step3() {
                                     <ArrowForwardIcon />
                                 </IconButton> */}
 
-                            </form>
+                            {/* </form> */}
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>

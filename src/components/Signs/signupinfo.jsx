@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '135vh',
+        height: '140vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(2),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(45),
+            height: theme.spacing(49),
         },
     },
 
@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
         background : '#00bfa5',
         borderRadius: "5px",
         fontSize: "10px",
-        marginTop : "10%" ,
+        marginTop : "8%" ,
         margin:"1% 10%"
     },
     font: {
@@ -127,23 +127,17 @@ export default function SignUpInfo(props) {
     const [valueG, setValueG] = React.useState('');
     const [valueB, setValueB] = React.useState('');
 
-    const handleChangeG = event => {
-        setValueB(event.target.value);
-    }
-
-    const handleChangeB = event => {
-        setValueB(event.target.value);
-    }
-
-    // const ViewTextPage = props => {
-    //     const text = props.location.state.name;
-      
-    //     const viewText = () => {
-    //       console.log(text);
-    //     };
-      
-    //     return <button onClick={viewText}>view</button>;
+    // const handleChange = event => {
+    //     setValue(event.target.value);
     //   };
+
+    // const handleChangeG = event => {
+    //     setValueB(event.target.value);
+    // }
+
+    // const handleChangeB = event => {
+    //     setValueB(event.target.value);
+    // }
 
 
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
@@ -223,7 +217,7 @@ export default function SignUpInfo(props) {
                         {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
 
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="memberEmail"
                                 label="帳號"
                                 value={memberEmail}
@@ -231,7 +225,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="memberPassword"
                                 label="密碼"
                                 value={memberPassword}
@@ -240,6 +234,7 @@ export default function SignUpInfo(props) {
 
                         
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -249,9 +244,9 @@ export default function SignUpInfo(props) {
                                 onChange={e=>setMemberName(e.target.value)}
                             />
 
-                            {/* <FormControl component="fieldset" className={classes.formControl} required>
+                            <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">性別</FormLabel>
-                                <RadioGroup aria-label="性別" id="memberGender" value={valueG} onChange={e=>setMemberGender(e.target.value)} >
+                                <RadioGroup aria-label="性別" id="memberGender" value={memberGender} onChange={e=>setMemberGender(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
@@ -268,7 +263,7 @@ export default function SignUpInfo(props) {
 
                             <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">血型</FormLabel>
-                                <RadioGroup aria-label="血型" id="memberBloodType" value={valueB} onChange={e=>setMemberBloodType(e.target.value)} >
+                                <RadioGroup aria-label="血型" id="memberBloodType" value={memberBloodType} onChange={e=>setMemberBloodType(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="A" control={<GreenRadio size="small" />} label="A" />
@@ -284,9 +279,9 @@ export default function SignUpInfo(props) {
                                     </Grid>
                                 </Grid>
                                 </RadioGroup>
-                            </FormControl> */}
+                            </FormControl>
 
-                            <TextField
+                            {/* <TextField
                                 margin="normal"
                                 fullWidth
                                 required
@@ -302,11 +297,12 @@ export default function SignUpInfo(props) {
                                 id="memberBloodType"
                                 label="血型"
                                 onChange={e=>setMemberBloodType(e.target.value)}
-                            />
+                            /> */}
 
 
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -317,6 +313,7 @@ export default function SignUpInfo(props) {
 
 
                             <TextField 
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -329,6 +326,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -338,6 +336,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -347,6 +346,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -356,6 +356,7 @@ export default function SignUpInfo(props) {
                             /> 
                             
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -365,6 +366,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth

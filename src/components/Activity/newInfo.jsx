@@ -18,6 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 const useStyles = makeStyles(theme => ({
@@ -64,7 +65,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(50),
+            height: theme.spacing(53),
         },
     },
     form: {
@@ -349,6 +350,9 @@ export default function BulidActivity_step2() {
                                         label="活動人數上限"
                                         id="activityPeople"
                                         variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment position="end">人</InputAdornment>,
+                                          }}
                                         onChange={e=>setactivityPeople(e.target.value)}
                                     />
 

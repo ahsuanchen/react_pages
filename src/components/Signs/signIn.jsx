@@ -214,17 +214,15 @@ export default function SignInSide() {
                 fullWidth
                 id="username"
                 label="帳號"
-                name="username"
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                id="password"
                 label="密碼"
                 type="password"
-                id="password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -238,12 +236,12 @@ export default function SignInSide() {
                 className={classes.submit}
               >
                 登入
-            </Button>
+              </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="forgot1" variant="body2">
                     忘記密碼？
-                </Link>
+                  </Link>
                 </Grid>
                 <Grid item>
                   <Link href="signup" variant="body2">
