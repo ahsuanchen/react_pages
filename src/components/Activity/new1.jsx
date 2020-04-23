@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
@@ -46,11 +47,11 @@ const useStyles = makeStyles(theme => ({
     } ,
     card_content : {
         width : "100%" ,
-        height : "150px" ,
+        height : "135px" ,
     } ,
     icon_part : {
-        margin : "10% auto" ,
-        fontSize : "150px"
+        margin : "20% auto" ,
+        fontSize : "90px"
     } , 
     typeword_part : {
         fontSize : "24px"
@@ -124,15 +125,11 @@ export default function BulidActivity_step1() {
         <div className={classes.div}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動資訊照片'}]} activeStep={0} />
+                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step1 : 活動類別
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (選擇一種活動類別)
+                    請選擇一種活動類別
                 </Typography>
             </div>
             <div>

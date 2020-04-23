@@ -1,22 +1,19 @@
 import React ,{useState} from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { HashRouter, withRouter } from 'react-router-dom'
 import {Router, Route, hashHistory} from 'react-router';
 import {Link} from 'react-router-dom';
-import { HashRouter, withRouter } from 'react-router-dom'
-import axios from 'axios';
-//import Avatar from '@material-ui/core/Avatar';
-//import { borders } from '@material-ui/system';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-//import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-//import { ICON_NAME } from "react-icons/io";
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useHistory } from "react-router-dom";
+
 
 
 
@@ -107,11 +104,11 @@ const SignUpPage = props => {
                 console.log("test")
                 console.log(res);
                 console.log(res.data);
-                //再新增！判斷後為ok就跳到下一頁
+                //check判斷後為ok表示此帳號為註冊過即跳到下一頁
                 //PassTextPage();
+                
                 history.push({
                     pathname: "/signupinfo",
-                    // state: { id: "123", pw:"123" }
                   });
                 
               }).catch(function(error){

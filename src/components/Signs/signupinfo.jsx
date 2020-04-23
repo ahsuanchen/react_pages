@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -25,7 +26,6 @@ import { useLocation } from "react-router-dom";
 
 
 
-
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '135vh',
+        height: '140vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(2),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(45),
+            height: theme.spacing(49),
         },
     },
 
@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
         background : '#00bfa5',
         borderRadius: "5px",
         fontSize: "10px",
-        marginTop : "10%" ,
+        marginTop : "8%" ,
         margin:"1% 10%"
     },
     font: {
@@ -115,7 +115,6 @@ const SignUpInfoPage = props => {
     }, [location]);
 
     
-
 };
 
 
@@ -128,43 +127,17 @@ export default function SignUpInfo(props) {
     const [valueG, setValueG] = React.useState('');
     const [valueB, setValueB] = React.useState('');
 
-    const handleChangeG = event => {
-        setValueB(event.target.value);
-    }
-
-    const handleChangeB = event => {
-        setValueB(event.target.value);
-    }
-
-    // const ViewTextPage = props => {
-    //     const text = props.location.state.name;
-      
-    //     const viewText = () => {
-    //       console.log(text);
-    //     };
-      
-    //     return <button onClick={viewText}>view</button>;
+    // const handleChange = event => {
+    //     setValue(event.target.value);
     //   };
 
-    
-    // function componentWillMount(){
-    //     let email = '';
+    // const handleChangeG = event => {
+    //     setValueB(event.target.value);
+    // }
 
-    //      this.setState({email: email})
-    //   }
-
-    //   if (window.localStorage && localStorage.fontSize) {
-    //     fontSize = localStorage.getItem("fontSize");
-    //     document.getElementById("output").textContent =
-    //       "The font size has carried over pages, and is: " + fontSize;
-    //   }
-
-
-
-    //hashHistory.push(path);
-    // var data = this.props.location.state;
-    // var {id,password} = data;
-
+    // const handleChangeB = event => {
+    //     setValueB(event.target.value);
+    // }
 
 
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
@@ -182,12 +155,14 @@ export default function SignUpInfo(props) {
     const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
     const  [memberEnabled,setMemberEnabled] =  useState("1");
 
+    let history = useHistory();
 
     const handleSubmit=(event)=> {
+        
         //event.preventDefault();
         const member={
-            // memberEmail:memberEmail,
-            // memberPassword:memberPassword,
+            memberEmail:memberEmail,
+            memberPassword:memberPassword,
             memberName:memberName,
             memberGender:memberGender,
             memberBloodType:memberBloodType,
@@ -211,14 +186,17 @@ export default function SignUpInfo(props) {
             }
         })
           .then(res => {
-            alert("yes")
+            //alert("yes")
             console.log("test")
             console.log(res);
             console.log(res.data);
+            history.push({
+                pathname: "/settingface",
+              });
+            
             
           }).catch(function(error){
               alert(error);
-              alert("y2")
           });
         
     }
@@ -239,32 +217,36 @@ export default function SignUpInfo(props) {
                         {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
 
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="memberEmail"
                                 label="帳號"
                                 value={memberEmail}
+                                onChange={e=>setMemberEmail(e.target.value)}
                             />
 
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="memberPassword"
                                 label="密碼"
                                 value={memberPassword}
+                                onChange={e=>setMemberPassword(e.target.value)}
                             />
 
                         
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
                                 id="memberName"
                                 label="姓名"
+                                autoFocus
                                 onChange={e=>setMemberName(e.target.value)}
                             />
 
-                            {/* <FormControl component="fieldset" className={classes.formControl} required>
+                            <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">性別</FormLabel>
-                                <RadioGroup aria-label="性別" id="memberGender" value={valueG} onChange={e=>setMemberGender(e.target.value)} >
+                                <RadioGroup aria-label="性別" id="memberGender" value={memberGender} onChange={e=>setMemberGender(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
@@ -281,7 +263,7 @@ export default function SignUpInfo(props) {
 
                             <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">血型</FormLabel>
-                                <RadioGroup aria-label="血型" id="memberBloodType" value={valueB} onChange={e=>setMemberBloodType(e.target.value)} >
+                                <RadioGroup aria-label="血型" id="memberBloodType" value={memberBloodType} onChange={e=>setMemberBloodType(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="A" control={<GreenRadio size="small" />} label="A" />
@@ -297,9 +279,9 @@ export default function SignUpInfo(props) {
                                     </Grid>
                                 </Grid>
                                 </RadioGroup>
-                            </FormControl> */}
+                            </FormControl>
 
-                            <TextField
+                            {/* <TextField
                                 margin="normal"
                                 fullWidth
                                 required
@@ -315,11 +297,12 @@ export default function SignUpInfo(props) {
                                 id="memberBloodType"
                                 label="血型"
                                 onChange={e=>setMemberBloodType(e.target.value)}
-                            />
+                            /> */}
 
 
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -330,6 +313,7 @@ export default function SignUpInfo(props) {
 
 
                             <TextField 
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -342,6 +326,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -351,6 +336,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -360,6 +346,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -369,6 +356,7 @@ export default function SignUpInfo(props) {
                             /> 
                             
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -378,6 +366,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
