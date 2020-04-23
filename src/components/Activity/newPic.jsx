@@ -13,7 +13,7 @@ import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 const useStyles = makeStyles(theme => ({
     div: {
-        boxSizing: "border-box"
+        boxSizing: "border-box",
     },
     topic_part : {
         textAlign : "center" , 

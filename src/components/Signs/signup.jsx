@@ -2,21 +2,14 @@ import React ,{useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { HashRouter, withRouter } from 'react-router-dom'
-import {Router, Route, hashHistory} from 'react-router';
-import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Container from '@material-ui/core/Container';
-
-
-
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -80,45 +73,53 @@ const SignUpPage = props => {
     
         const  [memberEmail,setMemberEmail] =  useState("");
         const  [memberPassword,setMemberPassword] =  useState("");
+        const  [checkPassword] =  useState("");
     
         const handleSubmit=(event)=> {
-            //event.preventDefault();
+
             const member={
                 memberEmail:memberEmail,
-                memberPassword:memberPassword};
-            //隔頁傳值
-            localStorage.setItem('memberEmail',memberEmail);
-            localStorage.setItem('memberPassword',memberPassword);
+                memberPassword:memberPassword,
+                };
+                // checkPassword:checkPassword
+                // && checkPassword === memberPassword
 
-            
+            if(memberEmail.length > 0 && memberPassword.length > 0){
+                //隔頁傳值
+                localStorage.setItem('memberEmail',memberEmail);
+                localStorage.setItem('memberPassword',memberPassword);
 
-            axios.post("api/member/check/", member,
-            {
-                auth:
+                axios.post("api/member/check/", member,
                 {
-                    username : "user",
-                    password : "123"
+                    auth:
+                    {
+                        username : "user",
+                        password : "123"
+                    }
+                })
+                .then(res => {
+                    console.log("test")
+                    console.log(res);
+                    console.log(res.data);
+                    //check判斷後為ok表示此帳號為註冊過即跳到下一頁
+                    //PassTextPage();
+                    
+                    history.push({
+                        pathname: "/signupinfo",
+                    });
+                    
+                }).catch(err =>{
+                    console.log(err.reponse);
+                    console.log(err.data);
+                     alert("no");
+                });               
+
                 }
-            })
-            .then(res => {
-                console.log("test")
-                console.log(res);
-                console.log(res.data);
-                //check判斷後為ok表示此帳號為註冊過即跳到下一頁
-                //PassTextPage();
                 
-                history.push({
-                    pathname: "/signupinfo",
-                  });
-                
-              }).catch(function(error){
-                  alert(error);
-              });
-
-
-                         
+            
             
         }
+
     
         return (
             <Grid className={classes.root}>
@@ -157,11 +158,10 @@ const SignUpPage = props => {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    name="checkpassword"
+                                    name="checkPassword"
                                     label="確認密碼"
                                     type="password"
                                     id="checkpassword"
-                                    autoComplete="current-password"
                                 />
     
                                 <Button

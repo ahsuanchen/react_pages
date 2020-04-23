@@ -69,18 +69,22 @@ const useStyles = makeStyles(theme => ({
 export default function ForgotPW1() {
     const classes = useStyles();
 
-    const  [memberEmail,setMemberEmail] =  useState("");
+    const  [memberEmail1, setMemberEmail] =  useState("");
 
     let history = useHistory();
 
     const handleSubmit=(event)=> {
         //event.preventDefault();
         const member={
-            memberEmail:memberEmail,
+            memberEmail:memberEmail1,
         }
+        
+        let url = "http://localhost:8080/api/forgetpassword/";
+        //const memberEmail = memberEmail;
+        url = url + member.memberEmail;
 
         
-        axios.post("api/forgetpassword/{memberEmail}", member,
+        axios.post(url, 
         {
             auth:
             {
