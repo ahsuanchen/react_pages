@@ -22,26 +22,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     maxWidth : "1080px" ,
   },
-  fab: {
-    position : "fixed" ,
-    opacity: "0.8" ,
-    bottom : "5%" ,
-    right : "5%" ,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
+  cardroot:{
+    maxWidth:500,
+  }
 }));
 
 export default function ActivityInfo() {
@@ -50,7 +33,19 @@ export default function ActivityInfo() {
 
   console.log(activityId)
 
+  const[member,setMember] = useState({});
+  useEffect(() =>{
+    async function fetchData(){
 
+      const result = await axios.get("api/login/name")
+      .then(result => {
+        setMember(result.data);
+        console.log(result.data);
+      })
+
+    }
+    fetchData();
+  },[]);
 
   const classes = useStyles();
 
@@ -70,6 +65,8 @@ export default function ActivityInfo() {
       }
       fetchData();
   },[]);
+
+
 
 {/* <>
     <Table align = "center" style = {{width : "85%"}}>
@@ -142,7 +139,7 @@ export default function ActivityInfo() {
     </Table>
     </> */}
 
-    console.log(act);
+    console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
   return (
@@ -152,34 +149,46 @@ export default function ActivityInfo() {
           <TableRow >
             <TableCell style={{width: '40%'}} rowSpan={2}>
               <img src="assets/images/1.jpg" width = "400"/>
-              <Typography variant="h6" gutterBottom>台北設計展</Typography>
+              <Typography variant="h6" gutterBottom>{act.activityName}</Typography>
               <Typography gutterBottom>活動報名截止時間:</Typography>
-              <Typography gutterBottom>202020202020</Typography>
+              <Typography gutterBottom>{act.endSignUpDateString} </Typography>
               <Typography gutterBottom>活動時間:</Typography>
-              <Typography gutterBottom>202020202020</Typography>
+              <Typography gutterBottom>{act.activityStartDateString}</Typography>
               <Typography gutterBottom>活動地點:</Typography>
-              <Typography gutterBottom>輔大</Typography>
+              <Typography gutterBottom>{act.activitySpace}</Typography>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-                <Typography variant="h6" gutterBottom>確認參加者資料</Typography>
-                <Card className={classes.root}>
+                <Typography variant="h6">確認參加者資料</Typography>
+                <Card className={classes.cardroot}>
       <CardContent>
-        <Typography variant="h6" component="h2">
+        <Typography>
           姓名:
         </Typography>
-        <TextField style={{minWidth:"100%"}} defaultValue="鄭貝蒂" />
-        <Typography variant="h6" component="h2">
+        <TextField style={{minWidth:"100%"}} value={member.memberName}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
+        <Typography>
           電子郵件:
         </Typography>
-        <TextField style={{minWidth:"100%"}} defaultValue="bobo22588337@yahoo.com.tw" />
-        <Typography variant="h6" component="h2">
-          行動電話:
-        </Typography>
-        <TextField style={{minWidth:"100%"}} defaultValue="0933035809" />
+        <TextField style={{minWidth:"100%"}} value={member.memberEmail}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
+          <Typography>
+            行動電話:
+          </Typography>
+        <TextField style={{minWidth:"100%"}} value={member.memberPhone}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
       </CardContent>
-      <CardActions>
+      <CardActions align="center">
         <Button variant="contained" color="secondary">確定報名</Button>
       </CardActions>
     </Card>

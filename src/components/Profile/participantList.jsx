@@ -33,23 +33,23 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" , 
+        maxWidth : "280px" ,
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" , 
+        minWidth : "150px" ,
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     } ,
     table : {
         margin : "auto" ,
-    } , 
+    } ,
     content : {
         margin : "2% 2%" ,
     } ,
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
-    } , 
+    } ,
     button1 : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
@@ -78,11 +78,11 @@ const useStyles = makeStyles(theme => ({
     Exclamation_Mark : {
         fontSize : "40px" ,
         color : "red" ,
-    } , 
+    } ,
     dig_butoon : {
         color : "#000" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     }
   }));
@@ -124,7 +124,7 @@ export default function ParticipantList() {
     useEffect(() => {
         async function fetchDataOrg() {
                 const result = await axios.get("/api/activity/1");
-                setActivity(result.data);             
+                setActivity(result.data);
                 // .then(res => {
                 //     setMember(res.data)
                 //     console.log(res)
@@ -147,7 +147,7 @@ export default function ParticipantList() {
                             <Box lineHeight={2} m={1}>
                                 {member.memberName}
                             </Box>
-                            <Divider />    
+                            <Divider />
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -172,14 +172,14 @@ export default function ParticipantList() {
                                 <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
-                            </Link>    
+                            </Link>
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
                             </Link>
                             <Divider />
-                            <Link to="/" className={classes.link}>
+                            <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
                                 </Box>
@@ -250,7 +250,7 @@ export default function ParticipantList() {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </Box>
-                    </div>  
+                    </div>
                 </Container>
             </div>
         </div>

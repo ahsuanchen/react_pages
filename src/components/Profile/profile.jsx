@@ -113,8 +113,8 @@ export default function Profile() {
     let history = useHistory(); //傳值跳頁的方法
     const handleSubmit = () =>
     {
-        if(inputs.name.length > 0 
-            || inputs.Name.length > 0 
+        if(inputs.name.length > 0
+            || inputs.Name.length > 0
             || inputs.Phone.length > 0
             || inputs.Address.length > 0
             || inputs.ContactPerson.length > 0
@@ -165,18 +165,18 @@ export default function Profile() {
                         update = true;
                         console.log(0);
                         history.push("/login");
-                        return update;                        
+                        return update;
                     }
-                    
+
                 } fetchres() })
                 // .then(res => console.log(post))
                 .then(res => console.log(res))
                 .catch(err => console.log(`Error with message: ${err}`))
-            }            
+            }
         else
         {
             alert("請再次確認!!")
-        }  
+        }
     }
 
     const [member, setMember] = useState([]);
@@ -185,7 +185,7 @@ export default function Profile() {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
                 setMember(result.data);
-                console.log(result);           
+                console.log(result);
                 // .then(result => {
                 //     setMember(result.data)
                 //     console.log(result)
@@ -201,7 +201,7 @@ export default function Profile() {
     useEffect(() => {
         async function fetchDataOrg() {
                 const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);             
+                setOrganizer(result.data);
                 // .then(res => {
                 //     setMember(res.data)
                 //     console.log(res)
@@ -256,7 +256,7 @@ export default function Profile() {
                                 </Box>
                         </Link>
                         <Divider />
-                        <Link to="/" className={classes.link}>
+                        <Link to="/MyAlbum" className={classes.link}>
                             <Box lineHeight={2} m={1}>
                                 我的相簿
                             </Box>
@@ -280,7 +280,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>姓名：</TableCell>
                                         <TableCell>
-                                            <TextField 
+                                            <TextField
                                                 variant="outlined"
                                                 value={member.memberName}
                                                 id="name"

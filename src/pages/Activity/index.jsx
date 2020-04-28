@@ -23,17 +23,15 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Home(props) {
   const classes = useStyles();
-  
-  return (
 
+  return (
 
       <Grid container direction="column" className={classes.root}>
         <HomeTextField />
         <SortButtons />
-        <TagButtons />
         <GridList />
       </Grid>
-    
+
   );
 }
 //<Container maxWidth="md">

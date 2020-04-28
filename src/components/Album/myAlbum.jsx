@@ -115,7 +115,7 @@ export default function TestGridList(props) {
                 </Box>
                 <Divider />
                 <Link to="/profile" className={classes.link}>
-                    <Box lineHeight={1} m={4} color="#000">
+                    <Box lineHeight={1} m={4}>
                         個人檔案
                     </Box>
                 </Link>
@@ -145,17 +145,23 @@ export default function TestGridList(props) {
                         </Box>
                 </Link>
                 <Divider />
-                <Link to="/" className={classes.link}>
-                    <Box lineHeight={2} m={1}>
+                <Link to="/MyAlbum" className={classes.link}>
+                    <Box lineHeight={2} m={1} color="#000">
                         我的相簿
+                    </Box>
+                </Link>
+                <Link to="/ActivityAlbum" className={classes.link}>
+                    <Box lineHeight={2} m={1} >
+                        活動相簿
                     </Box>
                 </Link>
             </Typography>
         </Container>
+
         <Container className={classes.content}>
         <div>
           <Typography variant="h4">
-             活動相簿
+             我的相簿
               </Typography>
           <hr />
         </div>
@@ -167,7 +173,7 @@ export default function TestGridList(props) {
         <GridListTile cols={1} key={tile}>
           <img src={`/assets/images/${tile}.jpg`} alt={tile} />
         <GridListTileBar title={tile.title} subtitle={<span>by: {tile.author}</span>} actionIcon={
-          <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/">
+          <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/MyPhoto">
             <InfoIcon/>
           </IconButton>}/>
         </GridListTile>))}

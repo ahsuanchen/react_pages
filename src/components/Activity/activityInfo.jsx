@@ -41,9 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityInfo() {
   //抓取此筆活動Id，利用Url ?之後的數字
-  var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
+  var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
 
-  console.log(activityId)
+  console.log(activityId);
 
 
 
@@ -189,7 +189,7 @@ export default function ActivityInfo() {
                       <ScheduleIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="報名時間" secondary={act.startSignUpDateString} />
+                  <ListItemText primary="報名開始時間" secondary={act.startSignUpDateString} />
                 </ListItem>
               </List>
             </TableCell>
@@ -200,19 +200,20 @@ export default function ActivityInfo() {
                 <ListItem>
                   <ListItemAvatar>
                     <Avatar>
-                      <LinkIcon />
+                      <ScheduleIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="相關連結" secondary="July 20, 2014" />
+                  <ListItemText primary="報名結束時間" secondary={act.endSignUpDateString} />
                 </ListItem>
-             </List>
-           </TableCell>
-        </TableRow>
+              </List>
+            </TableCell>
+          </TableRow>
+
       </TableBody>
       </Table>
       <div className={classes.fab}>
       <Fab variant="extended" size="medium" color="secondary" component={Link}
-      to="/activitySignUp">
+      to={"/activitySignUp?" +act.activityId}>
       <PersonAddIcon className={classes.extendedIcon} />
         我要報名!
       </Fab>

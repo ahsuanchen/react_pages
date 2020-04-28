@@ -24,7 +24,7 @@ import UpdatePic from 'components/Activity/newPic.jsx';
 import UpdateInfo from 'components/Activity/newInfo.jsx';
 import UpdateDetails from 'components/Activity/newDetails.jsx';
 // import Bar from 'components/bar.jsx';
-// import Homepage from 'components/Profile/editSignupInformation.jsx';
+import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
@@ -40,7 +40,8 @@ import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
 import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
 import ActivityInformation from 'pages/ActivityInfo/index.jsx';
 import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
-import Album from 'pages/MyAlbum/index.jsx';
+import MyAlbum from 'pages/MyAlbum/index.jsx';
+import MyPhoto from 'pages/MyPhoto/index.jsx';
 
 class Layout extends React.Component {
 
@@ -48,10 +49,10 @@ class Layout extends React.Component {
     const routes = routess;
     return (
       <>
-      {/* <Header routes={routes}/> */}
-      {routes.map((page,key) => (
+      <Header routes={routes}/>
+      {/*routes.map((page,key) => (
         <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
-      ))}
+      ))}*/}
 
       <Route path="/ActivityInformation" component={ActivityInformation}/>
       <Route path="/signIn" component={SignIn} />
@@ -61,7 +62,7 @@ class Layout extends React.Component {
       <Route path="/forgot1" component={Forgot1} />
       <Route path="/forgot2" component={Forgot2} />
       <Route path="/finish" component={Finish} />
-      {/* <Route path="/bar" component={Bar} /> */}
+      {/*<Route path="/bar" component={Bar} /> */}
       <Route path="/organizer" component={Organizer} />
       <Route path="/new1" component={New1} />
       <Route path="/newPic" component={NewPic} />
@@ -70,7 +71,7 @@ class Layout extends React.Component {
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />
       <Route path="/updateDetails" component={UpdateDetails} />
-      {/* <Route path="/editSignupInformation" component={Homepage} /> */}
+      <Route path="/editSignupInformation" component={Homepage} />
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/searchInfo" component={SearchInfo} />
@@ -79,10 +80,12 @@ class Layout extends React.Component {
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
+
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
       <Route path="/Activity" component={Activity} />
-      <Route path="/Album" component={Album} />
+      <Route path="/MyAlbum" component={MyAlbum} />
+      <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
 
       <Route path="/participantList" component={ParticipantList} />
