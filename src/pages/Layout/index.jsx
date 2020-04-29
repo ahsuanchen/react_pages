@@ -19,6 +19,7 @@ import Organizer from 'components/Activity/organizer.jsx';
 import New1 from 'components/Activity/new1.jsx';
 import NewPic from 'components/Activity/newPic.jsx';
 import NewInfo from 'components/Activity/newInfo.jsx';
+import FinishAct from 'components/Activity/finishAct.jsx';
 import NewDetails from 'components/Activity/newDetails.jsx';
 import UpdatePic from 'components/Activity/updatePic.jsx';
 import UpdateInfo from 'components/Activity/updateInfo.jsx';
@@ -62,6 +63,7 @@ class Layout extends React.Component {
       <Route path="/new1" component={New1} />
       <Route path="/newPic" component={NewPic} />
       <Route path="/newInfo" component={NewInfo} />
+      <Route path="/finishAct" component={FinishAct} />
       <Route path="/newDetails" component={NewDetails} />
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />

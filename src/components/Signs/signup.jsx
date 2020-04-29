@@ -73,32 +73,44 @@ const SignUpPage = props => {
     
         const  [memberEmail,setMemberEmail] =  useState("");
         const  [memberPassword,setMemberPassword] =  useState("");
-        const  [checkPassword] =  useState("");
+        const  [checkPassword, setCheckPassword] =  useState("");
     
         const handleSubmit=(event)=> {
 
             const member={
                 memberEmail:memberEmail,
-                memberPassword:memberPassword,
+                //memberPassword:memberPassword,
                 };
                 // checkPassword:checkPassword
                 // && checkPassword === memberPassword
 
-            if(memberEmail.length > 0 && memberPassword.length > 0){
+                // localStorage.setItem('memberEmail',memberEmail);
+                // localStorage.setItem('memberPassword',memberPassword);
+
+                // axios.post("api/member/check/", member)
+                // .then(res => {
+                //     console.log(res);
+                //     console.log(res.data);
+                //     //check判斷後為ok表示此帳號為註冊過即跳到下一頁
+                //     //PassTextPage();
+                    
+                //     history.push({
+                //         pathname: "/signupinfo",
+                //     });
+                    
+                // }).catch(err =>{
+                //     console.log(err.reponse);
+                //     console.log(err.data);
+                //      alert("此帳號已被使用");
+                // });               
+
+            if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword === memberPassword){
                 //隔頁傳值
                 localStorage.setItem('memberEmail',memberEmail);
                 localStorage.setItem('memberPassword',memberPassword);
 
-                axios.post("api/member/check/", member,
-                {
-                    auth:
-                    {
-                        username : "user",
-                        password : "123"
-                    }
-                })
+                axios.post("api/member/check/", member)
                 .then(res => {
-                    console.log("test")
                     console.log(res);
                     console.log(res.data);
                     //check判斷後為ok表示此帳號為註冊過即跳到下一頁
@@ -111,10 +123,17 @@ const SignUpPage = props => {
                 }).catch(err =>{
                     console.log(err.reponse);
                     console.log(err.data);
-                     alert("no");
+                     alert("此帳號已被註冊");
                 });               
 
                 }
+            else if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword != memberPassword){
+                alert("密碼不一致");
+            }
+            else{
+                alert("請輸入正確的帳號密碼")
+            }
+
                 
             
             
@@ -162,6 +181,7 @@ const SignUpPage = props => {
                                     label="確認密碼"
                                     type="password"
                                     id="checkpassword"
+                                    onChange={e=>setCheckPassword(e.target.value)}
                                 />
     
                                 <Button

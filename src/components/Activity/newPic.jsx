@@ -166,7 +166,7 @@ export default function BulidActivity_step2() {
                             component={Link}
                             to="/"
                         >
-                            完成
+                            發佈活動
                         </Button>
                     </Box>
                 </Grid> 
