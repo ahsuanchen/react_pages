@@ -290,6 +290,24 @@ export default function ParticipantList() {
                                                                 匯出名單
                                                             </Button>
                                                         </Tooltip>
+                                                        <Tooltip title="宣傳活動內容、提醒活動時間">
+                                                            <Button
+                                                                variant="contained"
+                                                                className={classes.button1}
+                                                                // onClick={}
+                                                            >
+                                                                Line推播
+                                                            </Button>
+                                                        </Tooltip>
+                                                        <Tooltip title="發行活動公告">
+                                                            <Button
+                                                                variant="contained"
+                                                                className={classes.button1}
+                                                                // onClick={}
+                                                            >
+                                                                發行公告
+                                                            </Button>
+                                                        </Tooltip>
                                                     </div>
                                                 </Box>
                                                 <Table className={classes.table}>

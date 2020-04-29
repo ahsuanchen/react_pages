@@ -108,7 +108,12 @@ export default function OrganizerInfo() {
         fetchDataMem();
     }, []);
 
-    const [organizer, setOrganizer] = useState([]);
+    const [organizer, setOrganizer] = useState({
+        organizerName : '' ,
+        organizerPhone : '' ,
+        organizerAddress : '' ,
+        organizerInfo : ''
+    });
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
@@ -136,6 +141,42 @@ export default function OrganizerInfo() {
         }
         fetchDataOrg();
     }, []);
+
+    const handleChange = updateOrgInfo => event => {
+        setOrganizer({...organizer, [updateOrgInfo]: event.target.value});
+    }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const updateOrganizerInfo = {
+            organizerName : organizer.organizerName ,
+            organizerPhone : organizer.organizerPhone ,
+            organizerAddress : organizer.organizerAddress ,
+            organizerInfo : organizer.organizerInfo
+        }
+        
+        if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
+        {
+            alert("連絡電話格式錯誤");
+        }
+        else
+        {
+            axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
+                auth:
+                {
+                    username : "actforfun@gmail.com",
+                    password : "123"
+                },
+            })
+            .then(response => {
+                console.log(response);
+                console.log(updateOrganizerInfo);
+                alert("主辦單位資訊已修改");
+            })
+            .catch(function(error){
+                console.log(updateOrganizerInfo);
+            });
+        }
+    };
 
     return (
         <div className={classes.div}>
@@ -211,7 +252,11 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerName} />
+                                                <TextField 
+                                                    style={{minWidth:"250px"}}
+                                                    value={organizer.organizerName}
+                                                    onChange={handleChange('organizerName')}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -231,7 +276,7 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField value={organizer.organizerPhone} />
+                                                <TextField value={organizer.organizerPhone} onChange={handleChange('organizerPhone')} />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -241,7 +286,11 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                            <TextField style={{minWidth:"350px"}} value={organizer.organizerAddress} />
+                                            <TextField
+                                                style={{minWidth:"350px"}}
+                                                value={organizer.organizerAddress}
+                                                onChange={handleChange('organizerAddress')}
+                                            />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -251,7 +300,11 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextareaAutosize value={organizer.organizerInfo} style={{minWidth:"350px" , minHeight:"250px"}}/>
+                                                <TextareaAutosize
+                                                    style={{minWidth:"350px" , minHeight:"250px"}}
+                                                    value={organizer.organizerInfo}
+                                                    onChange={handleChange('organizerInfo')}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -259,7 +312,9 @@ export default function OrganizerInfo() {
                                 <Box lineHeight={5} m={1}>
                                     <div className={classes.button_part}>
                                         <Button
+                                            type="submit"
                                             variant="contained"
+                                            onClick={handleSubmit}
                                             className={classes.button}
                                         >
                                             確認更改

@@ -14,6 +14,13 @@ import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -79,7 +86,14 @@ export default function Updatepassword() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
+    const [member, setMember] = useState({
+        oldPassword : '' ,
+        newPassword : '' ,
+        repeatNewPassword : '' ,
+        showoldPassword: false ,
+        shownewPassword: false ,
+        showrepeatnewPassword: false ,
+    });
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
@@ -136,6 +150,64 @@ export default function Updatepassword() {
         }
         fetchDataOrg();
     }, []);
+
+    const handleClickShowOldPassword = () => {
+        setMember({ ...member, showoldPassword: !member.showoldPassword });
+    };
+    const handleClickShowNewPassword = () => {
+        setMember({ ...member, shownewPassword: !member.shownewPassword });
+    };
+    const handleClickShowRepeatNewPassword = () => {
+        setMember({ ...member, showrepeatnewPassword: !member.showrepeatnewPassword });
+    };
+    
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
+
+    const handleChange = updateMemPassword => (event) => {
+        setMember({ ...member, [updateMemPassword]: event.target.value });
+    };
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        const updatePassword = {
+            memberPassword : member.memberPassword
+        }
+        if (member.oldPassword != oldPassword)
+        {
+            alert("舊密碼輸入錯誤");
+            console.log(member);
+            console.log(updatePassword);
+        }
+        else if (member.newPassword != member.memberPassword)
+        {
+            alert("新密碼輸入不一致");
+            console.log(member);
+            console.log(updatePassword);
+        }
+        else
+        {
+            axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
+                auth:
+                {
+                    username : "actforfun@gmail.com",
+                    password : "123"
+                },
+            })
+            .then(response => {
+                console.log(response);
+                console.log(updatePassword);
+                alert("密碼已修改");
+                history.push("/profile");
+            })
+            .catch(function(error){
+                console.log(updatePassword);
+            });
+        }
+    };
 
     return (
         <div className={classes.div}>
@@ -195,6 +267,12 @@ export default function Updatepassword() {
                             </Typography>
                             <hr />
                         </div>
+                        <input
+                                type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={oldPassword}
+                            />
                         <div>
                             <form>
                                 <Table className={classes.table}>
@@ -206,7 +284,29 @@ export default function Updatepassword() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField variant="outlined" name="currentPassword" required />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-old">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-old"
+                                                        required
+                                                        type={member.showoldPassword ? 'text' : 'password'}
+                                                        value={member.oldPassword}
+                                                        onChange={handleChange('oldPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowOldPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.showoldPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -216,7 +316,29 @@ export default function Updatepassword() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField variant="outlined" name="newPassword" required />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-new">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-new"
+                                                        required
+                                                        type={member.shownewPassword ? 'text' : 'password'}
+                                                        value={member.newPassword}
+                                                        onChange={handleChange('newPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowNewPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.shownewPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
@@ -226,7 +348,28 @@ export default function Updatepassword() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField variant="outlined" name="newPasswordRepeated" required />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-repeat">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-repeat"
+                                                        required
+                                                        type={member.showrepeatnewPassword ? 'text' : 'password'}
+                                                        onChange={handleChange('memberPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowRepeatNewPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.showrepeatnewPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -236,7 +379,10 @@ export default function Updatepassword() {
                                         <Button
                                             type="submit"
                                             variant="contained"
+                                            onClick={handleSubmit}
                                             className={classes.button}
+                                            // component={Link}
+                                            // to="/profile"
                                         >
                                             確認更改
                                         </Button>
