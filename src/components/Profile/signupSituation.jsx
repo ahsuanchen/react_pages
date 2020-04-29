@@ -165,17 +165,7 @@ export default function SignupSituation() {
         fetchDataAct();
     }, []);
     
-    const activity_End_or_not = new Date();
-    const activity1 = useState([]);
-    const activity2 = useState([]);
-    // if (activity.activityEndDate <= activity_End_or_not.toLocaleTimeString().substring(0,16))
-    // {
-    //     activity1 = activity;
-    // }
-    // else
-    // {
-    //     activity2 = activity;
-    // }
+    const activity_End_or_not = new Date().getTime();
 
     return (
         <div className={classes.div}>
@@ -250,7 +240,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {activity.map(activity =>
-                                    (activity.activityEndDateString != activity_End_or_not.toLocaleTimeString().substring(0,16)) ?
+                                    (new Date(activity.activityEndDate).getTime() >= new Date(activity_End_or_not).getTime()) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -331,7 +321,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {activity.map(activity =>
-                                    (activity.activityEndDateString <= activity_End_or_not.toLocaleTimeString().substring(0,16)) ?
+                                    (new Date(activity.activityEndDate).getTime() < new Date(activity_End_or_not).getTime()) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>

@@ -170,7 +170,7 @@ export default function Profile() {
                 auth:
                 {
                     username : "actforfun@gmail.com",
-                    password : "123"
+                    password : "12345"
                 },
             })
             .then(response => {

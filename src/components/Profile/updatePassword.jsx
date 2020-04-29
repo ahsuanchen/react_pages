@@ -190,6 +190,8 @@ export default function Updatepassword() {
         }
         else
         {
+            let url =  "/api/member/updatepassword/" ;
+            url = url + oldPassword + updatePassword.memberPassword ;
             axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
                 auth:
                 {
