@@ -154,12 +154,12 @@ export default function OrganizerInfo() {
             organizerInfo : organizer.organizerInfo
         }
         
-        // if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
-        // {
-        //     alert("連絡電話格式錯誤");
-        // }
-        // else
-        // {
+        if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
+        {
+            alert("連絡電話格式錯誤");
+        }
+        else
+        {
             axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
                 auth:
                 {
@@ -175,7 +175,7 @@ export default function OrganizerInfo() {
             .catch(function(error){
                 console.log(updateOrganizerInfo);
             });
-        // }
+        }
     };
 
     return (

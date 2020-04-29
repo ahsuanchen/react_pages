@@ -89,6 +89,7 @@ export default function Updatepassword() {
     const [member, setMember] = useState({
         oldPassword : '' ,
         newPassword : '' ,
+        repeatNewPassword : '' ,
         showoldPassword: false ,
         shownewPassword: false ,
         showrepeatnewPassword: false ,
@@ -164,6 +165,8 @@ export default function Updatepassword() {
         event.preventDefault();
     };
 
+    const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
+
     const handleChange = updateMemPassword => (event) => {
         setMember({ ...member, [updateMemPassword]: event.target.value });
     };
@@ -173,15 +176,17 @@ export default function Updatepassword() {
         const updatePassword = {
             memberPassword : member.memberPassword
         }
-        if (member.oldPassword != member.memberPassword)
+        if (member.oldPassword != oldPassword)
         {
             alert("舊密碼輸入錯誤");
             console.log(member);
+            console.log(updatePassword);
         }
         else if (member.newPassword != member.memberPassword)
         {
             alert("新密碼輸入不一致");
             console.log(member);
+            console.log(updatePassword);
         }
         else
         {
@@ -194,12 +199,12 @@ export default function Updatepassword() {
             })
             .then(response => {
                 console.log(response);
-                // console.log(response.data);
                 console.log(updatePassword);
                 alert("密碼已修改");
+                history.push("/profile");
             })
             .catch(function(error){
-                // alert(error);
+                console.log(updatePassword);
             });
         }
     };
@@ -262,6 +267,12 @@ export default function Updatepassword() {
                             </Typography>
                             <hr />
                         </div>
+                        <input
+                                type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={oldPassword}
+                            />
                         <div>
                             <form>
                                 <Table className={classes.table}>
@@ -277,6 +288,7 @@ export default function Updatepassword() {
                                                     <InputLabel htmlFor="outlined-adornment-password-old">Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password-old"
+                                                        required
                                                         type={member.showoldPassword ? 'text' : 'password'}
                                                         value={member.oldPassword}
                                                         onChange={handleChange('oldPassword')}
@@ -308,9 +320,10 @@ export default function Updatepassword() {
                                                     <InputLabel htmlFor="outlined-adornment-password-new">Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password-new"
+                                                        required
                                                         type={member.shownewPassword ? 'text' : 'password'}
                                                         value={member.newPassword}
-                                                        onChange={handleChange('memberPassword')}
+                                                        onChange={handleChange('newPassword')}
                                                         endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
@@ -339,9 +352,9 @@ export default function Updatepassword() {
                                                     <InputLabel htmlFor="outlined-adornment-password-repeat">Password</InputLabel>
                                                     <OutlinedInput
                                                         id="outlined-adornment-password-repeat"
+                                                        required
                                                         type={member.showrepeatnewPassword ? 'text' : 'password'}
-                                                        value={member.repeatNewPassword}
-                                                        onChange={handleChange('newPassword')}
+                                                        onChange={handleChange('memberPassword')}
                                                         endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
@@ -368,6 +381,8 @@ export default function Updatepassword() {
                                             variant="contained"
                                             onClick={handleSubmit}
                                             className={classes.button}
+                                            // component={Link}
+                                            // to="/profile"
                                         >
                                             確認更改
                                         </Button>

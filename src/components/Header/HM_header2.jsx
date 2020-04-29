@@ -130,7 +130,7 @@ export default function MenuAppBar() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6">
-                        ACT-FUN
+                        ACTFUN
                     </Typography>
                     <IconButton 
                         edge="start"

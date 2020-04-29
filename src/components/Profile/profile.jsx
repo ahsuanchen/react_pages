@@ -108,18 +108,18 @@ export default function Profile() {
     });
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                await axios.get("/api/member/actforfun@gmail.com")
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
                         setMember(result.data);
                         console.log(result);
-                    }
+                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -183,6 +183,14 @@ export default function Profile() {
             });
         }
     };
+
+    const Sendpassword = event =>
+    {
+        localStorage.setItem('memberPassword', member.memberPassword);
+        history.push({
+            pathname: "/updatePassword",
+        });
+    }
     
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
@@ -294,6 +302,7 @@ export default function Profile() {
                                             <Tooltip title="修改密碼">
                                                 <Button
                                                     className={classes.change_password}
+                                                    onClick={Sendpassword}
                                                     component={Link}
                                                     to="/updatePassword"
                                                     variant="contained"

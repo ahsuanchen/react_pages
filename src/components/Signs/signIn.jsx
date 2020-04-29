@@ -216,6 +216,7 @@ export default function SignInSide() {
                 fullWidth
                 id="username"
                 label="帳號"
+                name="username"
               />
               <TextField
                 variant="outlined"
@@ -225,6 +226,7 @@ export default function SignInSide() {
                 id="password"
                 label="密碼"
                 type="password"
+                name="password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
