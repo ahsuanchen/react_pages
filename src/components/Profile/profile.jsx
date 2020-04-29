@@ -90,16 +90,16 @@ export default function Profile() {
     {
         history.push("/signin");
     }
-
     function goHomePage()
     {
-        history.push("/homepageAfterLogin");
+        history.push("/");
     }
     const [member, setMember] = useState({
         memberName : '' ,
         memberBloodType : ' ' ,
         memberGender : '' ,
         memberBirthday : '' ,
+        memberBirthdayString : '' ,
         memberPhone : '' ,
         memberAddress : '' ,
         emergencyContact : '' ,
@@ -133,43 +133,55 @@ export default function Profile() {
         fetchDataMem();
     }, []);
 
-    const [updateInfo] = React.useState({
-        memberName : '' ,
-        memberBloodType : '' ,
-        memberGender : '' ,
-        memberBirthdayString : '' ,
-        memberPhone : '' ,
-        memberAddress : '' ,
-        emergencyContact : '' ,
-        emergencyContactPhone : '' ,
-        emergencyContactRelation : ''
-    })
-    const handleChange = updateInfo => event => {
-        setMember({...member, [updateInfo]: event.target.value});
+    const handleChange = updateMemInfo => event => {
+        setMember({...member, [updateMemInfo]: event.target.value});
     }
     const handleSubmit = event => {
         event.preventDefault();
-        fetch('/api/member/actforfun@gmail.com', {
-            method: "PATCH",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                member: {
-                    memberName : updateInfo.memberName ,
-                    memberGender : updateInfo.memberGender ,
-                    memberBirthdayString : updateInfo.memberBirthdayString ,
-                    memberPhone : updateInfo.memberPhone ,
-                    memberAddress : updateInfo.memberAddress ,
-                    emergencyContact : updateInfo.emergencyContact ,
-                    emergencyContactPhone : updateInfo.emergencyContactPhone ,
-                    emergencyContactRelation : updateInfo.emergencyContactRelation
-                }
+        const updateMemberInfo = {
+            memberName : member.memberName ,
+            memberBloodType : member.memberBloodType ,
+            memberGender : member.memberGender ,
+            memberBirthday : new Date(member.memberBirthdayString).getTime() ,
+            memberBirthdayString : member.memberBirthdayString ,
+            memberPhone : member.memberPhone ,
+            memberAddress : member.memberAddress ,
+            emergencyContact : member.emergencyContact ,
+            emergencyContactPhone : member.emergencyContactPhone ,
+            emergencyContactRelation : member.emergencyContactRelation
+        }
+        if ((updateMemberInfo.memberName.length > 5 || updateMemberInfo.memberName.length < 2)
+        || (updateMemberInfo.emergencyContact.length > 5 || updateMemberInfo.emergencyContact.length < 2))
+        {
+            alert("姓名字數錯誤");
+        }
+        else if ((updateMemberInfo.memberPhone.length > 10 || updateMemberInfo.memberPhone.length < 9)
+        || (updateMemberInfo.emergencyContactPhone.length > 10 || updateMemberInfo.emergencyContactPhone.length < 9))
+        {
+            alert("連絡電話格式錯誤");
+        }
+        else if (new Date(updateMemberInfo.memberBirthdayString).getTime() > new Date().getTime() )
+        {
+            alert("生日格式錯誤");
+        }
+        else
+        {
+            axios.patch('/api/member/actforfun@gmail.com', updateMemberInfo , {
+                auth:
+                {
+                    username : "actforfun@gmail.com",
+                    password : "123"
+                },
             })
-        })
-        .then(response => response.json())
-        .then(json => console.log(json))
+            .then(response => {
+                console.log(response);
+                // console.log(response.data);
+                console.log(updateMemberInfo);
+                alert("個人檔案內容已修改");
+            })
+            .catch(function(error){
+            });
+        }
     };
     
     const [organizer, setOrganizer] = useState([]);
@@ -274,7 +286,6 @@ export default function Profile() {
                                                 value={member.memberName}
                                                 name="Name"
                                                 onChange={handleChange('memberName')}
-                                                // onChange={e => setMemberName(e.target.value)}
                                             />
                                         </TableCell>
                                         <TableCell>電子郵件(帳號)：</TableCell>
@@ -401,7 +412,6 @@ export default function Profile() {
                                     <Button
                                         type="submit"
                                         className={classes.button}
-                                        // onClick={handleSubmit}
                                         onClick={handleSubmit}
                                         variant="contained"
                                         startIcon={<SaveIcon />}
