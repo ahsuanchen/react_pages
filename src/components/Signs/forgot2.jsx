@@ -1,4 +1,8 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -66,6 +70,20 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const Forgot2Page = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+
+    
+};
+
+
+
 export default function ForgotPW() {
     const classes = useStyles();
 
@@ -77,6 +95,64 @@ export default function ForgotPW() {
     HelloMessage.defaultProps = {
      name: 'Zuck',
     }
+
+    const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail_forget'));
+    const  [newPW, setNewPW] =  useState("");
+    const  [oldPW,setoldPW] = useState("");
+
+    let history = useHistory();
+
+    let url_id = "/api/member/";
+        url_id = url_id + memberEmail;
+
+   
+
+    useEffect(() =>{
+        async function fetchData(){
+            const result = await axios.get(url_id);
+            setoldPW(result.data.memberPassword);
+            //console.log(result.data);
+          }
+          fetchData();
+      },[]);
+
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+
+        
+
+        const member={
+            memberEmail:memberEmail,
+            newPW:newPW,
+            oldPW:oldPW
+        }
+        
+        let url = "/api/member/forgetpassword/";
+        //const memberEmail = memberEmail;
+        url = url + member.memberEmail;
+
+        
+        axios.post(url, 
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+        .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/signin",
+              });
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        }
+
 
     
 
@@ -94,27 +170,32 @@ export default function ForgotPW() {
                         <HelloMessage name="Mark" />, 請重新設定密碼。
                         </Typography>
                         
+                            <input
+                                //type="hidden"
+                                id="memberEmail"
+                                label="帳號"
+                                value={memberEmail}
+                                onChange={e=>setMemberEmail(e.target.value)}
+                            />  
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="password"
+                                id="password"
                                 label="輸入密碼"
                                 type="password"
-                                id="password"
-                                autoComplete="current-password"
+                                onChange={e=>setNewPW(e.target.value)}
                             />
 
                             <TextField
                                 margin="normal"
                                 required
                                 fullWidth
-                                name="checkpassword"
+                                id="checkpassword"
                                 label="再次輸入密碼"
                                 type="password"
-                                id="checkpassword"
-                                autoComplete="current-password"
+                                
                             />
 
                             <Button
@@ -123,7 +204,7 @@ export default function ForgotPW() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./signin"
+                                onClick={handleSubmit}
                             >
                                 完成設定
                             </Button>

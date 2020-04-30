@@ -249,6 +249,13 @@ export default function ManageActivity() {
     }, []);
 
     const activity_End_or_not = new Date().getTime();
+    const SendActID = event =>
+    {
+        localStorage.setItem('activityId', activity.activityId);
+        history.push({
+            pathname: "/updateInfo",
+        });
+    }
 
     return (
         <div className={classes.div}>
@@ -553,8 +560,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={SendActID}
                                                                 >
                                                                     上傳/管理照片
                                                                 </Button>

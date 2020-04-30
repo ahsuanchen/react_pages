@@ -1,5 +1,7 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -133,36 +135,54 @@ const useStyles = makeStyles(theme => ({
 export default function SettingFace() {
     const classes = useStyles();
 
+    const location = useLocation();
+
+    const SettingFacePage = props => {
+        const location = useLocation();
+    
+        useEffect(() => {
+           console.log(location.pathname); // result: '/secondpage'
+           //console.log(location.search); // result: '?query=abc'
+           console.log(location.state.detail); // result: 'some_value'
+        }, [location]);
+    
+        
+    };
+    const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
+        setData(e.target.files[0])
       setImage({
+          
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
     }; 
 
-    //update
+    console.log(data);
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
 
     let history = useHistory();
 
-    const handleSubmit=(event)=> {
+    
         
-        //event.preventDefault();
-        const pic={
-            memberEmail:memberEmail,
-            //照片？
-            
-        };
+    const handleSubmit=(event)=> {
 
-        axios.post("/api/files/UploadFace", pic,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
+        let formData = new FormData();
+        formData.append('file',data,data.name);
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin' : '*'
+                }
             }
-        })
+            console.log(formData);
+
+        let url = "/api/files/uploadFace/";
+        url = url + memberEmail;
+
+
+        axios.post(url, formData,config)
           .then(res => {
             //alert("yes")
             console.log("test")
@@ -175,6 +195,7 @@ export default function SettingFace() {
             
           }).catch(function(error){
               alert(error);
+              console.log(error);
           });
         
     }

@@ -69,31 +69,30 @@ const useStyles = makeStyles(theme => ({
 export default function ForgotPW1() {
     const classes = useStyles();
 
-    const  [memberEmail,setMemberEmail] =  useState("");
+    const  [memberEmail_forget, setMemberEmail] =  useState("");
+
 
     let history = useHistory();
 
     const handleSubmit=(event)=> {
         //event.preventDefault();
         const member={
-            memberEmail:memberEmail,
+            memberEmail:memberEmail_forget,
         }
+        
+        localStorage.setItem('memberEmail_forget', memberEmail_forget);
+
+        let url = "/api/member/forgetpassword/";
+        url = url + member.memberEmail;
 
         
-        axios.post("api/forgetpassword/{memberEmail}", member,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
+        axios.post(url)
         .then(res => {
             console.log("test")
             console.log(res);
             console.log(res.data);
             history.push({
-                pathname: "/forgot2",
+                pathname: "/signin",
               });
             
           }).catch(function(error){
@@ -114,7 +113,7 @@ export default function ForgotPW1() {
                 <div className={classes.paper}>
                     <paper>
                         
-                            輸入您的電子信箱，我們將會傳送恢復帳號存取權的連結給您。
+                            請輸入您的電子信箱，我們將會傳送新密碼至您的信箱。
                             <TextField
                                 margin="normal"
                                 required
@@ -133,7 +132,7 @@ export default function ForgotPW1() {
                                 className={classes.submit}
                                 onClick={handleSubmit}
                             >
-                                傳送登入連結
+                                傳送新密碼
                             </Button>
 
                             <Typography variant="overline" display="block" gutterBottom align="center">

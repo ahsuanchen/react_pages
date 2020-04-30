@@ -197,28 +197,6 @@ export default function BulidActivity_step2() {
               });
         }
     
-        // axios.post("/api/activity/", activity,
-        // {
-        //     auth:
-        //     {
-        //         username : "user",
-        //         password : "123"
-        //     }
-        // })
-        // .then(res => {
-        //     // alert("yrrre");
-        //     console.log("test");
-        //     console.log(res);
-        //     console.log(res.data);
-        //     history.push({
-        //         pathname: "/newDetails",
-        //       });
-            
-        // }).catch(function(error){
-        //     alert(error);
-        // });
-
-
         
     }
 

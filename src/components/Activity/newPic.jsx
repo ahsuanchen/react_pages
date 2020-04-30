@@ -13,7 +13,7 @@ import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 const useStyles = makeStyles(theme => ({
     div: {
-        boxSizing: "border-box"
+        boxSizing: "border-box",
     },
     topic_part : {
         textAlign : "center" , 
@@ -166,7 +166,7 @@ export default function BulidActivity_step2() {
                             component={Link}
                             to="/"
                         >
-                            完成
+                            發佈活動
                         </Button>
                     </Box>
                 </Grid> 

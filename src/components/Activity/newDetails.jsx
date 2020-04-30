@@ -149,26 +149,6 @@ export default function BulidActivity_step3() {
     const  [activityLink,setactivityLink] =  useState("");
     const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
-    // const activity={
-    //     activityName:activityName,
-    //     activityStartDate:activityStartDate,
-    //     activityEndDate:activityEndDate,
-    //     startSignUpDate:startSignUpDate,
-    //     endSignUpDate:endSignUpDate,
-    //     activityPeople:activityPeople,
-    //     activitySpace:activitySpace,
-    //     activitySummary:activitySummary,
-    //     activityInfo:activityInfo,
-    //     activityMeal:activityMeal,
-    //     activityMoreContent:activityMoreContent,
-    //     activityPrecautions:activityPrecautions,
-    //     activityLinkName:activityLinkName,
-    //     activityLink:activityLink,
-    //     activityOrganizer:activityOrganizer
-    // };
-
-    //console.log(activity);
-
     let history = useHistory();
 
     const handleSubmit=(event)=> {
@@ -195,14 +175,7 @@ export default function BulidActivity_step3() {
         
 
         
-        axios.post("/api/activity/", activity,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
+        axios.post("/api/activity/", activity,)
           .then(res => {
             alert("yes")
             console.log("test")
