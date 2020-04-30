@@ -21,6 +21,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         display: "flex",
         justifyContent: "space-around",
         minHeight: 800,
-        color: "#000"
+        color: "#000" ,
     },
     left_container: {
         maxWidth: "280px",
@@ -49,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         margin: "2% 2%",
-        overflow: "visible"
+        overflow: "visible" ,
     },
     img: {
         margin: "2% 0",
@@ -67,147 +68,156 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         margin: "2%",
-        // display: "flex",
-        // justifyContent: "center",
     }
 }));
 
- //radio 顏色設定
- const RadioColor = withStyles({
-    root: {
-        color: "#E0E0E0",
-        '&$checked': {
-            color: "#00CACA",
+//radio 顏色設定
+const RadioColor = withStyles({
+        root: {
+            color: "#E0E0E0",
+            '&$checked': {
+                color: "#00CACA",
+            },
         },
-    },
-    checked: {},
+        checked: {},
 })(props => <Radio color="default" {...props} />);
 
 export default function Profile() {
     const classes = useStyles();
 
-    // const [value, setValue] = React.useState();
-
-    // const handleChange = (event) => {
-    //     setValue(event.target.value);
-    // };
-
-    const [inputs , setInputs] = React.useState({
-        Name : "" ,
-        // Gender : "" ,
-        // BloodType : "" ,
-        Phone : "" ,
-        Email : "" ,
-        Address : "" ,
-        ContactPerson : "" ,
-        ContactRelation : "" ,
-        ContactPhone : "" ,
-    });
-
-    const handlechange = member => event => {
-        event.persist();
-        setInputs(inputs => ({...inputs , [member] : event.target.value}));
-    }
-
-    let update; //宣告一個布林值變數
-    let history = useHistory(); //傳值跳頁的方法
-    const handleSubmit = () =>
+    let history = useHistory();
+    function goSignin()
     {
-        if(inputs.name.length > 0
-            || inputs.Name.length > 0
-            || inputs.Phone.length > 0
-            || inputs.Address.length > 0
-            || inputs.ContactPerson.length > 0
-            || inputs.ContactRelation.length > 0
-            || inputs.ContactPhone.length > 0 ) //每個輸入格都不為空值、驗證密碼等於密碼
-            {
-                fetch('/member',{
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        memberName : inputs.Name ,
-                        memberPhone : inputs.Phone ,
-                        memberAddress : inputs.Address ,
-                        emergencyContact : inputs.ContactPerson ,
-                        emergencyContactPhone : inputs.ContactPhone ,
-                        emergencyContactRelation : inputs.ContactRelation
-                    })
-                })
-                .then(res => {
-                    async function fetchres(){
-                    const test = await res.text();  //接收後端傳來的訊息
-                    if(test === "request failed. Email format error!") //信箱不包含@
-                    {
-                        alert("信箱格式有誤 請輸入有效信箱！");
-                        update = false;
-                        console.log(1);
-                        return update;
-                    }
-                    else if(inputs.Phone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(2);
-                        return update;
-                    }
-                    else if(inputs.ContactPhone.length !== 10) //手機長度不等於10
-                    {
-                        alert("手機長度有誤 請重新輸入！");
-                        update = false;
-                        console.log(3);
-                        return update;
-                    }
-                    else
-                    {
-                        alert("修改成功！");
-                        update = true;
-                        console.log(0);
-                        history.push("/login");
-                        return update;
-                    }
-
-                } fetchres() })
-                // .then(res => console.log(post))
-                .then(res => console.log(res))
-                .catch(err => console.log(`Error with message: ${err}`))
-            }
-        else
-        {
-            alert("請再次確認!!")
-        }
+        history.push("/signin");
     }
-
-    const [member, setMember] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    function goHomePage()
+    {
+        history.push("/");
+    }
+    const [member, setMember] = useState({
+        memberName : '' ,
+        memberBloodType : ' ' ,
+        memberGender : '' ,
+        memberBirthday : '' ,
+        memberBirthdayString : '' ,
+        memberPhone : '' ,
+        memberAddress : '' ,
+        emergencyContact : '' ,
+        emergencyContactPhone : '' ,
+        emergencyContactRelation : ''
+    });
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
-                setMember(result.data);
-                console.log(result);
-                // .then(result => {
-                //     setMember(result.data)
-                //     console.log(result)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                await axios.get("/api/member/actforfun@gmail.com")
+                .then(result => {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
+                        setMember(result.data);
+                        console.log(result);
+                    // }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataMem();
     }, []);
 
+    const handleChange = updateMemInfo => event => {
+        setMember({...member, [updateMemInfo]: event.target.value});
+    }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const updateMemberInfo = {
+            memberName : member.memberName ,
+            memberBloodType : member.memberBloodType ,
+            memberGender : member.memberGender ,
+            memberBirthday : new Date(member.memberBirthdayString).getTime() ,
+            memberBirthdayString : member.memberBirthdayString ,
+            memberPhone : member.memberPhone ,
+            memberAddress : member.memberAddress ,
+            emergencyContact : member.emergencyContact ,
+            emergencyContactPhone : member.emergencyContactPhone ,
+            emergencyContactRelation : member.emergencyContactRelation
+        }
+        if ((updateMemberInfo.memberName.length > 5 || updateMemberInfo.memberName.length < 2)
+        || (updateMemberInfo.emergencyContact.length > 5 || updateMemberInfo.emergencyContact.length < 2))
+        {
+            alert("姓名字數錯誤");
+        }
+        else if ((updateMemberInfo.memberPhone.length > 10 || updateMemberInfo.memberPhone.length < 9)
+        || (updateMemberInfo.emergencyContactPhone.length > 10 || updateMemberInfo.emergencyContactPhone.length < 9))
+        {
+            alert("連絡電話格式錯誤");
+        }
+        else if (new Date(updateMemberInfo.memberBirthdayString).getTime() > new Date().getTime() )
+        {
+            alert("生日格式錯誤");
+        }
+        else
+        {
+            axios.patch('/api/member/actforfun@gmail.com', updateMemberInfo , {
+                auth:
+                {
+                    username : "actforfun@gmail.com",
+                    password : "123"
+                },
+            })
+            .then(response => {
+                console.log(response);
+                // console.log(response.data);
+                console.log(updateMemberInfo);
+                alert("個人檔案內容已修改");
+                // history.push("/profile");
+            })
+            .catch(function(error){
+            });
+        }
+    };
+
+    const Sendpassword = event =>
+    {
+        localStorage.setItem('memberPassword', member.memberPassword);
+        history.push({
+            pathname: "/updatePassword",
+        });
+    }
+    
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setOrganizer(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataOrg();
     }, []);
@@ -222,7 +232,7 @@ export default function Profile() {
                             <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                         </Box>
                         <Box lineHeight={2} m={1}>
-                            {member.memberName}
+                            <strong>{member.memberName}</strong>
                         </Box>
                         <Divider />
                         <Link to="/profile" className={classes.link}>
@@ -242,7 +252,7 @@ export default function Profile() {
                         </Link>
                         <Divider />
                         <Box lineHeight={3} m={1}>
-                            {organizer.organizerName}
+                            <strong>{organizer.organizerName}</strong>
                         </Box>
                         <Divider />
                         <Link to="/organizerInfo" className={classes.link}>
@@ -283,57 +293,24 @@ export default function Profile() {
                                             <TextField
                                                 variant="outlined"
                                                 value={member.memberName}
-                                                id="name"
-                                                // onChange={handleChange("Name")}
+                                                name="Name"
+                                                onChange={handleChange('memberName')}
                                             />
                                         </TableCell>
                                         <TableCell>電子郵件(帳號)：</TableCell>
                                         <TableCell>
                                             <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
-                                            <Button
-                                                className={classes.change_password}
-                                                compoent={Link}
-                                                to=""
-                                                variant="contained"
-                                            >
-                                                更改密碼
-                                            </Button>
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>性別：</TableCell>
-                                        <TableCell>
-                                            <RadioGroup name="gender" value={member.memberGender}>
-                                                <FormControlLabel checked={member.memberGender === "male"} control={<RadioColor />} label="男性" />
-                                                <FormControlLabel checked={member.memberGender === "female"} control={<RadioColor />} label="女性" />
-                                                <FormControlLabel checked={member.memberGender === "unknown"} control={<RadioColor />} label="暫不透漏" />
-                                            </RadioGroup>
-                                        </TableCell>
-                                        <TableCell>血型：</TableCell>
-                                        <TableCell>
-                                            <TextField variant="outlined" value={member.memberBloodType} disabled />
-                                            {/* <FormControl style={{ minWidth: "100px" }} variant="outlined">
-                                                <Select
-                                                    labelId="blood-type"
-                                                    value={member.memberBloodType}
+                                            <Tooltip title="修改密碼">
+                                                <Button
+                                                    className={classes.change_password}
+                                                    onClick={Sendpassword}
+                                                    component={Link}
+                                                    to="/updatePassword"
+                                                    variant="contained"
                                                 >
-                                                    <MenuItem value="A">A</MenuItem>
-                                                    <MenuItem value="B">B</MenuItem>
-                                                    <MenuItem value="AB">AB</MenuItem>
-                                                    <MenuItem value="O">O</MenuItem>
-                                                    <MenuItem value="RH">RH 陰性</MenuItem>
-                                                </Select>
-                                            </FormControl> */}
-                                        </TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell>生日：</TableCell>
-                                        <TableCell>
-                                            <TextField type="datetime" variant="outlined" value={member.memberBirthdayString} InputLabelProps={{shrink: true}} disabled/>
-                                        </TableCell>
-                                        <TableCell>聯絡電話：</TableCell>
-                                        <TableCell>
-                                            <TextField variant="outlined" value={member.memberPhone} />
+                                                    更改密碼
+                                                </Button>
+                                            </Tooltip>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -341,38 +318,117 @@ export default function Profile() {
                                         <TableCell>
                                             <TextField variant="outlined" value={member.memberID} disabled />
                                         </TableCell>
+                                        <TableCell>血型：</TableCell>
+                                        <TableCell>
+                                            <FormControl style={{ minWidth: "100px" }} variant="outlined">
+                                                <Select
+                                                    labelId="blood-type"
+                                                    value={member.memberBloodType}
+                                                    onChange={handleChange('memberBloodType')}
+                                                    name="BloodType"
+                                                >
+                                                    <MenuItem value="A" >A</MenuItem>
+                                                    <MenuItem value="B" >B</MenuItem>
+                                                    <MenuItem value="AB" >AB</MenuItem>
+                                                    <MenuItem value="O">O</MenuItem>
+                                                    <MenuItem value="RH" >RH 陰性</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>性別：</TableCell>
+                                        <TableCell>
+                                            <RadioGroup name="Gender" value={member.memberGender} onChange={handleChange('memberGender')}>
+                                                <FormControlLabel value="male" control={<RadioColor />} label="男性" />
+                                                <FormControlLabel value="female" control={<RadioColor />} label="女性" />
+                                                <FormControlLabel value="unknown" control={<RadioColor />} label="暫不透漏" />
+                                            </RadioGroup>
+                                        </TableCell>
+                                        <TableCell>生日：</TableCell>
+                                        <TableCell>
+                                            <TextField
+                                                type="date"
+                                                variant="outlined"
+                                                value={member.memberBirthdayString}
+                                                onChange={handleChange('memberBirthdayString')}
+                                                InputLabelProps={{shrink: true}}
+                                                name="Birthday"
+                                                // onChange={e => setMemberBirthday(e.target.value)}
+                                            />
+                                        </TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell>聯絡電話：</TableCell>
+                                        <TableCell>
+                                            <TextField 
+                                                variant="outlined"
+                                                value={member.memberPhone}
+                                                onChange={handleChange('memberPhone')}
+                                                name="Phone"
+                                                // onChange={e=>setMemberPhone(e.target.value)}
+                                            />
+                                        </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "300px" }} value={member.memberAddress} />
+                                            <TextField 
+                                                variant="outlined"
+                                                style={{ minWidth: "400px" }}
+                                                value={member.memberAddress}
+                                                onChange={handleChange('memberAddress')}
+                                                name="Address"
+                                                // onChange={e=>setMemberAddress(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急聯絡人：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContact} />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContact}
+                                                onChange={handleChange('emergencyContact')}
+                                                name="emergencyContact"
+                                                // onChange={e=>setEmergencyContact(e.target.value)}
+                                            />
                                         </TableCell>
                                         <TableCell>緊急聯絡人關係：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" value={member.emergencyContactRelation} />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContactRelation}
+                                                onChange={handleChange('emergencyContactRelation')}
+                                                name="emergencyContactRelation"
+                                                // onChange={e=>setEmergencyContactRelation(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
-                                            <TextField variant="outlined" value={member.emergencyContactPhone} />
+                                            <TextField
+                                                variant="outlined"
+                                                value={member.emergencyContactPhone}
+                                                onChange={handleChange('emergencyContactPhone')}
+                                                name="emergencyContactPhone"
+                                                // onChange={e=>setEmergencyContactPhone(e.target.value)}
+                                            />
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
                             </Table>
                             <Box lineHeight={5} m={1}>
-                                <Button
-                                    className={classes.button}
-                                    onClick={handleSubmit}
-                                    variant="contained"
-                                    startIcon={<SaveIcon />}
-                                >
-                                    儲存更新
-                                </Button>
+                                <Tooltip title="確認儲存">
+                                    <Button
+                                        type="submit"
+                                        className={classes.button}
+                                        onClick={handleSubmit}
+                                        variant="contained"
+                                        startIcon={<SaveIcon />}
+                                    >
+                                        儲存更新
+                                    </Button>
+                                </Tooltip>
                             </Box>
                         </form>
                     </div>
