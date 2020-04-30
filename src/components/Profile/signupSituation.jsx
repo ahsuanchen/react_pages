@@ -116,16 +116,16 @@ export default function SignupSituation() {
                 // await axios.get(url)
                 await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
                         setOrganizer(result.data);
                         console.log(result);
-                    }
+                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -178,16 +178,16 @@ export default function SignupSituation() {
                 // await axios.get(url)
                 await axios.get("/api/activity/organizer/actforfun@gmail.com")
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
                         setActivity(result.data);
                         console.log(result);
-                    }
+                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);

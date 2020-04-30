@@ -94,7 +94,7 @@ export default function OrganizerInfo() {
                     else
                     {
                         setMember(result.data);
-                        console.log(result);
+                        // console.log(result);
                     }
                 })
                 .catch(err => {
@@ -123,16 +123,16 @@ export default function OrganizerInfo() {
                 // await axios.get(url)
                 await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
                         setOrganizer(result.data);
-                        console.log(result);
-                    }
+                        // console.log(result);
+                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -171,12 +171,13 @@ export default function OrganizerInfo() {
             url = url + member.memberEmail ;
             axios.patch(url , updateOrganizerInfo)
             .then(response => {
-                console.log(response);
-                console.log(updateOrganizerInfo);
+                // console.log(response);
+                // console.log(updateOrganizerInfo);
                 alert("主辦單位資訊已修改");
+                window.location.reload();
             })
             .catch(function(error){
-                console.log(updateOrganizerInfo);
+                // console.log(updateOrganizerInfo);
             });
         }
     };
