@@ -20,21 +20,23 @@ import New1 from 'components/Activity/new1.jsx';
 import NewPic from 'components/Activity/newPic.jsx';
 import NewInfo from 'components/Activity/newInfo.jsx';
 import NewDetails from 'components/Activity/newDetails.jsx';
-import UpdatePic from 'components/Activity/newPic.jsx';
-import UpdateInfo from 'components/Activity/newInfo.jsx';
-import UpdateDetails from 'components/Activity/newDetails.jsx';
+import UpdatePic from 'components/Activity/updatePic.jsx';
+import UpdateInfo from 'components/Activity/updateInfo.jsx';
+import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
 import Homepage from 'components/Profile/editSignupInformation.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
 import Profile from 'components/Profile/profile.jsx';
+import UpdatePassword from 'components/Profile/updatePassword.jsx';
 import SignupSituation from 'components/Profile/signupSituation.jsx';
 import EditSignupInfo from 'components/Profile/editSignupInformation.jsx';
 import TrainingFace from 'components/Profile/trainingFace.jsx';
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
+import ManualCheck from 'components/Profile/manualCheck.jsx';
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
 import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
@@ -76,6 +78,7 @@ class Layout extends React.Component {
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/searchInfo" component={SearchInfo} />
       <Route path="/profile" component={Profile} />
+      <Route path="/updatePassword" component={UpdatePassword} />
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
@@ -88,6 +91,7 @@ class Layout extends React.Component {
       <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
 
+      <Route path="/manualCheck" component={ManualCheck} />
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
       </>
@@ -97,13 +101,13 @@ class Layout extends React.Component {
 
 export default Layout;
 {/*<Header routes={routes} /> */}
-{/*
-  routes.map((page,key) => (
+
+  {/* routes.map((page,key) => (
     <Route path={page.path} component={page.component} key={key}/>
   ))
 
   放在<header>下面
   {routes.map((page,key) => (
     <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
-  ))}
-*/}
+  ))} */}
+ 

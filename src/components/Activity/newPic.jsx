@@ -104,15 +104,11 @@ export default function BulidActivity_step2() {
         <div className={classes.div}>
             <Header />
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={1} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={4} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step2 : 上傳活動資訊照片
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (上傳您的封面照)
+                    請上傳活動封面照
                 </Typography>
             </div>
             <div>
@@ -125,7 +121,7 @@ export default function BulidActivity_step2() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -133,7 +129,7 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 1GB</span>
+                                    <span className={classes.span}> 4mb</span>
                                 </div>
                             </>
                             :(
@@ -148,7 +144,7 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 1GB</span>
+                                    <span className={classes.span}> 4mb</span>
                                 </div>
                             </>
                         )}
@@ -159,7 +155,7 @@ export default function BulidActivity_step2() {
                         <Button 
                             className={classes.button_part1}
                             component={Link}
-                            to="/new1"
+                            to="/newDetails"
                         >
                             上一步
                         </Button>
@@ -168,9 +164,9 @@ export default function BulidActivity_step2() {
                         <Button 
                             className={classes.button_part2}
                             component={Link}
-                            to="/newInfo"
+                            to="/"
                         >
-                            下一步
+                            完成
                         </Button>
                     </Box>
                 </Grid> 

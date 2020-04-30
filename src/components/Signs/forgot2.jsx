@@ -55,7 +55,11 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        fontSize: "15px",
+        marginTop : "10%" ,
     },
     font: {
         color: theme.palette.grey,

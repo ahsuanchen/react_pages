@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -18,6 +19,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import { borders } from '@material-ui/system';
+import { Router,Route,hashHistory} from 'react-router';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 
 
@@ -31,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '135vh',
+        height: '140vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -67,7 +71,14 @@ const useStyles = makeStyles(theme => ({
         marginLeft: theme.spacing(3),
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        border: 0 ,
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        borderRadius: "5px",
+        fontSize: "10px",
+        marginTop : "8%" ,
+        margin:"1% 10%"
     },
     font: {
         color: theme.palette.grey,
@@ -94,36 +105,43 @@ const GreenRadio = withStyles({
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+const SignUpInfoPage = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+
+    
+};
 
 
 
-export default function SignUpInfo() {
+
+
+export default function SignUpInfo(props) {
     const classes = useStyles();
 
-    const [valueG, setValueG] = React.useState('female');
-    const [valueB, setValueB] = React.useState('A');
+    const [valueG, setValueG] = React.useState('');
+    const [valueB, setValueB] = React.useState('');
 
-    const handleChangeG = event => {
-        setValueB(event.target.value);
-    }
+    // const handleChange = event => {
+    //     setValue(event.target.value);
+    //   };
 
-    const handleChangeB = event => {
-        setValueB(event.target.value);
-    }
+    // const handleChangeG = event => {
+    //     setValueB(event.target.value);
+    // }
 
-    const ViewTextPage = props => {
-        const text = props.location.state.name;
-      
-        const viewText = () => {
-          console.log(text);
-        };
-      
-        return <button onClick={viewText}>view</button>;
-      };
+    // const handleChangeB = event => {
+    //     setValueB(event.target.value);
+    // }
 
 
-    // const  [memberEmail,setMemberEmail] =  useState("");
-    // const  [memberPassword,setMemberPassword] =  useState("");
+    const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
+    const  [memberPassword,setMemberPassword] =  useState(localStorage.getItem('memberPassword'));
     const  [memberName,setMemberName] =  useState("");
     const  [memberGender,setMemberGender] =  useState("");
     const  [memberBloodType,setMemberBloodType] =  useState("");
@@ -137,9 +155,14 @@ export default function SignUpInfo() {
     const  [memberType,setMemberType] =  useState("0");//只有會員身份時為0
     const  [memberEnabled,setMemberEnabled] =  useState("1");
 
+    let history = useHistory();
+
     const handleSubmit=(event)=> {
+        
         //event.preventDefault();
         const member={
+            memberEmail:memberEmail,
+            memberPassword:memberPassword,
             memberName:memberName,
             memberGender:memberGender,
             memberBloodType:memberBloodType,
@@ -163,14 +186,17 @@ export default function SignUpInfo() {
             }
         })
           .then(res => {
-            alert("yes")
+            //alert("yes")
             console.log("test")
             console.log(res);
             console.log(res.data);
+            history.push({
+                pathname: "/settingface",
+              });
+            
             
           }).catch(function(error){
               alert(error);
-              alert("y2")
           });
         
     }
@@ -189,18 +215,38 @@ export default function SignUpInfo() {
                     <paper>
                         <Grid>
                         {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+
+                            <input
+                                type="hidden"
+                                id="memberEmail"
+                                label="帳號"
+                                value={memberEmail}
+                                onChange={e=>setMemberEmail(e.target.value)}
+                            />
+
+                            <input
+                                type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={memberPassword}
+                                onChange={e=>setMemberPassword(e.target.value)}
+                            />
+
+                        
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
                                 id="memberName"
                                 label="姓名"
+                                autoFocus
                                 onChange={e=>setMemberName(e.target.value)}
                             />
 
-                            {/* <FormControl component="fieldset" className={classes.formControl} required>
+                            <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">性別</FormLabel>
-                                <RadioGroup aria-label="性別" id="memberGender" value={valueG} onChange={e=>setMemberGender(e.target.value)} >
+                                <RadioGroup aria-label="性別" id="memberGender" value={memberGender} onChange={e=>setMemberGender(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
@@ -217,7 +263,7 @@ export default function SignUpInfo() {
 
                             <FormControl component="fieldset" className={classes.formControl} required>
                                 <FormLabel component="legend">血型</FormLabel>
-                                <RadioGroup aria-label="血型" id="memberBloodType" value={valueB} onChange={e=>setMemberBloodType(e.target.value)} >
+                                <RadioGroup aria-label="血型" id="memberBloodType" value={memberBloodType} onChange={e=>setMemberBloodType(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
                                         <FormControlLabel value="A" control={<GreenRadio size="small" />} label="A" />
@@ -233,9 +279,9 @@ export default function SignUpInfo() {
                                     </Grid>
                                 </Grid>
                                 </RadioGroup>
-                            </FormControl> */}
+                            </FormControl>
 
-                            <TextField
+                            {/* <TextField
                                 margin="normal"
                                 fullWidth
                                 required
@@ -251,11 +297,12 @@ export default function SignUpInfo() {
                                 id="memberBloodType"
                                 label="血型"
                                 onChange={e=>setMemberBloodType(e.target.value)}
-                            />
+                            /> */}
 
 
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -266,6 +313,7 @@ export default function SignUpInfo() {
 
 
                             <TextField 
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -278,6 +326,7 @@ export default function SignUpInfo() {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 fullWidth
                                 required
@@ -287,6 +336,7 @@ export default function SignUpInfo() {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -296,6 +346,7 @@ export default function SignUpInfo() {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -305,6 +356,7 @@ export default function SignUpInfo() {
                             /> 
                             
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -314,6 +366,7 @@ export default function SignUpInfo() {
                             />
 
                             <TextField
+                                variant="outlined"
                                 margin="normal"
                                 required
                                 fullWidth
@@ -322,38 +375,6 @@ export default function SignUpInfo() {
                                 onChange={e=>setEmergencyContactPhone(e.target.value)}
                             />
 
-                        <Grid container justify="center"  key={10}>
-                        
-                            <Button
-                                type="submit"
-                                width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                href="./signup"
-                            >
-                                <ChevronLeftIcon />
-                                上一步
-                            </Button>
-                            <Button
-                                type="submit"
-                                Width="50"
-                                variant="contained"
-                                color="primary"
-                                className={classes.submit}
-                                // href="./settingface"
-                                onChange={e=>setMemberType(0)}
-                                onChange={e=>setMemberEnabled(1)}
-                                onClick={handleSubmit}
-                                
-                            >
-
-                                <ChevronRightIcon />
-                                下一步
-                            </Button>
-                        </Grid>
-                        
-
                         {/* </form> */}
                         </Grid>
                     </paper>
@@ -361,7 +382,36 @@ export default function SignUpInfo() {
                     </Grid>
 
                 </div>
+                <Grid container justify="center"  key={10}>
+                        
+                        <Button
+                            type="submit"
+                            width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            href="./signup"
+                        >
+                            <ChevronLeftIcon />
+                            上一步
+                        </Button>
+                        <Button
+                            type="submit"
+                            Width="50"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            // href="./settingface"
+                            onChange={e=>setMemberType(0)}
+                            onChange={e=>setMemberEnabled(1)}
+                            onClick={handleSubmit}
+                            
+                        >
 
+                            <ChevronRightIcon />
+                            下一步
+                        </Button>
+                    </Grid>
             </Container>
         </Grid>
     );

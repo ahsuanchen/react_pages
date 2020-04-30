@@ -1,4 +1,6 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -19,8 +21,10 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '100vh',
-        margin: theme.spacing(10, 15),
+        height: '90vh',
+        width:'100%',
+        marginTop: theme.spacing(10),
+        color: 'white',
         //borderRadius: 10,
         //borderColor: ,
         //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
@@ -51,15 +55,54 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        margin: theme.spacing(3, 0, 2),
+        color : "#fff" ,
+        textAlign : "center" ,
+        background : '#00bfa5',
+        fontSize: "15px",
+        marginTop : "10%" ,
     },
     font: {
         color: theme.palette.grey,
     },
 }));
 
-export default function SignUp() {
+export default function ForgotPW1() {
     const classes = useStyles();
+
+    const  [memberEmail,setMemberEmail] =  useState("");
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+        //event.preventDefault();
+        const member={
+            memberEmail:memberEmail,
+        }
+
+        
+        axios.post("api/forgetpassword/{memberEmail}", member,
+        {
+            auth:
+            {
+                username : "user",
+                password : "123"
+            }
+        })
+        .then(res => {
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/forgot2",
+              });
+            
+          }).catch(function(error){
+              alert(error);
+          });
+        }
+
+                     
+        
 
     return (
         <Grid className={classes.root}>
@@ -70,7 +113,7 @@ export default function SignUp() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <form className={classes.form} noValidate>
+                        
                             輸入您的電子信箱，我們將會傳送恢復帳號存取權的連結給您。
                             <TextField
                                 margin="normal"
@@ -79,6 +122,7 @@ export default function SignUp() {
                                 id="memberEmail"
                                 label="電子信箱"
                                 name="memberEmail"
+                                onChange={e=>setMemberEmail(e.target.value)}
                             />
 
                             <Button
@@ -87,7 +131,7 @@ export default function SignUp() {
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
-                                href="./forgot2"
+                                onClick={handleSubmit}
                             >
                                 傳送登入連結
                             </Button>
@@ -96,26 +140,17 @@ export default function SignUp() {
                             ---或---
                             </Typography>
 
-                            
-
-                                <Button
+                            <Button
                                 type="submit"
                                 fullWidth
                                 variant="contained"
                                 color="primary"
                                 className={classes.submit}
                                 href="./signup"
-                                >
-
+                            >
                                 註冊新帳號
-                                
-                                </Button>
+                            </Button>
 
-
-
-
-                            
-                        </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

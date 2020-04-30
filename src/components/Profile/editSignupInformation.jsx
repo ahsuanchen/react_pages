@@ -2,7 +2,7 @@ import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -86,19 +86,43 @@ export default function EditSignupInfo() {
         setblood(event.target.value);
     };
 
+    
+    let history = useHistory();
+    function goSignin()
+    {
+        history.push("/signin");
+    }
+
+    function goHomePage()
+    {
+        history.push("/");
+    }
+
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
                 const result = await axios.get("/api/member/actforfun@gmail.com")
-                setMember(result.data);
-                console.log(result);
-                // .then(result => {
-                //     setMember(result.data)
-                //     console.log(result)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setMember(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataMem();
     }, []);
@@ -107,14 +131,27 @@ export default function EditSignupInfo() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
+                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                .then(result => {
+                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    {
+                        alert("您尚未登入，請先登入！")
+                        goSignin();
+                    }
+                    else
+                    {
+                        setOrganizer(result.data);
+                        console.log(result);
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
         }
         fetchDataOrg();
     }, []);
@@ -129,7 +166,7 @@ export default function EditSignupInfo() {
                                 <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
                             </Box>
                             <Box lineHeight={2} m={1}>
-                                {member.memberName}
+                                <strong>{member.memberName}</strong>
                             </Box>
                             <Divider />
                             <Link to="/profile" className={classes.link}>
@@ -149,7 +186,7 @@ export default function EditSignupInfo() {
                             </Link>
                             <Divider />
                             <Box lineHeight={3} m={1}>
-                                {organizer.organizerName}
+                                <strong>{organizer.organizerName}</strong>
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>

@@ -120,11 +120,13 @@ export default function SignInSide() {
         <CssBaseline />
         <Grid item xs={false} sm={5} md={5} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.paperout}>
-        <div><Snackbar  open={open} autoHideDuration={3500} onClose={handleClose}>
-              <Alert onClose={handleClose} severity="warning">
-                帳號或密碼錯誤！
-              </Alert>
-              </Snackbar></div>
+        <div>
+          <Snackbar  open={open} autoHideDuration={3500} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="warning">
+              帳號或密碼錯誤！
+            </Alert>
+          </Snackbar>
+        </div>
           <div className={classes.paper}>
             
             <Typography component="h1" variant="h5">
@@ -221,10 +223,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                id="password"
                 label="密碼"
                 type="password"
-                id="password"
+                name="password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -238,12 +240,12 @@ export default function SignInSide() {
                 className={classes.submit}
               >
                 登入
-            </Button>
+              </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="forgot1" variant="body2">
                     忘記密碼？
-                </Link>
+                  </Link>
                 </Grid>
                 <Grid item>
                   <Link href="signup" variant="body2">

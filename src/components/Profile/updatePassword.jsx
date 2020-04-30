@@ -11,10 +11,15 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -27,18 +32,18 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" ,
+        maxWidth : "280px" , 
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" ,
+        minWidth : "150px" , 
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" ,
+        textDecoration : "none" , 
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE'
+          color : '#00AEAE' 
         }
     } ,
     content : {
@@ -52,6 +57,7 @@ const useStyles = makeStyles(theme => ({
     table : {
         display: "flex" ,
         justifyContent : "center" ,
+        margin : "5% auto" ,
     } ,
     button_part : {
         margin : "2%" ,
@@ -65,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function OrganizerInfo() {
+export default function Updatepassword() {
     const classes = useStyles();
 
     let history = useHistory();
@@ -79,7 +85,14 @@ export default function OrganizerInfo() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
+    const [member, setMember] = useState({
+        oldPassword : '' ,
+        newPassword : '' ,
+        repeatNewPassword : '' ,
+        showoldPassword: false ,
+        shownewPassword: false ,
+        showrepeatnewPassword: false ,
+    });
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
@@ -108,12 +121,7 @@ export default function OrganizerInfo() {
         fetchDataMem();
     }, []);
 
-    const [organizer, setOrganizer] = useState({
-        organizerName : '' ,
-        organizerPhone : '' ,
-        organizerAddress : '' ,
-        organizerInfo : ''
-    });
+    const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
@@ -142,25 +150,48 @@ export default function OrganizerInfo() {
         fetchDataOrg();
     }, []);
 
-    const handleChange = updateOrgInfo => event => {
-        setOrganizer({...organizer, [updateOrgInfo]: event.target.value});
-    }
+    const handleClickShowOldPassword = () => {
+        setMember({ ...member, showoldPassword: !member.showoldPassword });
+    };
+    const handleClickShowNewPassword = () => {
+        setMember({ ...member, shownewPassword: !member.shownewPassword });
+    };
+    const handleClickShowRepeatNewPassword = () => {
+        setMember({ ...member, showrepeatnewPassword: !member.showrepeatnewPassword });
+    };
+    
+    const handleMouseDownPassword = (event) => {
+        event.preventDefault();
+    };
+
+    const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
+
+    const handleChange = updateMemPassword => (event) => {
+        setMember({ ...member, [updateMemPassword]: event.target.value });
+    };
+
     const handleSubmit = event => {
         event.preventDefault();
-        const updateOrganizerInfo = {
-            organizerName : organizer.organizerName ,
-            organizerPhone : organizer.organizerPhone ,
-            organizerAddress : organizer.organizerAddress ,
-            organizerInfo : organizer.organizerInfo
+        const updatePassword = {
+            memberPassword : member.memberPassword
         }
-        
-        if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
+        if (member.oldPassword != oldPassword)
         {
-            alert("連絡電話格式錯誤");
+            alert("舊密碼輸入錯誤");
+            console.log(member);
+            console.log(updatePassword);
+        }
+        else if (member.newPassword != member.memberPassword)
+        {
+            alert("新密碼輸入不一致");
+            console.log(member);
+            console.log(updatePassword);
         }
         else
         {
-            axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
+            let url =  "/api/member/updatepassword/" ;
+            url = url + oldPassword + updatePassword.memberPassword ;
+            axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
                 auth:
                 {
                     username : "actforfun@gmail.com",
@@ -169,11 +200,12 @@ export default function OrganizerInfo() {
             })
             .then(response => {
                 console.log(response);
-                console.log(updateOrganizerInfo);
-                alert("主辦單位資訊已修改");
+                console.log(updatePassword);
+                alert("密碼已修改");
+                history.push("/profile");
             })
             .catch(function(error){
-                console.log(updateOrganizerInfo);
+                console.log(updatePassword);
             });
         }
     };
@@ -190,7 +222,7 @@ export default function OrganizerInfo() {
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
                             </Box>
-                            <Divider />
+                            <Divider />    
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -212,17 +244,17 @@ export default function OrganizerInfo() {
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
+                                <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
-                            </Link>
+                            </Link>    
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
                             </Link>
                             <Divider />
-                            <Link to="/MyAlbum" className={classes.link}>
+                            <Link to="/" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
                                 </Box>
@@ -232,79 +264,113 @@ export default function OrganizerInfo() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">
-                                {organizer.organizerName}
+                                更 改 密 碼
                             </Typography>
                             <hr />
                         </div>
+                        <input
+                                type="hidden"
+                                id="memberPassword"
+                                label="密碼"
+                                value={oldPassword}
+                            />
                         <div>
                             <form>
-                                <Box lineHeight="normal" m={1}>
-                                    <Typography variant="h4" className={classes.topic}>
-                                        主 辦 單 位 資 訊
-                                    </Typography>
-                                </Box>
                                 <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
                                                 <Typography variant="h6">
-                                                    主辦單位名稱：
+                                                    請輸入舊密碼：
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField 
-                                                    style={{minWidth:"250px"}}
-                                                    value={organizer.organizerName}
-                                                    onChange={handleChange('organizerName')}
-                                                />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-old">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-old"
+                                                        required
+                                                        type={member.showoldPassword ? 'text' : 'password'}
+                                                        value={member.oldPassword}
+                                                        onChange={handleChange('oldPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowOldPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.showoldPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
                                                 <Typography variant="h6">
-                                                    電子信箱：
+                                                    請輸入新密碼：
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerEmail} disabled />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-new">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-new"
+                                                        required
+                                                        type={member.shownewPassword ? 'text' : 'password'}
+                                                        value={member.newPassword}
+                                                        onChange={handleChange('newPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowNewPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.shownewPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
                                                 <Typography variant="h6">
-                                                    連絡電話：
+                                                    再次輸入新密碼：
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField value={organizer.organizerPhone} onChange={handleChange('organizerPhone')} />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography variant="h6">
-                                                    聯絡地址：
-                                                </Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                            <TextField
-                                                style={{minWidth:"350px"}}
-                                                value={organizer.organizerAddress}
-                                                onChange={handleChange('organizerAddress')}
-                                            />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>
-                                                <Typography variant="h6">
-                                                    主辦單位簡介：
-                                                </Typography>
-                                            </TableCell>
-                                            <TableCell>
-                                                <TextareaAutosize
-                                                    style={{minWidth:"350px" , minHeight:"250px"}}
-                                                    value={organizer.organizerInfo}
-                                                    onChange={handleChange('organizerInfo')}
-                                                />
+                                                <FormControl variant="outlined">
+                                                    <InputLabel htmlFor="outlined-adornment-password-repeat">Password</InputLabel>
+                                                    <OutlinedInput
+                                                        id="outlined-adornment-password-repeat"
+                                                        required
+                                                        type={member.showrepeatnewPassword ? 'text' : 'password'}
+                                                        onChange={handleChange('memberPassword')}
+                                                        endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleClickShowRepeatNewPassword}
+                                                            onMouseDown={handleMouseDownPassword}
+                                                            edge="end"
+                                                            >
+                                                            {member.showrepeatnewPassword ? <Visibility /> : <VisibilityOff />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                        }
+                                                        labelWidth={70}
+                                                    />
+                                                </FormControl>
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -316,13 +382,15 @@ export default function OrganizerInfo() {
                                             variant="contained"
                                             onClick={handleSubmit}
                                             className={classes.button}
+                                            // component={Link}
+                                            // to="/profile"
                                         >
                                             確認更改
                                         </Button>
                                     </div>
                                 </Box>
                             </form>
-                        </div>
+                        </div>  
                 </Container>
             </div>
         </div>
