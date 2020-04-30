@@ -14,44 +14,7 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
 import Container from '@material-ui/core/Container';
-
-
-
-const BootstrapInput = withStyles(theme => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        borderRadius: 4,
-        position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        fontSize: 16,
-        padding: '10px 26px 10px 12px',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        // Use the system font instead of the default Roboto font.
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-}))(InputBase);
-
+     
 
 
 const useStyles = makeStyles(theme => ({
@@ -60,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "5% auto"
     } ,
     button_part : {
         display: "flex" ,
@@ -118,22 +81,40 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function UpdateActivity_step4() {
+export default function UpdateActivity_step() {
     const classes = useStyles();
+
+     // //宣吿要接值的變數
+    const [act, setAct] = useState({
+        // activityId:localStorage.getItem('activityId'),
+        activityId:"10",
+        activityMoreContent:'',
+        activityPrecautions:'',
+        activitySummary:'',
+        activityInfo:'',
+        activityMeal:'',
+    });
+
+    let history = useHistory();
+
+
+    let url = "api/activity/";
+    url = url + act.activityId;
+
+    const handleChange = updateActInfo => event => {
+        setAct({...act, [updateActInfo]: event.target.value});
+    
+    }
 
     return (
         <div className={classes.root}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={3} />
+            <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step4 : 修改活動內容
-                </Typography>
-                <br/>
-                <Typography variant="h5">
-                    (填寫活動細節)
+            <Typography variant="h5">
+                    修改活動內容
                 </Typography>
             </div>
             <Grid className={classes.space}>
@@ -206,7 +187,7 @@ export default function UpdateActivity_step4() {
                                             component={Link}
                                             to="/homepageAfterLogin"
                                         >
-                                            完成送出
+                                            下一步
                                         </Button>
                                     </Box>
                                 </Grid>

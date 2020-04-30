@@ -83,7 +83,6 @@ export default function ForgotPW1() {
         localStorage.setItem('memberEmail_forget', memberEmail_forget);
 
         let url = "/api/member/forgetpassword/";
-        //const memberEmail = memberEmail;
         url = url + member.memberEmail;
 
         
@@ -114,7 +113,7 @@ export default function ForgotPW1() {
                 <div className={classes.paper}>
                     <paper>
                         
-                            輸入您的電子信箱，我們將會傳送新密碼至您的信箱。
+                            請輸入您的電子信箱，我們將會傳送新密碼至您的信箱。
                             <TextField
                                 margin="normal"
                                 required

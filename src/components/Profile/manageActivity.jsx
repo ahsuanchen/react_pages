@@ -208,6 +208,14 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
+    const SendActID = event =>
+    {
+        localStorage.setItem('activityId', activity.activityId);
+        history.push({
+            pathname: "/updateInfo",
+        });
+    }
+
     const activity_End_or_not = new Date();
 
     return (
@@ -348,8 +356,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={SendActID}
                                                                 >
                                                                     修改活動
                                                                 </Button>

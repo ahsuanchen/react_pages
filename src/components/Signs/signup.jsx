@@ -153,10 +153,11 @@ const SignUpPage = props => {
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
+                                    type="email"
                                     required
                                     fullWidth
                                     id="memberEmail"
-                                    label="帳號"
+                                    label="電子信箱"
                                     name="email"
                                     onChange={e=>setMemberEmail(e.target.value)}
                                 />
