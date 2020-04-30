@@ -15,7 +15,12 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import React, { useState,useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -67,88 +72,43 @@ export default function ActivityInfo() {
       fetchData();
   },[]);
 
-
-
-{/* <>
-    <Table align = "center" style = {{width : "85%"}}>
-      <TableHead>
-          <TableRow>
-            <TableCell colSpan={2}><Typography variant="h5">台北設計電波</Typography></TableCell>
-          </TableRow>
-      </TableHead>
-      <TableBody>
-        <TableRow >
-          <TableCell style={{width: '40%'}} rowSpan={5}><img src="assets/images/1.jpg" width="700"/></TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <LocationOnIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="活動地點" secondary="Jan 7, 2014" />
-              </ListItem>
-            </List>
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <DateRangeIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="活動時間" secondary="Jan 9, 2014" />
-              </ListItem>
-            </List>
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <ScheduleIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="報名時間" secondary="July 20, 2014" />
-              </ListItem>
-            </List>
-          </TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>
-            <List>
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar>
-                    <LinkIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary="相關連結" secondary="July 20, 2014" />
-              </ListItem>
-           </List>
-         </TableCell>
-      </TableRow>
-    </TableBody>
-    </Table>
-    </> */}
+const [member_Email,setMember_Email] = useState("");
+const [activity_Id,setActivity_Id] = useState("");
+const [registrationRemark,setRegistrationRemark] = useState("");
+const [registrationMeal,setRegistrationMeal] = useState(0);
 
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
 
-    const [checked, setChecked] = React.useState(true);
+    const [value, setValue] = React.useState("0");
 
-    const handleChange = (event) => {
-      setChecked(event.target.checked);
-    };
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const handleSubmit = (event) =>{
+
+    const Registration =
+    {
+      member_Email : member.memberEmail,
+      activity_Id : act.activityId,
+      registrationRemark : registrationRemark,
+      registrationMeal : registrationMeal
+    }
+
+    console.log(Registration);
+    axios.post("api/registration/",Registration)
+    .then( res => {
+      console.log("ok");
+
+    }).catch(function(error)
+  {
+    console.log(error);
+  });
+
+    
+  };
 
   return (
     <>
@@ -156,14 +116,18 @@ export default function ActivityInfo() {
         <TableBody>
           <TableRow >
             <TableCell style={{width: '40%'}} rowSpan={2}>
-              <img src="assets/images/1.jpg" width = "400"/>
+              <img src="assets/images/1.jpg" width = "500"/>
               <Typography variant="h6" gutterBottom>{act.activityName}</Typography>
-              <Typography gutterBottom>活動報名截止時間:</Typography>
-              <Typography gutterBottom>{act.endSignUpDateString} </Typography>
+              <Typography gutterBottom>活動報名時間:</Typography>
+              <Typography gutterBottom>{act.startSignUpDateString}到{act.endSignUpDateString} </Typography>
               <Typography gutterBottom>活動時間:</Typography>
-              <Typography gutterBottom>{act.activityStartDateString}</Typography>
+              <Typography gutterBottom>{act.activityStartDateString}到{act.activityEndDateString}</Typography>
               <Typography gutterBottom>活動地點:</Typography>
               <Typography gutterBottom>{act.activitySpace}</Typography>
+              <Typography gutterBottom>參加人數:</Typography>
+              <Typography gutterBottom>{act.attendPeople}</Typography>
+              <Typography gutterBottom>相關連結:</Typography>
+              <Typography gutterBottom>{act.activityLink}</Typography>
 
             </TableCell>
           </TableRow>
@@ -196,12 +160,32 @@ export default function ActivityInfo() {
           InputProps={{
             readOnly: true,
           }}/>
-          {(act.activityMeal==1)?"餐點:"
-          :"*此活動不提供餐點*"}
-
+          <Typography>
+            {(act.activityMeal==1)?"餐點:":null}
+          </Typography>
+          {(act.activityMeal==1)?
+            <FormControl component="fieldset">
+              <RadioGroup aria-label="meal" name="activityMeal" value={value} onChange={handleChange}>
+              <FormControlLabel value="2" control={<Radio />} label="葷食" />
+              <FormControlLabel value="1" control={<Radio />} label="素食" />
+              <FormControlLabel value="0" control={<Radio />} label="不需要" />
+          </RadioGroup>
+          </FormControl> : null
+          }
+          <Typography>
+            備註:
+          </Typography>
+          <TextField
+            name="registrationRemark"
+            style={{minWidth:"100%"}}
+            id="outlined-multiline-static"
+            multiline
+            rows={4}
+            variant="outlined"/>
+          <Typography gutterBottom>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
-        <Button variant="contained" color="secondary">確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary">確定報名</Button>
       </CardActions>
     </Card>
            </TableCell>
