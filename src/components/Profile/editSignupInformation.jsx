@@ -33,18 +33,18 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" , 
+        maxWidth : "280px" ,
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" , 
+        minWidth : "150px" ,
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     } ,
     content : {
@@ -102,7 +102,8 @@ export default function EditSignupInfo() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -131,7 +132,9 @@ export default function EditSignupInfo() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -168,7 +171,7 @@ export default function EditSignupInfo() {
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
                             </Box>
-                            <Divider />    
+                            <Divider />
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -193,14 +196,14 @@ export default function EditSignupInfo() {
                                 <Box lineHeight={1} m={4} >
                                     主辦單位資訊
                                 </Box>
-                            </Link>    
+                            </Link>
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
                             </Link>
                             <Divider />
-                            <Link to="/" className={classes.link}>
+                            <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
                                 </Box>
@@ -226,8 +229,8 @@ export default function EditSignupInfo() {
                                 </Typography>
                             </Grid>
                         </Grid>
-                        <hr /> 
-                    </div> 
+                        <hr />
+                    </div>
                         <div>
                             <form>
                                 <Box lineHeight="normal" m={1}>
@@ -261,7 +264,7 @@ export default function EditSignupInfo() {
                                                         <MenuItem value="female">女</MenuItem>
                                                         <MenuItem value="unknown">暫不透漏</MenuItem>
                                                     </Select>
-                                                </FormControl>   
+                                                </FormControl>
                                             </TableCell>
                                             <TableCell>血型：</TableCell>
                                             <TableCell>
@@ -334,7 +337,7 @@ export default function EditSignupInfo() {
                                     </div>
                                 </Box>
                             </form>
-                        </div>  
+                        </div>
                 </Container>
             </div>
         </div>

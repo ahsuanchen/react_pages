@@ -8,10 +8,7 @@ import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -348,14 +345,6 @@ export default function BulidActivity_step3() {
                                         </Button>
                                     </Box>
                                 </Grid>
-                                {/* <IconButton color="primary" aria-label="next step" href="./new3">
-                                    <ArrowBackIcon />
-                                </IconButton>
-                                <IconButton color="primary" aria-label="next step" href="./">
-                                    <ArrowForwardIcon />
-                                </IconButton> */}
-
-                            {/* </form> */}
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>

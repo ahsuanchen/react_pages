@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -42,10 +42,10 @@ const useStyles = makeStyles(theme => ({
       width: "220px" ,
     } ,
     link : {
-      textDecoration : "none" , 
+      textDecoration : "none" ,
       color : "#9D9D9D" ,
       '&:hover' : {
-        color : '#00AEAE' 
+        color : '#00AEAE'
       }
     } ,
     menu : {
@@ -86,7 +86,7 @@ export default function MenuAppBar() {
               <ListItemText primary="首頁" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/profile" button>
+            <ListItem component={Link} to="/Activity" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faTasks} />
               </ListItemIcon>
@@ -122,9 +122,9 @@ export default function MenuAppBar() {
         <div className={classes.div}>
             <AppBar className={classes.appbar}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton 
+                    <IconButton
                         edge="start"
-                        color="inherit" 
+                        color="inherit"
                         onClick={toggleDrawer('left', true)}
                     >
                         <MenuIcon />
@@ -132,7 +132,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6">
                         ACTFUN
                     </Typography>
-                    <IconButton 
+                    <IconButton
                         edge="start"
                         color="inherit"
                     >

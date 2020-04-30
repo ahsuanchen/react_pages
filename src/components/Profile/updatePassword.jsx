@@ -11,7 +11,6 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -97,7 +96,8 @@ export default function Updatepassword() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -126,7 +126,9 @@ export default function Updatepassword() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -190,12 +192,14 @@ export default function Updatepassword() {
         }
         else
         {
-            axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
+            let url = "/api/member/" ;
+            url = url + member.memberEmail;
+            axios.patch(url, updatePassword , {
                 auth:
                 {
                     username : "actforfun@gmail.com",
                     password : "123"
-                },
+                }   
             })
             .then(response => {
                 console.log(response);

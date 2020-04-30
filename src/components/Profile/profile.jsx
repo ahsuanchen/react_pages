@@ -96,6 +96,7 @@ export default function Profile() {
     }
     const [member, setMember] = useState({
         memberName : '' ,
+        memberEmail : '' ,
         memberBloodType : ' ' ,
         memberGender : '' ,
         memberBirthday : '' ,
@@ -108,7 +109,8 @@ export default function Profile() {
     });
     useEffect(() => {
         async function fetchDataMem() {
-                await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     // if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     // {
@@ -155,8 +157,7 @@ export default function Profile() {
         {
             alert("姓名字數錯誤");
         }
-        else if ((updateMemberInfo.memberPhone.length > 10 || updateMemberInfo.memberPhone.length < 9)
-        || (updateMemberInfo.emergencyContactPhone.length > 10 || updateMemberInfo.emergencyContactPhone.length < 9))
+        else if (updateMemberInfo.memberPhone.length != 10 || updateMemberInfo.emergencyContactPhone.length != 10)
         {
             alert("連絡電話格式錯誤");
         }
@@ -166,18 +167,15 @@ export default function Profile() {
         }
         else
         {
-            axios.patch('/api/member/actforfun@gmail.com', updateMemberInfo , {
-                auth:
-                {
-                    username : "actforfun@gmail.com",
-                    password : "123"
-                },
-            })
+            let url = "/api/member/";
+            url = url + member.memberEmail;
+            axios.patch(url , updateMemberInfo)
             .then(response => {
                 console.log(response);
                 // console.log(response.data);
                 console.log(updateMemberInfo);
                 alert("個人檔案內容已修改");
+                window.location.reload();
             })
             .catch(function(error){
             });
@@ -195,8 +193,10 @@ export default function Profile() {
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
-        async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+            async function fetchDataOrg() {
+                // let url = "/api/login/name/"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -265,7 +265,7 @@ export default function Profile() {
                                 </Box>
                         </Link>
                         <Divider />
-                        <Link to="/" className={classes.link}>
+                        <Link to="/MyAlbum" className={classes.link}>
                             <Box lineHeight={2} m={1}>
                                 我的相簿
                             </Box>

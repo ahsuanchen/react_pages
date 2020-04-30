@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     icon_part : {
         fontSize : "150px"
-    } , 
+    }
   }));
 
 const properties = {
@@ -223,7 +223,7 @@ export default function MenuApp() {
                                 <Grid container spacing={10}>
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
-                                            <CardActionArea component={Link} to="/">
+                                            <CardActionArea component={Link} to="/organizer">
                                                 <CardMedia>
                                                     <GroupIcon className={classes.icon_part} />
                                                 </CardMedia>

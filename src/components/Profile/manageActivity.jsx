@@ -27,6 +27,16 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Draggable from 'react-draggable';
 import ErrorIcon from '@material-ui/icons/Error';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import TagFacesIcon from '@material-ui/icons/TagFaces';
+import KeyboardIcon from '@material-ui/icons/Keyboard';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -39,23 +49,23 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" , 
+        maxWidth : "280px" ,
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" , 
+        minWidth : "150px" ,
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     } ,
     table : {
         margin : "auto" ,
-    } , 
+    } ,
     content : {
         margin : "2% 2%" ,
     } ,
@@ -82,12 +92,30 @@ const useStyles = makeStyles(theme => ({
     Exclamation_Mark : {
         fontSize : "40px" ,
         color : "red" ,
-    } , 
+    } ,
     dig_butoon : {
         color : "#000" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
+    } ,
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    choose_type : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        width : "250px" ,
+        height : "250px" ,
+        color : "#E0E0E0" ,
+        fontSize : "32px" ,
+        textAlign : "center" ,
+        display: 'flex',
+        alignItems: 'center',
+    } ,
+    icon_part : {
+        fontSize : "150px"
     }
   }));
 
@@ -110,6 +138,14 @@ export default function ManageActivity() {
       setOpen(false);
     };
 
+    const [modelopen, setModelOpen] = React.useState(false);
+    const handlemodelOpen = () => {
+      setModelOpen(true);
+    };
+    const handlemodelClose = () => {
+      setModelOpen(false);
+    };
+
     let history = useHistory();
     function goSignin()
     {
@@ -125,7 +161,8 @@ export default function ManageActivity() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -154,7 +191,9 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -183,7 +222,9 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataAct() {
-                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/activity/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -208,6 +249,7 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
+<<<<<<< HEAD
     const SendActID = event =>
     {
         localStorage.setItem('activityId', activity.activityId);
@@ -217,6 +259,9 @@ export default function ManageActivity() {
     }
 
     const activity_End_or_not = new Date();
+=======
+    const activity_End_or_not = new Date().getTime();
+>>>>>>> 3f26487be6a6d06b39bb045a6a6f9d1e6b7e77ec
 
     return (
         <div className={classes.div}>
@@ -230,7 +275,7 @@ export default function ManageActivity() {
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
                             </Box>
-                            <Divider />    
+                            <Divider />
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -255,14 +300,14 @@ export default function ManageActivity() {
                                 <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
-                            </Link>    
+                            </Link>
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4} color="#000">
                                     管理活動
                                 </Box>
                             </Link>
                             <Divider />
-                            <Link to="/" className={classes.link}>
+                            <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
                                 </Box>
@@ -321,10 +366,11 @@ export default function ManageActivity() {
                                                                 {activity.attendPeople}&nbsp;/&nbsp;
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                {/* 報名中 */}
-                                                                {(activity.activityEndDateString <= activity_End_or_not.toLocaleTimeString().substring(0,16))
+                                                                {(new Date(activity.activityEndDate).getTime() >= new Date(activity_End_or_not).getTime())
                                                                     ? "報名中" : "已結束"}
                                                             </TableCell>
+                                                            {(new Date(activity.activityEndDate).getTime() >= new Date(activity_End_or_not).getTime())
+                                                                    ?
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -338,8 +384,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={handlemodelOpen}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
@@ -350,7 +395,93 @@ export default function ManageActivity() {
                                                                     component={Link}
                                                                     to="/"
                                                                 >
-                                                                    分發/上傳照片
+                                                                    修改活動
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    onClick={handleOpen}
+                                                                >
+                                                                    刪除活動
+                                                                </Button>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={modelopen}
+                                                                    onClose={handlemodelClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={modelopen}>
+                                                                        <div>
+                                                                            <Grid container spacing={10}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_1">
+                                                                                        <CardActionArea component={Link} to="/">
+                                                                                            <CardMedia>
+                                                                                                <TagFacesIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent>
+                                                                                                人臉辨識簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_2">
+                                                                                        <CardActionArea component={Link} to="/manualCheck">
+                                                                                            <CardMedia>
+                                                                                                <KeyboardIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent>
+                                                                                                手動簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
+                                                                <Dialog
+                                                                    open={open}
+                                                                    onClose={handleClose}
+                                                                    PaperComponent={PaperComponent}
+                                                                    aria-labelledby="draggable-dialog-title"
+                                                                >
+                                                                    <DialogTitle id="draggable-dialog-title">
+                                                                        <Typography variant="h5">
+                                                                            <ErrorIcon className={classes.Exclamation_Mark} />
+                                                                            刪除活動
+                                                                        </Typography>
+                                                                    </DialogTitle>
+                                                                    <DialogContent>
+                                                                        <DialogContentText style={{fontSize:"20px"}}>
+                                                                            您確定要刪除該活動嗎？
+                                                                        </DialogContentText>
+                                                                    </DialogContent>
+                                                                    <DialogActions>
+                                                                        <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            取消
+                                                                        </Button>
+                                                                        <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            確定
+                                                                        </Button>
+                                                                    </DialogActions>
+                                                                </Dialog>
+                                                            </TableCell>
+                                                            :
+                                                            <TableCell align="center">
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to="/participantList"
+                                                                >
+                                                                    參加者名單
                                                                 </Button>
                                                                 <br /><br />
                                                                 <Button
@@ -358,7 +489,7 @@ export default function ManageActivity() {
                                                                     className={classes.button}
                                                                     onClick={SendActID}
                                                                 >
-                                                                    修改活動
+                                                                    分發/上傳照片
                                                                 </Button>
                                                                 <br /><br />
                                                                 <Button
@@ -395,6 +526,7 @@ export default function ManageActivity() {
                                                                     </DialogActions>
                                                                 </Dialog>
                                                             </TableCell>
+                                                            }
                                                         </TableRow>
                                                         )}
                                                     </TableBody>
@@ -405,7 +537,7 @@ export default function ManageActivity() {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </Box>
-                    </div>  
+                    </div>
                 </Container>
             </div>
         </div>
