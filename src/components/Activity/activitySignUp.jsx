@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import React, { useState,useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const useStyles = makeStyles(theme => ({
@@ -142,6 +143,13 @@ export default function ActivityInfo() {
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
+
+    const [checked, setChecked] = React.useState(true);
+
+    const handleChange = (event) => {
+      setChecked(event.target.checked);
+    };
+
   return (
     <>
       <Table align = "center" style = {{width : "85%"}}>
@@ -156,6 +164,7 @@ export default function ActivityInfo() {
               <Typography gutterBottom>{act.activityStartDateString}</Typography>
               <Typography gutterBottom>活動地點:</Typography>
               <Typography gutterBottom>{act.activitySpace}</Typography>
+
             </TableCell>
           </TableRow>
           <TableRow>
@@ -187,6 +196,9 @@ export default function ActivityInfo() {
           InputProps={{
             readOnly: true,
           }}/>
+          {(act.activityMeal==1)?"餐點:"
+          :"*此活動不提供餐點*"}
+
       </CardContent>
       <CardActions align="center">
         <Button variant="contained" color="secondary">確定報名</Button>

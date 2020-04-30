@@ -163,7 +163,7 @@ export default function TestGridList(props) {
          <Container className={classes.content}>
          <div>
            <Typography variant="h4">
-              我的照片 > 我的照片
+              我的相簿 > 我的照片
            </Typography>
            <hr />
          </div>
