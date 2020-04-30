@@ -249,7 +249,6 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
-<<<<<<< HEAD
     const SendActID = event =>
     {
         localStorage.setItem('activityId', activity.activityId);
@@ -259,9 +258,6 @@ export default function ManageActivity() {
     }
 
     const activity_End_or_not = new Date();
-=======
-    const activity_End_or_not = new Date().getTime();
->>>>>>> 3f26487be6a6d06b39bb045a6a6f9d1e6b7e77ec
 
     return (
         <div className={classes.div}>
