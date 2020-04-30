@@ -161,7 +161,8 @@ export default function ManageActivity() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -190,7 +191,9 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -219,7 +222,9 @@ export default function ManageActivity() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataAct() {
-                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/activity/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {

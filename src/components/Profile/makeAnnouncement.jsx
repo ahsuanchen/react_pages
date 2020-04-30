@@ -1,26 +1,20 @@
 import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
-import { Link , useHistory } from 'react-router-dom';
+import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -48,45 +42,32 @@ const useStyles = makeStyles(theme => ({
         }
     } ,
     content : {
-        margin : "2%" ,
+        margin : "2% 2%" ,
         overflow : "visible"
     } ,
     topic : {
         margin : "2% auto" ,
         textAlign : "center"
     } ,
+    table : {
+        display: "flex" ,
+        justifyContent : "center" ,
+    } ,
     button_part : {
         margin : "2%" ,
         display: "flex" ,
         justifyContent : "center" ,
     } ,
-    button1 : {
-        background : '#ADADAD' ,
-        color : "#fff" ,
-        margin : "auto 2%" ,
-    } ,
-    button2 : {
+    button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
     }
   }));
 
-export default function EditSignupInfo() {
+export default function MakeAnnouncement() {
     const classes = useStyles();
 
-    const [gender, setgender] = React.useState("male");
-    const [blood, setblood] = React.useState("A");
-
-    const handleSelectGender = event => {
-        setgender(event.target.value);
-    };
-
-    const handleSelectBlood = event => {
-        setblood(event.target.value);
-    };
-
-    
     let history = useHistory();
     function goSignin()
     {
@@ -101,7 +82,7 @@ export default function EditSignupInfo() {
     const [member, setMember] = useState([]);
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
-        async function fetchDataMem() {
+            async function fetchDataMem() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -128,12 +109,15 @@ export default function EditSignupInfo() {
         fetchDataMem();
     }, []);
 
-    const [organizer, setOrganizer] = useState([]);
+    const [organizer, setOrganizer] = useState({
+        organizerName : '' ,
+        organizerPhone : '' ,
+        organizerAddress : '' ,
+        organizerInfo : ''
+    });
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
                 await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
@@ -158,6 +142,42 @@ export default function EditSignupInfo() {
         }
         fetchDataOrg();
     }, []);
+
+    const handleChange = updateOrgInfo => event => {
+        setOrganizer({...organizer, [updateOrgInfo]: event.target.value});
+    }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const updateOrganizerInfo = {
+            organizerName : organizer.organizerName ,
+            organizerPhone : organizer.organizerPhone ,
+            organizerAddress : organizer.organizerAddress ,
+            organizerInfo : organizer.organizerInfo
+        }
+        
+        if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
+        {
+            alert("連絡電話格式錯誤");
+        }
+        else
+        {
+            axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
+                auth:
+                {
+                    username : "actforfun@gmail.com",
+                    password : "123"
+                },
+            })
+            .then(response => {
+                console.log(response);
+                console.log(updateOrganizerInfo);
+                alert("主辦單位資訊已修改");
+            })
+            .catch(function(error){
+                console.log(updateOrganizerInfo);
+            });
+        }
+    };
 
     return (
         <div className={classes.div}>
@@ -193,7 +213,7 @@ export default function EditSignupInfo() {
                             </Box>
                             <Divider />
                             <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} >
+                                <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
                             </Link>
@@ -211,109 +231,45 @@ export default function EditSignupInfo() {
                     </Typography>
                 </Container>
                 <Container className={classes.content}>
-                    <div>
-                        <Grid container>
-                            <Grid item xs={10}>
-                                <Typography variant="h3">
-                                    三校六系聯合聖誕舞會
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={2}>
-                                <Typography variant="h6">
-                                    <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;&nbsp;
-                                    三創生活園區
-                                </Typography>
-                                <Typography variant="h6">
-                                    <FontAwesomeIcon icon={faClock} />&nbsp;
-                                    2020-12-23 (三)
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <hr />
-                    </div>
+                        <div>
+                            <Typography variant="h4">
+                                發 布 公 告
+                            </Typography>
+                            <hr />
+                        </div>
                         <div>
                             <form>
                                 <Box lineHeight="normal" m={1}>
                                     <Typography variant="h4" className={classes.topic}>
-                                        報名資料
+                                        公 告 事 項
                                     </Typography>
                                 </Box>
-                                <Table>
+                                <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>姓名：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
+                                                <Typography variant="h6">
+                                                    公告標題：
+                                                </Typography>
                                             </TableCell>
-                                            <TableCell>身分證字號：</TableCell>
                                             <TableCell>
-                                                <input type="text" name="ID" disabled placeholder="A123456789" />
+                                                <TextField 
+                                                    style={{minWidth:"350px"}}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>性別：</TableCell>
                                             <TableCell>
-                                                <FormControl style={{minWidth: "100px"}}>
-                                                    <InputLabel id="gender">Gender</InputLabel>
-                                                    <Select
-                                                        labelId="gender"
-                                                        value={gender}
-                                                        onChange={handleSelectGender}
-                                                    >
-                                                        <MenuItem value="male">男</MenuItem>
-                                                        <MenuItem value="female">女</MenuItem>
-                                                        <MenuItem value="unknown">暫不透漏</MenuItem>
-                                                    </Select>
-                                                </FormControl>
+                                                <Typography variant="h6">
+                                                    公告內容：
+                                                </Typography>
                                             </TableCell>
-                                            <TableCell>血型：</TableCell>
                                             <TableCell>
-                                                <FormControl style={{minWidth: "100px"}}>
-                                                    <InputLabel id="blood-type">Blood Type</InputLabel>
-                                                    <Select
-                                                        labelId="blood-type"
-                                                        value={blood}
-                                                        onChange={handleSelectBlood}
-                                                    >
-                                                        <MenuItem value="A">A</MenuItem>
-                                                        <MenuItem value="B">B</MenuItem>
-                                                        <MenuItem value="AB">AB</MenuItem>
-                                                        <MenuItem value="O">O</MenuItem>
-                                                        <MenuItem value="RH">RH 陰性</MenuItem>
-                                                    </Select>
-                                                </FormControl>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>生日：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Birthday" type="date" defaultValue="1999-03-25" InputLabelProps={{shrink: true,}} />
-                                            </TableCell>
-                                            <TableCell>聯絡電話：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Cellphone" defaultValue="0919478653" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>聯絡地址：</TableCell>
-                                            <TableCell colspan="3">
-                                                <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>緊急聯絡人：</TableCell>
-                                            <TableCell>
-                                                <TextField label="ContactpersonName" defaultValue="王俊凱" />
-                                            </TableCell>
-                                            <TableCell>緊急聯絡人關係：</TableCell>
-                                            <TableCell>
-                                                <TextField label="Relationship" defaultValue="父子" />
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell>緊急連絡人電話：</TableCell>
-                                            <TableCell colspan="3">
-                                                <TextField label="ContactpersonCellphone" defaultValue="0939457963" />
+                                                <TextareaAutosize
+                                                    style={{minWidth:"350px" , minHeight:"250px"}}
+                                                    // value={organizer.organizerInfo}
+                                                    // onChange={handleChange('organizerInfo')}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -321,18 +277,12 @@ export default function EditSignupInfo() {
                                 <Box lineHeight={5} m={1}>
                                     <div className={classes.button_part}>
                                         <Button
+                                            type="submit"
                                             variant="contained"
-                                            className={classes.button1}
-                                            component={Link}
-                                            to="/signupSituation"
+                                            // onClick={handleSubmit}
+                                            className={classes.button}
                                         >
-                                            取消更改
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            className={classes.button2}
-                                        >
-                                            確認更改
+                                            確認發布
                                         </Button>
                                     </div>
                                 </Box>

@@ -82,7 +82,8 @@ export default function SignupSituation() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -111,7 +112,9 @@ export default function SignupSituation() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -136,11 +139,44 @@ export default function SignupSituation() {
         fetchDataOrg();
     }, []);
 
+    const [registration, setRegistration] = useState([]);
+    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
+    useEffect(() => {
+        async function fetchDataReg() {
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/registration/actforfun@gmail.com")
+                .then(result => {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
+                        setActivity(result.data);
+                        console.log(result);
+                    // }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        goHomePage();
+                    }
+                })
+        }
+        fetchDataReg();
+    }, []);
+
     const [activity, setActivity] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataAct() {
-                const result = await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/activity/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
