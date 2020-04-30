@@ -96,7 +96,8 @@ export default function Updatepassword() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -125,7 +126,9 @@ export default function Updatepassword() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -189,14 +192,14 @@ export default function Updatepassword() {
         }
         else
         {
-            let url =  "/api/member/updatepassword/" ;
-            url = url + oldPassword + updatePassword.memberPassword ;
-            axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
+            let url = "/api/member/" ;
+            url = url + member.memberEmail;
+            axios.patch(url, updatePassword , {
                 auth:
                 {
                     username : "actforfun@gmail.com",
                     password : "123"
-                },
+                }   
             })
             .then(response => {
                 console.log(response);

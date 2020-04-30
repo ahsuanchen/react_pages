@@ -1,5 +1,7 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +11,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+
 
 
 
@@ -39,9 +42,9 @@ const useStyles = makeStyles(theme => ({
         maxWidth : "350px" ,
         maxHeight: "220px",
         marginTop:"3%",
-        background : '' , 
-        display: "flex" , 
-        alignItems : "center" , 
+        background : '' ,
+        display: "flex" ,
+        alignItems : "center" ,
         justifyContent : "center" ,
         textAlign : "center" ,
     } ,
@@ -126,43 +129,61 @@ const useStyles = makeStyles(theme => ({
 
     location: {
         gridRowGap: '20px',
-        
+
       },
 }));
 
 export default function SettingFace() {
     const classes = useStyles();
 
+    const location = useLocation();
+
+    const SettingFacePage = props => {
+        const location = useLocation();
+
+        useEffect(() => {
+           console.log(location.pathname); // result: '/secondpage'
+           //console.log(location.search); // result: '?query=abc'
+           console.log(location.state.detail); // result: 'some_value'
+        }, [location]);
+
+
+    };
+    const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
+        setData(e.target.files[0])
       setImage({
+
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
-    }; 
+    };
 
-    //update
+    console.log(data);
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
 
     let history = useHistory();
 
-    const handleSubmit=(event)=> {
-        
-        //event.preventDefault();
-        const pic={
-            memberEmail:memberEmail,
-            //照片？
-            
-        };
 
-        axios.post("/api/files/UploadFace", pic,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
+
+    const handleSubmit=(event)=> {
+
+        let formData = new FormData();
+        formData.append('file',data,data.name);
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin' : '*'
+                }
             }
-        })
+            console.log(formData);
+
+        let url = "/api/files/uploadFace/";
+        url = url + memberEmail;
+
+
+        axios.post(url, formData,config)
           .then(res => {
             //alert("yes")
             console.log("test")
@@ -171,12 +192,13 @@ export default function SettingFace() {
             history.push({
                 pathname: "/finish",
               });
-            
-            
+
+
           }).catch(function(error){
               alert(error);
+              console.log(error);
           });
-        
+
     }
 
     return (
@@ -192,18 +214,18 @@ export default function SettingFace() {
                             設定使用者人臉
                         </Typography>
                         <form className={classes.form} noValidate>
-                       
+
                         {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
                         <Grid container justify="center">
                     <Container className={classes.container}>
                     <div className={classes.upload_btn_wrapper}>
                         {
-                            image.preview ? 
+                            image.preview ?
                             <>
                                 <img src={ image.preview } width="200" height="120" />
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
-                                    
+
                                     新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
@@ -216,7 +238,7 @@ export default function SettingFace() {
                             :(
                             <>
                                 <Button className={classes.upload_button} variant="outlined">
-                                    
+
                                     新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
@@ -230,7 +252,7 @@ export default function SettingFace() {
                         </div>
                         </Container>
                         </Grid>
-                            
+
 
                         </form>
                     </paper>
@@ -243,7 +265,7 @@ export default function SettingFace() {
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary" 
+                                color="primary"
                                 className={classes.submit}
                                 //onClick={submit}
                                 href="./signupinfo"
@@ -251,7 +273,6 @@ export default function SettingFace() {
                                 <ChevronLeftIcon />
                                 上一步
                             </Button>
-
                             <Button
                                 type="submit"
                                 Width="50"

@@ -83,7 +83,8 @@ export default function OrganizerInfo() {
     // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
+                let url = "/api/login/name"
+                await axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -110,6 +111,7 @@ export default function OrganizerInfo() {
 
     const [organizer, setOrganizer] = useState({
         organizerName : '' ,
+        organizerEmail : '' ,
         organizerPhone : '' ,
         organizerAddress : '' ,
         organizerInfo : ''
@@ -117,7 +119,9 @@ export default function OrganizerInfo() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com")
+                // let url = "/api/login/name"
+                // await axios.get(url)
+                await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -149,6 +153,7 @@ export default function OrganizerInfo() {
         event.preventDefault();
         const updateOrganizerInfo = {
             organizerName : organizer.organizerName ,
+            organizerEmail : organizer.organizerEmail ,
             organizerPhone : organizer.organizerPhone ,
             organizerAddress : organizer.organizerAddress ,
             organizerInfo : organizer.organizerInfo
@@ -160,13 +165,11 @@ export default function OrganizerInfo() {
         }
         else
         {
-            axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
-                auth:
-                {
-                    username : "actforfun@gmail.com",
-                    password : "123"
-                },
-            })
+            // let url = "/api/login/name"
+            // axios.patch(url , updateOrganizerInfo)
+            let url = "/api/organizer/" ;
+            url = url + member.memberEmail ;
+            axios.patch(url , updateOrganizerInfo)
             .then(response => {
                 console.log(response);
                 console.log(updateOrganizerInfo);
@@ -262,11 +265,16 @@ export default function OrganizerInfo() {
                                         <TableRow>
                                             <TableCell>
                                                 <Typography variant="h6">
-                                                    電子信箱：
+                                                    聯絡電子信箱：
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField style={{minWidth:"250px"}} value={organizer.organizerEmail} disabled />
+                                                <TextField
+                                                    type="email"
+                                                    style={{minWidth:"250px"}}
+                                                    value={organizer.organizerEmail}
+                                                    onChange={handleChange('organizerEmail')}
+                                                />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
