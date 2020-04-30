@@ -3,7 +3,7 @@ import { Route, Switch, Router} from 'react-router-dom';
 
 import routess from 'routes';
 
-import Header from 'components/Header/HM_header2.jsx';
+// import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
 import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
@@ -51,10 +51,10 @@ class Layout extends React.Component {
     const routes = routess;
     return (
       <>
-      <Header routes={routes}/>
-      {/*routes.map((page,key) => (
+      {/* <Header routes={routes}/> */}
+      {routes.map((page,key) => (
         <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
-      ))}*/}
+      ))}
 
       <Route path="/ActivityInformation" component={ActivityInformation}/>
       <Route path="/signIn" component={SignIn} />
@@ -73,13 +73,13 @@ class Layout extends React.Component {
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />
       <Route path="/updateDetails" component={UpdateDetails} />
-      <Route path="/editSignupInformation" component={Homepage} />
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/searchInfo" component={SearchInfo} />
       <Route path="/profile" component={Profile} />
       <Route path="/updatePassword" component={UpdatePassword} />
       <Route path="/signupSituation" component={SignupSituation} />
+      <Route path="/editSignupInformation" component={EditSignupInfo} />
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
@@ -93,7 +93,6 @@ class Layout extends React.Component {
 
       <Route path="/manualCheck" component={ManualCheck} />
       <Route path="/participantList" component={ParticipantList} />
-      <Route path="/editSignupInformation" component={EditSignupInfo} />
       </>
     );
   }

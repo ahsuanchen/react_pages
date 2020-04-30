@@ -170,7 +170,7 @@ export default function Profile() {
                 auth:
                 {
                     username : "actforfun@gmail.com",
-                    password : "12345"
+                    password : "123"
                 },
             })
             .then(response => {
@@ -178,6 +178,7 @@ export default function Profile() {
                 // console.log(response.data);
                 console.log(updateMemberInfo);
                 alert("個人檔案內容已修改");
+                // history.push("/profile");
             })
             .catch(function(error){
             });

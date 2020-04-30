@@ -1,17 +1,17 @@
-//import Home from 'components/Homepage/homepageAfterLogin.jsx';
+import HomePage from 'components/Homepage/homepageAfterLogin.jsx';
 // import Activity from 'pages/Activity/index.jsx';
 // import News from 'pages/News/index.jsx';
 // import Album from 'pages/MyAlbum/index.jsx';
 // import ActAlbum from 'pages/ActivityAlbum/index.jsx';
 
-// const routess = [
-//   {
-//     exact: true,
-//     path: "/",
-//     name: 'home',
-//     component: Home,
-//     title: '首頁',
-//   },
+const routess = [
+  {
+    exact: true,
+    path: "/",
+    name: 'home',
+    component: HomePage,
+    title: '首頁',
+  },
   // {
   //   path: '/news',
   //   name: 'news',
@@ -35,8 +35,8 @@
     name: "activity",
     component: Album,
     title: "我的相簿",
-  },
+  },*/}
 
 ];
 
-export default routess;*/}
+export default routess;
