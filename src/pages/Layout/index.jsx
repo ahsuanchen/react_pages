@@ -36,6 +36,7 @@ import TrainingFace from 'components/Profile/trainingFace.jsx';
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
+import ManualCheck from 'components/Profile/manualCheck.jsx';
 import Activity from 'pages/Activity/index.jsx'
 
 class Layout extends React.Component {
@@ -76,6 +77,7 @@ class Layout extends React.Component {
       <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
+      <Route path="/manualCheck" component={ManualCheck} />
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
       </>

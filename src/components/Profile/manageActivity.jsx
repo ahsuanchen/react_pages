@@ -27,6 +27,16 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Draggable from 'react-draggable';
 import ErrorIcon from '@material-ui/icons/Error';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import TagFacesIcon from '@material-ui/icons/TagFaces';
+import KeyboardIcon from '@material-ui/icons/Keyboard';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -88,6 +98,24 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
           color : '#00AEAE' 
         }
+    } ,
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    choose_type : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        width : "250px" ,
+        height : "250px" ,
+        color : "#E0E0E0" ,
+        fontSize : "32px" ,
+        textAlign : "center" ,
+        display: 'flex',
+        alignItems: 'center',
+    } ,
+    icon_part : {
+        fontSize : "150px"
     }
   }));
 
@@ -108,6 +136,14 @@ export default function ManageActivity() {
     };
     const handleClose = () => {
       setOpen(false);
+    };
+
+    const [modelopen, setModelOpen] = React.useState(false);
+    const handlemodelOpen = () => {
+      setModelOpen(true);
+    };
+    const handlemodelClose = () => {
+      setModelOpen(false);
     };
 
     let history = useHistory();
@@ -331,8 +367,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    component={Link}
-                                                                    to="/"
+                                                                    onClick={handlemodelOpen}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
@@ -353,6 +388,47 @@ export default function ManageActivity() {
                                                                 >
                                                                     刪除活動
                                                                 </Button>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={modelopen}
+                                                                    onClose={handlemodelClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={modelopen}>
+                                                                        <div>
+                                                                            <Grid container spacing={10}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_1">
+                                                                                        <CardActionArea component={Link} to="/">
+                                                                                            <CardMedia>
+                                                                                                <TagFacesIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent>
+                                                                                                人臉辨識簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_2">
+                                                                                        <CardActionArea component={Link} to="/manualCheck">
+                                                                                            <CardMedia>
+                                                                                                <KeyboardIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent>
+                                                                                                手動簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
                                                                 <Dialog
                                                                     open={open}
                                                                     onClose={handleClose}
