@@ -265,7 +265,7 @@ export default function Profile() {
                                 </Box>
                         </Link>
                         <Divider />
-                        <Link to="/" className={classes.link}>
+                        <Link to="/MyAlbum" className={classes.link}>
                             <Box lineHeight={2} m={1}>
                                 我的相簿
                             </Box>

@@ -1,14 +1,8 @@
-
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import LinkIcon from '@material-ui/icons/Link';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import ScheduleIcon from '@material-ui/icons/Schedule';
@@ -18,10 +12,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Fab from '@material-ui/core/Fab';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import Button from '@material-ui/core/Button';
 import React, { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 
 
 const useStyles = makeStyles(theme => ({
@@ -29,23 +22,30 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     maxWidth : "1080px" ,
   },
-  fab: {
-    position : "fixed" ,
-    bottom : "5%" ,
-    right : "5%" ,
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
+  cardroot:{
+    maxWidth:500,
+  }
 }));
 
 export default function ActivityInfo() {
   //抓取此筆活動Id，利用Url ?之後的數字
-  var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
+  var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
 
-  console.log(activityId);
+  console.log(activityId)
 
+  const[member,setMember] = useState({});
+  useEffect(() =>{
+    async function fetchData(){
 
+      const result = await axios.get("api/login/name")
+      .then(result => {
+        setMember(result.data);
+        console.log(result.data);
+      })
+
+    }
+    fetchData();
+  },[]);
 
   const classes = useStyles();
 
@@ -65,6 +65,8 @@ export default function ActivityInfo() {
       }
       fetchData();
   },[]);
+
+
 
 {/* <>
     <Table align = "center" style = {{width : "85%"}}>
@@ -137,88 +139,63 @@ export default function ActivityInfo() {
     </Table>
     </> */}
 
-    console.log(act);
+    console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
   return (
     <>
       <Table align = "center" style = {{width : "85%"}}>
-        <TableHead>
-            <TableRow>
-              <TableCell colSpan={2}><Typography variant="h5">{act.activityName}</Typography></TableCell>
-            </TableRow>
-        </TableHead>
         <TableBody>
           <TableRow >
-            <TableCell style={{width: '40%'}} rowSpan={5}><img src="assets/images/1.jpg" width = "700"/></TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <LocationOnIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="活動地點" secondary={act.activitySpace} />
-                </ListItem>
-              </List>
+            <TableCell style={{width: '40%'}} rowSpan={2}>
+              <img src="assets/images/1.jpg" width = "400"/>
+              <Typography variant="h6" gutterBottom>{act.activityName}</Typography>
+              <Typography gutterBottom>活動報名截止時間:</Typography>
+              <Typography gutterBottom>{act.endSignUpDateString} </Typography>
+              <Typography gutterBottom>活動時間:</Typography>
+              <Typography gutterBottom>{act.activityStartDateString}</Typography>
+              <Typography gutterBottom>活動地點:</Typography>
+              <Typography gutterBottom>{act.activitySpace}</Typography>
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <DateRangeIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="活動時間" secondary={act.activityStartDateString}/>
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ScheduleIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="報名開始時間" secondary={act.startSignUpDateString} />
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ScheduleIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="報名結束時間" secondary={act.endSignUpDateString} />
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
-
+                <Typography variant="h6">確認參加者資料</Typography>
+                <Card className={classes.cardroot}>
+      <CardContent>
+        <Typography>
+          姓名:
+        </Typography>
+        <TextField style={{minWidth:"100%"}} value={member.memberName}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
+        <Typography>
+          電子郵件:
+        </Typography>
+        <TextField style={{minWidth:"100%"}} value={member.memberEmail}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
+          <Typography>
+            行動電話:
+          </Typography>
+        <TextField style={{minWidth:"100%"}} value={member.memberPhone}
+          variant="outlined"
+          InputProps={{
+            readOnly: true,
+          }}/>
+      </CardContent>
+      <CardActions align="center">
+        <Button variant="contained" color="secondary">確定報名</Button>
+      </CardActions>
+    </Card>
+           </TableCell>
+        </TableRow>
       </TableBody>
       </Table>
-      <div className={classes.fab}>
-      <Fab variant="extended" size="medium" color="secondary" component={Link}
-      to={"/activitySignUp?" +act.activityId}>
-      <PersonAddIcon className={classes.extendedIcon} />
-        我要報名!
-      </Fab>
-    </div>
-
       </>
 
   );

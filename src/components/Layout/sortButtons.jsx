@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React , { useState,useEffect }from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
@@ -20,22 +21,36 @@ const useStyles = makeStyles(theme => ({
 
 export default function SortButtons() {
   const classes = useStyles();
-  const typeList = [""];
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       <span className={classes.title}>分類:</span>
       <Button classes={{root:classes.test}} variant="contained">
-        Default
+        學習
       </Button>
-      <Button variant="contained" color="default">
-        Primary
+      <Button classes={{root:classes.test}} variant="contained">
+        藝文
       </Button>
-      <Button variant="contained" color="secondary">
-        Secondary
+      <Button classes={{root:classes.test}} variant="contained">
+        親子
       </Button>
-      <Button variant="contained" color="primary" href="#contained-buttons">
-        Link
+      <Button classes={{root:classes.test}} variant="contained">
+        體驗
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        休閒
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        運動
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        戶外
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        講座
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        資訊
       </Button>
     </div>
   );

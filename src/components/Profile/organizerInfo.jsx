@@ -27,18 +27,18 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" , 
+        maxWidth : "280px" ,
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" , 
+        minWidth : "150px" ,
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     } ,
     content : {
@@ -190,7 +190,7 @@ export default function OrganizerInfo() {
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
                             </Box>
-                            <Divider />    
+                            <Divider />
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -215,14 +215,14 @@ export default function OrganizerInfo() {
                                 <Box lineHeight={1} m={4} color="#000">
                                     主辦單位資訊
                                 </Box>
-                            </Link>    
+                            </Link>
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
                                 </Box>
                             </Link>
                             <Divider />
-                            <Link to="/" className={classes.link}>
+                            <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
                                 </Box>
@@ -322,7 +322,7 @@ export default function OrganizerInfo() {
                                     </div>
                                 </Box>
                             </form>
-                        </div>  
+                        </div>
                 </Container>
             </div>
         </div>
