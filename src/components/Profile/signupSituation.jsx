@@ -112,20 +112,13 @@ export default function SignupSituation() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataOrg() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/organizer/actforfun@gmail.com")
+                let url = "/api/organizer/" ;
+                url = url + organizer.memberEmail ;
+                await axios.get(url)
+                // await axios.get("/api/organizer/actforfun@gmail.com")
                 .then(result => {
-                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    // {
-                    //     alert("您尚未登入，請先登入！")
-                    //     goSignin();
-                    // }
-                    // else
-                    // {
-                        setOrganizer(result.data);
-                        console.log(result);
-                    // }
+                    setOrganizer(result.data);
+                    console.log(result);
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -143,20 +136,13 @@ export default function SignupSituation() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataReg() {
-                // let url = "/api/login/name"
+                // let url = "/api/registration/";
+                // url = url + member.memberEmail;
                 // await axios.get(url)
                 await axios.get("/api/registration/actforfun@gmail.com")
                 .then(result => {
-                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    // {
-                    //     alert("您尚未登入，請先登入！")
-                    //     goSignin();
-                    // }
-                    // else
-                    // {
-                        setActivity(result.data);
+                        setRegistration(result.data);
                         console.log(result);
-                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -174,20 +160,13 @@ export default function SignupSituation() {
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
         async function fetchDataAct() {
-                // let url = "/api/login/name"
+                // let url = "/api/activity/organizer/" ;
+                // url = url + member.memberEmail ;
                 // await axios.get(url)
                 await axios.get("/api/activity/organizer/actforfun@gmail.com")
                 .then(result => {
-                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    // {
-                    //     alert("您尚未登入，請先登入！")
-                    //     goSignin();
-                    // }
-                    // else
-                    // {
-                        setActivity(result.data);
-                        console.log(result);
-                    // }
+                    setActivity(result.data);
+                    console.log(result);
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -275,8 +254,8 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
-                                {activity.map(activity =>
-                                    (new Date(activity.activityEndDate).getTime() >= new Date(activity_End_or_not).getTime()) ?
+                                {registration.map(registration =>
+                                    (new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -284,17 +263,17 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {activity.activityName}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            {activity.activitySpace}
+                                                            {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
+                                                            {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={3} className={classes.button_part}>
@@ -356,8 +335,8 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
-                                {activity.map(activity =>
-                                    (new Date(activity.activityEndDate).getTime() < new Date(activity_End_or_not).getTime()) ?
+                                {registration.map(registration =>
+                                    (new Date(registration.activity.activityEndDate).getTime() < activity_End_or_not) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -365,17 +344,17 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {activity.activityName}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            {activity.activitySpace}
+                                                            {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
+                                                            {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={3} className={classes.button_part}>
