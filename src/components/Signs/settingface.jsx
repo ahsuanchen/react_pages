@@ -135,8 +135,6 @@ const useStyles = makeStyles(theme => ({
 export default function SettingFace() {
     const classes = useStyles();
 
-    const location = useLocation();
-
     const SettingFacePage = props => {
         const location = useLocation();
     
@@ -212,7 +210,6 @@ export default function SettingFace() {
                         <Typography variant="subtitle1" gutterBottom align="center">
                             設定使用者人臉
                         </Typography>
-                        <form className={classes.form} noValidate>
                        
                         {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
                         <Grid container justify="center">
@@ -243,7 +240,7 @@ export default function SettingFace() {
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過4MB＊
+                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
                                     </Typography>
                                 </div>
                             </>
@@ -251,9 +248,7 @@ export default function SettingFace() {
                         </div>
                         </Container>
                         </Grid>
-                            
 
-                        </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>
@@ -264,9 +259,7 @@ export default function SettingFace() {
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary" 
                                 className={classes.submit}
-                                //onClick={submit}
                                 href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
@@ -277,10 +270,8 @@ export default function SettingFace() {
                                 type="submit"
                                 Width="50"
                                 variant="contained"
-                                color="primary"
                                 className={classes.submit}
                                 onClick={handleSubmit}
-                                //href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步
