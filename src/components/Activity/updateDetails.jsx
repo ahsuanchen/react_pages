@@ -160,7 +160,7 @@ export default function UpdateActivity_step() {
             activityLink:act.activityLink,
         };
 
-            axios.patch("http://localhost:8080/api/activity/10", updateActivityContent,
+            axios.patch(url, updateActivityContent,
             {
                 headers: {
                         
@@ -180,6 +180,7 @@ export default function UpdateActivity_step() {
             .catch(function(error){
                 console.log(error);
                 alert("no")
+                alert(error)
             });
     }
 
@@ -202,8 +203,7 @@ export default function UpdateActivity_step() {
                     <CssBaseline />
                     <div className={classes.paper}>
                         <paper>
-                            <form className={classes.form} noValidate>
-
+                            
                                 <TextField
                                     margin="normal"
                                     required
@@ -280,7 +280,6 @@ export default function UpdateActivity_step() {
                                     <ArrowForwardIcon />
                                 </IconButton> */}
 
-                            </form>
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>

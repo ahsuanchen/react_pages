@@ -53,8 +53,6 @@ const BootstrapInput = withStyles(theme => ({
     },
 }))(InputBase);
 
-
-
 const useStyles = makeStyles(theme => ({
     div: {
         boxSizing: "border-box"
@@ -124,11 +122,11 @@ const NewDetails = props => {
 
     useEffect(() => {
        console.log(location.pathname); // result: '/secondpage'
-       //console.log(location.search); // result: '?query=abc'
        console.log(location.state.detail); // result: 'some_value'
     }, [location]);
    
 };
+
 
 export default function BulidActivity_step3() {
     const classes = useStyles();
@@ -143,11 +141,12 @@ export default function BulidActivity_step3() {
     const  [activitySummary,setactivitySummary] =  useState(localStorage.getItem('activitySummary'));
     const  [activityInfo,setactivityInfo] =  useState(localStorage.getItem('activityInfo'));
     const  [activityMeal,setactivityMeal] =  useState(localStorage.getItem('activityMeal'));
+    const  [activityTypes,setactivityTypes] =  useState(localStorage.getItem('activityTypes'));
     const  [activityMoreContent,setactivityMoreContent] =  useState("");
     const  [activityPrecautions,setactivityPrecautions] =  useState("");
     const  [activityLinkName,setactivityLinkName] =  useState("");
     const  [activityLink,setactivityLink] =  useState("");
-    const  [activityOrganizer,setactivityOrganizer] =  useState("");
+    //const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
     let history = useHistory();
 
@@ -170,12 +169,12 @@ export default function BulidActivity_step3() {
             activityPrecautions:activityPrecautions,
             activityLinkName:activityLinkName,
             activityLink:activityLink,
-            activityOrganizer:activityOrganizer
+            //activityOrganizer:activityOrganizer
         };
         
 
         
-        axios.post("/api/activity/", activity,)
+        axios.post("/api/activity", activity,)
           .then(res => {
             alert("yes")
             console.log("test")
@@ -271,11 +270,11 @@ export default function BulidActivity_step3() {
                                 value={activityMeal}
                                 onChange={e=>setactivityMeal(e.target.value)}
                             />
-                            <input
+                            {/* <input
                                 //type="hidden"
                                 id="activityOrganizer"
                                 onChange={e=>setactivityOrganizer(e.target.value)}
-                            />
+                            /> */}
 
 
                                 <TextField

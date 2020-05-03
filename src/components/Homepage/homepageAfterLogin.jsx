@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
         margin : "auto" ,
         borderRadius : "10px" ,
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        // background : 'linear-gradient(50deg, #b2dfdb 40%, #b2ebf2 85%)' ,
     } ,
     inputBase : {
         minWidth : "450px" ,
