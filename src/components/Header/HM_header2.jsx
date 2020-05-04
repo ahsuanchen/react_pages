@@ -18,7 +18,7 @@ import Menu from '@material-ui/core/Menu';
 import PersonIcon from '@material-ui/icons/Person';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { faHome , faTasks , faQuestionCircle , faEnvelope} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -136,7 +136,7 @@ export default function MenuAppBar() {
                         edge="start"
                         color="inherit"
                     >
-                      <Avatar src="./img/profile.jpg" alt="user" onClick={handleClick} />
+                      <Avatar onClick={handleClick} />
                       <Menu
                         className={classes.menu}
                         elevation={0}

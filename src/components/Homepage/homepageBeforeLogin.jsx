@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Header/HM_header1.jsx';
+import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
@@ -212,6 +213,7 @@ export default function MenuApp() {
                     </Grid>
                 </div>
             </div>
+            <BottomBar/>
         </div>
     );
 }

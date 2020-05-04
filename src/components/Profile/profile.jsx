@@ -49,9 +49,12 @@ const useStyles = makeStyles(theme => ({
         }
     },
     content: {
-        margin: "2% 2%",
+        margin: "2%",
         overflow: "visible" ,
     },
+    table_form : {
+        margin: "5% auto",
+    } ,
     img: {
         margin: "2% 0",
         minWidth: '150px',
@@ -228,7 +231,7 @@ export default function Profile() {
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
                         <Box lineHeight="normal" m={4}>
-                            <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                            <Avatar className={classes.avatar} />
                         </Box>
                         <Box lineHeight={2} m={1}>
                             <strong>{member.memberName}</strong>
@@ -280,10 +283,7 @@ export default function Profile() {
                         <hr />
                     </div>
                     <div>
-                        <form>
-                            <Box lineHeight="normal" m={1}>
-                                <img className={classes.img} src="./img/profile.jpg" alt="img" />
-                            </Box>
+                        <form className={classes.table_form}>
                             <Table>
                                 <TableBody>
                                     <TableRow>

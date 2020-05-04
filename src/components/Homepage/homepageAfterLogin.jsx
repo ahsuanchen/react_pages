@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Header/HM_header2.jsx';
+import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
@@ -89,7 +90,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-    },
+    } ,
     choose_type : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
         width : "250px" ,
@@ -112,38 +113,6 @@ const properties = {
     indicators: true,
     arrows: true,
 }
-
-// const Fade = React.forwardRef(function Fade(props, ref) {
-//     const { in: open, children, onEnter, onExited, ...other } = props;
-//     const style = useSpring({
-//       from: { opacity: 0 },
-//       to: { opacity: open ? 1 : 0 },
-//       onStart: () => {
-//         if (open && onEnter) {
-//           onEnter();
-//         }
-//       },
-//       onRest: () => {
-//         if (!open && onExited) {
-//           onExited();
-//         }
-//       },
-//     });
-  
-//     return (
-//       <animated.div ref={ref} style={style} {...other}>
-//         {children}
-//       </animated.div>
-//     );
-//   });
-  
-//   Fade.propTypes = {
-//     children: PropTypes.element,
-//     in: PropTypes.bool.isRequired,
-//     onEnter: PropTypes.func,
-//     onExited: PropTypes.func,
-// };
-
 
 export default function MenuApp() {
     const classes = useStyles();
@@ -340,6 +309,8 @@ export default function MenuApp() {
                     </Grid>
                 </div>
             </div>
+            <br/>
+            <BottomBar/>
         </div>
     );
 }

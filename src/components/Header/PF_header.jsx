@@ -136,7 +136,7 @@ export default function MenuAppBar() {
                         edge="start"
                         color="inherit"
                     >
-                      <Avatar src="./img/profile.jpg" alt="user" onClick={handleClick} />
+                      <Avatar onClick={handleClick} />
                       <Menu
                         className={classes.menu}
                         elevation={0}

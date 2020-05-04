@@ -93,7 +93,32 @@ export default function SignupSituation() {
                     else
                     {
                         setMember(result.data);
-                        console.log(result);
+                        axios.get("/api/registration/" + result.data.memberEmail)
+                        .then(result => {
+                            setRegistration(result.data);
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
+                        axios.get("/api/organizer/"+result.data.memberEmail)
+                        .then(result => {
+                            setOrganizer(result.data);
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
                     }
                 })
                 .catch(err => {
@@ -110,75 +135,51 @@ export default function SignupSituation() {
 
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataOrg() {
-                let url = "/api/organizer/" ;
-                url = url + organizer.memberEmail ;
-                await axios.get(url)
-                // await axios.get("/api/organizer/actforfun@gmail.com")
-                .then(result => {
-                    setOrganizer(result.data);
-                    console.log(result);
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataOrg();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchDataOrg() {
+    //             let url = "/api/organizer/" ;
+    //             url = url + organizer.memberEmail ;
+    //             await axios.get(url)
+    //             // await axios.get("/api/organizer/actforfun@gmail.com")
+    //             .then(result => {
+    //                 setOrganizer(result.data);
+    //                 console.log(result);
+    //             })
+    //             .catch(err => {
+    //                 console.log(err.response.status);
+    //                 if(err.response.status === 403)
+    //                 {
+    //                     alert("您的權限不足!");
+    //                     goHomePage();
+    //                 }
+    //             })
+    //     }
+    //     fetchDataOrg();
+    // }, []);
 
     const [registration, setRegistration] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataReg() {
-                // let url = "/api/registration/";
-                // url = url + member.memberEmail;
-                // await axios.get(url)
-                await axios.get("/api/registration/actforfun@gmail.com")
-                .then(result => {
-                        setRegistration(result.data);
-                        console.log(result);
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataReg();
-    }, []);
-
-    const [activity, setActivity] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataAct() {
-                // let url = "/api/activity/organizer/" ;
-                // url = url + member.memberEmail ;
-                // await axios.get(url)
-                await axios.get("/api/activity/organizer/actforfun@gmail.com")
-                .then(result => {
-                    setActivity(result.data);
-                    console.log(result);
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataAct();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchDataReg() {
+    //             let url = "/api/registration/";
+    //             url = url + member.memberEmail;
+    //             await axios.get(url)
+    //             // await axios.get("/api/registration/actforfun@gmail.com")
+    //             .then(result => {
+    //                     setRegistration(result.data);
+    //                     console.log(result);
+    //             })
+    //             .catch(err => {
+    //                 console.log(err.response.status);
+    //                 if(err.response.status === 403)
+    //                 {
+    //                     alert("您的權限不足!");
+    //                     goHomePage();
+    //                 }
+    //             })
+    //     }
+    //     fetchDataReg();
+    // }, []);
     
     const activity_End_or_not = new Date().getTime();
 
