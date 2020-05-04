@@ -100,30 +100,30 @@ export default function UpdateActivity_step2() {
 
     useEffect(() => {
         async function fetchDataActContent() {
-                await axios.get(url)
-                .then(result => {
-                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    // {
-                    //     alert("您尚未登入，請先登入！")
-                    //     goSignin();
-                    // }
-                    // else
-                    // {
-                        
-                        setAct(result.data);
-                        console.log(result);
-                        
-                
-                    // }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        
-                    }
-                })
+            await axios.get(url)
+            .then(result => {
+                // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                // {
+                //     alert("您尚未登入，請先登入！")
+                //     goSignin();
+                // }
+                // else
+                // {
+                    
+                    setAct(result.data);
+                    console.log(result);
+                    
+            
+                // }
+            })
+            .catch(err => {
+                console.log(err.response.status);
+                if(err.response.status === 403)
+                {
+                    alert("您的權限不足!");
+                    
+                }
+            })
         }
         fetchDataActContent();
         

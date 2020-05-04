@@ -141,14 +141,22 @@ export default function BulidActivity_step3() {
     const  [activitySummary,setactivitySummary] =  useState(localStorage.getItem('activitySummary'));
     const  [activityInfo,setactivityInfo] =  useState(localStorage.getItem('activityInfo'));
     const  [activityMeal,setactivityMeal] =  useState(localStorage.getItem('activityMeal'));
-    const  [activityTypes,setactivityTypes] =  useState(localStorage.getItem('activityTypes'));
+    const  [Types,setTypes] =  useState(localStorage.getItem('activityTypes'));
     const  [activityMoreContent,setactivityMoreContent] =  useState("");
     const  [activityPrecautions,setactivityPrecautions] =  useState("");
     const  [activityLinkName,setactivityLinkName] =  useState("");
     const  [activityLink,setactivityLink] =  useState("");
+    const  [act,setAct] =  useState({
+        activityId:'',
+    });
     //const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
     let history = useHistory();
+
+    
+    var Types_array = Types.split(',')
+    console.log(Types_array)
+
 
     const handleSubmit=(event)=> {
         
@@ -172,18 +180,38 @@ export default function BulidActivity_step3() {
             //activityOrganizer:activityOrganizer
         };
         
-
+        // const activityTypes={
+        //     activityId:act.activityId,
+        //     activityType:Types
+        // }
         
-        axios.post("/api/activity", activity,)
+        axios.post("/api/activity", activity)
           .then(res => {
             alert("yes")
-            console.log("test")
             console.log(res);
             console.log(res.data);
-            history.push({
-                pathname: "/newPic",
-              });
-            
+
+            const activityTypes={
+                activityId:res.data.activityId,
+                activityType:Types_array
+            }
+            let url = "api/activityTypes/"
+            url = url + res.data.activityId;
+
+            console.log(url)
+
+            setAct(res.data)
+
+            axios.post(url, activityTypes)
+            .then(result =>{
+                console.log(result);
+                console.log(result.data);
+                alert("123")
+                history.push({
+                    pathname: "/newPic",
+                  });
+
+            })
             
           }).catch(function(error){
               alert(error);
@@ -191,6 +219,8 @@ export default function BulidActivity_step3() {
           });
         
     }
+
+    //console.log(url)
 
     return (
         <div className={classes.root}>
