@@ -1,42 +1,22 @@
-import React from 'react';
+import React , {useState , useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
+import { Link , useHistory } from 'react-router-dom';
+import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import SaveIcon from '@material-ui/icons/Save';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-// import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-
-const minHeight = 800 ;
 
 const useStyles = makeStyles(theme => ({
-    left_menu : {
-        display: "flex" ,
-        justifyContent : "space-around" ,
-        maxWidth : "280px" ,
-        minHeight : minHeight ,
-        boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
-        background : '#fff' ,
-        color : "#000000"
-    } ,
+    left_menu: {
+        display: "-webkit-inline-box",
+        color: "#000" ,
+    },
+    left_container: {
+        maxWidth: "280px",
+        borderRight: "1px solid",
+    },
     avatar : {
         minWidth : "150px" ,
         minHeight : "150px" ,
@@ -46,6 +26,9 @@ const useStyles = makeStyles(theme => ({
         color : "#D0D0D0" ,
         '&:hover' : {
           color : '#00AEAE'
+        } ,
+        '&:active' : {
+            color : '#000'
         }
     } ,
     content : {
@@ -64,30 +47,71 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function MenuAppBar() {
+export default function LeftBar() {
     const classes = useStyles();
+    
+    let history = useHistory();
+    function goSignin()
+    {
+        history.push("/signin");
+    }
+    function goHomePage()
+    {
+        history.push("/");
+    }
 
-    const [value, setValue] = React.useState('male');
-
-    const handleChange = event => {
-      setValue(event.target.value);
-    };
-
-    const [blood, setblood] = React.useState("A");
-
-    const handleSelect = event => {
-        setblood(event.target.value);
-    };
+    const [member, setMember] = useState([]);
+    const [organizer, setOrganizer] = useState([]);
+    useEffect(() => {
+        async function fetchDataMem() {
+            let url = "/api/login/name"
+            await axios.get(url)
+            .then(result => {
+                if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                {
+                    alert("您尚未登入，請先登入！")
+                    goSignin();
+                }
+                else
+                {
+                    setMember(result.data);
+                    axios.get("/api/organizer/" + result.data.memberEmail)
+                    .then(result => {
+                        setOrganizer(result.data);
+                        console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                        if(err.response.status === 403)
+                        {
+                            alert("您的權限不足!");
+                            goHomePage();
+                        }
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err.response.status);
+                if(err.response.status === 403)
+                {
+                    alert("您的權限不足!");
+                    goHomePage();
+                }
+            })
+        }
+        fetchDataMem();
+    }, []);
 
     return (
-            <div className={classes.left_menu}>
+        <div className={classes.left_menu}>
+            <Container className={classes.left_container}>
                 <Typography variant="h5">
                     <Box lineHeight="normal" m={4}>
-                        <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                        <Avatar className={classes.avatar} />
                     </Box>
                     <Box lineHeight={2} m={1}>
-                        王小明
-                    </Box>
+                        <strong>{member.memberName}</strong>
+                   </Box>
                     <Divider />
                     <Link to="/profile" className={classes.link}>
                         <Box lineHeight={1} m={4}>
@@ -106,18 +130,18 @@ export default function MenuAppBar() {
                     </Link>
                     <Divider />
                     <Box lineHeight={3} m={1}>
-                        王氏集團
+                        <strong>{organizer.organizerName}</strong>
                     </Box>
                     <Divider />
                     <Link to="/organizerInfo" className={classes.link}>
                         <Box lineHeight={1} m={4} >
                             主辦單位資訊
-                        </Box>
+                            </Box>
                     </Link>
-                    <Link to="/" className={classes.link}>
+                    <Link to="/manageActivity" className={classes.link}>
                         <Box lineHeight={1} m={4}>
                             管理活動
-                        </Box>
+                            </Box>
                     </Link>
                     <Divider />
                     <Link to="/MyAlbum" className={classes.link}>
@@ -126,6 +150,7 @@ export default function MenuAppBar() {
                         </Box>
                     </Link>
                 </Typography>
-            </div>
+            </Container>
+        </div>    
     );
 }

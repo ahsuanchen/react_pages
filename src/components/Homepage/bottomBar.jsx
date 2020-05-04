@@ -28,11 +28,16 @@ const useStyles = makeStyles(theme => ({
         color : "#fff"
     } ,
     bottom_link : {
+        
         color : "#ADADAD" ,
         textDecoration : "none" ,
         '&:hover' : {
             color : '#fff' 
         }
+    } ,
+    avatar_part : {
+        display : "flex" ,
+        justifyContent: "space-between",
     } ,
     avatar : {
         background : "#fff" ,
@@ -85,24 +90,23 @@ export default function MenuApp() {
                                 聯絡我們
                             </Typography>
                             <br/>
-                            <div>
-                            <Link className={classes.bottom_link} to="">
-                                <Avatar className={classes.avatar}>
-                                    <FacebookIcon/>
-                                </Avatar>
+                            <div className={classes.avatar_part}>
+                                <Link className={classes.bottom_link} to="">
+                                    <Avatar className={classes.avatar}>
+                                        <FacebookIcon/>
+                                    </Avatar>
+                                </Link>
+                                <Link className={classes.bottom_link} to="">
+                                    <Avatar className={classes.avatar}>
+                                        <YoutubeIcon/>
+                                    </Avatar>
+                                </Link>
+                                <Link className={classes.bottom_link} to="">
+                                    <Avatar className={classes.avatar}>
+                                        <TwitterIcon/>
+                                    </Avatar>
                             </Link>
-                            <Link className={classes.bottom_link} to="">
-                                <Avatar className={classes.avatar}>
-                                    <YoutubeIcon/>
-                                </Avatar>
-                            </Link>
-                            <Link className={classes.bottom_link} to="">
-                                <Avatar className={classes.avatar}>
-                                    <TwitterIcon/>
-                                </Avatar>
-                            </Link>
-                            </div>
-                            
+                            </div>    
                         </Box>
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.service_type}>

@@ -177,6 +177,7 @@ export default function Profile() {
     return (
         <div className={classes.div}>
             <Header />
+            
             <div className={classes.content_part}>
                 <LeftBar/>
                 <Container className={classes.content}>
