@@ -1,5 +1,6 @@
 import React from 'react';
-import Header from '../Header/HM_header2.jsx';
+import Header1 from '../Header/HM_header1.jsx';
+import Header2 from '../Header/HM_header2.jsx';
 import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -127,7 +128,7 @@ export default function MenuApp() {
 
     return (
         <div className={classes.div}>
-            <Header />
+            <Header2 />
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>

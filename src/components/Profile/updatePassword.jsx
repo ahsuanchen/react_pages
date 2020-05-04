@@ -220,7 +220,7 @@ export default function Updatepassword() {
                 <Container className={classes.left_container}>
                     <Typography variant="h5">
                             <Box lineHeight="normal" m={4}>
-                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
+                                <Avatar className={classes.avatar} />
                             </Box>
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
