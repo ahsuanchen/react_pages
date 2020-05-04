@@ -3,7 +3,7 @@ import { Route, Switch, Router} from 'react-router-dom';
 
 import routess from 'routes';
 
-// import Header from 'components/Header/HM_header2.jsx';
+import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
 import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
@@ -47,6 +47,7 @@ import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
 import MyAlbum from 'pages/MyAlbum/index.jsx';
 import MyPhoto from 'pages/MyPhoto/index.jsx';
 import UpdatePhoto from 'components/Album/updatephoto.jsx';
+import LeftBar from 'components/Profile/leftbar.jsx';
 
 class Layout extends React.Component {
 
@@ -54,7 +55,7 @@ class Layout extends React.Component {
     const routes = routess;
     return (
       <>
-      {/* <Header routes={routes}/> */}
+      <Header routes={routes}/>
       {routes.map((page,key) => (
         <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
       ))}
@@ -104,6 +105,7 @@ class Layout extends React.Component {
 
       <Route path="/manualCheck" component={ManualCheck} />
       <Route path="/participantList" component={ParticipantList} />
+      <Route path="/leftBar" component={LeftBar} />
       </>
     );
   }

@@ -154,7 +154,7 @@ export default function MakeAnnouncement() {
             organizerAddress : organizer.organizerAddress ,
             organizerInfo : organizer.organizerInfo
         }
-        
+
         if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
         {
             alert("連絡電話格式錯誤");
@@ -228,6 +228,11 @@ export default function MakeAnnouncement() {
                                     我的相簿
                                 </Box>
                             </Link>
+                            <Link to="/ActivityAlbum" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    活動相簿
+                                </Box>
+                            </Link>
                     </Typography>
                 </Container>
                 <Container className={classes.content}>
@@ -253,7 +258,7 @@ export default function MakeAnnouncement() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField 
+                                                <TextField
                                                     style={{minWidth:"350px"}}
                                                 />
                                             </TableCell>

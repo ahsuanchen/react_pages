@@ -1,29 +1,12 @@
+//外面再包<div className={classes.left_menu}>把內容包起來
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import SaveIcon from '@material-ui/icons/Save';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-// import { faArrowAltCircleLeft } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const minHeight = 800 ;
 
@@ -37,6 +20,11 @@ const useStyles = makeStyles(theme => ({
         background : '#fff' ,
         color : "#000000"
     } ,
+    left_container: {
+        boxSizing:"border-box",
+        maxWidth: "280px",
+        borderRight: "1px solid",
+    },
     avatar : {
         minWidth : "150px" ,
         minHeight : "150px" ,
@@ -80,7 +68,8 @@ export default function MenuAppBar() {
     };
 
     return (
-            <div className={classes.left_menu}>
+
+            <Container className={classes.left_container}>
                 <Typography variant="h5">
                     <Box lineHeight="normal" m={4}>
                         <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
@@ -125,7 +114,14 @@ export default function MenuAppBar() {
                             我的相簿
                         </Box>
                     </Link>
+                    <Link to="/ActivityAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            活動相簿
+                        </Box>
+                    </Link>
                 </Typography>
-            </div>
+                </Container>
+
+
     );
 }

@@ -26,18 +26,18 @@ const useStyles = makeStyles(theme => ({
         color : "#000"
     } ,
     left_container : {
-        maxWidth : "280px" , 
+        maxWidth : "280px" ,
         borderRight : "1px solid" ,
     } ,
     avatar : {
-        minWidth : "150px" , 
+        minWidth : "150px" ,
         minHeight : "150px" ,
     } ,
     link : {
-        textDecoration : "none" , 
+        textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE' 
+          color : '#00AEAE'
         }
     } ,
     content : {
@@ -139,7 +139,7 @@ export default function ManualCheck() {
     // };
 
     // const handleSubmit = event => {
-    //     event.preventDefault();    
+    //     event.preventDefault();
     //         let url =  "/api/member/updatepassword/" ;
     //         url = url + oldPassword + updatePassword.memberPassword ;
     //         axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
@@ -168,7 +168,7 @@ export default function ManualCheck() {
                             <Box lineHeight={2} m={1}>
                                 <strong>{member.memberName}</strong>
                             </Box>
-                            <Divider />    
+                            <Divider />
                             <Link to="/profile" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     個人檔案
@@ -193,7 +193,7 @@ export default function ManualCheck() {
                                 <Box lineHeight={1} m={4}>
                                     主辦單位資訊
                                 </Box>
-                            </Link>    
+                            </Link>
                             <Link to="/manageActivity" className={classes.link}>
                                 <Box lineHeight={1} m={4}>
                                     管理活動
@@ -203,6 +203,11 @@ export default function ManualCheck() {
                             <Link to="/" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
+                                </Box>
+                            </Link>
+                            <Link to="/ActivityAlbum" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    活動相簿
                                 </Box>
                             </Link>
                     </Typography>
@@ -247,7 +252,7 @@ export default function ManualCheck() {
                                     </TableBody>
                                 </Table>
                             </form>
-                        </div>  
+                        </div>
                 </Container>
             </div>
         </div>

@@ -189,7 +189,7 @@ export default function Profile() {
             pathname: "/updatePassword",
         });
     }
-    
+
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
     useEffect(() => {
@@ -268,6 +268,11 @@ export default function Profile() {
                         <Link to="/MyAlbum" className={classes.link}>
                             <Box lineHeight={2} m={1}>
                                 我的相簿
+                            </Box>
+                        </Link>
+                        <Link to="/ActivityAlbum" className={classes.link}>
+                            <Box lineHeight={2} m={1}>
+                                活動相簿
                             </Box>
                         </Link>
                     </Typography>
@@ -360,7 +365,7 @@ export default function Profile() {
                                     <TableRow>
                                         <TableCell>聯絡電話：</TableCell>
                                         <TableCell>
-                                            <TextField 
+                                            <TextField
                                                 variant="outlined"
                                                 value={member.memberPhone}
                                                 onChange={handleChange('memberPhone')}
@@ -370,7 +375,7 @@ export default function Profile() {
                                         </TableCell>
                                         <TableCell>聯絡地址：</TableCell>
                                         <TableCell>
-                                            <TextField 
+                                            <TextField
                                                 variant="outlined"
                                                 style={{ minWidth: "400px" }}
                                                 value={member.memberAddress}

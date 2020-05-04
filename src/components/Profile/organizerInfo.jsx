@@ -158,7 +158,7 @@ export default function OrganizerInfo() {
             organizerAddress : organizer.organizerAddress ,
             organizerInfo : organizer.organizerInfo
         }
-        
+
         if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
         {
             alert("連絡電話格式錯誤");
@@ -230,6 +230,11 @@ export default function OrganizerInfo() {
                                     我的相簿
                                 </Box>
                             </Link>
+                            <Link to="/ActivityAlbum" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    活動相簿
+                                </Box>
+                            </Link>
                     </Typography>
                 </Container>
                 <Container className={classes.content}>
@@ -255,7 +260,7 @@ export default function OrganizerInfo() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField 
+                                                <TextField
                                                     style={{minWidth:"250px"}}
                                                     value={organizer.organizerName}
                                                     onChange={handleChange('organizerName')}

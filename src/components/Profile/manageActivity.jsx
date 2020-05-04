@@ -105,7 +105,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
     },
     choose_type : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         width : "250px" ,
         height : "250px" ,
         color : "#E0E0E0" ,
@@ -224,7 +224,7 @@ export default function ManageActivity() {
         async function fetchDataAct() {
                 // let url = "/api/login/name"
                 // await axios.get(url)
-                await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                await axios.get("/api/activity/organizer/pizzahut@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -298,6 +298,11 @@ export default function ManageActivity() {
                             <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
+                                </Box>
+                            </Link>
+                            <Link to="/ActivityAlbum" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    活動相簿
                                 </Box>
                             </Link>
                     </Typography>

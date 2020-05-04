@@ -89,6 +89,8 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
 
   const handleSubmit = (event) =>{
 
+    alert("報名成功");
+
     const Registration =
     {
       member_Email : member.memberEmail,
@@ -107,7 +109,7 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
     console.log(error);
   });
 
-    
+
   };
 
   return (

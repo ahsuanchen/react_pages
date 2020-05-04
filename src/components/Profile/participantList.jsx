@@ -89,7 +89,7 @@ const useStyles = makeStyles(theme => ({
     feedback_Link : {
         color : "#000" ,
         '&:hover' : {
-            color : '#00AEAE' 
+            color : '#00AEAE'
         }
     }
   }));
@@ -255,6 +255,11 @@ export default function ParticipantList() {
                             <Link to="/MyAlbum" className={classes.link}>
                                 <Box lineHeight={2} m={1}>
                                     我的相簿
+                                </Box>
+                            </Link>
+                            <Link to="/ActivityAlbum" className={classes.link}>
+                                <Box lineHeight={2} m={1}>
+                                    活動相簿
                                 </Box>
                             </Link>
                     </Typography>

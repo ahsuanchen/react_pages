@@ -15,30 +15,15 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
 import { Link } from 'react-router-dom';
+import LeftBar from 'components/Profile/leftbar.jsx';
 
 
 
 const useStyles = makeStyles(theme => ({
-    '@global': {
-        body: {
-            background: 'linear-gradient(45deg, #009688 30%, #b2ff59 90%)',
-            //backgroundColor: theme.palette.common.white,
-        },
-    },
-
-    root: {
-        height: '90vh',
-        width:'100%',
-        marginTop: theme.spacing(10),
-        color: 'white',
-        //borderRadius: 10,
-        //borderColor: ,
-        //background: 'linear-gradient(45deg, #00796b 30%, #00acc1 90%)',
-
-    },
-
-    div: {
-        boxSizing: "border-box"
+    root : {
+      width:"100%",
+      margin: "2% 2%",
+      overflow: "visible"
     },
 
     container : {
@@ -51,88 +36,11 @@ const useStyles = makeStyles(theme => ({
         justifyContent : "center" ,
         textAlign : "center" ,
     } ,
-
-    upload_btn_wrapper : {
-        position: "relative" ,
-        overflow: "hidden" ,
-        display: "block" ,
-    } ,
-
-    upload_button : {
-        border: 0 ,
-        color : "#fff" ,
-        textAlign : "center" ,
-        background : '#00bfa5',
-        borderRadius: "5px",
-        fontSize: "15px",
-        marginBottom : "10%" ,
-    } ,
-
-    btn_file : {
-        fontSize : "30px" ,
-        position: "absolute" ,
-        left: 0 ,
-        top: 0 ,
-        opacity: 0 ,
-    } ,
-
-
-    paper: {
-        marginTop: theme.spacing(8),
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
-        display: 'flex',
-        '& > *': {
-            marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
-            width: theme.spacing(70),
-            height: theme.spacing(20),
-        },
-    },
-
-
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
-    },
-    form: {
-        width: '100%',
-        height: theme.spacing(1),
-
-
-    },
-    submit: {
-        border: 0 ,
-        color : "#fff" ,
-        textAlign : "center" ,
-        background : '#00bfa5',
-        borderRadius: "5px",
-        fontSize: "10px",
-        marginTop : "10%" ,
-        margin:"1% 10%"
-    },
-    font: {
-        color: theme.palette.grey,
-    },
-
-    img: {
-        marginTop: theme.spacing(2),
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        maxWidth: 200,
-    },
-
-    button: {
-        '& > *': {
-          margin: theme.spacing(1),
-        },
-      },
-
-    location: {
-        gridRowGap: '20px',
-
+      left_menu: {
+          display: "flex",
+          //justifyContent: "space-around",
+          minHeight: 800,
+          color: "#000"
       },
 }));
 
@@ -236,130 +144,15 @@ export default function SettingFace() {
     }
 
     return (
-      <div className={classes.left_menu}>
-          <Container className={classes.left_container}>
-              <Typography variant="h5">
-                  <Box lineHeight="normal" m={4}>
-                      <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                  </Box>
-                  <Box lineHeight={2} m={1}>
-                      {member.memberName}
-                  </Box>
-                  <Divider />
-                  <Link to="/profile" className={classes.link}>
-                      <Box lineHeight={1} m={4}>
-                          個人檔案
-                      </Box>
-                  </Link>
-                  <Link to="/trainingFace" className={classes.link}>
-                      <Box lineHeight={1} m={4}>
-                          訓練人臉
-                          </Box>
-                  </Link>
-                  <Link to="/signupSituation" className={classes.link}>
-                      <Box lineHeight={1} m={4}>
-                          報名狀況
-                          </Box>
-                  </Link>
-                  <Divider />
-                  <Box lineHeight={3} m={1}>
-                      {organizer.organizerName}
-                  </Box>
-                  <Divider />
-                  <Link to="/organizerInfo" className={classes.link}>
-                      <Box lineHeight={1} m={4} >
-                          主辦單位資訊
-                          </Box>
-                  </Link>
-                  <Link to="/manageActivity" className={classes.link}>
-                      <Box lineHeight={1} m={4}>
-                          管理活動
-                          </Box>
-                  </Link>
-                  <Divider />
-                  <Link to="/MyAlbum" className={classes.link}>
-                      <Box lineHeight={2} m={1}>
-                          我的相簿
-                      </Box>
-                  </Link>
-                  <Link to="/ActivityAlbum" className={classes.link}>
-                      <Box lineHeight={2} m={1} color="#000">
-                          活動相簿
-                      </Box>
-                  </Link>
-              </Typography>
-          </Container>
+        <div className={classes.left_menu}>
+        <LeftBar/>
         <Grid className={classes.root}>
-            <Container component="main" maxWidth="xs">
-                <CssBaseline />
-                <Typography className={classes.font} component="h1" variant="h5" align="center">
-                    註 冊
-                    </Typography>
-                <div className={classes.paper}>
-                    <paper>
-                        <Typography variant="subtitle1" gutterBottom align="center">
-                            設定使用者人臉
-                        </Typography>
-                        <form className={classes.form} noValidate>
 
-                        {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
-                        <Grid container justify="center">
-                    <Container className={classes.container}>
-                    <div className={classes.upload_btn_wrapper}>
-                        {
-                            image.preview ?
-                            <>
-                                <img src={ image.preview } width="200" height="120" />
-                                <br/>
-                                <Button className={classes.upload_button} variant="outlined">
+          <Typography variant="h4">
+             上傳活動相片
+              </Typography>
+          <hr/>
 
-                                    新增檔案
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
-                                </Button>
-                                <div>
-                                    <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
-                                    </Typography>
-                                </div>
-                            </>
-                            :(
-                            <>
-                                <Button className={classes.upload_button} variant="outlined">
-
-                                    新增檔案
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
-                                </Button>
-                                <div>
-                                    <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過4MB＊
-                                    </Typography>
-                                </div>
-                            </>
-                        )}
-                        </div>
-                        <Button
-                            type="submit"
-                            Width="50"
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={handleSubmit}
-                            //href="./finish"
-                        >
-                            <ChevronRightIcon />
-                            下一步
-                         </Button>
-                        </Container>
-                        </Grid>
-
-
-                        </form>
-                    </paper>
-                    <Grid align-items-xs-flex-end>
-                    </Grid>
-
-                </div>
-            </Container>
         </Grid>
         </div>
     );
