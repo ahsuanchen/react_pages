@@ -2,7 +2,8 @@ import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
+// import md5 from "md5";
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -143,15 +144,9 @@ export default function Updatepassword() {
         }
         else
         {
-            let url = "/api/member/" ;
-            url = url + member.memberEmail;
-            axios.patch(url, updatePassword , {
-                auth:
-                {
-                    username : "actforfun@gmail.com",
-                    password : "123"
-                }   
-            })
+            let url = "/api/member/updatepassword/" ;
+            url = url + oldPassword + "/" + member.newPassword;
+            axios.post(url)
             .then(response => {
                 console.log(response);
                 console.log(updatePassword);

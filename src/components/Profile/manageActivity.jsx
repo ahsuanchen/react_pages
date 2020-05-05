@@ -136,22 +136,22 @@ export default function ManageActivity() {
     }
 
     const [activity, setActivity] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataAct() {
                 let url = "/api/login/name"
                 await axios.get(url)
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                .then(res => {
+                    if(res.data.toString().startsWith("<!DOCTYPE html>"))
                     {
                         alert("您尚未登入，請先登入！")
                         goSignin();
                     }
                     else
                     {
-                        axios.get("/api/activity/organizer/" + result.data.memberEmail)
+                        axios.get("/api/activity/organizer/" + res.data.memberEmail)
                         .then(result => {
                             setActivity(result.data);
+                            console.log(result);
                         })
                         .catch(err => {
                             console.log(err.response.status);
@@ -176,13 +176,6 @@ export default function ManageActivity() {
     }, []);
 
     const activity_End_or_not = new Date().getTime();
-    const SendActID = event =>
-    {
-        localStorage.setItem('activityId', activity.activityId);
-        history.push({
-            pathname: "/updateInfo",
-        });
-    }
 
     return (
         <div className={classes.div}>
@@ -262,7 +255,7 @@ export default function ManageActivity() {
                                                                         variant="contained"
                                                                         className={classes.button}
                                                                         component={Link}
-                                                                        to="/participantList"
+                                                                        to={"/participantList?" + activity.activityId}
                                                                     >
                                                                         參加者名單
                                                                     </Button>
@@ -318,7 +311,7 @@ export default function ManageActivity() {
                                                                         variant="contained"
                                                                         className={classes.button}
                                                                         component={Link}
-                                                                        to="/participantList"
+                                                                        to={"/participantList?" + activity.activityId}
                                                                     >
                                                                         參加者名單
                                                                     </Button>
@@ -373,7 +366,7 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                     component={Link}
-                                                                    to="/participantList"
+                                                                    to={"/participantList?" + activity.activityId}
                                                                 >
                                                                     參加者名單
                                                                 </Button>
@@ -433,7 +426,7 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                     component={Link}
-                                                                    to="/participantList"
+                                                                    to={"/participantList?" + activity.activityId}
                                                                 >
                                                                     參加者名單
                                                                 </Button>
@@ -441,7 +434,6 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={SendActID}
                                                                 >
                                                                     上傳/管理照片
                                                                 </Button>

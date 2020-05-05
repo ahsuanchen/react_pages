@@ -7,8 +7,6 @@ import { Link , useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -72,9 +70,8 @@ const useStyles = makeStyles(theme => ({
 export default function EditSignupInfo() {
     const classes = useStyles();
 
-    const handleChange = updateMemInfo => event => {
-        setRegistration({...registration, [updateMemInfo]: event.target.value});
-    }
+    var AINum = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
+    console.log(AINum);
     
     let history = useHistory();
     function goSignin()
@@ -87,23 +84,51 @@ export default function EditSignupInfo() {
         history.push("/");
     }
 
+    const [member, setMember] = useState([]);
+    const [activity, setActivity] = useState([]);
     const [registration, setRegistration] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataReg() {
                 let url = "/api/login/name"
                 await axios.get(url)
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                .then(result1 => {
+                    if(result1.data.toString().startsWith("<!DOCTYPE html>"))
                     {
                         alert("您尚未登入，請先登入！")
                         goSignin();
                     }
                     else
                     {
-                        axios.get("/api/registration/" + result.data.memberEmail)
-                        .then(result => {
-                            setRegistration(result.data);
+                        axios.get("/api/registration/" + AINum)
+                        .then(result2 => {
+                            setRegistration(result2.data);
+                            console.log(result2.data.member);
+                            axios.get("/api/activity/" + result2.data.activity_Id)
+                            .then(result3 => {
+                                setActivity(result3.data);
+                                console.log(result3);
+                            })
+                            .catch(err => {
+                                console.log(err.response.status);
+                                if(err.response.status === 403)
+                                {
+                                    alert("您的權限不足!");
+                                    goHomePage();
+                                }
+                            })
+                            axios.get("/api/member/" + result1.data.memberEmail)
+                            .then(result4 => {
+                                setMember(result4.data);
+                                console.log(result4);
+                            })
+                            .catch(err => {
+                                console.log(err.response.status);
+                                if(err.response.status === 403)
+                                {
+                                    alert("您的權限不足!");
+                                    goHomePage();
+                                }
+                            })
                         })
                         .catch(err => {
                             console.log(err.response.status);
@@ -126,8 +151,29 @@ export default function EditSignupInfo() {
         }
         fetchDataReg();
     }, []);
-    
-    const [activity_ID] = useState(localStorage.getItem('activityID'));
+
+    const handleChange = updateRegInfo => event => {
+        setRegistration({...registration, [updateRegInfo]: event.target.value});
+    }
+    const handleSubmit = event => {
+        event.preventDefault();
+        const updateRegistrationInfo = {
+            registrationMeal : registration.registrationMeal ,
+            registrationRemark : registration.registrationRemark
+        }
+        let url = "/api/registration/";
+        url = url + AINum;
+        axios.patch(url , updateRegistrationInfo)
+        .then(res => {
+            console.log(res);
+            // console.log(response.data);
+            console.log(updateRegistrationInfo);
+            alert("報名資料已修改");
+            history.push("/signupSituation");
+        })
+        .catch(function(error){
+        });
+    };
 
     return (
         <div className={classes.div}>
@@ -139,18 +185,17 @@ export default function EditSignupInfo() {
                         <Grid container>
                             <Grid item xs={10}>
                                 <Typography variant="h3">
-                                    三校六系聯合聖誕舞會
+                                    {activity.activityName}
                                 </Typography>
                             </Grid>
-                            <input type="hidden" value={activity_ID}></input>
                             <Grid item xs={2}>
                                 <Typography variant="h6">
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;&nbsp;
-                                    三創生活園區
+                                    {activity.activitySpace}
                                 </Typography>
                                 <Typography variant="h6">
                                     <FontAwesomeIcon icon={faClock} />&nbsp;
-                                    2020-12-23 (三)
+                                    {activity.activityStartDateStringDate}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -166,31 +211,37 @@ export default function EditSignupInfo() {
                                 <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>聯絡電子信箱：</TableCell>
+                                            <TableCell>姓名：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" value={registration.memberEmail} />
+                                                <TextField value={member.memberName} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>性別：</TableCell>
+                                            <TableCell>聯絡電子信箱：</TableCell>
                                             <TableCell>
-                                                <TextField label="Name" defaultValue="王小明" />
+                                                <TextField value={member.memberEmail} disabled />
+                                            </TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>連絡電話：</TableCell>
+                                            <TableCell>
+                                                <TextField value={member.memberPhone} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>供餐選項：</TableCell>
                                             <TableCell>
-                                                <RadioGroup name="Gender" value={registration.registrationMeal} onChange={handleChange('memberGender')}>
-                                                    <FormControlLabel value={0} control={<RadioColor />} label="暫不供餐" />
-                                                    <FormControlLabel value={1} control={<RadioColor />} label="葷食" />
-                                                    <FormControlLabel value={2} control={<RadioColor />} label="素食" />
+                                                <RadioGroup name="Gender" value={registration.registrationMeal + ""} onChange={handleChange('registrationMeal')}>
+                                                    <FormControlLabel value="0" control={<RadioColor />} label="暫不供餐" />
+                                                    <FormControlLabel value="1" control={<RadioColor />} label="葷食" />
+                                                    <FormControlLabel value="2" control={<RadioColor />} label="素食" />
                                                 </RadioGroup>
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>備註：</TableCell>
                                             <TableCell>
-                                                <TextField label="Address" style={{minWidth:"350px"}} defaultValue="新北市新莊區中正路510號" />
+                                                <TextField style={{minWidth:"350px"}} value={registration.registrationRemark} onChange={handleChange('registrationRemark')} />
                                             </TableCell>
                                         </TableRow>
                                     </TableBody>
@@ -208,6 +259,7 @@ export default function EditSignupInfo() {
                                         <Button
                                             variant="contained"
                                             className={classes.button2}
+                                            onClick={handleSubmit}
                                         >
                                             確認更改
                                         </Button>

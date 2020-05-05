@@ -6,8 +6,6 @@ import { Link , useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -63,7 +61,6 @@ export default function SignupSituation() {
     }
 
     const [registration, setRegistration] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataReg() {
                 let url = "/api/login/name"
@@ -76,7 +73,7 @@ export default function SignupSituation() {
                     }
                     else
                     {
-                        axios.get("/api/registration/" + result.data.memberEmail)
+                        axios.get("/api/registration/member/" + result.data.memberEmail)
                         .then(result => {
                             setRegistration(result.data);
                             console.log(result);
@@ -168,9 +165,9 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/editSignupInformation"
+                                                                to={"/editSignupInformation?" + registration.ainum}
                                                             >
-                                                                更改資料
+                                                                更改報名
                                                             </Button>
                                                         </Box>
                                                         <Box lineHeight="normal" m={1}>
@@ -178,7 +175,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to=""
                                                             >
                                                                 前往繳費
                                                             </Button>
@@ -187,7 +184,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/editSignupInformation"
+                                                                to=""
                                                             >
                                                                 取消報名
                                                             </Button>

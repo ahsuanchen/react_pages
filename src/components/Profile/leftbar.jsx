@@ -25,9 +25,9 @@ const useStyles = makeStyles(theme => ({
         textDecoration : "none" ,
         color : "#D0D0D0" ,
         '&:hover' : {
-          color : '#00AEAE'
+            color : '#00AEAE'
         } ,
-        '&:active' : {
+        '&:focus' : {
             color : '#000'
         }
     } ,
@@ -41,8 +41,6 @@ const useStyles = makeStyles(theme => ({
     } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        // display: "flex" ,
-        // justifyContent : "flex-end" ,
         alignItems : "right"
     }
   }));
@@ -114,7 +112,7 @@ export default function LeftBar() {
                    </Box>
                     <Divider />
                     <Link to="/profile" className={classes.link}>
-                        <Box lineHeight={1} m={4}>
+                        <Box lineHeight={1} m={4} >
                             個人檔案
                         </Box>
                     </Link>
@@ -129,6 +127,8 @@ export default function LeftBar() {
                         </Box>
                     </Link>
                     <Divider />
+                    {(organizer.memberEmail != null ? 
+                    <>
                     <Box lineHeight={3} m={1}>
                         <strong>{organizer.organizerName}</strong>
                     </Box>
@@ -149,6 +149,14 @@ export default function LeftBar() {
                             我的相簿
                         </Box>
                     </Link>
+                    </>
+                    : 
+                    <Link to="/MyAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            我的相簿
+                        </Box>
+                    </Link>
+                    )}
                 </Typography>
             </Container>
         </div>    

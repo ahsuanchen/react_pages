@@ -7,8 +7,6 @@ import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -81,13 +79,8 @@ const useStyles = makeStyles(theme => ({
 export default function ParticipantList() {
     const classes = useStyles();
 
-    // const [open, setOpen] = React.useState(false);
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
-    // const handleClose = () => {
-    //   setOpen(false);
-    // };
+    var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
+    let count = 0 ;
 
     let history = useHistory();
     function goSignin()
@@ -100,6 +93,7 @@ export default function ParticipantList() {
         history.push("/");
     }
 
+    const [activity, setActivity] = useState([]);
     const [registration, setRegistration] = useState([]);
     useEffect(() => {
         async function fetchData() {
@@ -113,7 +107,20 @@ export default function ParticipantList() {
                     }
                     else
                     {
-                        axios.get("/api/registration/" + result.data.memberEmail)
+                        axios.get("/api/activity/" + activityId)
+                        .then(result => {
+                            setActivity(result.data);
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
+                        axios.get("/api/registration/activity/" + activityId)
                         .then(result => {
                             setRegistration(result.data);
                         })
@@ -161,7 +168,7 @@ export default function ParticipantList() {
                                 >
                                 <div>
                                     <Typography variant="h5">
-                                        三校六系聯合聖誕舞會 參加者名單
+                                        {activity.activityName} 參加者名單
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
@@ -206,18 +213,19 @@ export default function ParticipantList() {
                                                         <TableRow>
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
-                                                            <TableCell align="center">手機</TableCell>
-                                                            <TableCell align="center">Email</TableCell>
+                                                            <TableCell align="center">聯絡電話</TableCell>
+                                                            <TableCell align="center">聯絡Email</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
                                                             <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
+                                                    {registration.map(registration=>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">001</TableCell>
-                                                            <TableCell align="center">劉志宏</TableCell>
-                                                            <TableCell align="center">0989-753491</TableCell>
-                                                            <TableCell align="center">test1@gmial.com</TableCell>
+                                                    <TableCell align="center">{count += 1}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberName}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberPhone}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberEmail}</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
                                                             <TableCell align="center">
                                                                 <Tooltip title="予後回饋">
@@ -228,6 +236,7 @@ export default function ParticipantList() {
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>
