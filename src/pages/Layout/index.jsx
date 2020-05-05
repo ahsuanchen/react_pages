@@ -49,6 +49,8 @@ import MyPhoto from 'pages/MyPhoto/index.jsx';
 import UpdatePhoto from 'components/Album/updatephoto.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
+import FeedBack from 'components/Activity/feedback.jsx';
+
 class Layout extends React.Component {
 
   render() {
@@ -106,6 +108,7 @@ class Layout extends React.Component {
       <Route path="/manualCheck" component={ManualCheck} />
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/leftBar" component={LeftBar} />
+      <Route path="/FeedBack" component={FeedBack}/>
       </>
     );
   }

@@ -102,6 +102,17 @@ export default function TestGridList(props) {
       fetchDataOrg();
   }, []);
 
+  const [act,setAct] = useState([{}]);
+  useEffect(() =>{
+    async function fetchData(){
+        const result = await axios.get('/api/activity/');
+        setAct(result.data);
+        //獲取資料
+
+      }
+      fetchData();
+  },[]);
+
   return (
    <div className={classes.div}>
     <div className={classes.left_menu}>

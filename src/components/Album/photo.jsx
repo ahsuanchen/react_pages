@@ -150,6 +150,18 @@ export default function TestGridList(props) {
       fetchDataOrg();
   }, []);
 
+  const [act,setAct] = useState([{}]);
+  useEffect(() =>{
+    async function fetchData(){
+        const result = await axios.get('/api/activity/');
+        setAct(result.data);
+        //獲取資料
+
+      }
+      fetchData();
+  },[]);
+
+
   return (
     <div className={classes.div}>
      <div className={classes.left_menu}>
@@ -209,7 +221,7 @@ export default function TestGridList(props) {
     <Container className={classes.content}>
     <div>
       <Typography variant="h4">
-         活動相簿 > 活動照片
+         活動照片
           </Typography>
       <hr />
     </div>
@@ -219,12 +231,12 @@ export default function TestGridList(props) {
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
         <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
           <ListSubheader component="div" className={classes.title}>
-          活動照片
+          {act.activityName}
           </ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
         <GridListTile cols={1} key={tile}>
-           {/* <Zmage src={tile.img} alt={tile} /> */}
+           <Zmage width="250px" src={tile.img} alt={tile} />
         </GridListTile>))}
       </GridList>
       </form>
