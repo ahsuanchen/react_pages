@@ -168,6 +168,7 @@ export default function EditSignupInfo() {
             history.push("/signupSituation");
         })
         .catch(function(error){
+            console.log(error.response.status);
         });
     };
 

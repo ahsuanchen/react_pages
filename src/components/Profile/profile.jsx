@@ -166,14 +166,6 @@ export default function Profile() {
         }
     };
 
-    const Sendpassword = event =>
-    {
-        localStorage.setItem('memberPassword', member.memberPassword);
-        history.push({
-            pathname: "/updatePassword",
-        });
-    }
-
     return (
         <div className={classes.div}>
             <Header />
@@ -206,7 +198,6 @@ export default function Profile() {
                                             <Tooltip title="修改密碼">
                                                 <Button
                                                     className={classes.change_password}
-                                                    onClick={Sendpassword}
                                                     component={Link}
                                                     to="/updatePassword"
                                                     variant="contained"

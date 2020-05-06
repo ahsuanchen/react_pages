@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import {useHistory} from 'react-router-dom';
-// import md5 from "md5";
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -89,7 +88,6 @@ export default function Updatepassword() {
                     else
                     {
                         setMember(result.data);
-                        console.log(result)
                     }
                 })
                 .catch(err => {
@@ -118,28 +116,19 @@ export default function Updatepassword() {
         event.preventDefault();
     };
 
-    // const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
-
     const handleChange = updateMemPassword => (event) => {
         setMember({ ...member, [updateMemPassword]: event.target.value });
     };
 
     const handleSubmit = event => {
         event.preventDefault();
-        // const updatePassword = {
-        //     memberPassword : member.memberPassword
-        // }
-        console.log(member)
         if (member.oldPassword != member.memberPassword)
         {
             alert("舊密碼輸入錯誤");
-            console.log(member);
-            // console.log(member.nowPassword);
         }
         else if (member.newPassword != member.repeatnewPassword)
         {
             alert("新密碼輸入不一致");
-            console.log(member);
         }
         else
         {
@@ -147,13 +136,11 @@ export default function Updatepassword() {
             url = url + member.oldPassword + "/" + member.newPassword;
             axios.post(url)
             .then(response => {
-                console.log(response);
-                // console.log(updatePassword);
                 alert("密碼已修改");
                 history.push("/profile");
             })
             .catch(function(error){
-                // console.log(updatePassword);
+                console.log(error.response.status);
             });
         }
     };
