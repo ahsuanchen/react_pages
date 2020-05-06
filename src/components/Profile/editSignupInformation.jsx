@@ -71,7 +71,6 @@ export default function EditSignupInfo() {
     const classes = useStyles();
 
     var AINum = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
-    console.log(AINum);
     
     let history = useHistory();
     function goSignin()
@@ -165,9 +164,6 @@ export default function EditSignupInfo() {
         url = url + AINum;
         axios.patch(url , updateRegistrationInfo)
         .then(res => {
-            console.log(res);
-            // console.log(response.data);
-            console.log(updateRegistrationInfo);
             alert("報名資料已修改");
             history.push("/signupSituation");
         })
@@ -230,13 +226,20 @@ export default function EditSignupInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>供餐選項：</TableCell>
+                                            {activity.activityMeal == 0 ?
+                                            <TableCell>
+                                                <RadioGroup name="Gender" value={registration.registrationMeal + ""}>
+                                                    <FormControlLabel value="0" control={<RadioColor />} label="暫不供餐" disabled />
+                                                </RadioGroup>
+                                            </TableCell>
+                                            :
                                             <TableCell>
                                                 <RadioGroup name="Gender" value={registration.registrationMeal + ""} onChange={handleChange('registrationMeal')}>
-                                                    <FormControlLabel value="0" control={<RadioColor />} label="暫不供餐" />
                                                     <FormControlLabel value="1" control={<RadioColor />} label="葷食" />
                                                     <FormControlLabel value="2" control={<RadioColor />} label="素食" />
                                                 </RadioGroup>
                                             </TableCell>
+                                            }
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>備註：</TableCell>

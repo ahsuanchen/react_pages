@@ -1,9 +1,9 @@
-import React from 'react';
+import React , {useState} from 'react';
 import Header1 from '../Header/HM_header1.jsx';
 import Header2 from '../Header/HM_header2.jsx';
 import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
@@ -126,6 +126,17 @@ export default function MenuApp() {
       setOpen(false);
     };
 
+    const [searchResult , setSearchResult] = useState("");
+
+    let history = useHistory();
+    const SendSearchResult = event =>
+    {
+        localStorage.setItem('searchResult' , searchResult);
+        history.push({
+            pathname: "/searchInfo",
+        });
+    }
+
     return (
         <div className={classes.div}>
             <Header2 />
@@ -154,9 +165,15 @@ export default function MenuApp() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
+                            value={searchResult}
+                            onChange={e=>setSearchResult(e.target.value)}
                         />
                         <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon} component={Link} to="/searchInfo">
+                            <Button
+                                type="submit"
+                                className={classes.search_butoon}
+                                onClick={SendSearchResult}
+                            >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
                         </Tooltip>

@@ -151,7 +151,6 @@ export default function ManageActivity() {
                         axios.get("/api/activity/organizer/" + res.data.memberEmail)
                         .then(result => {
                             setActivity(result.data);
-                            console.log(result);
                         })
                         .catch(err => {
                             console.log(err.response.status);
@@ -213,7 +212,7 @@ export default function ManageActivity() {
                                                             <TableCell align="center">活動名稱</TableCell>
                                                             <TableCell align="center">活動地點</TableCell>
                                                             <TableCell align="center">活動時間</TableCell>
-                                                            <TableCell align="center">可報名總額/已報名人數</TableCell>
+                                                            <TableCell align="center">可報名總額 / 已報名人數</TableCell>
                                                             <TableCell align="center">活動狀況</TableCell>
                                                             <TableCell align="center">功能</TableCell>
                                                         </TableRow>
@@ -264,7 +263,7 @@ export default function ManageActivity() {
                                                                         variant="contained"
                                                                         className={classes.button}
                                                                         component={Link}
-                                                                        to="/"
+                                                                        to={"/updateInfo?" + activity.activityId}
                                                                     >
                                                                         修改活動
                                                                     </Button>

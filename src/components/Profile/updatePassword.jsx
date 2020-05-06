@@ -71,12 +71,11 @@ export default function Updatepassword() {
     const [member, setMember] = useState({
         oldPassword : '' ,
         newPassword : '' ,
-        repeatNewPassword : '' ,
+        repeatnewPassword : '' ,
         showoldPassword: false ,
         shownewPassword: false ,
         showrepeatnewPassword: false ,
     });
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchDataMem() {
                 let url = "/api/login/name"
@@ -90,7 +89,7 @@ export default function Updatepassword() {
                     else
                     {
                         setMember(result.data);
-                        console.log(result);
+                        console.log(result)
                     }
                 })
                 .catch(err => {
@@ -119,7 +118,7 @@ export default function Updatepassword() {
         event.preventDefault();
     };
 
-    const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
+    // const [oldPassword] =  useState(localStorage.getItem('memberPassword'));
 
     const handleChange = updateMemPassword => (event) => {
         setMember({ ...member, [updateMemPassword]: event.target.value });
@@ -127,34 +126,34 @@ export default function Updatepassword() {
 
     const handleSubmit = event => {
         event.preventDefault();
-        const updatePassword = {
-            memberPassword : member.memberPassword
-        }
-        if (member.oldPassword != oldPassword)
+        // const updatePassword = {
+        //     memberPassword : member.memberPassword
+        // }
+        console.log(member)
+        if (member.oldPassword != member.memberPassword)
         {
             alert("舊密碼輸入錯誤");
             console.log(member);
-            console.log(updatePassword);
+            // console.log(member.nowPassword);
         }
-        else if (member.newPassword != member.memberPassword)
+        else if (member.newPassword != member.repeatnewPassword)
         {
             alert("新密碼輸入不一致");
             console.log(member);
-            console.log(updatePassword);
         }
         else
         {
             let url = "/api/member/updatepassword/" ;
-            url = url + oldPassword + "/" + member.newPassword;
+            url = url + member.oldPassword + "/" + member.newPassword;
             axios.post(url)
             .then(response => {
                 console.log(response);
-                console.log(updatePassword);
+                // console.log(updatePassword);
                 alert("密碼已修改");
                 history.push("/profile");
             })
             .catch(function(error){
-                console.log(updatePassword);
+                // console.log(updatePassword);
             });
         }
     };
@@ -175,7 +174,7 @@ export default function Updatepassword() {
                                 type="hidden"
                                 id="memberPassword"
                                 label="密碼"
-                                value={oldPassword}
+                                // value={oldPassword}
                             />
                         <div>
                             <form>
@@ -258,7 +257,8 @@ export default function Updatepassword() {
                                                         id="outlined-adornment-password-repeat"
                                                         required
                                                         type={member.showrepeatnewPassword ? 'text' : 'password'}
-                                                        onChange={handleChange('memberPassword')}
+                                                        value={member.repeatnewPassword}
+                                                        onChange={handleChange('repeatnewPassword')}
                                                         endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton

@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import Header from '../Header/HM_header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -174,6 +174,8 @@ function SearchOrgResult(props) {
 export default function SearchInfo() {
     const classes = useStyles();
 
+    const [searchResult] =  useState(localStorage.getItem('searchResult'));
+
     return (
         <div className={classes.div}>
             <Header />
@@ -183,6 +185,7 @@ export default function SearchInfo() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
+                            value={searchResult}
                         />
                         <Tooltip title="搜尋">
                             <Button className={classes.search_butoon}>
@@ -193,7 +196,7 @@ export default function SearchInfo() {
                 </div>
                 <div>
                     <Typography variant="h5">
-                        搜尋關鍵字&nbsp;&nbsp;" "
+                        搜尋關鍵字&nbsp;&nbsp;"{searchResult}"
                     </Typography>
                 </div>
                 <br/>

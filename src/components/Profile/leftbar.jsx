@@ -76,7 +76,7 @@ export default function LeftBar() {
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
-                        console.log(result);
+                        // console.log(result);
                     })
                     .catch(err => {
                         console.log(err.response.status);
