@@ -13,12 +13,16 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 // import DatePicker from 'react-datepicker';
 
 
@@ -65,7 +69,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(53),
+            height: theme.spacing(68),
         },
     },
     form: {
@@ -87,6 +91,10 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+
+    formControl: {
+        margin: theme.spacing(3),
+      },
 }));
 
 // const UpdateInfoPage = props => {
@@ -112,14 +120,16 @@ let activity_Id = window.location.href.substring(window.location.href.lastIndexO
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+
 export default function UpdateInfo() {
     const classes = useStyles();
 
     // //宣吿要接值的變數
     const [act, setAct] = useState({
         // activityId:localStorage.getItem('activityId'),
-        activityId:activity_Id,
+        activityId:'43',
         activityName:'',
+        activityTypes:'',
         activityStartDateStringDate:'',
         activityStartDateStringMinute:'',
         activityEndDateStringDate:'',
@@ -152,6 +162,26 @@ export default function UpdateInfo() {
         setAct({...act, [updateActInfo]: event.target.value});
     
     }
+    //類別
+    const [type, setType] = useState({
+        learning: true,
+        art: false,
+        family: false,
+        experience: false,
+        leisure: false,
+        sport: false,
+        outdoor: false,
+        lecture: false,
+        information: false
+      });
+    
+      const handleChangeType = (event) => {
+        setType({ ...type, [event.target.name]: event.target.checked });
+      };
+    
+      const { learning, art, family, experience, leisure, sport, outdoor, lecture, information} = type;
+      const error = [learning, art, family, experience, leisure, sport, outdoor, lecture, information].filter((v) => v).length < 1;
+    //
 
     useEffect(() => {
         async function fetchDataActInfo() {
@@ -183,12 +213,11 @@ export default function UpdateInfo() {
         
     }, []);
 
-    // const activityStart_Date = act.activityStartDateString.substring(0,10);
-    // const activityStart_Time = act.activityStartDateString.substring(11);
 
     const handleSubmit = event => {
         const updateActivityInfo={
             activityName:act.activityName,
+            activityTypes:act.activityTypes,
 
             activityStartDateString:act.activityStartDateString,
             activityEndDateString:act.activityEndDateString ,
@@ -229,10 +258,6 @@ export default function UpdateInfo() {
     //     setValue(event.target.value);
     // }
 
-
-        const [startDate, setStartDate] = useState(new Date());
-        
-
     return (
         <div className={classes.root}>
             <Header/>
@@ -263,11 +288,7 @@ export default function UpdateInfo() {
                                         placeholder="請填寫活動名稱"
                                         value={act.activityName}
                                         onChange={handleChange('activityName')}
-
-                                        
                                     />
-
-                                   
 
                                     <TextField 
                                         margin="normal"
@@ -414,6 +435,69 @@ export default function UpdateInfo() {
                                         placeholder="請填寫活動簡介（限一千字）"
                                         onChange={handleChange('activityInfo')}
                                     />
+
+                                    <FormControl required error={error} component="fieldset" className={classes.formControl}>
+                                        <FormLabel component="legend">類別</FormLabel>
+                                            <FormGroup>
+                                            <Grid container>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={learning} value={act.activityTypes} onChange={handleChangeType} name="learning" />}
+                                                label="學習"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={art} value={act.activityTypes} onChange={handleChangeType} name="art" />}
+                                                label="藝文"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={family} value={act.activityTypes} onChange={handleChangeType} name="family" />}
+                                                label="親子"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={experience} value={act.activityTypes} onChange={handleChangeType} name="experience" />}
+                                                label="體驗"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={leisure} value={act.activityTypes} onChange={handleChangeType} name="leisure" />}
+                                                label="休閒"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={sport} value={act.activityTypes} onChange={handleChangeType} name="sport" />}
+                                                label="運動"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={outdoor} value={act.activityTypes} onChange={handleChangeType} name="outdoor" />}
+                                                label="戶外"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={lecture} value={act.activityTypes} onChange={handleChangeType} name="lecture" />}
+                                                label="講座"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={information} value={act.activityTypes} onChange={handleChangeType} name="information" />}
+                                                label="資訊"
+                                            />
+                                            </Grid>
+                                            </Grid>
+                                            </FormGroup>
+                                        <FormHelperText>請至少選擇一項類別</FormHelperText>
+                                    </FormControl>
 
 
                                     <FormControl component="fieldset" className={classes.formControl}>

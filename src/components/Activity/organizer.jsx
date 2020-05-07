@@ -141,7 +141,7 @@ export default function Organizer() {
                 <div className={classes.paper}>
                     <paper>
                         <input
-                            //type="hidden"
+                            type="hidden"
                             value={member.memberEmail}
                             //onChange={e=>setMemberEmail(e.target.value)}
                             onChange={handleChange('memberEmail')}

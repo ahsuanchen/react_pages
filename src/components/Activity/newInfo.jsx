@@ -387,14 +387,14 @@ export default function BulidActivity_step2() {
                                             <Grid container>
                                                 <Grid item> 
                                                     <FormControlLabel 
-                                                        value="1" 
+                                                        value="Y" 
                                                         control={<RadioColor />} 
                                                         label="是" 
                                                     />
                                                 </Grid>
                                                 <Grid item>
                                                     <FormControlLabel 
-                                                    value="0" 
+                                                    value="N" 
                                                     control={<RadioColor />} 
                                                     label="否" 
                                                     />

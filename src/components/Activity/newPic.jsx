@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "5% auto"
     } ,
     container : {
         minHeight : "600px" ,
@@ -104,9 +104,9 @@ export default function BulidActivity_step4() {
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files[0])
-      setImage({
-        preview: URL.createObjectURL(e.target.files[0]),
-        raw: e.target.files[0]
+        setImage({
+            preview: URL.createObjectURL(e.target.files[0]),
+            raw: e.target.files[0]
       })
     }; 
 
@@ -123,9 +123,6 @@ export default function BulidActivity_step4() {
 
     let url = "/api/files/files/activityCover/";
         url = url + activityId;
-        
-        console.log(url)
-        console.log(activityId)
 
     
         
@@ -146,7 +143,6 @@ export default function BulidActivity_step4() {
 
         axios.post(url, formData,config)
           .then(res => {
-            //alert("yes")
             console.log("test")
             console.log(res);
             console.log(res.data);

@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "5% auto"
     } ,
     container : {
         minHeight : "600px" ,
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         borderRadius: "5px",
         fontSize: "20px",
-        marginBottom : "10%" ,
+        marginBottom : "5%" ,
         '&:hover' : {
             background : 'none',
             color : "#000"
@@ -91,7 +91,7 @@ export default function UpdateActivity_step2() {
 
     const [act, setAct] = useState({
         // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:"50",
         activityCover:'',
     });
 
@@ -128,6 +128,10 @@ export default function UpdateActivity_step2() {
         fetchDataActContent();
         
     }, []);
+
+    
+    let cover_src = "." + act.activityCover.substring(6);
+    console.log(cover_src)
 
 
     const [data , setData] = useState();
@@ -172,8 +176,6 @@ export default function UpdateActivity_step2() {
 
         axios.post(url_update, formData,config)
           .then(res => {
-            //alert("yes")
-            console.log("test")
             console.log(res);
             console.log(res.data);
             history.push({
@@ -187,7 +189,6 @@ export default function UpdateActivity_step2() {
           });
         
     }
-    let cover_name = "./" + act.activityCover;
 
     return (
         <div className={classes.div}>
@@ -196,12 +197,8 @@ export default function UpdateActivity_step2() {
             <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    修改活動資訊照片
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (上傳您的封面照)
+                    修改活動封面照
                 </Typography>
             </div>
             <div>
@@ -214,7 +211,7 @@ export default function UpdateActivity_step2() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    &nbsp;重新上傳
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -228,11 +225,11 @@ export default function UpdateActivity_step2() {
                             :(
                             <>
                             {/* 修改前 */}
-                                <img src= "./assets/images/10/actfun.png"  width="800" height="480" />
-                                <br/>
+                                <img src= {cover_src}  width="800" height="480" />
+                                <br/><br/><br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    &nbsp;重新上傳
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
