@@ -143,13 +143,13 @@ export default function ActivityInfo() {
   },[]);
 
 const [activity_Id,setActivity_Id] = useState("");
-const [placeFeedback,setPlaceFeedback] = useState("");
-const [scheduleFeedback,setScheduleFeedback] = useState("");
-const [processFeedback,setProcessFeedback] = useState("");
-const [contentFeedback,setContentFeedback] = useState("");
-const [staffFeedback,setStaffFeedback] = useState("");
-const [overallFeedback,setOverallFeedback] = useState("");
-const [suggestFeedback,setSuggestFeedback] = useState("");
+const [place,setPlace] = useState("");
+const [schedule,setSchedule] = useState("");
+const [process,setProcess] = useState("");
+const [content,setContent] = useState("");
+const [staff,setStaff] = useState("");
+const [overall,setOverall] = useState("");
+const [suggest,setSuggest] = useState("");
 
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
@@ -167,14 +167,14 @@ const [suggestFeedback,setSuggestFeedback] = useState("");
 
     const Feedback =
     {
-      activity_Id : act.activityId,
-      placeFeedback : feedback.placeFeedback,
-      scheduleFeedback : feedback.scheduleFeedback,
-      processFeedback : feedback.processFeedback,
-      contentFeedback : feedback.contentFeedback,
-      staffFeedback : feedback.staffFeedback,
-      overallFeedback : feedback.overallFeedback,
-      suggestFeedback : feedback.suggestFeedback,
+      activity_Id : 1,
+      placeFeedback : place,
+      scheduleFeedback : schedule,
+      processFeedback : process,
+      contentFeedback : content,
+      staffFeedback : staff,
+      overallFeedback : overall,
+      suggestFeedback : suggest
     }
 
     console.log(Feedback);
@@ -216,45 +216,50 @@ const [suggestFeedback,setSuggestFeedback] = useState("");
               <Typography component="legend">活動場地</Typography>
               <Rating
                 name="place"
-                defaultValue={5}
+                defaultValue={0}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={e=>setPlace(e.target.value)}
               />
 
               <Typography component="legend">活動時間安排</Typography>
               <Rating
                 name="schedule"
-                defaultValue={5}
+                defaultValue={0}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={e=>setSchedule(e.target.value)}
               />
 
               <Typography component="legend">活動流程</Typography>
               <Rating
                 name="process"
-                defaultValue={5}
+                defaultValue={0}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={e=>setProcess(e.target.value)}
               />
 
               <Typography component="legend">活動內容</Typography>
               <Rating
                 name="content"
-                defaultValue={5}
+                defaultValue={0}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={e=>setContent(e.target.value)}
               />
 
               <Typography component="legend">工作人員(服務品質)</Typography>
               <Rating
                 name="staff"
-                defaultValue={5}
+                defaultValue={0}
                 getLabelText={(value) => customIcons[value].label}
                 IconContainerComponent={IconContainer}
+                onChange={e=>setStaff(e.target.value)}
               />
 
                 <Typography component="legend">活動整體滿意度</Typography>
-                <Rating name="overall" defaultValue={5} max={5} />
+                <Rating name="overall" defaultValue={0} max={5} onChange={e=>setOverall(e.target.value)}/>
             </Box>
 
             <Typography>
@@ -266,7 +271,8 @@ const [suggestFeedback,setSuggestFeedback] = useState("");
               id="outlined-multiline-static"
               multiline
               rows={4}
-              variant="outlined"/>
+              variant="outlined"
+              onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
           <Button onClick={handleSubmit} variant="contained" color="secondary">確定</Button>

@@ -408,7 +408,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to="/Feedback"
                                                             >
                                                                 給予回饋
                                                             </Button>

@@ -483,7 +483,7 @@ export default function ManageActivity() {
                                                                     component={Link}
                                                                     to="/"
                                                                 >
-                                                                    分發/上傳照片
+                                                                    上傳/管理照片
                                                                 </Button>
                                                                 <br /><br />
                                                                 <Button
