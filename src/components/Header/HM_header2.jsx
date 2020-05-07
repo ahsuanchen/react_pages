@@ -159,12 +159,14 @@ export default function MenuAppBar() {
                               </ListItemIcon>
                               <ListItemText primary="個人檔案" />
                             </ListItem>
-                            <ListItem component={Link} to="" button>
-                              <ListItemIcon>
-                                <ExitToAppIcon/>
-                              </ListItemIcon>
-                              <ListItemText primary="登出" />
-                            </ListItem>
+                            <form method="post" action="/logout">
+                              <ListItem button type="submit">
+                                <ListItemIcon>
+                                  <ExitToAppIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="登出" />
+                              </ListItem>
+                            </form>
                       </Menu>
                     </IconButton>
                     <Drawer open={state.left} onClose={toggleDrawer('left', false)}>

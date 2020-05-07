@@ -319,7 +319,7 @@ export default function ManageActivity() {
                                                                         variant="contained"
                                                                         className={classes.button}
                                                                         component={Link}
-                                                                        to="/"
+                                                                        to={"/updateInfo?" + activity.activityId}
                                                                     >
                                                                         修改活動
                                                                     </Button>
