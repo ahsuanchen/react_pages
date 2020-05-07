@@ -14,13 +14,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-
-
 import { makeStyles } from '@material-ui/core/styles';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" color="inherit" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
         ACTFUN
@@ -94,6 +92,13 @@ const useStyles = makeStyles(theme => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        '&:hover' : {
+            background : '#E0E0E0',
+            color : "#000"
+        } , 
   },
 }));
 
@@ -243,12 +248,12 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="forgot1" variant="body2">
+                  <Link href="forgot1" variant="body2" color="inherit">
                     忘記密碼？
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2">
+                  <Link href="signup" variant="body2" color="inherit">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>
