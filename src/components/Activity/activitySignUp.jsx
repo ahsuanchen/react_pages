@@ -58,6 +58,7 @@ export default function ActivityInfo() {
   const activityList = ['activityName'];
   //設定activity物件
   const [act,setAct] = useState({});
+  const [isSignup,setIsSignUp] = useState("");
   useEffect(() =>{
     async function fetchData(){
       //將抓取到的id拿去資料庫中查詢
@@ -68,8 +69,22 @@ export default function ActivityInfo() {
         //抓取資料並將資料Set給上面設定好的activity物件
         //act = result.data;
         //console.log(act);
+
+
       }
       fetchData();
+  },[]);
+
+  useEffect(() =>{
+    async function fetchisSignUp() {
+      const urll = '/api/registration/ifSignUp/' + activityId;
+      const res = await axios.get(urll);
+      setIsSignUp(res.data);
+
+      console.log(res.data)
+
+    }
+    fetchisSignUp();
   },[]);
 
 const [member_Email,setMember_Email] = useState("");
@@ -118,7 +133,7 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
         <TableBody>
           <TableRow >
             <TableCell style={{width: '40%'}} rowSpan={2}>
-              <img src="assets/images/1.jpg" width = "500"/>
+              <img src={act.activityCover} width = "500"/>
               <Typography variant="h6" gutterBottom>{act.activityName}</Typography>
               <Typography gutterBottom>活動報名時間:</Typography>
               <Typography gutterBottom>{act.startSignUpDateString}到{act.endSignUpDateString} </Typography>
@@ -187,7 +202,10 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
           <Typography gutterBottom>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
+        {(isSignup =="ok")?
         <Button onClick={handleSubmit} variant="contained" color="secondary">確定報名</Button>
+        :
+        <Button variant="contained" color="secondary" disabled>無法報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

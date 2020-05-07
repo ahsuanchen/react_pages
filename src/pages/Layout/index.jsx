@@ -92,8 +92,6 @@ class Layout extends React.Component {
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
       <Route path="/trainingFace" component={TrainingFace} />
-      <Route path="/signupSituation" component={SignupSituation} />
-      <Route path="/editSignupInformation" component={EditSignupInfo} />
 
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />

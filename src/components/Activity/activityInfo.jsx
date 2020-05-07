@@ -150,7 +150,7 @@ export default function ActivityInfo() {
         </TableHead>
         <TableBody>
           <TableRow >
-            <TableCell style={{width: '40%'}} rowSpan={5}><img src="assets/images/1.jpg" width = "700"/></TableCell>
+            <TableCell style={{width: '40%'}} rowSpan={5}><img src={act.activityCover} width = "700"/></TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
