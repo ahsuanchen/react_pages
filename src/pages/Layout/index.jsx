@@ -3,7 +3,7 @@ import { Route, Switch, Router} from 'react-router-dom';
 
 import routess from 'routes';
 
-import Header from 'components/Header/HM_header2.jsx';
+//import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
 import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
@@ -59,7 +59,7 @@ class Layout extends React.Component {
     const routes = routess;
     return (
       <>
-      <Header routes={routes}/>
+      {/*<Header routes={routes}/>*/}
       {routes.map((page,key) => (
         <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
       ))}

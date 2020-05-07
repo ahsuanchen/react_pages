@@ -26,7 +26,7 @@ import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAltO
 import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfied';
 import Box from '@material-ui/core/Box';
 import LeftBar from 'components/Profile/leftbar.jsx';
-
+import Header from 'components/Header/PF_header.jsx';
 
 const StyledRating = withStyles({
   iconFilled: {
@@ -191,6 +191,10 @@ const [suggest,setSuggest] = useState("");
   };
 
   return (
+    <div>
+    <div>
+    <Header/>
+    </div>
     <div className={classes.left_menu}>
     <LeftBar/>
     <Container className={classes.content}>
@@ -280,6 +284,6 @@ const [suggest,setSuggest] = useState("");
       </Card>
       </Container>
     </div>
-
+</div>
   );
 }

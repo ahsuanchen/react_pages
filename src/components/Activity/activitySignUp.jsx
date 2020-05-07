@@ -20,7 +20,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-
+import Header from 'components/Header/PF_header.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -90,13 +90,13 @@ export default function ActivityInfo() {
 const [member_Email,setMember_Email] = useState("");
 const [activity_Id,setActivity_Id] = useState("");
 const [registrationRemark,setRegistrationRemark] = useState("");
-const [registrationMeal,setRegistrationMeal] = useState(0);
+const [registrationMeal,setRegistrationMeal] = useState("");
 
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
 
-    const [value, setValue] = React.useState("0");
+    const [value, setValue] = React.useState("");
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -110,12 +110,12 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
     {
       member_Email : member.memberEmail,
       activity_Id : act.activityId,
-      registrationRemark : registrationRemark,
+      registrationRemark :registrationRemark,
       registrationMeal : registrationMeal
     }
 
     console.log(Registration);
-    axios.post("api/registration/",Registration)
+    axios.post("/api/registration/",Registration)
     .then( res => {
       console.log("ok");
 
@@ -182,7 +182,7 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
           </Typography>
           {(act.activityMeal==1)?
             <FormControl component="fieldset">
-              <RadioGroup aria-label="meal" name="activityMeal" value={value} onChange={handleChange}>
+              <RadioGroup aria-label="meal" name="registrationMeal" value={registrationMeal} onChange={e=>setRegistrationMeal(e.target.value)}>
               <FormControlLabel value="2" control={<Radio />} label="葷食" />
               <FormControlLabel value="1" control={<Radio />} label="素食" />
               <FormControlLabel value="0" control={<Radio />} label="不需要" />
@@ -198,7 +198,8 @@ const [registrationMeal,setRegistrationMeal] = useState(0);
             id="outlined-multiline-static"
             multiline
             rows={4}
-            variant="outlined"/>
+            variant="outlined"
+            onChange={e=>setRegistrationRemark(e.target.value)}/>
           <Typography gutterBottom>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">

@@ -237,18 +237,18 @@ export default function ManageActivity() {
                                                                 {activity.attendPeople}&nbsp;/&nbsp;
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||
                                                                 (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? "活動報名中" 
-                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                                    ? "活動報名中"
+                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                     (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
                                                                     ? "等待活動中"
                                                                : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
                                                                     ? "活動進行中" : "活動已結束"}
                                                             </TableCell>
-                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||
                                                                 (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? 
+                                                                    ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -302,9 +302,9 @@ export default function ManageActivity() {
                                                                         </DialogActions>
                                                                     </Dialog>
                                                                 </TableCell>
-                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                 (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
-                                                                ? 
+                                                                ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -359,7 +359,7 @@ export default function ManageActivity() {
                                                                     </Dialog>
                                                                 </TableCell>
                                                                : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
-                                                                    ? 
+                                                                    ?
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -433,6 +433,8 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
+                                                                    component={Link}
+                                                                    to={"/UpdatePhoto?"+activity.activityId}
                                                                 >
                                                                     上傳/管理照片
                                                                 </Button>

@@ -19,6 +19,7 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
+import Header from 'components/Header/PF_header.jsx';
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -50,6 +51,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function SettingFace() {
+    var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
     const classes = useStyles();
 
     const location = useLocation();
@@ -114,7 +116,7 @@ export default function SettingFace() {
     async function setform()
     {
         console.log(data);
-        let url = "/api/files/files/9";
+        let url = "/api/files/files/" + activityId;
 
         console.log(formData);
 
@@ -149,40 +151,14 @@ export default function SettingFace() {
 
     const handleSubmit=(event)=> {
 
-
-
-
-        //formData.append('file',data,data.name);
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Access-Control-Allow-Origin' : '*'
-                }
-            }
-            console.log(formData);
-
-        let url = "/api/files/multifiles/6";
-
-
-
-        axios.post(url, formData,config)
-          .then(res => {
-            //alert("yes")
-            console.log("test")
-            alert("123");
-            console.log(res);
-            console.log(res.data);
-
-
-
-          }).catch(function(error){
-              alert(error);
-              console.log(error);
-          });
+      setform();
 
     }
 
     return (
+      <div>
+      <Header/>
+
         <div className={classes.left_menu}>
         <LeftBar/>
         <div className={classes.root}>
@@ -191,9 +167,12 @@ export default function SettingFace() {
              上傳活動相片
               </Typography>
           <hr/>
-          <Button variant="outlined">
+          <Button variant="outlined" >
               新增檔案
               <input type="file" onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+          </Button>
+          <Button onClick={handleSubmit} variant="outlined" color="secondary">
+            確定上傳
           </Button>
 
           {image.preview ?
@@ -210,7 +189,7 @@ export default function SettingFace() {
             </GridList>
           </>
           :(<></>)}
-
+          </div>
         </div>
         </div>
     );
@@ -318,7 +297,4 @@ class MediaCapture extends Component {
     }
 }
 export default withStyles(styles, { withTheme: true })(MediaCapture);
-
-
-
 */}

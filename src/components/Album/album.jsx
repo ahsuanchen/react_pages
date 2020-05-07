@@ -18,6 +18,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
+
 const useStyles = makeStyles(theme => ({
   div: {
       boxSizing: "border-box"

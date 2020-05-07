@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
+import LeftBar from 'components/Profile/leftbar.jsx';
 
 const useStyles = makeStyles(theme => ({
   div: {
@@ -114,61 +115,8 @@ export default function TestGridList(props) {
   },[]);
 
   return (
-   <div className={classes.div}>
-    <div className={classes.left_menu}>
-        <Container className={classes.left_container}>
-            <Typography variant="h5">
-                <Box lineHeight="normal" m={4}>
-                    <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                </Box>
-                <Box lineHeight={2} m={1}>
-                    {member.memberName}
-                </Box>
-                <Divider />
-                <Link to="/profile" className={classes.link}>
-                    <Box lineHeight={1} m={4}>
-                        個人檔案
-                    </Box>
-                </Link>
-                <Link to="/trainingFace" className={classes.link}>
-                    <Box lineHeight={1} m={4}>
-                        訓練人臉
-                        </Box>
-                </Link>
-                <Link to="/signupSituation" className={classes.link}>
-                    <Box lineHeight={1} m={4}>
-                        報名狀況
-                        </Box>
-                </Link>
-                <Divider />
-                <Box lineHeight={3} m={1}>
-                    {organizer.organizerName}
-                </Box>
-                <Divider />
-                <Link to="/organizerInfo" className={classes.link}>
-                    <Box lineHeight={1} m={4} >
-                        主辦單位資訊
-                        </Box>
-                </Link>
-                <Link to="/manageActivity" className={classes.link}>
-                    <Box lineHeight={1} m={4}>
-                        管理活動
-                        </Box>
-                </Link>
-                <Divider />
-                <Link to="/MyAlbum" className={classes.link}>
-                    <Box lineHeight={2} m={1} color="#000">
-                        我的相簿
-                    </Box>
-                </Link>
-                <Link to="/ActivityAlbum" className={classes.link}>
-                    <Box lineHeight={2} m={1} >
-                        活動相簿
-                    </Box>
-                </Link>
-            </Typography>
-        </Container>
-
+   <div className={classes.left_menu}>
+    <LeftBar/>
         <Container className={classes.content}>
         <div>
           <Typography variant="h4">
@@ -192,7 +140,6 @@ export default function TestGridList(props) {
       </form>
       </div>
     </Container>
-</div>
 </div>
   );
 }
