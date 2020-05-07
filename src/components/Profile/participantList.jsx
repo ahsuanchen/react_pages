@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     feedback_Link : {
         color : "#000" ,
         '&:hover' : {
-            color : '#00AEAE' 
+            color : '#00AEAE'
         }
     }
   }));

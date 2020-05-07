@@ -5,7 +5,7 @@ import HomeTextField from 'components/Layout/homeTextField.jsx';
 import SortButtons from 'components/Layout/sortButtons.jsx';
 import TagButtons from 'components/Layout/tagButtons.jsx';
 import GridList from 'components/Layout/gridList.jsx';
-import Header from 'components/Home/header.jsx';
+import Header from 'components/Header/PF_header.jsx';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,12 +25,14 @@ export default function Home(props) {
   const classes = useStyles();
 
   return (
-
+    <>
+      <Header/>
       <Grid container direction="column" className={classes.root}>
         <HomeTextField />
         <SortButtons />
         <GridList />
       </Grid>
+      </>
 
   );
 }

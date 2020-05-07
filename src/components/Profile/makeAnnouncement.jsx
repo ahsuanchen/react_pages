@@ -118,7 +118,7 @@ export default function MakeAnnouncement() {
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
-                                                <TextField 
+                                                <TextField
                                                     style={{minWidth:"350px"}}
                                                 />
                                             </TableCell>

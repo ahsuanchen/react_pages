@@ -92,7 +92,7 @@ export default function ManualCheck() {
     // };
 
     // const handleSubmit = event => {
-    //     event.preventDefault();    
+    //     event.preventDefault();
     //         let url =  "/api/member/updatepassword/" ;
     //         url = url + oldPassword + updatePassword.memberPassword ;
     //         axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
@@ -154,7 +154,7 @@ export default function ManualCheck() {
                                     </TableBody>
                                 </Table>
                             </form>
-                        </div>  
+                        </div>
                 </Container>
             </div>
         </div>

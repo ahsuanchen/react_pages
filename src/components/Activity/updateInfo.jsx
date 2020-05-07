@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         boxSizing: "border-box"
     },
     topic_part : {
-        textAlign : "center" , 
+        textAlign : "center" ,
         margin : "5% auto"
     } ,
     button_part : {
@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             background : "none" ,
             color : "#000"
-        } , 
+        } ,
     } ,
     button_part2 : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             background : "none" ,
             color : "#000"
-        } , 
+        } ,
     } ,
     space: {
         marginTop: theme.spacing(5),
@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
 //        console.log(location.state.detail); // result: 'some_value'
 //     }, [location]);
 
-    
+
 // };
 let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
  //radio 顏色設定
@@ -159,7 +159,7 @@ export default function UpdateInfo() {
 
     const handleChange = updateActInfo => event => {
         setAct({...act, [updateActInfo]: event.target.value});
-    
+
     }
     //類別
     const [type, setType] = useState({
@@ -195,8 +195,8 @@ export default function UpdateInfo() {
                     // {
                         setAct(result.data);
                         console.log(result);
-                        
-                
+
+
                     // }
                 })
                 .catch(err => {
@@ -204,12 +204,12 @@ export default function UpdateInfo() {
                     if(err.response.status === 403)
                     {
                         alert("您的權限不足!");
-                        
+
                     }
                 })
         }
         fetchDataActInfo();
-        
+
     }, []);
 
 
@@ -227,7 +227,7 @@ export default function UpdateInfo() {
             activityEndDate:new Date(act.activityEndDateStringDate+" "+act.activityEndDateStringMinute+":00").getTime() ,
             startSignUpDate:new Date(act.startSignUpDateStringDate+" "+act.startSignUpDateStringMinute+":00").getTime() ,
             endSignUpDate:new Date(act.endSignUpDateStringDate+" "+act.endSignUpDateStringMinute+":00").getTime() ,
-            
+
             attendPeople:act.attendPeople,
             activitySpace:act.activitySpace,
             activitySummary:act.activitySummary,
@@ -275,7 +275,7 @@ export default function UpdateInfo() {
                         <CssBaseline />
                         <div className={classes.paper}>
                             <paper>
-                                
+
                                     <TextField
                                         margin="normal"
                                         required
@@ -293,8 +293,8 @@ export default function UpdateInfo() {
                                     <TextField 
                                         margin="normal"
                                         width="70%"
-                                        label="活動開始日期" 
-                                        type="date" 
+                                        label="活動開始日期"
+                                        type="date"
                                         id="activityStart_Date"
                                         value={act.activityStartDateStringDate}
                                         defaultValue={new Date().getFullYear()}
@@ -302,83 +302,83 @@ export default function UpdateInfo() {
                                         onChange={handleChange('activityStartDateStringDate')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width='60'
-                                        label="活動開始時間" 
-                                        type="time" 
+                                        label="活動開始時間"
+                                        type="time"
                                         id="activityStartTimeStringMinute"
                                         value={act.activityStartDateStringMinute}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('activityStartDateStringMinute')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width="50%"
-                                        label="活動結束日期" 
-                                        type="date" 
+                                        label="活動結束日期"
+                                        type="date"
                                         id="activityEnd_Date"
                                         value={act.activityEndDateStringDate}
                                         defaultValue={new Date().getFullYear()}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('activityEndDateStringDate')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width="50%"
-                                        label="活動結束時間" 
-                                        type="time" 
+                                        label="活動結束時間"
+                                        type="time"
                                         id="activityEnd_Time"
                                         value={act.activityEndDateStringMinute}
                                         InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('activityEndDateStringMinute')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         width="70%"
-                                        label="報名開始日期" 
-                                        type="date" 
+                                        label="報名開始日期"
+                                        type="date"
                                         id="startSignUp_Date"
                                         value={act.startSignUpDateStringDate}
                                         defaultValue={new Date().getFullYear()}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('startSignUpDateStringDate')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width='60'
-                                        label="報名開始時間" 
-                                        type="time" 
+                                        label="報名開始時間"
+                                        type="time"
                                         id="startSignUp_Time"
                                         value={act.startSignUpDateStringMinute}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('startSignUpDateStringMinute')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width="50%"
-                                        label="報名結束日期" 
-                                        type="date" 
+                                        label="報名結束日期"
+                                        type="date"
                                         id="endSignUp_Date"
                                         value={act.endSignUpDateStringDate}
                                         defaultValue={new Date().getFullYear()}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('endSignUpDateStringDate')}
                                     />
 
-                                    <TextField 
+                                    <TextField
                                         margin="normal"
                                         Width="50%"
-                                        label="報名結束時間" 
-                                        type="time" 
+                                        label="報名結束時間"
+                                        type="time"
                                         id="endSignUp_Time"
                                         value={act.endSignUpDateStringMinute}
-                                        InputLabelProps={{shrink: true,}} 
+                                        InputLabelProps={{shrink: true,}}
                                         onChange={handleChange('endSignUpDateStringMinute')}
                                     />
 
@@ -502,25 +502,25 @@ export default function UpdateInfo() {
 
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">是否供餐</FormLabel>
-                                        <RadioGroup 
-                                            aria-label="是否供餐" 
-                                            name="activityMeal" 
-                                            value={act.activityMeal} 
-                                            onChange={handleChange('activityMeal')} 
+                                        <RadioGroup
+                                            aria-label="是否供餐"
+                                            name="activityMeal"
+                                            value={act.activityMeal}
+                                            onChange={handleChange('activityMeal')}
                                         >
                                             <Grid container>
-                                                <Grid item> 
-                                                    <FormControlLabel 
-                                                        value="Y" 
-                                                        control={<RadioColor />} 
-                                                        label="是" 
+                                                <Grid item>
+                                                    <FormControlLabel
+                                                        value="Y"
+                                                        control={<RadioColor />}
+                                                        label="是"
                                                     />
                                                 </Grid>
                                                 <Grid item>
-                                                    <FormControlLabel 
-                                                    value="N" 
-                                                    control={<RadioColor />} 
-                                                    label="否" 
+                                                    <FormControlLabel
+                                                    value="N"
+                                                    control={<RadioColor />}
+                                                    label="否"
                                                     />
                                                 </Grid>
                                             </Grid>
@@ -530,7 +530,7 @@ export default function UpdateInfo() {
                                         <Box lineHeight="normal" m={8}>
                                         </Box>
                                         <Box lineHeight="normal" m={1}>
-                                            <Button 
+                                            <Button
                                                 type="submit"
                                                 className={classes.button_part2}
                                                 onClick={handleSubmit}
@@ -547,7 +547,7 @@ export default function UpdateInfo() {
                                             <ArrowForwardIcon />
                                         </IconButton>
                                     </Grid> */}
-                                
+
                             </paper>
                             <Grid align-items-xs-flex-end></Grid>
                         </div>
@@ -555,7 +555,7 @@ export default function UpdateInfo() {
                     </Container>
                 </Grid>
             </div>
-            
+
         </div>
 
 
