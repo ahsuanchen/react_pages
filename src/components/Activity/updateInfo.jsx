@@ -89,18 +89,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const UpdateInfoPage = props => {
-    const location = useLocation();
+// const UpdateInfoPage = props => {
+//     const location = useLocation();
 
-    useEffect(() => {
-       console.log(location.pathname); // result: '/secondpage'
-       //console.log(location.search); // result: '?query=abc'
-       console.log(location.state.detail); // result: 'some_value'
-    }, [location]);
+//     useEffect(() => {
+//        console.log(location.pathname); // result: '/secondpage'
+//        //console.log(location.search); // result: '?query=abc'
+//        console.log(location.state.detail); // result: 'some_value'
+//     }, [location]);
 
     
-};
-
+// };
+let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?"+1));
  //radio 顏色設定
  const RadioColor = withStyles({
     root: {
@@ -118,7 +118,7 @@ export default function UpdateInfo() {
     // //宣吿要接值的變數
     const [act, setAct] = useState({
         // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:activity_Id,
         activityName:'',
         activityStartDateStringDate:'',
         activityStartDateStringMinute:'',

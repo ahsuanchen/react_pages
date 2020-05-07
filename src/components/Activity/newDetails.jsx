@@ -184,6 +184,8 @@ export default function BulidActivity_step3() {
         //     activityId:act.activityId,
         //     activityType:Types
         // }
+
+        // localStorage.setItem('activityId', act.activityId);
         
         axios.post("/api/activity", activity)
           .then(res => {
@@ -191,22 +193,21 @@ export default function BulidActivity_step3() {
             console.log(res);
             console.log(res.data);
 
-            const activityTypes={
-                activityId:res.data.activityId,
-                activityType:Types_array
-            }
+            
             let url = "api/activityTypes/"
             url = url + res.data.activityId;
 
             console.log(url)
 
             setAct(res.data)
-
-            axios.post(url, activityTypes)
+            alert(res.data.activityId)
+            const actId = res.data.activityId;
+            axios.post(url, Types_array)
             .then(result =>{
                 console.log(result);
                 console.log(result.data);
-                alert("123")
+                alert(result.data.activityId)
+                localStorage.setItem('activityId',actId);
                 history.push({
                     pathname: "/newPic",
                   });

@@ -79,31 +79,8 @@ const SignUpPage = props => {
 
             const member={
                 memberEmail:memberEmail,
-                //memberPassword:memberPassword,
                 };
-                // checkPassword:checkPassword
-                // && checkPassword === memberPassword
-
-                // localStorage.setItem('memberEmail',memberEmail);
-                // localStorage.setItem('memberPassword',memberPassword);
-
-                // axios.post("api/member/check/", member)
-                // .then(res => {
-                //     console.log(res);
-                //     console.log(res.data);
-                //     //check判斷後為ok表示此帳號為註冊過即跳到下一頁
-                //     //PassTextPage();
-                    
-                //     history.push({
-                //         pathname: "/signupinfo",
-                //     });
-                    
-                // }).catch(err =>{
-                //     console.log(err.reponse);
-                //     console.log(err.data);
-                //      alert("此帳號已被使用");
-                // });               
-
+            
             if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword === memberPassword){
                 //隔頁傳值
                 localStorage.setItem('memberEmail',memberEmail);
@@ -123,12 +100,12 @@ const SignUpPage = props => {
                 }).catch(err =>{
                     console.log(err.reponse);
                     console.log(err.data);
-                     alert("此帳號已被註冊");
+                     alert("此帳號已註冊");
                 });               
 
                 }
             else if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword != memberPassword){
-                alert("密碼不一致");
+                alert("密碼驗證失敗");
             }
             else{
                 alert("請輸入正確的帳號密碼")

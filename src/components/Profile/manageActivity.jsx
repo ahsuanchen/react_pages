@@ -193,7 +193,7 @@ export default function ManageActivity() {
         async function fetchDataOrg() {
                 // let url = "/api/login/name"
                 // await axios.get(url)
-                await axios.get("/api/organizer/actforfun@gmail.com")
+                await axios.get("/api/organizer/wasmorris0304@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {
@@ -224,7 +224,7 @@ export default function ManageActivity() {
         async function fetchDataAct() {
                 // let url = "/api/login/name"
                 // await axios.get(url)
-                await axios.get("/api/activity/organizer/actforfun@gmail.com")
+                await axios.get("/api/activity/organizer/wasmorris0304@gmail.com")
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {

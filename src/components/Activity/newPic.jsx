@@ -85,8 +85,20 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+const NewCover = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+   
+};
+
 export default function BulidActivity_step4() {
     const classes = useStyles();
+
+    const  [activityId,setactivityId] =  useState(localStorage.getItem('activityId'));
 
     const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
@@ -109,6 +121,12 @@ export default function BulidActivity_step4() {
 
     let history = useHistory();
 
+    let url = "/api/files/files/activityCover/";
+        url = url + activityId;
+        
+        console.log(url)
+        console.log(activityId)
+
     
         
     const handleSubmit=(event)=> {
@@ -123,9 +141,7 @@ export default function BulidActivity_step4() {
             }
             console.log(formData);
 
-        let url = "/api/files/files/activityCover/";
-        //url = url + act.activityId;
-        url = url + "10";
+        
 
 
         axios.post(url, formData,config)
