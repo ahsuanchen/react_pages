@@ -89,18 +89,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const UpdateInfoPage = props => {
-    const location = useLocation();
+// const UpdateInfoPage = props => {
+//     const location = useLocation();
 
-    useEffect(() => {
-       console.log(location.pathname); // result: '/secondpage'
-       //console.log(location.search); // result: '?query=abc'
-       console.log(location.state.detail); // result: 'some_value'
-    }, [location]);
+//     useEffect(() => {
+//        console.log(location.pathname); // result: '/secondpage'
+//        //console.log(location.search); // result: '?query=abc'
+//        console.log(location.state.detail); // result: 'some_value'
+//     }, [location]);
 
     
-};
-
+// };
+let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?"+1));
  //radio 顏色設定
  const RadioColor = withStyles({
     root: {
@@ -118,7 +118,7 @@ export default function UpdateInfo() {
     // //宣吿要接值的變數
     const [act, setAct] = useState({
         // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:activity_Id,
         activityName:'',
         activityStartDateStringDate:'',
         activityStartDateStringMinute:'',
@@ -164,9 +164,6 @@ export default function UpdateInfo() {
                     // }
                     // else
                     // {
-                        // setactivityName(result.data.activityName);
-                        // setactivityStart_Date(result.data.activityStart_Date);
-                        // setattendPeople(result.data.attendPeople);
                         setAct(result.data);
                         console.log(result);
                         
@@ -186,8 +183,9 @@ export default function UpdateInfo() {
         
     }, []);
 
-    const activityStart_Date = act.activityStartDateString.substring(0,10);
-    const activityStart_Time = act.activityStartDateString.substring(11);
+    // const activityStart_Date = act.activityStartDateString.substring(0,10);
+    // const activityStart_Time = act.activityStartDateString.substring(11);
+
     const handleSubmit = event => {
         const updateActivityInfo={
             activityName:act.activityName,
@@ -209,7 +207,7 @@ export default function UpdateInfo() {
             activityMeal:act.activityMeal
         };
 
-        let activityStartDate = (activityStart_Date+" "+activityStart_Time+":00");
+        //let activityStartDate = (activityStart_Date+" "+activityStart_Time+":00");
 
             axios.patch(url, updateActivityInfo)
             .then(response => {
@@ -252,7 +250,7 @@ export default function UpdateInfo() {
                         <CssBaseline />
                         <div className={classes.paper}>
                             <paper>
-                                {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+                                
                                     <TextField
                                         margin="normal"
                                         required
@@ -269,15 +267,7 @@ export default function UpdateInfo() {
                                         
                                     />
 
-                                    {/* <DatePicker
-                                        selected={startDate}
-                                        onChange={date => setStartDate(date)}
-                                        showTimeSelect
-                                        timeFormat="HH:mm"
-                                        timeIntervals={15}
-                                        timeCaption="time"
-                                        dateFormat="MMMM d, yyyy h:mm aa"
-                                    /> */}
+                                   
 
                                     <TextField 
                                         margin="normal"
@@ -454,13 +444,6 @@ export default function UpdateInfo() {
                                     </FormControl>
                                     <Grid item xs={12} sm={6} className={classes.button_part}>
                                         <Box lineHeight="normal" m={8}>
-                                            {/* <Button 
-                                                className={classes.button_part1}
-                                                component={Link}
-                                                to="/new1"
-                                            >
-                                                上一步
-                                            </Button> */}
                                         </Box>
                                         <Box lineHeight="normal" m={1}>
                                             <Button 
@@ -480,8 +463,7 @@ export default function UpdateInfo() {
                                             <ArrowForwardIcon />
                                         </IconButton>
                                     </Grid> */}
-                                {/* 
-                                 */}
+                                
                             </paper>
                             <Grid align-items-xs-flex-end></Grid>
                         </div>
