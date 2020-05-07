@@ -1,12 +1,12 @@
 import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
+import LeftBar from 'components/Profile/leftbar.jsx';
 import { Link , useHistory } from 'react-router-dom';
+import axios from 'axios';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -16,32 +16,21 @@ import Paper from '@material-ui/core/Paper';
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Draggable from 'react-draggable';
+import ErrorIcon from '@material-ui/icons/Error';
 
 const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box"
     } ,
-    left_menu : {
-        display: "flex" ,
-        justifyContent : "space-around" ,
-        minHeight : 800 ,
-        color : "#000"
-    } ,
-    left_container : {
-        maxWidth : "280px" ,
-        borderRight : "1px solid" ,
-    } ,
-    avatar : {
-        minWidth : "150px" ,
-        minHeight : "150px" ,
-    } ,
-    link : {
-        textDecoration : "none" ,
-        color : "#D0D0D0" ,
-        '&:hover' : {
-          color : '#00AEAE'
-        }
+    content_part : {
+        display : "flex" ,
+        justifyContent: "center",
     } ,
     content : {
         margin : "2%" ,
@@ -62,7 +51,25 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
     } ,
+    Exclamation_Mark : {
+        fontSize : "40px" ,
+        color : "red" ,
+    } ,
+    dig_butoon : {
+        color : "#000" ,
+        '&:hover' : {
+          color : '#00AEAE'
+        }
+    }
   }));
+
+  function PaperComponent(props) {
+    return (
+      <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'} disabled>
+        <Paper style={{minWidth : '600px' , minHeight : '200px' ,}} {...props} />
+      </Draggable>
+    );
+  }
 
 export default function SignupSituation() {
     const classes = useStyles();
@@ -78,10 +85,10 @@ export default function SignupSituation() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    // const [AInum, setAInum] = useState([]);
+    const [registration, setRegistration] = useState([]);
     useEffect(() => {
-        async function fetchDataMem() {
+        async function fetchDataReg() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -92,71 +99,20 @@ export default function SignupSituation() {
                     }
                     else
                     {
-                        setMember(result.data);
-                        console.log(result);
+                        axios.get("/api/registration/member/" + result.data.memberEmail)
+                        .then(result => {
+                            setRegistration(result.data);
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
                     }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataMem();
-    }, []);
-
-    const [organizer, setOrganizer] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataOrg() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/organizer/actforfun@gmail.com")
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setOrganizer(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataOrg();
-    }, []);
-
-    const [registration, setRegistration] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataReg() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/registration/actforfun@gmail.com")
-                .then(result => {
-                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    // {
-                    //     alert("您尚未登入，請先登入！")
-                    //     goSignin();
-                    // }
-                    // else
-                    // {
-                        setActivity(result.data);
-                        console.log(result);
-                    // }
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -170,90 +126,43 @@ export default function SignupSituation() {
         fetchDataReg();
     }, []);
 
-    const [activity, setActivity] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataAct() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/activity/organizer/actforfun@gmail.com")
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setActivity(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        let url = "/api/registration/";
+        for (let num = 0 ; num < registration.length ; num++)
+        {
+            const AInum = registration[num].ainum ;
+            // if (setnum[num] == AInum)
+            // {
+            //     url = url + AInum ;
+            //     console.log(url);
+            // }
         }
-        fetchDataAct();
-    }, []);
-    
+        // axios.delete(url)
+        //     .then(res => {
+        //         console.log(url)
+        //         // window.location.reload();
+        //     })
+        //     .catch(function(error){
+        //         console.log(error.response.status);
+        //     });
+    }
+
     const activity_End_or_not = new Date().getTime();
 
     return (
         <div className={classes.div}>
             <Header />
-            <div className={classes.left_menu}>
-                <Container className={classes.left_container}>
-                    <Typography variant="h5">
-                            <Box lineHeight="normal" m={4}>
-                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                            </Box>
-                            <Box lineHeight={2} m={1}>
-                                <strong>{member.memberName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/profile" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    個人檔案
-                                </Box>
-                            </Link>
-                            <Link to="/trainingFace" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    訓練人臉
-                                </Box>
-                            </Link>
-                            <Link to="/signupSituation" className={classes.link}>
-                                <Box lineHeight={1} m={4} color="#000">
-                                    報名狀況
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Box lineHeight={3} m={1}>
-                                <strong>{organizer.organizerName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4} >
-                                    主辦單位資訊
-                                </Box>
-                            </Link>
-                            <Link to="/manageActivity" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    管理活動
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Link to="/MyAlbum" className={classes.link}>
-                                <Box lineHeight={2} m={1}>
-                                    我的相簿
-                                </Box>
-                            </Link>
-                    </Typography>
-                </Container>
+            <div className={classes.content_part}>
+                <LeftBar/>
                 <Container className={classes.content}>
                     <div>
                         <Typography variant="h4">
@@ -275,8 +184,8 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
-                                {activity.map(activity =>
-                                    (new Date(activity.activityEndDate).getTime() >= new Date(activity_End_or_not).getTime()) ?
+                                {registration.map(registration =>
+                                    (new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -284,17 +193,17 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {activity.activityName}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            {activity.activitySpace}
+                                                            {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
+                                                            {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={3} className={classes.button_part}>
@@ -312,9 +221,9 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/editSignupInformation"
+                                                                to={"/editSignupInformation?" + registration.ainum}
                                                             >
-                                                                更改資料
+                                                                更改報名
                                                             </Button>
                                                         </Box>
                                                         <Box lineHeight="normal" m={1}>
@@ -322,7 +231,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to=""
                                                             >
                                                                 前往繳費
                                                             </Button>
@@ -330,11 +239,36 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                component={Link}
-                                                                to="/editSignupInformation"
+                                                                onClick={handleOpen}
                                                             >
                                                                 取消報名
                                                             </Button>
+                                                            <Dialog
+                                                                open={open}
+                                                                onClose={handleClose}
+                                                                PaperComponent={PaperComponent}
+                                                                aria-labelledby="draggable-dialog-title"
+                                                            >
+                                                                <DialogTitle id="draggable-dialog-title">
+                                                                    <Typography variant="h5">
+                                                                        <ErrorIcon className={classes.Exclamation_Mark} />
+                                                                        取消報名
+                                                                    </Typography>
+                                                                </DialogTitle>
+                                                                <DialogContent>
+                                                                    <DialogContentText style={{fontSize:"20px"}}>
+                                                                        您確定要取消該活動報名嗎？
+                                                                    </DialogContentText>
+                                                                </DialogContent>
+                                                                <DialogActions>
+                                                                    <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                        取消
+                                                                    </Button>
+                                                                    <Button onClick={handleSubmit} className={classes.dig_butoon}>
+                                                                        確定
+                                                                    </Button>
+                                                                </DialogActions>
+                                                            </Dialog>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
@@ -356,8 +290,8 @@ export default function SignupSituation() {
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
-                                {activity.map(activity =>
-                                    (new Date(activity.activityEndDate).getTime() < new Date(activity_End_or_not).getTime()) ?
+                                {registration.map(registration =>
+                                    (new Date(registration.activity.activityEndDate).getTime() < activity_End_or_not) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -365,17 +299,17 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {activity.activityName}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
-                                                            {activity.activitySpace}
+                                                            {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
-                                                            {activity.activityStartDateString} ~ {activity.activityEndDateString}
+                                                            {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
                                                     </Grid>
                                                     <Grid item xs={12} sm={3} className={classes.button_part}>

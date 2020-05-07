@@ -1,6 +1,7 @@
 import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
+import LeftBar from 'components/Profile/leftbar.jsx';
 import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
@@ -20,26 +21,9 @@ const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box"
     } ,
-    left_menu : {
-        display: "flex" ,
-        justifyContent : "space-around" ,
-        minHeight : 800 ,
-        color : "#000"
-    } ,
-    left_container : {
-        maxWidth : "280px" ,
-        borderRight : "1px solid" ,
-    } ,
-    avatar : {
-        minWidth : "150px" ,
-        minHeight : "150px" ,
-    } ,
-    link : {
-        textDecoration : "none" ,
-        color : "#D0D0D0" ,
-        '&:hover' : {
-          color : '#00AEAE'
-        }
+    content_part : {
+        display : "flex" ,
+        justifyContent: "center",
     } ,
     content : {
         margin : "2% 2%" ,
@@ -79,10 +63,8 @@ export default function MakeAnnouncement() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
-            async function fetchDataMem() {
+        async function fetchData() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -93,7 +75,6 @@ export default function MakeAnnouncement() {
                     }
                     else
                     {
-                        setMember(result.data);
                         console.log(result);
                     }
                 })
@@ -106,130 +87,14 @@ export default function MakeAnnouncement() {
                     }
                 })
         }
-        fetchDataMem();
+        fetchData();
     }, []);
-
-    const [organizer, setOrganizer] = useState({
-        organizerName : '' ,
-        organizerPhone : '' ,
-        organizerAddress : '' ,
-        organizerInfo : ''
-    });
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataOrg() {
-                await axios.get("/api/organizer/actforfun@gmail.com")
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setOrganizer(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataOrg();
-    }, []);
-
-    const handleChange = updateOrgInfo => event => {
-        setOrganizer({...organizer, [updateOrgInfo]: event.target.value});
-    }
-    const handleSubmit = event => {
-        event.preventDefault();
-        const updateOrganizerInfo = {
-            organizerName : organizer.organizerName ,
-            organizerPhone : organizer.organizerPhone ,
-            organizerAddress : organizer.organizerAddress ,
-            organizerInfo : organizer.organizerInfo
-        }
-        
-        if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
-        {
-            alert("連絡電話格式錯誤");
-        }
-        else
-        {
-            axios.patch('/api/organizer/actforfun@gmail.com', updateOrganizerInfo , {
-                auth:
-                {
-                    username : "actforfun@gmail.com",
-                    password : "123"
-                },
-            })
-            .then(response => {
-                console.log(response);
-                console.log(updateOrganizerInfo);
-                alert("主辦單位資訊已修改");
-            })
-            .catch(function(error){
-                console.log(updateOrganizerInfo);
-            });
-        }
-    };
 
     return (
         <div className={classes.div}>
             <Header />
-            <div className={classes.left_menu}>
-                <Container className={classes.left_container}>
-                    <Typography variant="h5">
-                            <Box lineHeight="normal" m={4}>
-                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                            </Box>
-                            <Box lineHeight={2} m={1}>
-                                <strong>{member.memberName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/profile" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    個人檔案
-                                </Box>
-                            </Link>
-                            <Link to="/trainingFace" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    訓練人臉
-                                </Box>
-                            </Link>
-                            <Link to="/signupSituation" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    報名狀況
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Box lineHeight={3} m={1}>
-                                <strong>{organizer.organizerName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    主辦單位資訊
-                                </Box>
-                            </Link>
-                            <Link to="/manageActivity" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    管理活動
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Link to="/MyAlbum" className={classes.link}>
-                                <Box lineHeight={2} m={1}>
-                                    我的相簿
-                                </Box>
-                            </Link>
-                    </Typography>
-                </Container>
+            <div className={classes.content_part}>
+                <LeftBar/>
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">

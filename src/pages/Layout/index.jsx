@@ -24,10 +24,12 @@ import NewDetails from 'components/Activity/newDetails.jsx';
 import UpdatePic from 'components/Activity/updatePic.jsx';
 import UpdateInfo from 'components/Activity/updateInfo.jsx';
 import UpdateDetails from 'components/Activity/updateDetails.jsx';
+// import Bar from 'components/bar.jsx';
 import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
 import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
 
+// import Test from 'components/Profile/Test.jsx';
 import Profile from 'components/Profile/profile.jsx';
 import UpdatePassword from 'components/Profile/updatePassword.jsx';
 import TrainingFace from 'components/Profile/trainingFace.jsx';
@@ -81,6 +83,7 @@ class Layout extends React.Component {
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/searchInfo" component={SearchInfo} />
 
+      {/* <Route path="/Test" component={Test} /> */}
       <Route path="/profile" component={Profile} />
       <Route path="/updatePassword" component={UpdatePassword} />
       <Route path="/trainingFace" component={TrainingFace} />

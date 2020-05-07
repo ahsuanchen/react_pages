@@ -2,12 +2,11 @@ import React , { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
+import LeftBar from 'components/Profile/leftbar.jsx';
 import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
@@ -27,26 +26,9 @@ const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box"
     } ,
-    left_menu : {
-        display: "flex" ,
-        justifyContent : "space-around" ,
-        minHeight : 800 ,
-        color : "#000"
-    } ,
-    left_container : {
-        maxWidth : "280px" ,
-        borderRight : "1px solid" ,
-    } ,
-    avatar : {
-        minWidth : "150px" ,
-        minHeight : "150px" ,
-    } ,
-    link : {
-        textDecoration : "none" ,
-        color : "#D0D0D0" ,
-        '&:hover' : {
-          color : '#00AEAE'
-        }
+    content_part : {
+        display : "flex" ,
+        justifyContent: "center",
     } ,
     table : {
         margin : "auto" ,
@@ -97,13 +79,8 @@ const useStyles = makeStyles(theme => ({
 export default function ParticipantList() {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
+    var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
+    let count = 0 ;
 
     let history = useHistory();
     function goSignin()
@@ -116,10 +93,10 @@ export default function ParticipantList() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
-    // const memberList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberEmail', 'memberAddress'];
+    const [activity, setActivity] = useState([]);
+    const [registration, setRegistration] = useState([]);
     useEffect(() => {
-        async function fetchDataMem() {
+        async function fetchData() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -130,8 +107,31 @@ export default function ParticipantList() {
                     }
                     else
                     {
-                        setMember(result.data);
-                        console.log(result);
+                        axios.get("/api/activity/" + activityId)
+                        .then(result => {
+                            setActivity(result.data);
+                            console.log(result);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
+                        axios.get("/api/registration/activity/" + activityId)
+                        .then(result => {
+                            setRegistration(result.data);
+                        })
+                        .catch(err => {
+                            console.log(err.response.status);
+                            if(err.response.status === 403)
+                            {
+                                alert("您的權限不足!");
+                                goHomePage();
+                            }
+                        })
                     }
                 })
                 .catch(err => {
@@ -143,122 +143,14 @@ export default function ParticipantList() {
                     }
                 })
         }
-        fetchDataMem();
-    }, []);
-
-    const [organizer, setOrganizer] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataOrg() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/organizer/actforfun@gmail.com")
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setOrganizer(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataOrg();
-    }, []);
-
-    const [activity, setActivity] = useState([]);
-    // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataAct() {
-                // let url = "/api/login/name"
-                // await axios.get(url)
-                await axios.get("/api/activity/organizer/actforfun@gmail.com")
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setActivity(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataAct();
+        fetchData();
     }, []);
 
     return (
         <div className={classes.div}>
             <Header />
-            <div className={classes.left_menu}>
-                <Container className={classes.left_container}>
-                    <Typography variant="h5">
-                            <Box lineHeight="normal" m={4}>
-                                <Avatar className={classes.avatar} src="./img/profile.jpg" alt="user" />
-                            </Box>
-                            <Box lineHeight={2} m={1}>
-                                <strong>{member.memberName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/profile" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    個人檔案
-                                </Box>
-                            </Link>
-                            <Link to="/trainingFace" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    訓練人臉
-                                </Box>
-                            </Link>
-                            <Link to="/signupSituation" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    報名狀況
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Box lineHeight={3} m={1}>
-                                <strong>{organizer.organizerName}</strong>
-                            </Box>
-                            <Divider />
-                            <Link to="/organizerInfo" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    主辦單位資訊
-                                </Box>
-                            </Link>
-                            <Link to="/manageActivity" className={classes.link}>
-                                <Box lineHeight={1} m={4}>
-                                    管理活動
-                                </Box>
-                            </Link>
-                            <Divider />
-                            <Link to="/MyAlbum" className={classes.link}>
-                                <Box lineHeight={2} m={1}>
-                                    我的相簿
-                                </Box>
-                            </Link>
-                    </Typography>
-                </Container>
+            <div className={classes.content_part}>
+                <LeftBar/>
                 <Container className={classes.content}>
                     <div>
                         <Typography variant="h4">
@@ -276,7 +168,7 @@ export default function ParticipantList() {
                                 >
                                 <div>
                                     <Typography variant="h5">
-                                        三校六系聯合聖誕舞會 參加者名單
+                                        {activity.activityName} 參加者名單
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
@@ -321,18 +213,19 @@ export default function ParticipantList() {
                                                         <TableRow>
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
-                                                            <TableCell align="center">手機</TableCell>
-                                                            <TableCell align="center">Email</TableCell>
+                                                            <TableCell align="center">聯絡電話</TableCell>
+                                                            <TableCell align="center">聯絡Email</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
                                                             <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
+                                                    {registration.map(registration=>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">001</TableCell>
-                                                            <TableCell align="center">劉志宏</TableCell>
-                                                            <TableCell align="center">0989-753491</TableCell>
-                                                            <TableCell align="center">test1@gmial.com</TableCell>
+                                                    <TableCell align="center">{count += 1}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberName}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberPhone}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberEmail}</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
                                                             <TableCell align="center">
                                                                 <Tooltip title="予後回饋">
@@ -343,6 +236,7 @@ export default function ParticipantList() {
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>
