@@ -135,8 +135,6 @@ const useStyles = makeStyles(theme => ({
 export default function SettingFace() {
     const classes = useStyles();
 
-    const location = useLocation();
-
     const SettingFacePage = props => {
         const location = useLocation();
     
@@ -210,18 +208,18 @@ export default function SettingFace() {
                 <div className={classes.paper}>
                     <paper>
                         <Typography variant="subtitle1" gutterBottom align="center">
-                            設定使用者人臉
+                            設定使用者人臉<br/>
                         </Typography>
-                        <form className={classes.form} noValidate>
                        
                         {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
                         <Grid container justify="center">
                     <Container className={classes.container}>
                     <div className={classes.upload_btn_wrapper}>
+                        <br/><br/><br/>
                         {
                             image.preview ? 
                             <>
-                                <img src={ image.preview } width="200" height="120" />
+                                <img src={ image.preview } width='50%' height="50%" />
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     
@@ -230,7 +228,11 @@ export default function SettingFace() {
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
+                                        ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
+                                    </Typography>
+                                    <br/>
+                                    <Typography variant="overline">
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
                                     </Typography>
                                 </div>
                             </>
@@ -242,8 +244,12 @@ export default function SettingFace() {
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
+                                <Typography variant="overline">
+                                        ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
+                                    </Typography>
+                                    <br/>
                                     <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過4MB＊
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
                                     </Typography>
                                 </div>
                             </>
@@ -251,9 +257,7 @@ export default function SettingFace() {
                         </div>
                         </Container>
                         </Grid>
-                            
 
-                        </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>
@@ -264,9 +268,7 @@ export default function SettingFace() {
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary" 
                                 className={classes.submit}
-                                //onClick={submit}
                                 href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
@@ -277,10 +279,8 @@ export default function SettingFace() {
                                 type="submit"
                                 Width="50"
                                 variant="contained"
-                                color="primary"
                                 className={classes.submit}
                                 onClick={handleSubmit}
-                                //href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步

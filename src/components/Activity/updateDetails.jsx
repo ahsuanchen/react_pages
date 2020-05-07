@@ -16,7 +16,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import InputBase from '@material-ui/core/InputBase';
 import Container from '@material-ui/core/Container';
      
 
@@ -85,18 +84,29 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const UpdateContentPage = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+
+    
+};
+
 export default function UpdateActivity_step() {
     const classes = useStyles();
 
-     // //宣吿要接值的變數
+     //宣吿要接值的變數
     const [act, setAct] = useState({
-        // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:localStorage.getItem('activityId'),
+        // activityId:'',
         activityMoreContent:'',
         activityPrecautions:'',
-        activitySummary:'',
-        activityInfo:'',
-        activityMeal:'',
+        activityLinkName:'',
+        activityLink:'',
     });
 
     let history = useHistory();
@@ -105,10 +115,78 @@ export default function UpdateActivity_step() {
     let url = "api/activity/";
     url = url + act.activityId;
 
-    const handleChange = updateActInfo => event => {
-        setAct({...act, [updateActInfo]: event.target.value});
+    const handleChange = updateActContent => event => {
+        setAct({...act, [updateActContent]: event.target.value});
     
     }
+
+    useEffect(() => {
+        async function fetchDataActContent() {
+                await axios.get(url)
+                .then(result => {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
+                        
+                        setAct(result.data);
+                        console.log(result);
+                        
+                
+                    // }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        
+                    }
+                })
+        }
+        fetchDataActContent();
+        
+    }, []);
+
+    const handleSubmit = event => {
+        const updateActivityContent={
+            
+            activityMoreContent:act.activityMoreContent,
+            activityPrecautions:act.activityPrecautions,
+            activityLinkName:act.activityLinkName,
+            activityLink:act.activityLink,
+        };
+
+            axios.patch(url, updateActivityContent,
+            {
+                headers: {
+                        
+                    'Access-Control-Allow-Origin' : '*'
+                }
+            })
+            .then(response => {
+                //alert("yy")
+                
+                console.log(response);
+                console.log(updateActivityContent);
+                //alert("內容已修改");
+                localStorage.setItem('activityId',act.activityId);
+                history.push({
+                    pathname: "/updatePic",
+                  });
+            })
+            .catch(function(error){
+                console.log(error);
+                alert("no")
+                alert(error)
+            });
+    }
+
+    const [value, setValue] = React.useState();
+    
 
     return (
         <div className={classes.root}>
@@ -126,8 +204,7 @@ export default function UpdateActivity_step() {
                     <CssBaseline />
                     <div className={classes.paper}>
                         <paper>
-                            <form className={classes.form} noValidate>
-
+                            
                                 <TextField
                                     margin="normal"
                                     required
@@ -138,6 +215,8 @@ export default function UpdateActivity_step() {
                                     multiline
                                     rows="8"
                                     placeholder="請填寫更多內容"
+                                    value={act.activityMoreContent}
+                                    onChange={handleChange('activityMoreContent')}
                                 />
 
                                 <TextField
@@ -150,27 +229,28 @@ export default function UpdateActivity_step() {
                                     multiline
                                     rows="5"
                                     placeholder="請填寫注意事項（限五十字）"
+                                    value={act.activityPrecautions}
+                                    onChange={handleChange('activityPrecautions')}
                                 />
 
                                 <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        label="參考網站名稱（例：Facebook）"
-                                        id="activityLinkName"
-                                        name="activityLinkName"
-                                        variant="outlined"
-                                        //onChange={e=>setactivityLinkName(e.target.value)}
+                                    margin="normal"
+                                    fullWidth
+                                    label="參考網站名稱（例：Facebook）"
+                                    id="activityLinkName"
+                                    variant="outlined"
+                                    value={act.activityLinkName}
+                                    onChange={handleChange('activityLinkName')}
                                 />
 
                                 <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        type="url"
-                                        label="參考網站連結"
-                                        id="activityLink"
-                                        name="activityLink"
-                                        variant="outlined"
-                                        //onChange={e=>setactivityLink(e.target.value)}
+                                    margin="normal"
+                                    fullWidth
+                                    label="參考網站連結"
+                                    id="activityLink"
+                                    variant="outlined"
+                                    value={act.activityLink}
+                                    onChange={handleChange('activityLink')}
                                 />
 
 
@@ -188,8 +268,7 @@ export default function UpdateActivity_step() {
                                         <Button
                                             type="submit"
                                             className={classes.button_part2}
-                                            component={Link}
-                                            to="/homepageAfterLogin"
+                                            onClick={handleSubmit}
                                         >
                                             下一步
                                         </Button>
@@ -202,7 +281,6 @@ export default function UpdateActivity_step() {
                                     <ArrowForwardIcon />
                                 </IconButton> */}
 
-                            </form>
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>

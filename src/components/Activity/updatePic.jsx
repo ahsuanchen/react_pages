@@ -1,5 +1,8 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
@@ -17,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "5% auto"
     } ,
     container : {
         minHeight : "600px" ,
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         borderRadius: "5px",
         fontSize: "20px",
-        marginBottom : "10%" ,
+        marginBottom : "5%" ,
         '&:hover' : {
             background : 'none',
             color : "#000"
@@ -83,15 +86,64 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UpdateActivity_step2() {
+
     const classes = useStyles();
 
+    const [act, setAct] = useState({
+        activityId:localStorage.getItem('activityId'),
+        activityCover:'',
+    });
+
+    let url = "api/activity/";
+    url = url + act.activityId;
+
+    useEffect(() => {
+        async function fetchDataActCover() {
+            await axios.get(url)
+            .then(result => {
+                // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                // {
+                //     alert("您尚未登入，請先登入！")
+                //     goSignin();
+                // }
+                // else
+                // {
+                    
+                    setAct(result.data);
+                    console.log(result);
+                    
+            
+                // }
+            })
+            .catch(err => {
+                console.log(err.response.status);
+                if(err.response.status === 403)
+                {
+                    alert("您的權限不足!");
+                    
+                }
+            })
+        }
+        fetchDataActCover();
+        
+    }, []);
+
+    
+    let cover_src = "." + act.activityCover.substring(6);
+    console.log(cover_src)
+
+
+    const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
+        setData(e.target.files[0])
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
-    };    
+    }; 
+
+    console.log(data);
     // const handleUpload = async (e) => {
     //   e.preventDefault()
     //   const formData = new FormData()
@@ -100,19 +152,52 @@ export default function UpdateActivity_step2() {
     //   await uploadToBackend('endpoint', {image: image.raw}, config)
     // };
 
+    let history = useHistory();
+
+    
+        
+    const handleSubmit=(event)=> {
+
+        let formData = new FormData();
+        formData.append('file',data,data.name);
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin' : '*'
+                }
+            }
+            console.log(formData);
+
+        
+        let url_update = "/api/files/files/activityCover/";
+        url_update = url_update + act.activityId;
+
+
+        axios.post(url_update, formData,config)
+          .then(res => {
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/.",
+              });
+            
+            
+          }).catch(function(error){
+              alert(error);
+              console.log(error);
+          });
+        
+    }
+
     return (
         <div className={classes.div}>
             <Header />
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={1} />
+            <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={2} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step2 : 修改活動資訊照片
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (上傳您的封面照)
+                    修改活動封面照
                 </Typography>
             </div>
             <div>
@@ -125,7 +210,7 @@ export default function UpdateActivity_step2() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    &nbsp;重新上傳
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -138,9 +223,12 @@ export default function UpdateActivity_step2() {
                             </>
                             :(
                             <>
+                            {/* 修改前 */}
+                                <img src= {cover_src}  width="800" height="480" />
+                                <br/><br/><br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
-                                    &nbsp;新增檔案
+                                    &nbsp;重新上傳
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -159,7 +247,7 @@ export default function UpdateActivity_step2() {
                         <Button 
                             className={classes.button_part1}
                             component={Link}
-                            to="/"
+                            to="/updateDetails"
                         >
                             上一步
                         </Button>
@@ -168,9 +256,9 @@ export default function UpdateActivity_step2() {
                         <Button 
                             className={classes.button_part2}
                             component={Link}
-                            to="/updateInfo"
+                            to="/manageActivity"
                         >
-                            下一步
+                            完成修改
                         </Button>
                     </Box>
                 </Grid> 

@@ -1,6 +1,9 @@
 import React , {useState} from 'react';
 import axios from 'axios';
-import { Link , useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import Typography from '@material-ui/core/Typography';
@@ -68,90 +71,68 @@ const useStyles = makeStyles(theme => ({
 export default function Organizer() {
     const classes = useStyles();
 
-    // const[inputs, setInputs] = React.useState({
-    //     organizerName:'',
-    //     organizerEmail:'',
-    //     organizerPhone:'',
-    //     organizerAddress:'',
-    //     organizerInfo:''
-    // });
+    //取memberEmail
+    const [member,setMember] = useState({
+        memberEmail:'',
+    });
 
-    // const handleChange = user => event =>{
-    //     event.persist();
-    //     setInputs(inputs =>({...inputs, [user]: event.target.value}));
-    // }
+    useEffect(() =>{
+    async function fetchData(){
+        const url = '/api/login/name';
+        const result = await axios.get(url);
+        setMember(result.data);
+      }
+      fetchData();
+    },[]);
 
-    // const handleSubmit = () =>{
-    //     fetch('/organizer', {
-    //         method: 'post',
-            
-    //         headers: {
-    //           'Content-Type': 'application/json'
-    //         },
+    const[organ, setOrgan] = useState({
+        memberEmail:'',
+        organizerName:'',
+        organizerEmail:'',
+        organizerPhone:'',
+        organizerAddress:'',
+        organizerInfo:''
+    });
 
-    //         body: JSON.stringify({
-    //             organizerName: inputs.organizerName,
-    //             organizerEmail: inputs.organizerEmail,
-    //             organizerPhone: inputs.organizerPhone,
-    //             organizerAddress: inputs.organizerAddress,
-    //             organizerInfo: inputs.organizerInfo
-    //         }),
-          
-    //       })
-
-    //       .then(res => {
-    //         console.log("test")
-    //         console.log(res);
-    //         console.log(res.data);
-            
-    //       }).catch(function(error){
-    //           alert(error);
-    //       });
-    // }
-    const  [organizerName,setorganizerName] =  useState("");
-    const  [organizerEmail,setorganizerEmail] =  useState("");
-    const  [organizerPhone,setorganizerPhone] =  useState("");
-    const  [organizerAddress,setorganizerAddress] =  useState("");
-    const  [organizerInfo,setorganizerInfo] =  useState("");
+   
+    const handleChange = newOrganizer => event => {
+        setOrgan({...organ, [newOrganizer]: event.target.value});
+    
+    }
 
     let history = useHistory();
 
-    const handleSubmit=(event)=> {
+    const handleSubmit = event => {
         
         //event.preventDefault();
         const organizer={
-            organizerName:organizerName,
-            organizerEmail:organizerEmail,
-            organizerPhone:organizerPhone,
-            organizerAddress:organizerAddress,
-            organizerInfo:organizerInfo
-            // organizerName: inputs.organizerName,
-            // organizerEmail: inputs.organizerEmail,
-            // organizerPhone: inputs.organizerPhone,
-            // organizerAddress: inputs.organizerAddress,
-            // organizerInfo: inputs.organizerInfo
+            memberEmail: member.memberEmail,
+            organizerName: organ.organizerName,
+            organizerEmail: organ.organizerEmail,
+            organizerPhone: organ.organizerPhone,
+            organizerAddress: organ.organizerAddress,
+            organizerInfo: organ.organizerInfo
         };
 
-        axios.post("/api/organizer", organizer,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
+        if(organizer.organizerName.length > 0 && organizer.organizerEmail.length > 0 && organizer.organizerPhone.length > 0 
+            && organizer.organizerAddress.length > 0 && organizer.organizerInfo.length > 0){
+
+        axios.post("/api/organizer", organizer)
           .then(res => {
             alert("yes")
-            console.log("test")
             console.log(res);
             console.log(res.data);
-            // history.push({
-            //     pathname: "/settingface",
-            //   });
+            history.push({
+                pathname: "/new1",
+              });
             
           }).catch(function(error){
               alert(error);
           });
+        }
+        else{
+            alert("欄位不得為空")
+        }
         
     }
 
@@ -166,93 +147,88 @@ export default function Organizer() {
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="organizerName"
-                                label="主辦單位名稱"
-                                name="organizerName"
-                                variant="outlined"
-                                onChange={e=>setorganizerName(e.target.value)}
-                                //onChange={handleChange}
-                            />
+                        <input
+                            type="hidden"
+                            value={member.memberEmail}
+                            //onChange={e=>setMemberEmail(e.target.value)}
+                            onChange={handleChange('memberEmail')}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="organizerName"
+                            label="主辦單位名稱"
+                            variant="outlined"
+                            onChange={handleChange('organizerName')}
+                        />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="organizerEmail"
-                                label="主辦單位信箱"
-                                name="organizerEmail"
-                                variant="outlined"
-                                //onChange={handleChange}
-                                onChange={e=>setorganizerEmail(e.target.value)}
-                            />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="organizerEmail"
+                            label="主辦單位信箱"
+                            variant="outlined"
+                            onChange={handleChange('organizerEmail')}
+                        />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="organizerPhone"
-                                label="主辦單位電話號碼"
-                                name="organizerPhone"
-                                variant="outlined"
-                                //onChange={handleChange}
-                                onChange={e=>setorganizerPhone(e.target.value)}
-                            />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="organizerPhone"
+                            label="主辦單位電話號碼"
+                            variant="outlined"
+                            onChange={handleChange('organizerPhone')}
+                        />
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="organizerAddress"
-                                label="主辦單位地址"
-                                multiline
-                                rows="2"
-                                name="organizerAddress"
-                                variant="outlined"
-                                //onChange={handleChange}
-                                onChange={e=>setorganizerAddress(e.target.value)}
-                            />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="organizerAddress"
+                            label="主辦單位地址"
+                            multiline
+                            rows="2"
+                            variant="outlined"
+                            onChange={handleChange('organizerAddress')}
+                        />
 
 
-                            <TextField
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="organizerInfo"
-                                name="organizerInfo"
-                                label="主辦單位簡介"
-                                multiline
-                                rows="4"
-                                placeholder="上限一百字"
-                                variant="outlined"
-                                // onChange={handleChange}
-                                onChange={e=>setorganizerInfo(e.target.value)}
-                            />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="organizerInfo"
+                            label="主辦單位簡介"
+                            multiline
+                            rows="4"
+                            placeholder="上限一百字"
+                            variant="outlined"
+                            onChange={handleChange('organizerInfo')}
+                        />
 
-                            <Grid item xs={12} sm={6} className={classes.button_part}>
-                                <Box lineHeight="normal" m={1}>
-                                    <Button 
-                                        className={classes.button_part1}
-                                        component={Link}
-                                        to="/"
-                                    >
-                                        返回首頁
-                                    </Button>
-                                </Box>
-                                <Box lineHeight="normal" m={1}>
-                                    <Button
-                                        type="submit"
-                                        className={classes.button_part2}
-                                        onClick={handleSubmit}
-                                    >
-                                        確認申請
-                                    </Button>
-                                </Box>
-                            </Grid>
+                        <Grid item xs={12} sm={6} className={classes.button_part}>
+                            <Box lineHeight="normal" m={1}>
+                                <Button 
+                                    className={classes.button_part1}
+                                    component={Link}
+                                    to="/"
+                                >
+                                    返回首頁
+                                </Button>
+                            </Box>
+                            <Box lineHeight="normal" m={1}>
+                                <Button
+                                    type="submit"
+                                    className={classes.button_part2}
+                                    onClick={handleSubmit}
+                                >
+                                    確認申請
+                                </Button>
+                            </Box>
+                        </Grid>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>

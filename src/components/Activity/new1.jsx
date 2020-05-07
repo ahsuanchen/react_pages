@@ -1,7 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React ,{useState} from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
@@ -70,56 +72,140 @@ const useStyles = makeStyles(theme => ({
 
 export default function BulidActivity_step1() {
     const classes = useStyles();
+
+    const  [activityTypes,setActivityTypes] =  useState("");
+
+    // //取memberEmail
+    // const [member,setMember] = useState({
+    //     memberEmail:'',
+    // });
+
+    // useEffect(() =>{
+    // async function fetchData(){
+    //     const url = '/api/login/name';
+    //     const result = await axios.get(url);
+    //     setMember(result.data);
+    //   }
+    //   fetchData();
+    // },[]);
+
+
     // const [cardActive, setCardActive] = React.useState();
     // const clickCard = event => {
     //     const active = cardActive;
     //     setCardActive(!active);
     // };
+
+    //const types = [];
+
+    let types = []
+    
+
+    //學術
     const [cardActive1, setCardActive1] = React.useState();
     const clickCard1 = event => {
         const active = cardActive1;
         setCardActive1(!active);
     };
+    //資訊
     const [cardActive2, setCardActive2] = React.useState();
     const clickCard2 = event => {
         const active = cardActive2;
         setCardActive2(!active);
     };
+    //體驗
     const [cardActive3, setCardActive3] = React.useState();
     const clickCard3 = event => {
         const active = cardActive3;
         setCardActive3(!active);
     };
+    //講座
     const [cardActive4, setCardActive4] = React.useState();
     const clickCard4 = event => {
         const active = cardActive4;
         setCardActive4(!active);
     };
+    //休閒
     const [cardActive5, setCardActive5] = React.useState();
     const clickCard5 = event => {
         const active = cardActive5;
         setCardActive5(!active);
     };
+    //親子
     const [cardActive6, setCardActive6] = React.useState();
     const clickCard6 = event => {
         const active = cardActive6;
         setCardActive6(!active);
+        types.push("親子")
     };
+    //藝文
     const [cardActive7, setCardActive7] = React.useState();
     const clickCard7 = event => {
         const active = cardActive7;
         setCardActive7(!active);
+        types.push("藝文")
     };
+    //運動
     const [cardActive8, setCardActive8] = React.useState();
     const clickCard8 = event => {
         const active = cardActive8;
         setCardActive8(!active);
+        types.push("運動")
     };
+    //戶外
     const [cardActive9, setCardActive9] = React.useState();
     const clickCard9 = event => {
         const active = cardActive9;
         setCardActive9(!active);
+        types.push("戶外")
     };
+
+    if(cardActive1 != null){
+        types.push("學術")
+    }
+    if(cardActive2 != null){
+        types.push("資訊")
+    }
+    if(cardActive3 != null){
+        types.push("體驗")
+    }
+    if(cardActive4 != null){
+        types.push("講座")
+    }
+    if(cardActive5 != null){
+        types.push("休閒")
+    }
+    if(cardActive6 != null){
+        types.push("親子")
+    }
+    if(cardActive7 != null){
+        types.push("藝文")
+    }
+    if(cardActive8 != null){
+        types.push("運動")
+    }
+    if(cardActive9 != null){
+        types.push("戶外")
+    }
+
+    console.log(types);
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+
+        const act={
+            activityTypes:types
+        }
+
+        localStorage.setItem('activityTypes', act.activityTypes);
+
+        history.push({
+            pathname: "/newInfo",
+          });
+    
+        }
+        
 
     return (
         <div className={classes.div}>
@@ -260,8 +346,9 @@ export default function BulidActivity_step1() {
                             <Box lineHeight={5} m={2}>
                                 <Button 
                                     className={classes.button_part}
-                                    component={Link}
-                                    to="/newInfo"
+                                    onClick={handleSubmit}
+                                    // component={Link}
+                                    // to="/newInfo"
                                 >
                                     下一步
                                 </Button>

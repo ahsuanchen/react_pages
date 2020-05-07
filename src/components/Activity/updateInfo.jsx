@@ -13,12 +13,16 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Checkbox from '@material-ui/core/Checkbox';
 // import DatePicker from 'react-datepicker';
 
 
@@ -65,7 +69,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(53),
+            height: theme.spacing(68),
         },
     },
     form: {
@@ -87,20 +91,24 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+
+    formControl: {
+        margin: theme.spacing(3),
+      },
 }));
 
-const UpdateInfoPage = props => {
-    const location = useLocation();
+// const UpdateInfoPage = props => {
+//     const location = useLocation();
 
-    useEffect(() => {
-       console.log(location.pathname); // result: '/secondpage'
-       //console.log(location.search); // result: '?query=abc'
-       console.log(location.state.detail); // result: 'some_value'
-    }, [location]);
+//     useEffect(() => {
+//        console.log(location.pathname); // result: '/secondpage'
+//        //console.log(location.search); // result: '?query=abc'
+//        console.log(location.state.detail); // result: 'some_value'
+//     }, [location]);
 
     
-};
-
+// };
+let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
  //radio 顏色設定
  const RadioColor = withStyles({
     root: {
@@ -112,14 +120,15 @@ const UpdateInfoPage = props => {
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+console.log(activity_Id)
 export default function UpdateInfo() {
     const classes = useStyles();
 
     // //宣吿要接值的變數
     const [act, setAct] = useState({
-        // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:activity_Id,
         activityName:'',
+        activityTypes:'',
         activityStartDateStringDate:'',
         activityStartDateStringMinute:'',
         activityEndDateStringDate:'',
@@ -152,6 +161,26 @@ export default function UpdateInfo() {
         setAct({...act, [updateActInfo]: event.target.value});
     
     }
+    //類別
+    const [type, setType] = useState({
+        learning:'',
+        art:'',
+        family:'',
+        experience:'',
+        leisure:'',
+        sport:'',
+        outdoor:'',
+        lecture:'',
+        information:''
+      });
+    
+      const handleChangeType = (event) => {
+        setType({ ...type, [event.target.name]: event.target.checked });
+      };
+    
+      const { learning, art, family, experience, leisure, sport, outdoor, lecture, information} = type;
+      const error = [learning, art, family, experience, leisure, sport, outdoor, lecture, information].filter((v) => v).length < 1;
+    //
 
     useEffect(() => {
         async function fetchDataActInfo() {
@@ -164,9 +193,6 @@ export default function UpdateInfo() {
                     // }
                     // else
                     // {
-                        // setactivityName(result.data.activityName);
-                        // setactivityStart_Date(result.data.activityStart_Date);
-                        // setattendPeople(result.data.attendPeople);
                         setAct(result.data);
                         console.log(result);
                         
@@ -186,11 +212,11 @@ export default function UpdateInfo() {
         
     }, []);
 
-    const activityStart_Date = act.activityStartDateString.substring(0,10);
-    const activityStart_Time = act.activityStartDateString.substring(11);
+
     const handleSubmit = event => {
         const updateActivityInfo={
             activityName:act.activityName,
+            activityTypes:act.activityTypes,
 
             activityStartDateString:act.activityStartDateString,
             activityEndDateString:act.activityEndDateString ,
@@ -209,7 +235,7 @@ export default function UpdateInfo() {
             activityMeal:act.activityMeal
         };
 
-        let activityStartDate = (activityStart_Date+" "+activityStart_Time+":00");
+        //let activityStartDate = (activityStart_Date+" "+activityStart_Time+":00");
 
             axios.patch(url, updateActivityInfo)
             .then(response => {
@@ -217,6 +243,7 @@ export default function UpdateInfo() {
                 // console.log(response.data);
                 console.log(updateActivityInfo);
                 alert("內容已修改");
+                localStorage.setItem('activityId',act.activityId);
                 history.push({
                     pathname: "/updateDetails",
                   });
@@ -230,10 +257,6 @@ export default function UpdateInfo() {
     // const handleChange = event => {
     //     setValue(event.target.value);
     // }
-
-
-        const [startDate, setStartDate] = useState(new Date());
-        
 
     return (
         <div className={classes.root}>
@@ -252,7 +275,7 @@ export default function UpdateInfo() {
                         <CssBaseline />
                         <div className={classes.paper}>
                             <paper>
-                                {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+                                
                                     <TextField
                                         margin="normal"
                                         required
@@ -265,19 +288,7 @@ export default function UpdateInfo() {
                                         placeholder="請填寫活動名稱"
                                         value={act.activityName}
                                         onChange={handleChange('activityName')}
-
-                                        
                                     />
-
-                                    {/* <DatePicker
-                                        selected={startDate}
-                                        onChange={date => setStartDate(date)}
-                                        showTimeSelect
-                                        timeFormat="HH:mm"
-                                        timeIntervals={15}
-                                        timeCaption="time"
-                                        dateFormat="MMMM d, yyyy h:mm aa"
-                                    /> */}
 
                                     <TextField 
                                         margin="normal"
@@ -425,6 +436,69 @@ export default function UpdateInfo() {
                                         onChange={handleChange('activityInfo')}
                                     />
 
+                                    <FormControl required error={error} component="fieldset" className={classes.formControl}>
+                                        <FormLabel component="legend">類別</FormLabel>
+                                            <FormGroup>
+                                            <Grid container>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={learning} value={act.activityTypes} onChange={handleChangeType} name="learning" />}
+                                                label="學習"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={art} value={act.activityTypes} onChange={handleChangeType} name="art" />}
+                                                label="藝文"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={family} value={act.activityTypes} onChange={handleChangeType} name="family" />}
+                                                label="親子"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={experience} value={act.activityTypes} onChange={handleChangeType} name="experience" />}
+                                                label="體驗"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={leisure} value={act.activityTypes} onChange={handleChangeType} name="leisure" />}
+                                                label="休閒"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={sport} value={act.activityTypes} onChange={handleChangeType} name="sport" />}
+                                                label="運動"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={outdoor} value={act.activityTypes} onChange={handleChangeType} name="outdoor" />}
+                                                label="戶外"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={lecture} value={act.activityTypes} onChange={handleChangeType} name="lecture" />}
+                                                label="講座"
+                                            />
+                                            </Grid>
+                                            <Grid item> 
+                                            <FormControlLabel
+                                                control={<Checkbox checked={information} value={act.activityTypes} onChange={handleChangeType} name="information" />}
+                                                label="資訊"
+                                            />
+                                            </Grid>
+                                            </Grid>
+                                            </FormGroup>
+                                        <FormHelperText>請至少選擇一項類別</FormHelperText>
+                                    </FormControl>
+
 
                                     <FormControl component="fieldset" className={classes.formControl}>
                                         <FormLabel component="legend">是否供餐</FormLabel>
@@ -454,13 +528,6 @@ export default function UpdateInfo() {
                                     </FormControl>
                                     <Grid item xs={12} sm={6} className={classes.button_part}>
                                         <Box lineHeight="normal" m={8}>
-                                            {/* <Button 
-                                                className={classes.button_part1}
-                                                component={Link}
-                                                to="/new1"
-                                            >
-                                                上一步
-                                            </Button> */}
                                         </Box>
                                         <Box lineHeight="normal" m={1}>
                                             <Button 
@@ -480,8 +547,7 @@ export default function UpdateInfo() {
                                             <ArrowForwardIcon />
                                         </IconButton>
                                     </Grid> */}
-                                {/* 
-                                 */}
+                                
                             </paper>
                             <Grid align-items-xs-flex-end></Grid>
                         </div>
