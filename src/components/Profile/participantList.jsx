@@ -108,29 +108,19 @@ export default function ParticipantList() {
                     else
                     {
                         axios.get("/api/activity/" + activityId)
-                        .then(result => {
-                            setActivity(result.data);
-                            console.log(result);
+                        .then(res1 => {
+                            setActivity(res1.data);
+                            console.log(res1);
                         })
                         .catch(err => {
                             console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
                         })
                         axios.get("/api/registration/activity/" + activityId)
-                        .then(result => {
-                            setRegistration(result.data);
+                        .then(res2 => {
+                            setRegistration(res2.data);
                         })
                         .catch(err => {
                             console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
                         })
                     }
                 })
@@ -214,15 +204,15 @@ export default function ParticipantList() {
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
                                                             <TableCell align="center">聯絡電話</TableCell>
-                                                            <TableCell align="center">聯絡Email</TableCell>
+                                                            <TableCell align="center">聯絡電子郵件</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
                                                             <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    {registration.map(registration=>
+                                                    {registration.map(registration =>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                    <TableCell align="center">{count += 1}</TableCell>
+                                                            <TableCell align="center">{count += 1}</TableCell>
                                                             <TableCell align="center">{registration.member.memberName}</TableCell>
                                                             <TableCell align="center">{registration.member.memberPhone}</TableCell>
                                                             <TableCell align="center">{registration.member.memberEmail}</TableCell>
@@ -236,7 +226,7 @@ export default function ParticipantList() {
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
-                                                    )}
+                                                    )}  
                                                 </Table>
                                             </Paper>
                                         </Grid>

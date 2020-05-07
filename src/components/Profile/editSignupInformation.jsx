@@ -101,19 +101,12 @@ export default function EditSignupInfo() {
                         axios.get("/api/registration/" + AINum)
                         .then(result2 => {
                             setRegistration(result2.data);
-                            console.log(result2.data.member);
                             axios.get("/api/activity/" + result2.data.activity_Id)
                             .then(result3 => {
                                 setActivity(result3.data);
-                                console.log(result3);
                             })
                             .catch(err => {
                                 console.log(err.response.status);
-                                if(err.response.status === 403)
-                                {
-                                    alert("您的權限不足!");
-                                    goHomePage();
-                                }
                             })
                             axios.get("/api/member/" + result1.data.memberEmail)
                             .then(result4 => {
@@ -122,20 +115,10 @@ export default function EditSignupInfo() {
                             })
                             .catch(err => {
                                 console.log(err.response.status);
-                                if(err.response.status === 403)
-                                {
-                                    alert("您的權限不足!");
-                                    goHomePage();
-                                }
                             })
                         })
                         .catch(err => {
                             console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
                         })
                     }
                 })

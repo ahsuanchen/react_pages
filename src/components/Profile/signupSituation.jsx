@@ -85,7 +85,6 @@ export default function SignupSituation() {
         history.push("/");
     }
 
-    // const [AInum, setAInum] = useState([]);
     const [registration, setRegistration] = useState([]);
     useEffect(() => {
         async function fetchDataReg() {
@@ -127,33 +126,26 @@ export default function SignupSituation() {
     }, []);
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
+    const handleOpen = (AInum) => {
         setOpen(true);
     };
     const handleClose = () => {
       setOpen(false);
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        let url = "/api/registration/";
-        for (let num = 0 ; num < registration.length ; num++)
-        {
-            const AInum = registration[num].ainum ;
-            // if (setnum[num] == AInum)
-            // {
-            //     url = url + AInum ;
-            //     console.log(url);
-            // }
-        }
+
+    const handleSubmit = (AInum) => {
+        let url = "/api/registration/cancel/";
+        url = url + AInum;
+        console.log(url);
         // axios.delete(url)
-        //     .then(res => {
-        //         console.log(url)
-        //         // window.location.reload();
-        //     })
-        //     .catch(function(error){
-        //         console.log(error.response.status);
-        //     });
+        // .then(res => {
+        //     console.log(url)
+        //     // window.location.reload();
+        // })
+        // .catch(function(error){
+        //     console.log(error.response.status);
+        // });
     }
 
     const activity_End_or_not = new Date().getTime();
@@ -189,11 +181,11 @@ export default function SignupSituation() {
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
-                                            <Paper>
+                                            <Paper >
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName}
+                                                            {registration.activity.activityName} {registration.ainum}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
@@ -264,7 +256,7 @@ export default function SignupSituation() {
                                                                     <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
                                                                         取消
                                                                     </Button>
-                                                                    <Button onClick={handleSubmit} className={classes.dig_butoon}>
+                                                                    <Button onClick={() => handleSubmit(registration.ainum)} className={classes.dig_butoon}>
                                                                         確定
                                                                     </Button>
                                                                 </DialogActions>

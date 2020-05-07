@@ -27,9 +27,6 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             color : '#00AEAE'
         } ,
-        '&:focus' : {
-            color : '#000'
-        }
     } ,
     content : {
         margin : "2% 2%" ,
@@ -80,11 +77,6 @@ export default function LeftBar() {
                     })
                     .catch(err => {
                         console.log(err.response.status);
-                        if(err.response.status === 403)
-                        {
-                            alert("您的權限不足!");
-                            goHomePage();
-                        }
                     })
                 }
             })
@@ -149,13 +141,25 @@ export default function LeftBar() {
                             我的相簿
                         </Box>
                     </Link>
+                    <Link to="/ActivityAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            活動相簿
+                        </Box>
+                    </Link>
                     </>
                     : 
+                    <>
                     <Link to="/MyAlbum" className={classes.link}>
                         <Box lineHeight={2} m={1}>
                             我的相簿
                         </Box>
                     </Link>
+                    <Link to="/ActivityAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            活動相簿
+                        </Box>
+                    </Link>
+                    </>
                     )}
                 </Typography>
             </Container>

@@ -151,6 +151,7 @@ export default function ManageActivity() {
                         axios.get("/api/activity/organizer/" + res.data.memberEmail)
                         .then(result => {
                             setActivity(result.data);
+                            console.log(result)
                         })
                         .catch(err => {
                             console.log(err.response.status);
@@ -234,7 +235,7 @@ export default function ManageActivity() {
                                                                 {activity.activityEndDateString}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                                {activity.attendPeople}&nbsp;/&nbsp;
+                                                                {activity.attendPeople}&nbsp;/&nbsp;{activity.registeredPeople}
                                                             </TableCell>
                                                             <TableCell align="center">
                                                             {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  

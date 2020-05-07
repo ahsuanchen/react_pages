@@ -31,8 +31,7 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
     toolbar : {
-        width : "100%" ,
-        maxWidth : "1440px" ,
+        width : "95%" ,
         margin : "0 auto" ,
         display: "flex" ,
         justifyContent : "space-between"
@@ -161,7 +160,7 @@ export default function MenuAppBar() {
                             <ListItemText primary="個人檔案" />
                           </ListItem>
                           <form method="post" action="/logout">
-                            <ListItem button type="submit">
+                            <ListItem button type="submit" component="button">
                               <ListItemIcon>
                                 <ExitToAppIcon/>
                               </ListItemIcon>
