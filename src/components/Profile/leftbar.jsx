@@ -60,7 +60,7 @@ export default function LeftBar() {
     useEffect(() => {
         async function fetchDataMem() {
             let url = "/api/login/name"
-            await axios.get(url)
+            axios.get(url)
             .then(result => {
                 if(result.data.toString().startsWith("<!DOCTYPE html>"))
                 {
@@ -75,8 +75,13 @@ export default function LeftBar() {
                         setOrganizer(result.data);
                         // console.log(result);
                     })
-                    .catch(err => {
-                        console.log(err.response.status);
+                    .catch(error => {
+                        console.log(error.response.status);
+                        if(error.response.status === 403)
+                        {
+                            alert("您的權限不足!");
+                            goHomePage();
+                        }
                     })
                 }
             })

@@ -137,15 +137,16 @@ export default function SignupSituation() {
     const handleSubmit = (AInum) => {
         let url = "/api/registration/cancel/";
         url = url + AInum;
+        console.log(AInum);
         console.log(url);
-        // axios.delete(url)
-        // .then(res => {
-        //     console.log(url)
-        //     // window.location.reload();
-        // })
-        // .catch(function(error){
-        //     console.log(error.response.status);
-        // });
+        axios.patch(url)
+        .then(res => {
+            console.log(url)
+            // window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     }
 
     const activity_End_or_not = new Date().getTime();
@@ -177,7 +178,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {registration.map(registration =>
-                                    (new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) ?
+                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && registration.cancelRegistration === null ) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -185,7 +186,7 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName} {registration.ainum}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">

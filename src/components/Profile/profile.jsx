@@ -95,7 +95,7 @@ export default function Profile() {
     useEffect(() => {
         async function fetchDataMem() {
                 let url = "/api/login/name"
-                await axios.get(url)
+                axios.get(url)
                 .then(result => {
                     if(result.data.toString().startsWith("<!DOCTYPE html>"))
                     {

@@ -435,7 +435,14 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                 >
-                                                                    上傳/管理照片
+                                                                    上傳照片
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                >
+                                                                    管理照片
                                                                 </Button>
                                                             </TableCell>
                                                             )}
