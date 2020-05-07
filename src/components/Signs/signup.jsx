@@ -2,21 +2,14 @@ import React ,{useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { HashRouter, withRouter } from 'react-router-dom'
-import {Router, Route, hashHistory} from 'react-router';
-import {Link} from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Container from '@material-ui/core/Container';
-
-
-
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -80,45 +73,49 @@ const SignUpPage = props => {
     
         const  [memberEmail,setMemberEmail] =  useState("");
         const  [memberPassword,setMemberPassword] =  useState("");
+        const  [checkPassword, setCheckPassword] =  useState("");
     
         const handleSubmit=(event)=> {
-            //event.preventDefault();
+
             const member={
                 memberEmail:memberEmail,
-                memberPassword:memberPassword};
-            //隔頁傳值
-            localStorage.setItem('memberEmail',memberEmail);
-            localStorage.setItem('memberPassword',memberPassword);
-
+                };
             
+            if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword === memberPassword){
+                //隔頁傳值
+                localStorage.setItem('memberEmail',memberEmail);
+                localStorage.setItem('memberPassword',memberPassword);
 
-            axios.post("api/member/check/", member,
-            {
-                auth:
-                {
-                    username : "user",
-                    password : "123"
+                axios.post("api/member/check/", member)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    //check判斷後為ok表示此帳號為註冊過即跳到下一頁
+                    //PassTextPage();
+                    
+                    history.push({
+                        pathname: "/signupinfo",
+                    });
+                    
+                }).catch(err =>{
+                    console.log(err.reponse);
+                    console.log(err.data);
+                     alert("此帳號已註冊");
+                });               
+
                 }
-            })
-            .then(res => {
-                console.log("test")
-                console.log(res);
-                console.log(res.data);
-                //check判斷後為ok表示此帳號為註冊過即跳到下一頁
-                //PassTextPage();
-                
-                history.push({
-                    pathname: "/signupinfo",
-                  });
-                
-              }).catch(function(error){
-                  alert(error);
-              });
+            else if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword != memberPassword){
+                alert("密碼驗證失敗");
+            }
+            else{
+                alert("請輸入正確的帳號密碼")
+            }
 
-
-                         
+                
+            
             
         }
+
     
         return (
             <Grid className={classes.root}>
@@ -133,10 +130,11 @@ const SignUpPage = props => {
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
+                                    type="email"
                                     required
                                     fullWidth
                                     id="memberEmail"
-                                    label="帳號"
+                                    label="電子信箱"
                                     name="email"
                                     onChange={e=>setMemberEmail(e.target.value)}
                                 />
@@ -157,11 +155,11 @@ const SignUpPage = props => {
                                     margin="normal"
                                     required
                                     fullWidth
-                                    name="checkpassword"
+                                    name="checkPassword"
                                     label="確認密碼"
                                     type="password"
                                     id="checkpassword"
-                                    autoComplete="current-password"
+                                    onChange={e=>setCheckPassword(e.target.value)}
                                 />
     
                                 <Button

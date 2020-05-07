@@ -53,8 +53,6 @@ const BootstrapInput = withStyles(theme => ({
     },
 }))(InputBase);
 
-
-
 const useStyles = makeStyles(theme => ({
     div: {
         boxSizing: "border-box"
@@ -124,11 +122,11 @@ const NewDetails = props => {
 
     useEffect(() => {
        console.log(location.pathname); // result: '/secondpage'
-       //console.log(location.search); // result: '?query=abc'
        console.log(location.state.detail); // result: 'some_value'
     }, [location]);
    
 };
+
 
 export default function BulidActivity_step3() {
     const classes = useStyles();
@@ -143,33 +141,22 @@ export default function BulidActivity_step3() {
     const  [activitySummary,setactivitySummary] =  useState(localStorage.getItem('activitySummary'));
     const  [activityInfo,setactivityInfo] =  useState(localStorage.getItem('activityInfo'));
     const  [activityMeal,setactivityMeal] =  useState(localStorage.getItem('activityMeal'));
+    const  [Types,setTypes] =  useState(localStorage.getItem('activityTypes'));
     const  [activityMoreContent,setactivityMoreContent] =  useState("");
     const  [activityPrecautions,setactivityPrecautions] =  useState("");
     const  [activityLinkName,setactivityLinkName] =  useState("");
     const  [activityLink,setactivityLink] =  useState("");
-    const  [activityOrganizer,setactivityOrganizer] =  useState("");
+    const  [act,setAct] =  useState({
+        activityId:'',
+    });
+    //const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
-    // const activity={
-    //     activityName:activityName,
-    //     activityStartDate:activityStartDate,
-    //     activityEndDate:activityEndDate,
-    //     startSignUpDate:startSignUpDate,
-    //     endSignUpDate:endSignUpDate,
-    //     activityPeople:activityPeople,
-    //     activitySpace:activitySpace,
-    //     activitySummary:activitySummary,
-    //     activityInfo:activityInfo,
-    //     activityMeal:activityMeal,
-    //     activityMoreContent:activityMoreContent,
-    //     activityPrecautions:activityPrecautions,
-    //     activityLinkName:activityLinkName,
-    //     activityLink:activityLink,
-    //     activityOrganizer:activityOrganizer
-    // };
-
-    //console.log(activity);
-
     let history = useHistory();
+
+    
+    var Types_array = Types.split(',')
+    console.log(Types_array)
+
 
     const handleSubmit=(event)=> {
         
@@ -190,28 +177,42 @@ export default function BulidActivity_step3() {
             activityPrecautions:activityPrecautions,
             activityLinkName:activityLinkName,
             activityLink:activityLink,
-            activityOrganizer:activityOrganizer
+            //activityOrganizer:activityOrganizer
         };
         
+        // const activityTypes={
+        //     activityId:act.activityId,
+        //     activityType:Types
+        // }
 
+        // localStorage.setItem('activityId', act.activityId);
         
-        axios.post("/api/activity/", activity,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
+        axios.post("/api/activity", activity)
           .then(res => {
             alert("yes")
-            console.log("test")
             console.log(res);
             console.log(res.data);
-            history.push({
-                pathname: "/newPic",
-              });
+
             
+            let url = "api/activityTypes/"
+            url = url + res.data.activityId;
+
+            console.log(url)
+
+            setAct(res.data)
+            alert(res.data.activityId)
+            const actId = res.data.activityId;
+            axios.post(url, Types_array)
+            .then(result =>{
+                console.log(result);
+                console.log(result.data);
+                alert(result.data.activityId)
+                localStorage.setItem('activityId',actId);
+                history.push({
+                    pathname: "/newPic",
+                  });
+
+            })
             
           }).catch(function(error){
               alert(error);
@@ -219,6 +220,8 @@ export default function BulidActivity_step3() {
           });
         
     }
+
+    //console.log(url)
 
     return (
         <div className={classes.root}>
@@ -298,11 +301,11 @@ export default function BulidActivity_step3() {
                                 value={activityMeal}
                                 onChange={e=>setactivityMeal(e.target.value)}
                             />
-                            <input
+                            {/* <input
                                 //type="hidden"
                                 id="activityOrganizer"
                                 onChange={e=>setactivityOrganizer(e.target.value)}
-                            />
+                            /> */}
 
 
                                 <TextField

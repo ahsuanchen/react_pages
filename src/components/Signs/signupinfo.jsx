@@ -118,9 +118,6 @@ const SignUpInfoPage = props => {
 };
 
 
-
-
-
 export default function SignUpInfo(props) {
     const classes = useStyles();
 
@@ -177,14 +174,9 @@ export default function SignUpInfo(props) {
             memberEnabled:memberEnabled,
         };
 
-        axios.post("/api/member", member,
-        {
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-        })
+        localStorage.setItem('memberEmail',memberEmail);
+
+        axios.post("/api/member", member)
           .then(res => {
             //alert("yes")
             console.log("test")
@@ -249,10 +241,10 @@ export default function SignUpInfo(props) {
                                 <RadioGroup aria-label="性別" id="memberGender" value={memberGender} onChange={e=>setMemberGender(e.target.value)} >
                                 <Grid container>
                                     <Grid item> 
-                                        <FormControlLabel value="female" control={<GreenRadio size="small" />} label="女性" />
+                                        <FormControlLabel value="F" control={<GreenRadio size="small" />} label="女性" />
                                     </Grid>
                                     <Grid item> 
-                                        <FormControlLabel value="male" control={<GreenRadio size="small" />} label="男性" />
+                                        <FormControlLabel value="M" control={<GreenRadio size="small" />} label="男性" />
                                     </Grid>
                                     <Grid item>
                                     <FormControlLabel value="other" control={<GreenRadio size="small" />} label="暫不透露" />

@@ -1,15 +1,16 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
-import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import InputBase from '@material-ui/core/InputBase';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -17,43 +18,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+// import DatePicker from 'react-datepicker';
 
-import { green } from '@material-ui/core/colors';
-
-const BootstrapInput = withStyles(theme => ({
-    root: {
-        'label + &': {
-            marginTop: theme.spacing(3),
-        },
-    },
-    input: {
-        borderRadius: 4,
-        position: 'relative',
-        backgroundColor: theme.palette.background.paper,
-        border: '1px solid #ced4da',
-        fontSize: 16,
-        padding: '10px 26px 10px 12px',
-        transition: theme.transitions.create(['border-color', 'box-shadow']),
-        // Use the system font instead of the default Roboto font.
-        fontFamily: [
-            '-apple-system',
-            'BlinkMacSystemFont',
-            '"Segoe UI"',
-            'Roboto',
-            '"Helvetica Neue"',
-            'Arial',
-            'sans-serif',
-            '"Apple Color Emoji"',
-            '"Segoe UI Emoji"',
-            '"Segoe UI Symbol"',
-        ].join(','),
-        '&:focus': {
-            borderRadius: 4,
-            borderColor: '#80bdff',
-            boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
-        },
-    },
-}))(InputBase);
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -61,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "5% auto"
     } ,
     button_part : {
         display: "flex" ,
@@ -98,7 +65,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(50),
+            height: theme.spacing(53),
         },
     },
     form: {
@@ -122,129 +89,159 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+// const UpdateInfoPage = props => {
+//     const location = useLocation();
+
+//     useEffect(() => {
+//        console.log(location.pathname); // result: '/secondpage'
+//        //console.log(location.search); // result: '?query=abc'
+//        console.log(location.state.detail); // result: 'some_value'
+//     }, [location]);
+
+    
+// };
+let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?"+1));
  //radio 顏色設定
-const GreenRadio = withStyles({
+ const RadioColor = withStyles({
     root: {
-        color: green[400],
+        color: "#E0E0E0",
         '&$checked': {
-            color: green[600],
+            color: "#00CACA",
         },
     },
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
-
-
-
-export default function UpdateActivity_step3() {
+export default function UpdateInfo() {
     const classes = useStyles();
 
     // //宣吿要接值的變數
-    // const [inputs, setInputs] = React.useState({
-    //     activityName:'',
-    //     activitySpace:'',
-    //     activityStartDate:'',
-    //     activityEndDate:'',
-    //     startSignUpDate:'',
-    //     endSignUpDate:'',
-    //     activityLinkName:'',
-    //     activityLink:'',
-    //     activityMeal:'',
-    // });
-
-    const  [activityName,setactivityName] =  useState("");
-    const  [activitySpace,setactivitySpace] =  useState("");
-    const  [activityStartDate,setactivityStartDate] =  useState("");
-    const  [activityEndDate,setactivityEndDate] =  useState("");
-    const  [startSignUpDate,setstartSignUpDate] =  useState("");
-    const  [endSignUpDate,setendSignUpDate] =  useState("");
-    const  [activitySummary,setactivitySummary] =  useState("");
-    const  [activityInfo,setactivityInfo] =  useState("");
-    const  [activityMeal,setactivityMeal] =  useState("");
-
-    const today  = new Date();
-    const year   = today.getFullYear();
-    const month  = today.getMonth()+1;
-    const day  = today.getDate();
-    const hour = today.getHours();
-    const minute = today.getMinutes();
-    const second  = today.getSeconds();
-    console.log(year + "/" + month + "/" + day + " " + hour + ":"+ minute + ":" +second);
+    const [act, setAct] = useState({
+        // activityId:localStorage.getItem('activityId'),
+        activityId:activity_Id,
+        activityName:'',
+        activityStartDateStringDate:'',
+        activityStartDateStringMinute:'',
+        activityEndDateStringDate:'',
+        activityEndDateStringMinute:'',
+        startSignUpDateStringDate:'',
+        startSignUpDateStringMinute:'',
+        startSignUpDateStringDate: '',
+        startSignUpDateStringMinute:'',
+        endSignUpDateStringDate:'',
+        endSignUpDateStringMinute:'',
+        activityStartDateString:'',
+        activityEndDateString:'',
+        startSignUpDateString:'',
+        endSignUpDateString:'',
+        attendPeople:'',
+        activitySpace:'',
+        activitySummary:'',
+        activityInfo:'',
+        activityMeal:'',
+    });
 
 
+    let history = useHistory();
 
-    const handleSubmit=(event)=> {
-        //event.preventDefault();
-        const activity={
-            activityName:activityName,
-            activitySpace:activitySpace,
-            activityStartDate:activityStartDate,
-            activityEndDate:activityEndDate,
-            startSignUpDate:startSignUpDate,
-            endSignUpDate:endSignUpDate,
-            activitySummary:activitySummary,
-            activityInfo:activityInfo,
-            activityMeal:activityMeal
+
+    let url = "api/activity/";
+    url = url + act.activityId;
+
+    const handleChange = updateActInfo => event => {
+        setAct({...act, [updateActInfo]: event.target.value});
+    
+    }
+
+    useEffect(() => {
+        async function fetchDataActInfo() {
+                await axios.get(url)
+                .then(result => {
+                    // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                    // {
+                    //     alert("您尚未登入，請先登入！")
+                    //     goSignin();
+                    // }
+                    // else
+                    // {
+                        setAct(result.data);
+                        console.log(result);
+                        
+                
+                    // }
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    if(err.response.status === 403)
+                    {
+                        alert("您的權限不足!");
+                        
+                    }
+                })
+        }
+        fetchDataActInfo();
+        
+    }, []);
+
+    // const activityStart_Date = act.activityStartDateString.substring(0,10);
+    // const activityStart_Time = act.activityStartDateString.substring(11);
+
+    const handleSubmit = event => {
+        const updateActivityInfo={
+            activityName:act.activityName,
+
+            activityStartDateString:act.activityStartDateString,
+            activityEndDateString:act.activityEndDateString ,
+            startSignUpDateString:act.startSignUpDateString ,
+            endSignUpDateString:act.endSignUpDateString ,
+
+            activityStartDate:new Date(act.activityStartDateStringDate+" "+act.activityStartDateStringMinute+":00").getTime() ,
+            activityEndDate:new Date(act.activityEndDateStringDate+" "+act.activityEndDateStringMinute+":00").getTime() ,
+            startSignUpDate:new Date(act.startSignUpDateStringDate+" "+act.startSignUpDateStringMinute+":00").getTime() ,
+            endSignUpDate:new Date(act.endSignUpDateStringDate+" "+act.endSignUpDateStringMinute+":00").getTime() ,
+            
+            attendPeople:act.attendPeople,
+            activitySpace:act.activitySpace,
+            activitySummary:act.activitySummary,
+            activityInfo:act.activityInfo,
+            activityMeal:act.activityMeal
         };
-           
-        axios({
-            method: 'post',
-            baseURL: 'http://localhost:8080',
-            url: '/api/activity/',
-            'Content-Type': 'application/json',
-            auth:
-            {
-                username : "user",
-                password : "123"
-            }
-          })
-          .then(res => {
-            console.log("test")
-            console.log(res);
-            console.log(res.data);
-            
-          }).catch(function(error){
-              alert(error);
-          });
 
-        // axios.post("/api/activity/", activity,
-        // {
-            
-        //     auth:
-        //     {
-        //         username : "user",
-        //         password : "123"
-        //     }
-        // })
-        //   .then(res => {
-        //     console.log("test")
-        //     console.log(res);
-        //     console.log(res.data);
-            
-        //   }).catch(function(error){
-        //       alert(error);
-        //   });
-        console.log(activity);
+        //let activityStartDate = (activityStart_Date+" "+activityStart_Time+":00");
+
+            axios.patch(url, updateActivityInfo)
+            .then(response => {
+                console.log(response);
+                // console.log(response.data);
+                console.log(updateActivityInfo);
+                alert("內容已修改");
+                history.push({
+                    pathname: "/updateDetails",
+                  });
+            })
+            .catch(function(error){
+                console.log(error);
+            });
     }
 
     const [value, setValue] = React.useState();
-    const handleChange = event => {
-        setValue(event.target.value);
-    }
+    // const handleChange = event => {
+    //     setValue(event.target.value);
+    // }
+
+
+        const [startDate, setStartDate] = useState(new Date());
+        
 
     return (
         <div className={classes.root}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '上傳活動資訊照片'},{title: '基本資訊'},{title: '活動內容'}]} activeStep={2} />
+            <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h4">
-                    Step3 : 修改活動基本資訊
-                </Typography>
-                <br/>
                 <Typography variant="h5">
-                    (填寫活動資訊)
+                    修改活動基本資訊
                 </Typography>
             </div>
             <div>
@@ -253,109 +250,130 @@ export default function UpdateActivity_step3() {
                         <CssBaseline />
                         <div className={classes.paper}>
                             <paper>
-                                <form className={classes.form} noValidate onSubmit={handleSubmit}>
+                                
                                     <TextField
                                         margin="normal"
                                         required
                                         fullWidth
+                                        autoFocus
                                         id="activityName"
                                         label="活動名稱"
                                         name="activityName"
                                         variant="outlined"
                                         placeholder="請填寫活動名稱"
-                                        onChange={e=>setactivityName(e.target.value)}
+                                        value={act.activityName}
+                                        onChange={handleChange('activityName')}
+
+                                        
                                     />
+
+                                   
 
                                     <TextField 
                                         margin="normal"
                                         width="70%"
                                         label="活動開始日期" 
                                         type="date" 
-                                        id="activityStartDate"
-                                        name="activityStartDate"
+                                        id="activityStart_Date"
+                                        value={act.activityStartDateStringDate}
                                         defaultValue={new Date().getFullYear()}
                                         InputLabelProps={{shrink: true,}}
-                                        onChange={e=>setactivityStartDate(e.target.value)}
+                                        onChange={handleChange('activityStartDateStringDate')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width='60'
-                                    label="活動開始時間" 
-                                    type="time" 
-                                    id="activityStartDate"
-                                    name="activityStartDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setactivityStartDate(e.target.value)}
+                                        margin="normal"
+                                        Width='60'
+                                        label="活動開始時間" 
+                                        type="time" 
+                                        id="activityStartTimeStringMinute"
+                                        value={act.activityStartDateStringMinute}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('activityStartDateStringMinute')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束日期" 
-                                    type="date" 
-                                    id="activityEndDate"
-                                    name="activityEndDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setactivityEndDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="活動結束日期" 
+                                        type="date" 
+                                        id="activityEnd_Date"
+                                        value={act.activityEndDateStringDate}
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('activityEndDateStringDate')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="活動結束時間" 
-                                    type="time" 
-                                    id="activityEndDate"
-                                    name="activityEndDate"
-                                    InputLabelProps={{shrink: true,}}
-                                    onChange={e=>setactivityEndDate(e.target.value)} 
+                                        margin="normal"
+                                        Width="50%"
+                                        label="活動結束時間" 
+                                        type="time" 
+                                        id="activityEnd_Time"
+                                        value={act.activityEndDateStringMinute}
+                                        InputLabelProps={{shrink: true,}}
+                                        onChange={handleChange('activityEndDateStringMinute')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    width="70%"
-                                    label="報名開始日期" 
-                                    type="date" 
-                                    id="startSignUpDate"
-                                    name="startSignUpDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        width="70%"
+                                        label="報名開始日期" 
+                                        type="date" 
+                                        id="startSignUp_Date"
+                                        value={act.startSignUpDateStringDate}
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('startSignUpDateStringDate')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width='60'
-                                    label="報名開始時間" 
-                                    type="time" 
-                                    id="startSignUpDate"
-                                    name="startSignUpDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setstartSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width='60'
+                                        label="報名開始時間" 
+                                        type="time" 
+                                        id="startSignUp_Time"
+                                        value={act.startSignUpDateStringMinute}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('startSignUpDateStringMinute')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="報名結束日期" 
-                                    type="date" 
-                                    id="endSignUpDate"
-                                    name="endSignUpDate"
-                                    defaultValue={new Date().getFullYear()}
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="報名結束日期" 
+                                        type="date" 
+                                        id="endSignUp_Date"
+                                        value={act.endSignUpDateStringDate}
+                                        defaultValue={new Date().getFullYear()}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('endSignUpDateStringDate')}
                                     />
 
                                     <TextField 
-                                    margin="normal"
-                                    Width="50%"
-                                    label="報名結束時間" 
-                                    type="time" 
-                                    id="endSignUpDate"
-                                    name="endSignUpDate"
-                                    InputLabelProps={{shrink: true,}} 
-                                    onChange={e=>setendSignUpDate(e.target.value)}
+                                        margin="normal"
+                                        Width="50%"
+                                        label="報名結束時間" 
+                                        type="time" 
+                                        id="endSignUp_Time"
+                                        value={act.endSignUpDateStringMinute}
+                                        InputLabelProps={{shrink: true,}} 
+                                        onChange={handleChange('endSignUpDateStringMinute')}
+                                    />
+
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        type="int"
+                                        label="活動人數上限"
+                                        id="attendPeople"
+                                        value={act.attendPeople}
+                                        variant="outlined"
+                                        InputProps={{
+                                            endAdornment: <InputAdornment position="end">人</InputAdornment>,
+                                          }}
+                                        onChange={handleChange('attendPeople')}
                                     />
 
                                     <TextField
@@ -364,34 +382,38 @@ export default function UpdateActivity_step3() {
                                         fullWidth
                                         label="地址"
                                         id="activitySpace"
-                                        name="activitySpace"
+                                        value={act.activitySpace}
                                         variant="outlined"
-                                        onChange={e=>setactivitySpace(e.target.value)}
+                                        onChange={handleChange('activitySpace')}
                                     />
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activitySummary"
-                                    label="活動摘要"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動摘要（限三十字）"
-                                />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="activitySummary"
+                                        value={act.activitySummary}
+                                        label="活動摘要"
+                                        variant="outlined"
+                                        multiline
+                                        rows="4"
+                                        placeholder="請填寫活動摘要（限三十字）"
+                                        onChange={handleChange('activitySummary')}
+                                    />
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activityInfo"
-                                    label="活動簡介"
-                                    variant="outlined"
-                                    multiline
-                                    rows="4"
-                                    placeholder="請填寫活動簡介（限一千字）"
-                                />
+                                    <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="activityInfo"
+                                        value={act.activityInfo}
+                                        label="活動簡介"
+                                        variant="outlined"
+                                        multiline
+                                        rows="4"
+                                        placeholder="請填寫活動簡介（限一千字）"
+                                        onChange={handleChange('activityInfo')}
+                                    />
 
 
                                     <FormControl component="fieldset" className={classes.formControl}>
@@ -399,21 +421,21 @@ export default function UpdateActivity_step3() {
                                         <RadioGroup 
                                             aria-label="是否供餐" 
                                             name="activityMeal" 
-                                            value={value} 
-                                            onChange={e=>setactivityMeal(e.target.value)} 
+                                            value={act.activityMeal} 
+                                            onChange={handleChange('activityMeal')} 
                                         >
                                             <Grid container>
                                                 <Grid item> 
                                                     <FormControlLabel 
-                                                        value="yes" 
-                                                        control={<GreenRadio />} 
+                                                        value="Y" 
+                                                        control={<RadioColor />} 
                                                         label="是" 
                                                     />
                                                 </Grid>
                                                 <Grid item>
                                                     <FormControlLabel 
-                                                    value="no" 
-                                                    control={<GreenRadio />} 
+                                                    value="N" 
+                                                    control={<RadioColor />} 
                                                     label="否" 
                                                     />
                                                 </Grid>
@@ -421,20 +443,13 @@ export default function UpdateActivity_step3() {
                                         </RadioGroup>
                                     </FormControl>
                                     <Grid item xs={12} sm={6} className={classes.button_part}>
-                                        <Box lineHeight="normal" m={1}>
-                                            <Button 
-                                                className={classes.button_part1}
-                                                component={Link}
-                                                to="/updatePic"
-                                            >
-                                                上一步
-                                            </Button>
+                                        <Box lineHeight="normal" m={8}>
                                         </Box>
                                         <Box lineHeight="normal" m={1}>
                                             <Button 
+                                                type="submit"
                                                 className={classes.button_part2}
-                                                component={Link}
-                                                to="/updateDetails"
+                                                onClick={handleSubmit}
                                             >
                                                 下一步
                                             </Button>
@@ -448,7 +463,7 @@ export default function UpdateActivity_step3() {
                                             <ArrowForwardIcon />
                                         </IconButton>
                                     </Grid> */}
-                                </form>
+                                
                             </paper>
                             <Grid align-items-xs-flex-end></Grid>
                         </div>

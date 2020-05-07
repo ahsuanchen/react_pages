@@ -136,25 +136,23 @@ const useStyles = makeStyles(theme => ({
 export default function SettingFace() {
     const classes = useStyles();
 
-    const location = useLocation();
-
     const SettingFacePage = props => {
         const location = useLocation();
-
+    
         useEffect(() => {
            console.log(location.pathname); // result: '/secondpage'
            //console.log(location.search); // result: '?query=abc'
            console.log(location.state.detail); // result: 'some_value'
         }, [location]);
-
-
+    
+        
     };
     const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files[0])
       setImage({
-
+          
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
@@ -165,8 +163,8 @@ export default function SettingFace() {
 
     let history = useHistory();
 
-
-
+    
+        
     const handleSubmit=(event)=> {
 
         let formData = new FormData();
@@ -213,8 +211,7 @@ export default function SettingFace() {
                         <Typography variant="subtitle1" gutterBottom align="center">
                             設定使用者人臉
                         </Typography>
-                        <form className={classes.form} noValidate>
-
+                       
                         {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
                         <Grid container justify="center">
                     <Container className={classes.container}>
@@ -244,7 +241,7 @@ export default function SettingFace() {
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
-                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過4MB＊
+                                        ＊本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB＊
                                     </Typography>
                                 </div>
                             </>
@@ -253,8 +250,6 @@ export default function SettingFace() {
                         </Container>
                         </Grid>
 
-
-                        </form>
                     </paper>
                     <Grid align-items-xs-flex-end>
                     </Grid>
@@ -265,9 +260,7 @@ export default function SettingFace() {
                                 type="submit"
                                 width="50"
                                 variant="contained"
-                                color="primary"
                                 className={classes.submit}
-                                //onClick={submit}
                                 href="./signupinfo"
                             >
                                 <ChevronLeftIcon />
@@ -277,10 +270,8 @@ export default function SettingFace() {
                                 type="submit"
                                 Width="50"
                                 variant="contained"
-                                color="primary"
                                 className={classes.submit}
                                 onClick={handleSubmit}
-                                //href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步

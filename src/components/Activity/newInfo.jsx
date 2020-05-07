@@ -1,5 +1,7 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
@@ -101,7 +103,16 @@ const RadioColor = withStyles({
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
+const NewInfo = props => {
+    const location = useLocation();
 
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       //console.log(location.search); // result: '?query=abc'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+   
+};
 
 
 export default function BulidActivity_step2() {
@@ -121,7 +132,7 @@ export default function BulidActivity_step2() {
     // });
 
     
-
+    const  [activityTypes,setactivityTypes] =  useState(localStorage.getItem('activityTypes'));
     const  [activityName,setactivityName] =  useState("");
     const  [activityStart_Date,setactivityStart_Date] =  useState("");
     const  [activityStart_Time,setactivityStart_Time] =  useState("");
@@ -137,16 +148,8 @@ export default function BulidActivity_step2() {
     const  [activityInfo,setactivityInfo] =  useState("");
     const  [activityMeal,setactivityMeal] =  useState("");
 
-    // let actTime = activityStartDate+activityStartTime;
-    // const today  = new Date(actTime);
-    // const year   = today.getFullYear();
-    // const month  = today.getMonth()+1;
-    // const day  = today.getDate();
-    // const hour = today.getHours();
-    // const minute = today.getMinutes();
-    // const second  = today.getSeconds();
-    // console.log(year + "/" + month + "/" + day + " " + hour + ":"+ minute + ":" +second);
-
+    console.log(activityTypes)
+    
     let history = useHistory();
 
     const handleSubmit=(event)=> {
@@ -183,6 +186,7 @@ export default function BulidActivity_step2() {
         localStorage.setItem('activitySummary', activitySummary);
         localStorage.setItem('activityInfo', activityInfo);
         localStorage.setItem('activityMeal', activityMeal);
+        localStorage.setItem('activityTypes', activityTypes);
 
 
         if(activitySummary.length > 30){
@@ -197,28 +201,6 @@ export default function BulidActivity_step2() {
               });
         }
     
-        // axios.post("/api/activity/", activity,
-        // {
-        //     auth:
-        //     {
-        //         username : "user",
-        //         password : "123"
-        //     }
-        // })
-        // .then(res => {
-        //     // alert("yrrre");
-        //     console.log("test");
-        //     console.log(res);
-        //     console.log(res.data);
-        //     history.push({
-        //         pathname: "/newDetails",
-        //       });
-            
-        // }).catch(function(error){
-        //     alert(error);
-        // });
-
-
         
     }
 

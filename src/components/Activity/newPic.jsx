@@ -1,5 +1,8 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import { Link } from 'react-router-dom';
@@ -13,7 +16,7 @@ import CropOriginalIcon from '@material-ui/icons/CropOriginal';
 
 const useStyles = makeStyles(theme => ({
     div: {
-        boxSizing: "border-box"
+        boxSizing: "border-box",
     },
     topic_part : {
         textAlign : "center" , 
@@ -39,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         borderRadius: "5px",
         fontSize: "20px",
-        marginBottom : "10%" ,
+        marginBottom : "5%" ,
         '&:hover' : {
             background : 'none',
             color : "#000"
@@ -82,16 +85,32 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-export default function BulidActivity_step2() {
+const NewCover = props => {
+    const location = useLocation();
+
+    useEffect(() => {
+       console.log(location.pathname); // result: '/secondpage'
+       console.log(location.state.detail); // result: 'some_value'
+    }, [location]);
+   
+};
+
+export default function BulidActivity_step4() {
     const classes = useStyles();
 
+    const  [activityId,setactivityId] =  useState(localStorage.getItem('activityId'));
+
+    const [data , setData] = useState();
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
+        setData(e.target.files[0])
       setImage({
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
-    };    
+    }; 
+
+    console.log(data);
     // const handleUpload = async (e) => {
     //   e.preventDefault()
     //   const formData = new FormData()
@@ -100,11 +119,54 @@ export default function BulidActivity_step2() {
     //   await uploadToBackend('endpoint', {image: image.raw}, config)
     // };
 
+    let history = useHistory();
+
+    let url = "/api/files/files/activityCover/";
+        url = url + activityId;
+        
+        console.log(url)
+        console.log(activityId)
+
+    
+        
+    const handleSubmit=(event)=> {
+
+        let formData = new FormData();
+        formData.append('file',data,data.name);
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin' : '*'
+                }
+            }
+            console.log(formData);
+
+        
+
+
+        axios.post(url, formData,config)
+          .then(res => {
+            //alert("yes")
+            console.log("test")
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/finishAct",
+              });
+            
+            
+          }).catch(function(error){
+              alert(error);
+              console.log(error);
+          });
+        
+    }
+
     return (
         <div className={classes.div}>
             <Header />
             <div>
-            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={4} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={3} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h5">
@@ -117,8 +179,9 @@ export default function BulidActivity_step2() {
                         {
                             image.preview ? 
                             <>
-                                <img src={ image.preview } width="800" height="480" />
-                                <br/>
+                                <br/><br/><br/>
+                                <img src={ image.preview } width="600" height="400" />
+                                <br/><br/><br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
                                     新增檔案
@@ -129,7 +192,13 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 4mb</span>
+                                    <span className={classes.span}> 1GB</span>
+                                    <br/>
+                                    <span className={classes.span}>* </span>
+                                    <Typography variant="overline">
+                                        圖片尺寸建議
+                                    </Typography>
+                                    <span className={classes.span}> 3:2</span>
                                 </div>
                             </>
                             :(
@@ -144,7 +213,13 @@ export default function BulidActivity_step2() {
                                     <Typography variant="overline">
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
-                                    <span className={classes.span}> 4mb</span>
+                                    <span className={classes.span}> 1GB</span>
+                                    <br/>
+                                    <span className={classes.span}>* </span>
+                                    <Typography variant="overline">
+                                        圖片尺寸建議
+                                    </Typography>
+                                    <span className={classes.span}> 3:2</span>
                                 </div>
                             </>
                         )}
@@ -163,10 +238,9 @@ export default function BulidActivity_step2() {
                     <Box lineHeight="normal" m={1}>
                         <Button 
                             className={classes.button_part2}
-                            component={Link}
-                            to="/"
+                            onClick={handleSubmit}
                         >
-                            完成
+                            發佈活動
                         </Button>
                     </Box>
                 </Grid> 
