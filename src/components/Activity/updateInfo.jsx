@@ -108,7 +108,7 @@ const useStyles = makeStyles(theme => ({
 
     
 // };
-let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?"+1));
+let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
  //radio 顏色設定
  const RadioColor = withStyles({
     root: {
@@ -120,14 +120,13 @@ let activity_Id = window.location.href.substring(window.location.href.lastIndexO
     checked: {},
 })(props => <Radio color="default" {...props} />);
 
-
+console.log(activity_Id)
 export default function UpdateInfo() {
     const classes = useStyles();
 
     // //宣吿要接值的變數
     const [act, setAct] = useState({
-        // activityId:localStorage.getItem('activityId'),
-        activityId:'43',
+        activityId:activity_Id,
         activityName:'',
         activityTypes:'',
         activityStartDateStringDate:'',
@@ -164,15 +163,15 @@ export default function UpdateInfo() {
     }
     //類別
     const [type, setType] = useState({
-        learning: true,
-        art: false,
-        family: false,
-        experience: false,
-        leisure: false,
-        sport: false,
-        outdoor: false,
-        lecture: false,
-        information: false
+        learning:'',
+        art:'',
+        family:'',
+        experience:'',
+        leisure:'',
+        sport:'',
+        outdoor:'',
+        lecture:'',
+        information:''
       });
     
       const handleChangeType = (event) => {
@@ -244,6 +243,7 @@ export default function UpdateInfo() {
                 // console.log(response.data);
                 console.log(updateActivityInfo);
                 alert("內容已修改");
+                localStorage.setItem('activityId',act.activityId);
                 history.push({
                     pathname: "/updateDetails",
                   });

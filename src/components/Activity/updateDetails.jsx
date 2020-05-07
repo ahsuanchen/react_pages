@@ -101,8 +101,8 @@ export default function UpdateActivity_step() {
 
      //宣吿要接值的變數
     const [act, setAct] = useState({
-        // activityId:localStorage.getItem('activityId'),
-        activityId:"10",
+        activityId:localStorage.getItem('activityId'),
+        // activityId:'',
         activityMoreContent:'',
         activityPrecautions:'',
         activityLinkName:'',
@@ -173,6 +173,7 @@ export default function UpdateActivity_step() {
                 console.log(response);
                 console.log(updateActivityContent);
                 //alert("內容已修改");
+                localStorage.setItem('activityId',act.activityId);
                 history.push({
                     pathname: "/updatePic",
                   });

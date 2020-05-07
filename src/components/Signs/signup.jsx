@@ -59,6 +59,13 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+        color : "#fff" ,
+        minWidth : "100px" ,
+        '&:hover' : {
+            background : '#E0E0E0',
+            color : "#000"
+        } , 
         margin: theme.spacing(3, 0, 2),
     },
     font: {

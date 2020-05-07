@@ -114,6 +114,9 @@ export default function Organizer() {
             organizerInfo: organ.organizerInfo
         };
 
+        if(organizer.organizerName.length > 0 && organizer.organizerEmail.length > 0 && organizer.organizerPhone.length > 0 
+            && organizer.organizerAddress.length > 0 && organizer.organizerInfo.length > 0){
+
         axios.post("/api/organizer", organizer)
           .then(res => {
             alert("yes")
@@ -126,6 +129,10 @@ export default function Organizer() {
           }).catch(function(error){
               alert(error);
           });
+        }
+        else{
+            alert("欄位不得為空")
+        }
         
     }
 

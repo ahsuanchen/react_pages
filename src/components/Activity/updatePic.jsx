@@ -90,8 +90,7 @@ export default function UpdateActivity_step2() {
     const classes = useStyles();
 
     const [act, setAct] = useState({
-        // activityId:localStorage.getItem('activityId'),
-        activityId:"50",
+        activityId:localStorage.getItem('activityId'),
         activityCover:'',
     });
 
@@ -99,7 +98,7 @@ export default function UpdateActivity_step2() {
     url = url + act.activityId;
 
     useEffect(() => {
-        async function fetchDataActContent() {
+        async function fetchDataActCover() {
             await axios.get(url)
             .then(result => {
                 // if(result.data.toString().startsWith("<!DOCTYPE html>"))
@@ -125,7 +124,7 @@ export default function UpdateActivity_step2() {
                 }
             })
         }
-        fetchDataActContent();
+        fetchDataActCover();
         
     }, []);
 
@@ -194,7 +193,7 @@ export default function UpdateActivity_step2() {
         <div className={classes.div}>
             <Header />
             <div>
-            <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={1} />
+            <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={2} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h5">
@@ -259,7 +258,7 @@ export default function UpdateActivity_step2() {
                             component={Link}
                             to="/manageActivity"
                         >
-                            下一步
+                            完成修改
                         </Button>
                     </Box>
                 </Grid> 
