@@ -116,10 +116,7 @@ const SignUpPage = props => {
             }
             else{
                 alert("請輸入正確的帳號密碼")
-            }
-
-                
-            
+            }  
             
         }
 
