@@ -5,9 +5,6 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -46,6 +43,8 @@ const useStyles = makeStyles(theme => ({
 export default function ManualCheck() {
     const classes = useStyles();
 
+    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
+
     let history = useHistory();
     function goSignin()
     {
@@ -57,23 +56,14 @@ export default function ManualCheck() {
         history.push("/");
     }
 
-    const [member, setMember] = useState([]);
-    
+    const [registration , setRegistration] = useState([]);
+    const [signinEmail , setSigninEmail] = useState("") ;
     useEffect(() => {
-        async function fetchDataMem() {
-                let url = "/api/login/name"
-                await axios.get(url)
+        async function fetchDataReg() {
+            axios.get("/api/registration/activity/" + actID)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setMember(result.data);
-                        console.log(result);
-                    }
+                    setRegistration(result.data);
+                    console.log(result);
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -84,30 +74,36 @@ export default function ManualCheck() {
                     }
                 })
         }
-        fetchDataMem();
+        fetchDataReg();
     }, []);
 
-    // const handleChange = updateMemPassword => (event) => {
-    //     setMember({ ...member, [updateMemPassword]: event.target.value });
-    // };
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();    
-    //         let url =  "/api/member/updatepassword/" ;
-    //         url = url + oldPassword + updatePassword.memberPassword ;
-    //         axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
-    //             auth:
-    //             {
-    //                 username : "actforfun@gmail.com",
-    //                 password : "123"
-    //             },
-    //         })
-    //         .then(response => {
-    //             console.log(response);
-    //         })
-    //         .catch(function(error){
-    //         });
-    // };
+    const handleSubmit = event => {
+        event.preventDefault();    
+        let url =  "/api/registration/signIn/" ;
+        url = url + actID + "/" + signinEmail ;
+        if (signinEmail != registration.map(registration => registration.member_Email))
+        {
+            alert("您輸入的帳號有誤或是該使用者沒有報名此活動");
+            console.log(registration.map(registration => registration.member_Email))
+            console.log(url)    
+        }
+        else if (registration.map(registration => registration.isSignIn) != 0)
+        {
+            alert("該參加者已簽到成功");
+        }
+        else
+        {
+            axios.post(url)
+            .then(res => {
+                alert("簽到成功");
+                window.location.reload();
+                // console.log(res);
+            })
+            .catch(function(error){
+                console.log(error.response.status);
+            });
+        }
+    };
 
     return (
         <div className={classes.div}>
@@ -134,7 +130,8 @@ export default function ManualCheck() {
                                             <TableCell>
                                                 <TextField
                                                     variant="outlined"
-                                                    // value={member.memberEmail}
+                                                    value={signinEmail}
+                                                    onChange={e=>setSigninEmail(e.target.value)}
                                                     name="Email"
                                                 />
                                             </TableCell>
@@ -142,7 +139,7 @@ export default function ManualCheck() {
                                                 <Button
                                                     type="submit"
                                                     variant="contained"
-                                                    // onClick={handleSubmit}
+                                                    onClick={handleSubmit}
                                                     className={classes.button}
                                                     // component={Link}
                                                     // to="/profile"

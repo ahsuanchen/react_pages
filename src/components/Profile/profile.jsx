@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState , useEffect } from 'react';
 import { makeStyles , withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
@@ -79,6 +79,7 @@ export default function Profile() {
     {
         history.push("/");
     }
+
     const [member, setMember] = useState({
         memberName : '' ,
         memberEmail : '' ,
