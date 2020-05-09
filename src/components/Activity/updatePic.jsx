@@ -86,38 +86,42 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function UpdateActivity_step2() {
-
+    function goSignin()
+    {
+        history.push("/signin");
+    }
     const classes = useStyles();
-
+console.log(parseInt(localStorage.getItem('activityId')));
     const [act, setAct] = useState({
-        activityId:localStorage.getItem('activityId'),
+        activityId:parseInt(localStorage.getItem('activityId')),
         activityCover:'',
     });
 
-    let url = "api/activity/";
+    let url = "/api/activity/";
     url = url + act.activityId;
-
+    let cover_src;
     useEffect(() => {
         async function fetchDataActCover() {
             await axios.get(url)
             .then(result => {
-                // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                // {
-                //     alert("您尚未登入，請先登入！")
-                //     goSignin();
-                // }
-                // else
-                // {
+                if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                {
+                    alert("您尚未登入，請先登入！")
+                    goSignin();
+                }
+                else
+                {
                     
                     setAct(result.data);
                     console.log(result);
                     
-            
-                // }
+                    cover_src = "." + act.activityCover.substring(6);
+                    console.log(cover_src)
+                }
             })
             .catch(err => {
-                console.log(err.response.status);
-                if(err.response.status === 403)
+                console.log(err.response);
+                if(err.response=== 403)
                 {
                     alert("您的權限不足!");
                     
@@ -129,8 +133,7 @@ export default function UpdateActivity_step2() {
     }, []);
 
     
-    let cover_src = "." + act.activityCover.substring(6);
-    console.log(cover_src)
+    
 
 
     const [data , setData] = useState();
@@ -255,8 +258,7 @@ export default function UpdateActivity_step2() {
                     <Box lineHeight="normal" m={1}>
                         <Button 
                             className={classes.button_part2}
-                            component={Link}
-                            to="/manageActivity"
+                            onClick = {handleSubmit}
                         >
                             完成修改
                         </Button>

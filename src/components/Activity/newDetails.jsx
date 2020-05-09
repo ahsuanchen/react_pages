@@ -149,6 +149,7 @@ export default function BulidActivity_step3() {
     const  [act,setAct] =  useState({
         activityId:'',
     });
+    console.log(parseInt("0"));
     //const  [activityOrganizer,setactivityOrganizer] =  useState("");
     
     let history = useHistory();
@@ -193,7 +194,7 @@ export default function BulidActivity_step3() {
             console.log(res.data);
 
             
-            let url = "api/activityTypes/"
+            let url = "/api/activityTypes/"
             url = url + res.data.activityId;
 
             console.log(url)

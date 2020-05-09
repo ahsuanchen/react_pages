@@ -43,7 +43,7 @@ export default function ActivityInfo() {
   useEffect(() =>{
     async function fetchData(){
 
-      const result = await axios.get("api/login/name")
+      const result = await axios.get("/api/login/name/")
       .then(result => {
         setMember(result.data);
         console.log(result.data);

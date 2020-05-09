@@ -113,8 +113,8 @@ export default function ParticipantList() {
                             console.log(result);
                         })
                         .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
+                            console.log(err.response);
+                            if(err.response === 403)
                             {
                                 alert("您的權限不足!");
                                 goHomePage();
@@ -125,8 +125,8 @@ export default function ParticipantList() {
                             setRegistration(result.data);
                         })
                         .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
+                            console.log(err.response);
+                            if(err.response === 403)
                             {
                                 alert("您的權限不足!");
                                 goHomePage();
@@ -135,8 +135,8 @@ export default function ParticipantList() {
                     }
                 })
                 .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
+                    console.log(err.response);
+                    if(err.responsed === 403)
                     {
                         alert("您的權限不足!");
                         goHomePage();
