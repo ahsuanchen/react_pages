@@ -112,7 +112,7 @@ const SignUpPage = props => {
 
                 }
             else if(memberEmail.length > 0 && memberPassword.length > 0 && checkPassword != memberPassword){
-                alert("密碼驗證失敗");
+                alert("密碼驗證失敗，密碼與驗證密碼不一致");
             }
             else{
                 alert("請輸入正確的帳號密碼")

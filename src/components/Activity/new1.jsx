@@ -136,63 +136,60 @@ export default function BulidActivity_step1() {
     const clickCard6 = event => {
         const active = cardActive6;
         setCardActive6(!active);
-        types.push("親子")
     };
     //藝文
     const [cardActive7, setCardActive7] = React.useState();
     const clickCard7 = event => {
         const active = cardActive7;
         setCardActive7(!active);
-        types.push("藝文")
     };
     //運動
     const [cardActive8, setCardActive8] = React.useState();
     const clickCard8 = event => {
         const active = cardActive8;
         setCardActive8(!active);
-        types.push("運動")
     };
     //戶外
     const [cardActive9, setCardActive9] = React.useState();
     const clickCard9 = event => {
         const active = cardActive9;
         setCardActive9(!active);
-        types.push("戶外")
     };
 
-    if(cardActive1 != null){
-        types.push("學術")
-    }
-    if(cardActive2 != null){
-        types.push("資訊")
-    }
-    if(cardActive3 != null){
-        types.push("體驗")
-    }
-    if(cardActive4 != null){
-        types.push("講座")
-    }
-    if(cardActive5 != null){
-        types.push("休閒")
-    }
-    if(cardActive6 != null){
-        types.push("親子")
-    }
-    if(cardActive7 != null){
-        types.push("藝文")
-    }
-    if(cardActive8 != null){
-        types.push("運動")
-    }
-    if(cardActive9 != null){
-        types.push("戶外")
-    }
 
     console.log(types);
 
     let history = useHistory();
 
     const handleSubmit=(event)=> {
+
+        if(cardActive1 == true){
+            types.push("學術")
+        }
+        if(cardActive2 != true){
+            types.push("資訊")
+        }
+        if(cardActive3 != true){
+            types.push("體驗")
+        }
+        if(cardActive4 != true){
+            types.push("講座")
+        }
+        if(cardActive5 != true){
+            types.push("休閒")
+        }
+        if(cardActive6 != true){
+            types.push("親子")
+        }
+        if(cardActive7 != true){
+            types.push("藝文")
+        }
+        if(cardActive8 != true){
+            types.push("運動")
+        }
+        if(cardActive9 != true){
+            types.push("戶外")
+        }
 
         const act={
             activityTypes:types

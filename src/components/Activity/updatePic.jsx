@@ -178,7 +178,7 @@ export default function UpdateActivity_step2() {
             console.log(res);
             console.log(res.data);
             history.push({
-                pathname: "/.",
+                pathname: "/manageActivity",
               });
             
             
@@ -255,8 +255,7 @@ export default function UpdateActivity_step2() {
                     <Box lineHeight="normal" m={1}>
                         <Button 
                             className={classes.button_part2}
-                            component={Link}
-                            to="/manageActivity"
+                            onClick={handleSubmit}
                         >
                             完成修改
                         </Button>

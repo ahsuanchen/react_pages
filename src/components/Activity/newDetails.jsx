@@ -238,70 +238,65 @@ export default function BulidActivity_step3() {
                             {/* <form className={classes.form} noValidate> */}
 
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityName"
                                 value={activityName}
                                 onChange={e=>setactivityName(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityStartDate"
                                 value={activityStartDate}
                                 onChange={e=>setactivityStartDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityEndDate"
                                 value={activityEndDate}
                                 onChange={e=>setactivityEndDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="startSignUpDate"
                                 value={startSignUpDate}
                                 onChange={e=>setstartSignUpDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="endSignUpDate"
                                 value={endSignUpDate}
                                 onChange={e=>setendSignUpDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="attendPeople"
                                 value={attendPeople}
                                 onChange={e=>setattendPeople(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activitySpace"
                                 value={activitySpace}
                                 onChange={e=>setactivitySpace(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activitySummary"
                                 value={activitySummary}
                                 onChange={e=>setactivitySummary(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityInfo"
                                 value={activityInfo}
                                 onChange={e=>setactivityInfo(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityMeal"
                                 value={activityMeal}
                                 onChange={e=>setactivityMeal(e.target.value)}
                             />
-                            {/* <input
-                                //type="hidden"
-                                id="activityOrganizer"
-                                onChange={e=>setactivityOrganizer(e.target.value)}
-                            /> */}
 
 
                                 <TextField

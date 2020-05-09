@@ -13,8 +13,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 
-
-
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
@@ -63,6 +61,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "5px",
         fontSize: "15px",
         marginBottom : "10%" ,
+        margin:"10% 1%"
     } ,
 
     btn_file : {
@@ -71,11 +70,12 @@ const useStyles = makeStyles(theme => ({
         left: 0 ,
         top: 0 ,
         opacity: 0 ,
+        //margin:"1% 10%"
     } ,
 
 
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(4),
         flexDirection: 'column',
         alignItems: 'center',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
@@ -87,6 +87,7 @@ const useStyles = makeStyles(theme => ({
             height: theme.spacing(20),
         },
     },
+
 
 
     avatar: {
@@ -106,7 +107,7 @@ const useStyles = makeStyles(theme => ({
         background : '#00bfa5',
         borderRadius: "5px",
         fontSize: "10px",
-        marginTop : "10%" ,
+        marginTop : "5%" ,
         margin:"1% 10%"
     },
     font: {
@@ -180,23 +181,31 @@ export default function SettingFace() {
         let url = "/api/files/uploadFace/";
         url = url + memberEmail;
 
-
-        axios.post(url, formData,config)
-          .then(res => {
-            //alert("yes")
-            console.log("test")
-            console.log(res);
-            console.log(res.data);
+        if(formData == null){
             history.push({
                 pathname: "/finish",
               });
+        }
 
-
-          }).catch(function(error){
-              alert(error);
-              console.log(error);
-          });
-
+        else{
+            axios.post(url, formData,config)
+            .then(res => {
+              //alert("yes")
+              console.log("test")
+              console.log(res);
+              console.log(res.data);
+              history.push({
+                  pathname: "/finish",
+                });
+  
+  
+            }).catch(function(error){
+                alert(error);
+                console.log(error);
+            });
+  
+        }
+       
     }
 
     return (
@@ -205,14 +214,14 @@ export default function SettingFace() {
                 <CssBaseline />
                 <Typography className={classes.font} component="h1" variant="h5" align="center">
                     註 冊
+                </Typography>
+                <br/>
+                <Typography variant="subtitle1" gutterBottom align="center">
+                        設定使用者人臉
                     </Typography>
                 <div className={classes.paper}>
                     <paper>
-                        <Typography variant="subtitle1" gutterBottom align="center">
-                            設定使用者人臉<br/>
-                        </Typography>
-                       
-                        {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
+                        
                         <Grid container justify="center">
                     <Container className={classes.container}>
                     <div className={classes.upload_btn_wrapper}>
@@ -224,24 +233,29 @@ export default function SettingFace() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
 
-                                    新增檔案
+                                    重新選擇
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+
+                                <Button className={classes.upload_button} variant="outlined" onClick={handleSubmit}>
+                                    訓練人臉
+                                    
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
                                         ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
                                     </Typography>
-                                    <br/>
+                                    {/* <br/>
                                     <Typography variant="overline">
-                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
-                                    </Typography>
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可點選「下一步」略過此步驟！
+                                    </Typography> */}
                                 </div>
                             </>
                             :(
                             <>
                                 <Button className={classes.upload_button} variant="outlined">
 
-                                    新增檔案
+                                    選擇檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
@@ -250,7 +264,7 @@ export default function SettingFace() {
                                     </Typography>
                                     <br/>
                                     <Typography variant="overline">
-                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可點選「下一步」略過此步驟！
                                     </Typography>
                                 </div>
                             </>
@@ -280,7 +294,7 @@ export default function SettingFace() {
                                 Width="50"
                                 variant="contained"
                                 className={classes.submit}
-                                onClick={handleSubmit}
+                                href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步

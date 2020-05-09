@@ -176,20 +176,31 @@ export default function SignUpInfo(props) {
 
         localStorage.setItem('memberEmail',memberEmail);
 
-        axios.post("/api/member", member)
-          .then(res => {
+        if(member.memberName == "" || member.memberGender == "" || member.memberBloodType == ""
+            || member.memberID == "" || member.memberBirthday == "" || member.memberPhone == "" || member.memberAddress == ""
+            || member.emergencyContact == "" || member.emergencyContactRelation == "" || member.emergencyContactPhone == ""){
+
+                alert("所有欄位不得為空")
+
+            }
+        else{
+            axios.post("/api/member", member)
+            .then(res => {
             //alert("yes")
-            console.log("test")
-            console.log(res);
-            console.log(res.data);
-            history.push({
-                pathname: "/settingface",
-              });
+                console.log("test")
+                console.log(res);
+                console.log(res.data);
+                history.push({
+                    pathname: "/settingface",
+                });
             
             
-          }).catch(function(error){
-              alert(error);
-          });
+            }).catch(function(error){
+                alert(error);
+            });
+        }
+
+        
         
     }
 
