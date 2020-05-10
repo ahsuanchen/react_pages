@@ -200,6 +200,7 @@ export default function BulidActivity_step3() {
 
             setAct(res.data)
             const actId = res.data.activityId;
+            
             axios.post(url, Types_array)
             .then(result =>{
                 console.log(result);
