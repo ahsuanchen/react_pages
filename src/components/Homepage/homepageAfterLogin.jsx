@@ -1,7 +1,8 @@
-import React , {useState} from 'react';
+import React , {useState , useEffect} from 'react';
 import Header1 from '../Header/HM_header1.jsx';
 import Header2 from '../Header/HM_header2.jsx';
 import BottomBar from './bottomBar.jsx';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link , useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
@@ -131,15 +132,62 @@ export default function MenuApp() {
     let history = useHistory();
     const SendSearchResult = event =>
     {
-        localStorage.setItem('searchResult' , searchResult);
-        history.push({
-            pathname: "/searchInfo",
-        });
+        if (searchResult === "")
+        {
+            alert("您未輸入任何東西");
+        }
+        else
+        {
+            localStorage.setItem('searchResult' , searchResult);
+            history.push({
+                pathname: "/searchInfo",
+            });
+        }
     }
+
+    // function goSignin()
+    // {
+    //     history.push("/signin");
+    // }
+    // function goHomePage()
+    // {
+    //     history.push("/");
+    // }
+    // const [member, setMember] = useState([]);
+    // useEffect(() => {
+    //     async function fetchDataMem() {
+    //             let url = "/api/login/name"
+    //             axios.get(url)
+    //             .then(result => {
+    //                 if(result.data.toString().startsWith("<!DOCTYPE html>"))
+    //                 {
+    //                     alert("您尚未登入，請先登入！")
+    //                     goSignin();
+    //                 }
+    //                 else
+    //                 {
+    //                     setMember(result.data);
+    //                 }
+    //             })
+    //             .catch(err => {
+    //                 console.log(err.response.status);
+    //                 if(err.response.status === 403)
+    //                 {
+    //                     alert("您的權限不足!");
+    //                     goHomePage();
+    //                 }
+    //             })
+    //     }
+    //     fetchDataMem();
+    // }, []);
 
     return (
         <div className={classes.div}>
-            <Header2 />
+            {/* {member.memberEmail === null ?
+                <Header1 />
+             : */}
+                <Header2/>
+            {/* } */}
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
