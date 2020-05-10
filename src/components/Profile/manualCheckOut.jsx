@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ManualCheck() {
+export default function ManualCheckOut() {
     const classes = useStyles();
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)

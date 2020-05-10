@@ -26,6 +26,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import EventIcon from '@material-ui/icons/Event';
 import GroupIcon from '@material-ui/icons/Group';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -103,8 +104,21 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
     } ,
+    warning_type : {
+        background : '#ADADAD' , 
+        width : "250px" ,
+        height : "250px" ,
+        color : "#E0E0E0" ,
+        fontSize : "32px" ,
+        textAlign : "center" ,
+        display: 'flex',
+        alignItems: 'center',
+    } ,
     icon_part : {
         fontSize : "150px"
+    } , 
+    card_content : {
+        fontSize : "24px" ,
     }
   }));
 
@@ -145,41 +159,27 @@ export default function MenuApp() {
         }
     }
 
-    // function goSignin()
-    // {
-    //     history.push("/signin");
-    // }
-    // function goHomePage()
-    // {
-    //     history.push("/");
-    // }
-    // const [member, setMember] = useState([]);
-    // useEffect(() => {
-    //     async function fetchDataMem() {
-    //             let url = "/api/login/name"
-    //             axios.get(url)
-    //             .then(result => {
-    //                 if(result.data.toString().startsWith("<!DOCTYPE html>"))
-    //                 {
-    //                     alert("您尚未登入，請先登入！")
-    //                     goSignin();
-    //                 }
-    //                 else
-    //                 {
-    //                     setMember(result.data);
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.log(err.response.status);
-    //                 if(err.response.status === 403)
-    //                 {
-    //                     alert("您的權限不足!");
-    //                     goHomePage();
-    //                 }
-    //             })
-    //     }
-    //     fetchDataMem();
-    // }, []);
+    const [organizer, setOrganizer] = useState([]);
+    useEffect(() => {
+        async function fetchDataOrg() {
+                let url = "/api/login/name"
+                await axios.get(url)
+                .then(result => {
+                    axios.get("/api/organizer/" + result.data.memberEmail)
+                    .then(result => {
+                        setOrganizer(result.data);
+                        // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                })
+        }
+        fetchDataOrg();
+    }, []);
 
     return (
         <div className={classes.div}>
@@ -256,6 +256,7 @@ export default function MenuApp() {
                         <Fade in={open}>
                             <div>
                                 <Grid container spacing={10}>
+                                    {organizer.memberEmail === null ?
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
                                             <CardActionArea component={Link} to="/organizer">
@@ -268,6 +269,20 @@ export default function MenuApp() {
                                             </CardActionArea>
                                         </Card>
                                     </Grid>
+                                    :
+                                    <Grid item xs={12} sm={6}>
+                                        <Card className={classes.warning_type} title="warning">
+                                            <CardActionArea>
+                                                <CardMedia>
+                                                    <WarningIcon className={classes.icon_part} />
+                                                </CardMedia>
+                                                <CardContent className={classes.card_content}>
+                                                    您已申請過主辦單位
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                    }
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_2">
                                             <CardActionArea component={Link} to="/new1">
@@ -299,7 +314,7 @@ export default function MenuApp() {
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.card_content}
-                                        image="../img/slide1.jpg"
+                                        image="./img/slide1.jpg"
                                         title="act_1"
                                     />
                                     <CardContent>

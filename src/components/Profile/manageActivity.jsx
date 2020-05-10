@@ -94,6 +94,9 @@ const useStyles = makeStyles(theme => ({
     } ,
     icon_part : {
         fontSize : "150px"
+    } ,
+    card_Title : {
+        fontSize : "32px" ,
     }
   }));
 
@@ -407,7 +410,7 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 人臉辨識簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -456,7 +459,7 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 人臉辨識簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>
