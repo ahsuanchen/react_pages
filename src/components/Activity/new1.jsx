@@ -89,15 +89,6 @@ export default function BulidActivity_step1() {
     //   fetchData();
     // },[]);
 
-
-    // const [cardActive, setCardActive] = React.useState();
-    // const clickCard = event => {
-    //     const active = cardActive;
-    //     setCardActive(!active);
-    // };
-
-    //const types = [];
-
     let types = []
     
 
@@ -166,28 +157,28 @@ export default function BulidActivity_step1() {
         if(cardActive1 == true){
             types.push("學術")
         }
-        if(cardActive2 != true){
+        if(cardActive2 == true){
             types.push("資訊")
         }
-        if(cardActive3 != true){
+        if(cardActive3 == true){
             types.push("體驗")
         }
-        if(cardActive4 != true){
+        if(cardActive4 == true){
             types.push("講座")
         }
-        if(cardActive5 != true){
+        if(cardActive5 == true){
             types.push("休閒")
         }
-        if(cardActive6 != true){
+        if(cardActive6 == true){
             types.push("親子")
         }
-        if(cardActive7 != true){
+        if(cardActive7 == true){
             types.push("藝文")
         }
-        if(cardActive8 != true){
+        if(cardActive8 == true){
             types.push("運動")
         }
-        if(cardActive9 != true){
+        if(cardActive9 == true){
             types.push("戶外")
         }
 

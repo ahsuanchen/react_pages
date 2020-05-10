@@ -221,7 +221,7 @@ export default function ManageActivity() {
                                                     {activity.map(activity =>
                                                         <TableRow hover>
                                                             <TableCell align="center">
-                                                                {activity.activityName}
+                                                                    {activity.activityName}
                                                             </TableCell>
                                                             <TableCell align="center">
                                                                 {activity.activitySpace}

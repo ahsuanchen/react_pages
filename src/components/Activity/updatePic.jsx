@@ -129,7 +129,8 @@ export default function UpdateActivity_step2() {
     }, []);
 
     
-    let cover_src = "." + act.activityCover.substring(6);
+    //let cover_src = "." + act.activityCover.substring(6);
+    let cover_src = act.activityCover;
     console.log(cover_src)
 
 
