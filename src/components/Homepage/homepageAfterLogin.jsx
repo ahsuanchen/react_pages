@@ -132,10 +132,17 @@ export default function MenuApp() {
     let history = useHistory();
     const SendSearchResult = event =>
     {
-        localStorage.setItem('searchResult' , searchResult);
-        history.push({
-            pathname: "/searchInfo",
-        });
+        if (searchResult === "")
+        {
+            alert("您未輸入任何東西");
+        }
+        else
+        {
+            localStorage.setItem('searchResult' , searchResult);
+            history.push({
+                pathname: "/searchInfo",
+            });
+        }
     }
 
     // function goSignin()

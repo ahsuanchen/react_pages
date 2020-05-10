@@ -191,7 +191,7 @@ export default function ParticipantList() {
                                                                 variant="contained"
                                                                 className={classes.button1}
                                                                 component={Link}
-                                                                to="/makeAnnouncement"
+                                                                to={"/makeAnnouncement?" + activityId}
                                                             >
                                                                 發行公告
                                                             </Button>

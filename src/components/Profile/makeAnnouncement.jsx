@@ -52,43 +52,35 @@ const useStyles = makeStyles(theme => ({
 export default function MakeAnnouncement() {
     const classes = useStyles();
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
+    var actID = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
 
-    function goHomePage()
-    {
-        history.push("/");
-    }
+    const [activityannounceTitle , setActivityAnnounceTitle] = useState("");
+    const [activityannounceContent , setActivityAnnounceContent] = useState("");
+    const announcement = [activityannounceTitle , activityannounceContent] ;
 
-    useEffect(() => {
-        async function fetchData() {
-                let url = "/api/login/name"
-                await axios.get(url)
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchData();
-    }, []);
+    // const [activityannounce , setActivityAnnounce] = useState([{
+    //     nnaounceTitle : "" ,
+    //     announceContent : ""
+    // }]) ;
+
+    // const handleChange = annInfo => event => {
+    //     setActivityAnnounce({...activityannounce, [annInfo]: event.target.value});
+    // }
+    const handleSubmit = event => {
+        event.preventDefault();    
+        let url = "/api/line/postMessage/announcement/" ;
+        url = url + actID ;
+            axios.post(url)
+            .then(res => {
+                alert("發布成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("發布失敗");
+                console.log(error.response.status);
+                console.log(announcement);
+            });
+    };
 
     return (
         <div className={classes.div}>
@@ -120,6 +112,8 @@ export default function MakeAnnouncement() {
                                             <TableCell>
                                                 <TextField 
                                                     style={{minWidth:"350px"}}
+                                                    value={activityannounceTitle}
+                                                    onChange={e=>setActivityAnnounceTitle(e.target.value)}
                                                 />
                                             </TableCell>
                                         </TableRow>
@@ -132,8 +126,8 @@ export default function MakeAnnouncement() {
                                             <TableCell>
                                                 <TextareaAutosize
                                                     style={{minWidth:"350px" , minHeight:"250px"}}
-                                                    // value={organizer.organizerInfo}
-                                                    // onChange={handleChange('organizerInfo')}
+                                                    value={activityannounceContent}
+                                                    onChange={e=>setActivityAnnounceContent(e.target.value)}
                                                 />
                                             </TableCell>
                                         </TableRow>
@@ -144,7 +138,7 @@ export default function MakeAnnouncement() {
                                         <Button
                                             type="submit"
                                             variant="contained"
-                                            // onClick={handleSubmit}
+                                            onClick={handleSubmit}
                                             className={classes.button}
                                         >
                                             確認發布

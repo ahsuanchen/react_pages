@@ -45,64 +45,21 @@ export default function ManualCheck() {
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
-
-    const [registration , setRegistration] = useState([]);
     const [signinEmail , setSigninEmail] = useState("") ;
-    useEffect(() => {
-        async function fetchDataReg() {
-            axios.get("/api/registration/activity/" + actID)
-                .then(result => {
-                    setRegistration(result.data);
-                    console.log(result);
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataReg();
-    }, []);
 
     const handleSubmit = event => {
         event.preventDefault();    
         let url =  "/api/registration/signIn/" ;
         url = url + actID + "/" + signinEmail ;
-        if (signinEmail != registration.map(registration => registration.member_Email))
-        {
-            alert("您輸入的帳號有誤或是該使用者沒有報名此活動");
-            console.log(registration.map(registration => registration.member_Email))
-            console.log(url)    
-        }
-        else if (registration.map(registration => registration.isSignIn) != 0)
-        {
-            alert("該參加者已簽到成功");
-        }
-        else
-        {
             axios.post(url)
             .then(res => {
                 alert("簽到成功");
                 window.location.reload();
-                // console.log(res);
             })
             .catch(function(error){
-                console.log(error.response.status);
+                alert("該使用者並未報名此活動或帳號輸入錯誤");
+                // console.log(error.response.status);
             });
-        }
     };
 
     return (
@@ -141,8 +98,6 @@ export default function ManualCheck() {
                                                     variant="contained"
                                                     onClick={handleSubmit}
                                                     className={classes.button}
-                                                    // component={Link}
-                                                    // to="/profile"
                                                 >
                                                     確認身分
                                                 </Button>
