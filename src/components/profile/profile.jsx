@@ -24,11 +24,16 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 
 const Axios = axios.create({
-    baseURL: 'http://172.20.10.2:8080',
+    baseURL: 'http://localhost:8080',
     headers: {
         'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials':true,
         'content-type': 'application/json',
     },
+    auth: {
+        username: 'user',
+        password: '123'
+      }
 });
 
 const useStyles = makeStyles(theme => ({
@@ -92,7 +97,7 @@ export default function MenuAppBar() {
     const classList = ['memberName', 'memberID', 'memberGender', 'memberBloodType', 'memberBirthday', 'memberBirthday', 'memberEmail', 'memberAddress'];
     useEffect(() => {
         async function fetchData() {
-            const result = await axios.get(`/api/member/`)
+            const result = await Axios.get(`/api/member/`)
                 .then(res => {
                     setMember(res.data)
                     console.log(res)
