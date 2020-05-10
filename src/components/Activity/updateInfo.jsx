@@ -108,10 +108,10 @@ const useStyles = makeStyles(theme => ({
 })(props => <Radio color="default" {...props} />);
 
 
-let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
-
 export default function UpdateInfo() {
     const classes = useStyles();
+
+    let activity_Id = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
 
     // //宣吿要接值的變數
     const [act, setAct] = useState({
@@ -139,7 +139,7 @@ export default function UpdateInfo() {
         activityMeal:'',
     });
 
-console.log(act.activityTypes)
+    console.log(act.activityTypes)
     let history = useHistory();
 
 
@@ -155,9 +155,12 @@ console.log(act.activityTypes)
     }
 
     let act_type = act.activityTypes
+
+
     //類別
     const [type, setType] = useState({
-        learning:act_type.indexOf('學習')>= 0 ? 1 : -1,
+        //learning:act_type.indexOf('學習')>= 0 ? 1 : -1,
+        learning:act.activityTypes.indexOf('學習'),
         art:act.activityTypes.indexOf('藝文'),
         family:act.activityTypes.indexOf('親子'),
         experience:act.activityTypes.indexOf('體驗'),
@@ -167,35 +170,24 @@ console.log(act.activityTypes)
         lecture:act.activityTypes.indexOf('講座'),
         information:act.activityTypes.indexOf('資訊')
       });
-
-    const [learning1, setLearning] = useState(0)
-
-    //   const UpdateInfoPage = props => {
-        
-    //         super(props);
-    //         this.state = {type:['']};
-    //         this.handleChange = this.handleChangeType.bind(this);
-  console.log(act.activityTypes.indexOf('學習'));
-  //setLearning(act.activityTypes.indexOf('學習'))
-  console.log(learning1);
-        
-    // };
       
     
-        const handleChangeType = (event) => {
+    const handleChangeType = (event) => {
         const {checked, value} = event.target;
-        // let type = act.activityType;
+        let type = act.activityType;
 
-        // if(checked && type.indexOf(value) === -1){
-        //     type.push(value);
-        // }
-        // else{
-        //     type = type.filter(item => item !== value);
-        // }
+        if(checked && act.activityTypes.indexOf(value) === -1){
+            act.activityTypes.push(value);
+        }
+        else{
+            act.activityTypes = act.activityTypes.filter(item => item !== value);
+        }
         
         setType({ ...type, [event.target.name]: !event.target.checked });
-       
-      };
+    
+    };
+
+    console.log(type)
     
       const { learning, art, family, experience, leisure, sport, outdoor, lecture, information} = type;
       const error = [learning, art, family, experience, leisure, sport, outdoor, lecture, information].filter((v) => v).length < 1;
@@ -215,8 +207,8 @@ console.log(act.activityTypes)
                     // {
                         setAct(result.data);
                         console.log(result);
-                        setLearning(result.data.activityTypes.indexOf('學習')>=0? 1 :-1)
-                        console.log(learning1);
+                        // setLearning(result.data.activityTypes.indexOf('學習')>=0? 1 :-1)
+                        // console.log(learning1);
 
 
                     // }
@@ -261,21 +253,33 @@ console.log(act.activityTypes)
         axios.patch(url_post, updateActivityInfo)
         .then(response => {
             console.log(response);
-            // console.log(response.data);
             console.log(updateActivityInfo);
             alert("內容已修改");
-            localStorage.setItem('activityId',act.activityId);
-            history.push({
-                pathname: "/updateDetails",
-                });
-        })
-        .catch(function(error){
+            //localStorage.setItem('activityId',act.activityId);
+
+            let url_t = "api/activityTypes/"
+            url_t = url_t + act.activityId;
+
+            console.log(url_t)
+
+            axios.post(url_t, act.activityTypes)
+            .then(result =>{
+                console.log(result);
+                console.log(result.data);
+                localStorage.setItem('activityId',act.activityId);
+                history.push({
+                    pathname: "/updateDetails",
+                  });
+
+            })
+
+        
+
+        }).catch(function(error){
             console.log(error);
         });
     }
 
-    console.log(type.outdoor);
-    const updateOne = () => setType(!type.checkType);
 
     return (
         <div className={classes.root}>
@@ -454,61 +458,64 @@ console.log(act.activityTypes)
                                     onChange={handleChange('activityInfo')}
                                 />
 
-                                <FormControl required error={error} component="fieldset" className={classes.formControl}>
+                                <FormControl 
+                                required 
+                                error={error} 
+                                component="fieldset" className={classes.formControl}>
                                     <FormLabel component="legend">類別</FormLabel>
                                         <FormGroup>
                                         <Grid container>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.learning} value="learning" onChange={handleChangeType} name="learning" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("學習") !== -1} value="學習" onChange={handleChangeType} name="learning" />}
                                             label="學習"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.art} value="art" onChange={handleChangeType} name="art" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("藝文") !== -1} value="藝文" onChange={handleChangeType} name="art" />}
                                             label="藝文"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.family} value="family" onChange={handleChangeType} name="family" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("親子") !== -1} value="親子" onChange={handleChangeType} name="family" />}
                                             label="親子"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.experience} value="experience" onChange={updateOne} name="experience" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("體驗") !== -1} value="體驗" onChange={handleChangeType} name="experience" />}
                                             label="體驗"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.leisure} value="leisure" onChange={handleChangeType} name="leisure" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("休閒") !== -1} value="休閒" onChange={handleChangeType} name="leisure" />}
                                             label="休閒"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.sport} value="sport" onChange={handleChangeType} name="sport" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("運動") !== -1} value="運動" onChange={handleChangeType} name="sport" />}
                                             label="運動"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.outdoor} value="outdoor" onChange={handleChangeType} name="outdoor" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("戶外") !== -1} value="戶外" onChange={handleChangeType} name="outdoor" />}
                                             label="戶外"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.lecture} value="lecture" onChange={handleChangeType} name="lecture" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("講座") !== -1} value="講座" onChange={handleChangeType} name="lecture" />}
                                             label="講座"
                                         />
                                         </Grid>
                                         <Grid item> 
                                         <FormControlLabel
-                                            control={<Checkbox checked={!type.information} value="information" onChange={handleChangeType} name="information" />}
+                                            control={<Checkbox checked={act.activityTypes.indexOf("資訊") !== -1} value="資訊" onChange={handleChangeType} name="information" />}
                                             label="資訊"
                                         />
                                         </Grid>
