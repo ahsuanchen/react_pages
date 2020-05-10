@@ -82,16 +82,36 @@ export default function ParticipantList() {
     var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
     let count = 0 ;
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
+    const handleClick = event => {
+        event.preventDefault();    
+        let url =  "/api/line/postMessage/" ;
+        url = url + activityId ;
+            axios.post(url)
+            .then(res => {
+                alert("推播成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("推播失敗");
+                console.log(error.response.status);
+            });
+    };
 
-    function goHomePage()
-    {
-        history.push("/");
-    }
+    const OutputExcel = event => {
+        event.preventDefault();    
+        let url =  "/api/registration/writeExcel/" ;
+        url = url + activityId ;
+            axios.get(url)
+            .then(res => {
+                alert("匯出成功");
+                // window.location.reload();
+            })
+            .catch(function(error){
+                alert("匯出失敗或是您的活動並無報名者");
+                console.log(error.response.status);
+                console.log(url);
+            });
+    };
 
     const [activity, setActivity] = useState([]);
     const [registration, setRegistration] = useState([]);
@@ -100,37 +120,25 @@ export default function ParticipantList() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        axios.get("/api/activity/" + activityId)
-                        .then(res1 => {
-                            setActivity(res1.data);
-                            console.log(res1);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                        })
-                        axios.get("/api/registration/activity/" + activityId)
-                        .then(res2 => {
-                            setRegistration(res2.data);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                        })
-                    }
+                    axios.get("/api/activity/" + activityId)
+                    .then(res1 => {
+                        setActivity(res1.data);
+                        console.log(res1);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                    axios.get("/api/registration/activity/" + activityId)
+                    .then(res2 => {
+                        setRegistration(res2.data);
+                        console.log(res2)
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchData();
@@ -172,7 +180,7 @@ export default function ParticipantList() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button1}
-                                                                // onClick={}
+                                                                onClick={OutputExcel}
                                                             >
                                                                 匯出名單
                                                             </Button>
@@ -181,7 +189,7 @@ export default function ParticipantList() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button1}
-                                                                // onClick={}
+                                                                onClick={handleClick}
                                                             >
                                                                 Line推播
                                                             </Button>

@@ -58,14 +58,6 @@ export default function MakeAnnouncement() {
     const [activityannounceContent , setActivityAnnounceContent] = useState("");
     const announcement = [activityannounceTitle , activityannounceContent] ;
 
-    // const [activityannounce , setActivityAnnounce] = useState([{
-    //     nnaounceTitle : "" ,
-    //     announceContent : ""
-    // }]) ;
-
-    // const handleChange = annInfo => event => {
-    //     setActivityAnnounce({...activityannounce, [annInfo]: event.target.value});
-    // }
     const handleSubmit = event => {
         event.preventDefault();    
         let url = "/api/line/postMessage/announcement/" ;

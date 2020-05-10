@@ -39,7 +39,7 @@ import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
 import MakeAnnouncement from 'components/Profile/makeAnnouncement.jsx';
-import ManualCheck from 'components/Profile/manualCheck.jsx';
+import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
@@ -95,9 +95,8 @@ class Layout extends React.Component {
 
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
-      <Route path="/participantList" component={ParticipantList} />
       <Route path="/makeAnnouncement" component={MakeAnnouncement} />
-      <Route path="/manualCheck" component={ManualCheck} />
+      <Route path="/manualCheckIn" component={ManualCheckIn} />
 
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
@@ -106,8 +105,7 @@ class Layout extends React.Component {
       <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
       <Route path="/UpdatePhoto" component={UpdatePhoto} />
-
-      <Route path="/manualCheck" component={ManualCheck} />
+      
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/leftBar" component={LeftBar} />
       <Route path="/FeedBack" component={FeedBack}/>
