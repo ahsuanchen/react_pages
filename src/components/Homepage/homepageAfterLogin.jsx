@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     card_content : {
         width : "100%" ,
-        height : "200px"
+        minHeight : "200px"
     } ,
     img : {
         width : "100%" ,
@@ -117,7 +117,7 @@ const useStyles = makeStyles(theme => ({
     icon_part : {
         fontSize : "150px"
     } , 
-    card_content : {
+    warning_content : {
         fontSize : "24px" ,
     }
   }));
@@ -276,7 +276,7 @@ export default function MenuApp() {
                                                 <CardMedia>
                                                     <WarningIcon className={classes.icon_part} />
                                                 </CardMedia>
-                                                <CardContent className={classes.card_content}>
+                                                <CardContent className={classes.warning_content}>
                                                     您已申請過主辦單位
                                                 </CardContent>
                                             </CardActionArea>

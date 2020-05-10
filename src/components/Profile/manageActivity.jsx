@@ -454,8 +454,8 @@ export default function ManageActivity() {
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1">
-                                                                                        <CardActionArea component={Link} to="/">
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckOut}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
