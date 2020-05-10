@@ -116,7 +116,7 @@ export default function ManageActivity() {
       setOpen(false);
     };
 
-    const [checkInmodelopen, setCheckInModelOpen] = React.useState(false);
+    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
     const handlecheckInmodelOpen = () => {
       setCheckInModelOpen(true);
     };
@@ -124,12 +124,12 @@ export default function ManageActivity() {
       setCheckInModelOpen(false);
     };
 
-    const [checkOutmodelopen, setCheckOutModelOpen] = React.useState(false);
+    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
     const handlecheckOutmodelOpen = () => {
-      setCheckInModelOpen(true);
+      setCheckOutModelOpen(true);
     };
     const handlecheckOutmodelClose = () => {
-      setCheckInModelOpen(false);
+      setCheckOutModelOpen(false);
     };
 
     const [activity, setActivity] = useState([]);
@@ -155,6 +155,37 @@ export default function ManageActivity() {
     }, []);
 
     const activity_End_or_not = new Date().getTime();
+
+    const FaceCheckIn = event => {
+        event.preventDefault();    
+        let url = "/api/signIn/" ;
+        url = url + activity.activityID ;
+            axios.post(url)
+            .then(res => {
+                alert("發布成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("發布失敗");
+                console.log(error.response.status);
+                console.log(activity.activityID);
+            });
+    };
+    const FaceCheckOut = event => {
+        event.preventDefault();    
+        let url = "/api/line/postMessage/announcement/" ;
+        url = url + activity.activityID ;
+            axios.post(url)
+            .then(res => {
+                alert("發布成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("發布失敗");
+                console.log(error.response.status);
+                console.log(activity.activityID);
+            });
+    };
 
     return (
         <div className={classes.div}>
@@ -359,7 +390,7 @@ export default function ManageActivity() {
                                                                 </Button>
                                                                 <Modal
                                                                     className={classes.modal}
-                                                                    open={checkInmodelopen}
+                                                                    open={checkInModelopen}
                                                                     onClose={handlecheckInmodelClose}
                                                                     closeAfterTransition
                                                                     BackdropComponent={Backdrop}
@@ -367,12 +398,12 @@ export default function ManageActivity() {
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
-                                                                    <Fade in={checkInmodelopen}>
+                                                                    <Fade in={checkInModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1">
-                                                                                        <CardActionArea component={Link} to="/">
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckIn}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
@@ -408,7 +439,7 @@ export default function ManageActivity() {
                                                                 </Button>
                                                                 <Modal
                                                                     className={classes.modal}
-                                                                    open={checkOutmodelopen}
+                                                                    open={checkOutModelopen}
                                                                     onClose={handlecheckOutmodelClose}
                                                                     closeAfterTransition
                                                                     BackdropComponent={Backdrop}
@@ -416,7 +447,7 @@ export default function ManageActivity() {
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
-                                                                    <Fade in={checkOutmodelopen}>
+                                                                    <Fade in={checkOutModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>

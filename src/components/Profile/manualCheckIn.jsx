@@ -58,7 +58,7 @@ export default function ManualCheck() {
             })
             .catch(function(error){
                 alert("該使用者並未報名此活動或帳號輸入錯誤");
-                // console.log(error.response.status);
+                console.log(error.response.status);
             });
     };
 

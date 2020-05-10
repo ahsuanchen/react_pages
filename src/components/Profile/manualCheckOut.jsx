@@ -49,7 +49,7 @@ export default function ManualCheck() {
 
     const handleSubmit = event => {
         event.preventDefault();    
-        let url =  "/api/registration/signIn/" ;
+        let url =  "/api/registration/signOut/" ;
         url = url + actID + "/" + signinEmail ;
             axios.post(url)
             .then(res => {
@@ -58,7 +58,7 @@ export default function ManualCheck() {
             })
             .catch(function(error){
                 alert("該使用者並未報名此活動或帳號輸入錯誤");
-                // console.log(error.response.status);
+                console.log(error.response.status);
             });
     };
 
@@ -70,7 +70,7 @@ export default function ManualCheck() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">
-                                手 動 簽 到
+                                手 動 簽 退
                             </Typography>
                             <hr />
                         </div>

@@ -40,6 +40,7 @@ import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
 import MakeAnnouncement from 'components/Profile/makeAnnouncement.jsx';
 import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
+import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
@@ -97,6 +98,7 @@ class Layout extends React.Component {
       <Route path="/manageActivity" component={ManageActivity} />
       <Route path="/makeAnnouncement" component={MakeAnnouncement} />
       <Route path="/manualCheckIn" component={ManualCheckIn} />
+      <Route path="/manualCheckOut" component={ManualCheckOut} />
 
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
