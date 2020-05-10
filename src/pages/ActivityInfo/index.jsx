@@ -2,6 +2,7 @@
 import React from 'react';
 import ActivityInformation from 'components/Activity/activityInfo.jsx';
 import ActivityContent from 'components/Activity/activityContent.jsx';
+import Header from 'components/Header/PF_header.jsx';
 
 class ActivityInfo extends React.Component {
 
@@ -9,6 +10,7 @@ class ActivityInfo extends React.Component {
 
     return (
       <>
+        <Header/>
         <ActivityInformation />
         <ActivityContent/>
       </>

@@ -1,6 +1,7 @@
 //活動照片頁面
 import React from 'react';
 import Photo from 'components/Album/photo.jsx';
+import Header from 'components/Header/PF_header.jsx';
 
 class ActivityPhoto extends React.Component {
 
@@ -8,6 +9,7 @@ class ActivityPhoto extends React.Component {
 
     return (
       <>
+        <Header/>
         <Photo/>
       </>
     )

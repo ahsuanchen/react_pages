@@ -3,7 +3,7 @@ import { Route, Switch, Router} from 'react-router-dom';
 
 import routess from 'routes';
 
-// import Header from 'components/Header/HM_header2.jsx';
+//import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
 import Home from 'components/Homepage/homepageAfterLogin.jsx';
 
@@ -48,6 +48,10 @@ import ActivityInformation from 'pages/ActivityInfo/index.jsx';
 import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
 import MyAlbum from 'pages/MyAlbum/index.jsx';
 import MyPhoto from 'pages/MyPhoto/index.jsx';
+import UpdatePhoto from 'components/Album/updatephoto.jsx';
+import LeftBar from 'components/Profile/leftbar.jsx';
+
+import FeedBack from 'components/Activity/feedback.jsx';
 
 class Layout extends React.Component {
 
@@ -55,7 +59,7 @@ class Layout extends React.Component {
     const routes = routess;
     return (
       <>
-      {/* <Header routes={routes}/> */}
+      {/*<Header routes={routes}/>*/}
       {routes.map((page,key) => (
         <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
       ))}
@@ -78,7 +82,6 @@ class Layout extends React.Component {
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />
       <Route path="/updateDetails" component={UpdateDetails} />
-
       <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
       <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
       <Route path="/searchInfo" component={SearchInfo} />
@@ -86,10 +89,10 @@ class Layout extends React.Component {
       {/* <Route path="/Test" component={Test} /> */}
       <Route path="/profile" component={Profile} />
       <Route path="/updatePassword" component={UpdatePassword} />
-      <Route path="/trainingFace" component={TrainingFace} />
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
-      
+      <Route path="/trainingFace" component={TrainingFace} />
+
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
       <Route path="/participantList" component={ParticipantList} />
@@ -102,6 +105,12 @@ class Layout extends React.Component {
       <Route path="/MyAlbum" component={MyAlbum} />
       <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
+      <Route path="/UpdatePhoto" component={UpdatePhoto} />
+
+      <Route path="/manualCheck" component={ManualCheck} />
+      <Route path="/participantList" component={ParticipantList} />
+      <Route path="/leftBar" component={LeftBar} />
+      <Route path="/FeedBack" component={FeedBack}/>
       </>
     );
   }
@@ -118,4 +127,3 @@ export default Layout;
   {routes.map((page,key) => (
     <Route exact ={page.exact} path={page.path} component={page.component} key={key}/>
   ))} */}
- 

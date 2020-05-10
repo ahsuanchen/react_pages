@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     toolbar : {
         width : "95%" ,
+        //maxWidth : "1080px" ,
         margin : "0 auto" ,
         display: "flex" ,
         justifyContent : "space-between"
@@ -41,10 +42,10 @@ const useStyles = makeStyles(theme => ({
       width: "220px" ,
     } ,
     link : {
-      textDecoration : "none" , 
+      textDecoration : "none" ,
       color : "#9D9D9D" ,
       '&:hover' : {
-        color : '#00AEAE' 
+        color : '#00AEAE'
       }
     } ,
     menu : {
@@ -57,7 +58,7 @@ export default function MenuAppBar() {
     const classes = useStyles();
     const [state, setState] = React.useState({
       left: false,
-    }); 
+    });
     const toggleDrawer = (side, open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
@@ -85,7 +86,7 @@ export default function MenuAppBar() {
               <ListItemText primary="首頁" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/profile" button>
+            <ListItem component={Link} to="/Activity" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faTasks} />
               </ListItemIcon>
@@ -121,9 +122,9 @@ export default function MenuAppBar() {
         <div className={classes.div}>
             <AppBar className={classes.appbar}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton 
+                    <IconButton
                         edge="start"
-                        color="inherit" 
+                        color="inherit"
                         onClick={toggleDrawer('left', true)}
                     >
                         <MenuIcon />
@@ -131,7 +132,7 @@ export default function MenuAppBar() {
                     <Typography variant="h6">
                         ACTFUN
                     </Typography>
-                    <IconButton 
+                    <IconButton
                         edge="start"
                         color="inherit"
                     >
@@ -160,7 +161,7 @@ export default function MenuAppBar() {
                             <ListItemText primary="個人檔案" />
                           </ListItem>
                           <form method="post" action="/logout">
-                            <ListItem button type="submit" component="button">
+                            <ListItem button type="submit" component = "button">
                               <ListItemIcon>
                                 <ExitToAppIcon/>
                               </ListItemIcon>

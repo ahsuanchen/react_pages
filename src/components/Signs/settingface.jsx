@@ -14,6 +14,7 @@ import Container from '@material-ui/core/Container';
 
 
 
+
 const useStyles = makeStyles(theme => ({
     '@global': {
         body: {
@@ -41,9 +42,9 @@ const useStyles = makeStyles(theme => ({
         maxWidth : "350px" ,
         maxHeight: "220px",
         marginTop:"3%",
-        background : '' , 
-        display: "flex" , 
-        alignItems : "center" , 
+        background : '' ,
+        display: "flex" ,
+        alignItems : "center" ,
         justifyContent : "center" ,
         textAlign : "center" ,
     } ,
@@ -128,7 +129,7 @@ const useStyles = makeStyles(theme => ({
 
     location: {
         gridRowGap: '20px',
-        
+
       },
 }));
 
@@ -155,7 +156,7 @@ export default function SettingFace() {
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
       })
-    }; 
+    };
 
     console.log(data);
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
@@ -189,13 +190,13 @@ export default function SettingFace() {
             history.push({
                 pathname: "/finish",
               });
-            
-            
+
+
           }).catch(function(error){
               alert(error);
               console.log(error);
           });
-        
+
     }
 
     return (
@@ -217,12 +218,12 @@ export default function SettingFace() {
                     <div className={classes.upload_btn_wrapper}>
                         <br/><br/><br/>
                         {
-                            image.preview ? 
+                            image.preview ?
                             <>
                                 <img src={ image.preview } width='50%' height="50%" />
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
-                                    
+
                                     新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
@@ -239,7 +240,7 @@ export default function SettingFace() {
                             :(
                             <>
                                 <Button className={classes.upload_button} variant="outlined">
-                                    
+
                                     新增檔案
                                     <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
@@ -274,7 +275,6 @@ export default function SettingFace() {
                                 <ChevronLeftIcon />
                                 上一步
                             </Button>
-
                             <Button
                                 type="submit"
                                 Width="50"
