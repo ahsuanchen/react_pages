@@ -162,11 +162,11 @@ export default function ManageActivity() {
         url = url + activity.activityID ;
             axios.post(url)
             .then(res => {
-                alert("發布成功");
+                alert("簽到成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("發布失敗");
+                alert("簽到失敗");
                 console.log(error.response.status);
                 console.log(activity.activityID);
             });
@@ -177,11 +177,11 @@ export default function ManageActivity() {
         url = url + activity.activityID ;
             axios.post(url)
             .then(res => {
-                alert("發布成功");
+                alert("簽退成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("發布失敗");
+                alert("簽退失敗");
                 console.log(error.response.status);
                 console.log(activity.activityID);
             });

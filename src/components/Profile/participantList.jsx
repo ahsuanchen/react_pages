@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -104,12 +104,11 @@ export default function ParticipantList() {
             axios.get(url)
             .then(res => {
                 alert("匯出成功");
-                // window.location.reload();
+                window.location.reload();
             })
             .catch(function(error){
                 alert("匯出失敗或是您的活動並無報名者");
                 console.log(error.response.status);
-                console.log(url);
             });
     };
 
