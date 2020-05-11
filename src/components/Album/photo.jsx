@@ -28,12 +28,15 @@ import Cat8 from 'assets/images/18.jpg';
 import Cat9 from 'assets/images/19.jpg';
 
 const useStyles = makeStyles(theme => ({
-  div: {
-      boxSizing: "border-box"
+  root: {
+    //width:"100%",
+    margin: "2% 2%",
+    overflow: "visible"
+      //boxSizing: "border-box"
   },
   gridList: {
-    width: 900,
-    height: 500,
+    width: "100%",
+    height: "100%",
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -48,14 +51,6 @@ const useStyles = makeStyles(theme => ({
       minHeight: 800,
       color: "#000"
   },
-  left_container: {
-      maxWidth: "280px",
-      borderRight: "1px solid",
-  },
-  avatar: {
-      minWidth: "150px",
-      minHeight: "150px",
-  },
   link: {
       textDecoration: "none",
       color: "#D0D0D0",
@@ -63,22 +58,20 @@ const useStyles = makeStyles(theme => ({
           color: '#00AEAE'
       }
   },
-  content: {
-      margin: "2% 2%",
-      overflow: "visible"
-  },
-  img: {
-      margin: "2% 0",
-      minWidth: '150px',
-      maxHeight: '200px'
-  },
   button: {
       background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
       color : "#fff" ,
       margin: "2% auto",
       display: "flex",
       justifyContent: "center",
-  }
+  },
+  container : {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+  } ,
+
 }));
 
 
@@ -123,6 +116,7 @@ const tileData =[
 ];
 
 export default function TestGridList(props) {
+  var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();
 
   const [member, setMember] = useState([]);
@@ -135,21 +129,6 @@ export default function TestGridList(props) {
       fetchDataMem();
   }, []);
 
-  const [organizer, setOrganizer] = useState([]);
-  // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-  useEffect(() => {
-      async function fetchDataOrg() {
-              const result = await axios.get("/api/organizer/actforfun@gmail.com");
-              setOrganizer(result.data);
-              // .then(res => {
-              //     setMember(res.data)
-              //     console.log(res)
-              // }).catch(err => {
-              //     console.log(err)
-              // })
-      }
-      fetchDataOrg();
-  }, []);
 
   const [act,setAct] = useState([{}]);
   useEffect(() =>{
@@ -157,39 +136,59 @@ export default function TestGridList(props) {
         const result = await axios.get('/api/activity/');
         setAct(result.data);
         //獲取資料
-
       }
       fetchData();
   },[]);
+
+  const[photo , setPhoto] = useState([]);
+  useEffect(() => {
+      async function fetchPhoto() {
+              const result = await axios.get("/api/photo/activityPhoto/"+activityId)
+              setPhoto(result.data);
+              console.log(result.data);
+      }
+      fetchPhoto();
+  }, []);
 
 
   return (
      <div className={classes.left_menu}>
       <LeftBar/>
-    <Container className={classes.content}>
-    <div>
+    <Container className={classes.root}>
+
       <Typography variant="h4">
          活動照片
-          </Typography>
+      </Typography>
       <hr />
-    </div>
 
-    <div>
-    <form>
-      <GridList cols={3} cellHeight={200} className={classes.gridList}>
-        <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-          <ListSubheader component="div" className={classes.title}>
-          {act.activityName}
-          </ListSubheader>
-        </GridListTile>
-        {tileData.map(tile => (
-        <GridListTile cols={1} key={tile}>
-           <Zmage width="250px" src={tile.img} alt={tile} />
-        </GridListTile>))}
+    <div className={classes.container}>
+    <GridList cols={3} cellHeight={200} className={classes.gridList}>
+    <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+      <ListSubheader component="div">活動名稱</ListSubheader>
+    </GridListTile>
+      {[...photo].map(pic => {
+        return  <GridListTile cols={1} key={pic.photoId}>
+                <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px" height="188px"/>
+                </GridListTile>
+                //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+        })
+      }
       </GridList>
-      </form>
       </div>
     </Container>
-    </div>
+</div>
   );
 }
+{/*
+  <GridList cols={3} cellHeight={200} className={classes.gridList}>
+    <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+      <ListSubheader component="div" className={classes.title}>
+      {act.activityName}
+      </ListSubheader>
+    </GridListTile>
+    {tileData.map(tile => (
+    <GridListTile cols={1} key={tile}>
+       <Zmage width="250px" src={tile.img} alt={tile} />
+    </GridListTile>))}
+  </GridList>
+  */}

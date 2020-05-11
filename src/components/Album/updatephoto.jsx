@@ -20,6 +20,9 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Header from 'components/Header/PF_header.jsx';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -29,14 +32,11 @@ const useStyles = makeStyles(theme => ({
     },
 
     container : {
-        maxWidth : "350px" ,
-        maxHeight: "220px",
-        marginTop:"3%",
-        background : '' ,
-        display: "flex" ,
-        alignItems : "center" ,
-        justifyContent : "center" ,
-        textAlign : "center" ,
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+      overflow: 'hidden',
+      backgroundColor: theme.palette.background.paper
     } ,
       left_menu: {
           display: "flex",
@@ -47,63 +47,59 @@ const useStyles = makeStyles(theme => ({
       gridList: {
         width: "100%",
         height: "100%",
-      }
+      },
+      titleBar: {
+        background:
+        'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+        'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+      },
+      icon: {
+        color: 'white',
+      },
 }));
 
-export default function SettingFace() {
+export default function Updatephoto() {
     var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
     const classes = useStyles();
 
     const location = useLocation();
 
     const [member, setMember] = useState([]);
+    const[photo , setPhoto] = useState([]);
     useEffect(() => {
-        async function fetchDataMem() {
-                const result = await axios.get("/api/member/actforfun@gmail.com")
-                setMember(result.data);
-                console.log(result);
+        async function fetchPhoto() {
+                const result = await axios.get("/api/photo/activityPhoto/"+activityId)
+                setPhoto(result.data);
+                console.log(result.data);
         }
-        fetchDataMem();
+        fetchPhoto();
     }, []);
 
     const [organizer, setOrganizer] = useState([]);
     // const organizerList = ['organizerName' , 'organizerEmail' , 'organizerPhone' ,'organizerAddress' , 'organizerInfo'];
-    useEffect(() => {
-        async function fetchDataOrg() {
-                const result = await axios.get("/api/organizer/actforfun@gmail.com");
-                setOrganizer(result.data);
-                // .then(res => {
-                //     setMember(res.data)
-                //     console.log(res)
-                // }).catch(err => {
-                //     console.log(err)
-                // })
-        }
-        fetchDataOrg();
-    }, []);
-
-    const SettingFacePage = props => {
-        const location = useLocation();
-
-        useEffect(() => {
-           console.log(location.pathname); // result: '/secondpage'
-           //console.log(location.search); // result: '?query=abc'
-           console.log(location.state.detail); // result: 'some_value'
-        }, [location]);
-
-
-    };
-
 
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
 
     let history = useHistory();
+    async function refreshPage() {
+      setTimeout(function(){
 
+        window.location.reload();
+    }, 5000);
+      setform();
+
+    }
+    async function refreshPage2() {
+      setTimeout(function(){
+        window.location.reload();
+    }, 500);
+
+    }
     const [data , setData] = useState([]);
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files)
-        console.log(data);
+        console.log(e.target.files);
       setImage({
 
         preview: URL.createObjectURL(e.target.files[0]),
@@ -145,14 +141,29 @@ export default function SettingFace() {
               });
             }
             formData = new FormData();
-            alert("ok");
+            //alert("ok");
         }
 
+    const handleClick=(event,pic) =>{
+
+      console.log(pic);
+
+      axios.delete("/api/photo",
+      {
+        data:
+        {
+        acitivty_Id : pic.activity_Id,
+        photoId : pic.photoId
+          }
+      })
+      refreshPage2();
+    }
 
     const handleSubmit=(event)=> {
 
-      setform();
-
+      //setform();
+      alert("上傳中，等待畫面轉跳");
+      refreshPage();
     }
 
     return (
@@ -164,31 +175,65 @@ export default function SettingFace() {
         <div className={classes.root}>
 
           <Typography variant="h4">
-             上傳活動相片
+             管理活動相片
               </Typography>
           <hr/>
           <Button variant="outlined" >
               新增檔案
               <input type="file" onChange={handleChange} id="upload-button" accept="image/*" multiple/>
           </Button>
-          <Button onClick={handleSubmit} variant="outlined" color="secondary">
-            確定上傳
-          </Button>
+
+
+
 
           {image.preview ?
-          <>
+            <div className={classes.container}>
           <GridList cols={3} cellHeight={200} className={classes.gridList}>
+          <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+            <ListSubheader component="div">預覽照片</ListSubheader>
+          </GridListTile>
             {[...data].map(pic => {
               return  <GridListTile cols={1} key={pic.id}>
                       <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px" height="188px"/>
-                      <GridListTileBar title={pic.name} subtitle={<span> {pic.type}</span>} />
                       </GridListTile>
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })
             }
-            </GridList>
-          </>
+          </GridList>
+          <Button onClick={handleSubmit} variant="outlined" color="secondary">
+            確定上傳
+          </Button>
+           </div>
           :(<></>)}
+          {
+            photo ?
+            <div className={classes.container}>
+            <GridList cols={3} cellHeight={200} className={classes.gridList}>
+            <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+              <ListSubheader component="div">已上傳照片</ListSubheader>
+            </GridListTile>
+              {[...photo].map(pic => {
+                return  <GridListTile cols={1} key={pic.photoId}>
+                        <img key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px" height="188px"/>
+                        <GridListTileBar
+                          title={pic.name}
+                          titlePosition="top"
+                          actionIcon={
+                            <IconButton
+                              className={classes.icon}
+                              onClick={((e) => handleClick(e,pic))}>
+                            <DeleteIcon/>
+                            </IconButton>
+                          }
+                          actionPosition="left"
+                          className={classes.titleBar}/>
+                        </GridListTile>
+                        //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+                })
+              }
+              </GridList>
+              </div>
+            :(<></>)}
           </div>
         </div>
         </div>

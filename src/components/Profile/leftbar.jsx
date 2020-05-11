@@ -149,13 +149,25 @@ export default function LeftBar() {
                             我的相簿
                         </Box>
                     </Link>
+                    <Link to="/ActivityAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            活動相簿
+                        </Box>
+                    </Link>
                     </>
                     :
+                    <>
                     <Link to="/MyAlbum" className={classes.link}>
                         <Box lineHeight={2} m={1}>
                             我的相簿
                         </Box>
                     </Link>
+                    <Link to="/ActivityAlbum" className={classes.link}>
+                        <Box lineHeight={2} m={1}>
+                            活動相簿
+                        </Box>
+                    </Link>
+                    </>
                     )}
                 </Typography>
             </Container>

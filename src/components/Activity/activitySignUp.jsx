@@ -21,7 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Header from 'components/Header/PF_header.jsx';
-
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -204,7 +204,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary">確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/Activity">確定報名</Button>
         :
         <Button variant="contained" color="secondary" disabled>無法報名</Button>}
       </CardActions>
