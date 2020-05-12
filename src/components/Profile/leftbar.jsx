@@ -27,9 +27,6 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             color : '#00AEAE'
         } ,
-        '&:focus' : {
-            color : '#000'
-        }
     } ,
     content : {
         margin : "2% 2%" ,
@@ -47,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LeftBar() {
     const classes = useStyles();
-
+    
     let history = useHistory();
     function goSignin()
     {
@@ -63,7 +60,7 @@ export default function LeftBar() {
     useEffect(() => {
         async function fetchDataMem() {
             let url = "/api/login/name"
-            await axios.get(url)
+            axios.get(url)
             .then(result => {
                 if(result.data.toString().startsWith("<!DOCTYPE html>"))
                 {
@@ -78,9 +75,9 @@ export default function LeftBar() {
                         setOrganizer(result.data);
                         // console.log(result);
                     })
-                    .catch(err => {
-                        console.log(err.response.status);
-                        if(err.response.status === 403)
+                    .catch(error => {
+                        console.log(error.response.status);
+                        if(error.response.status === 403)
                         {
                             alert("您的權限不足!");
                             goHomePage();
@@ -127,7 +124,7 @@ export default function LeftBar() {
                         </Box>
                     </Link>
                     <Divider />
-                    {(organizer.memberEmail != null ?
+                    {(organizer.memberEmail != null ? 
                     <>
                     <Box lineHeight={3} m={1}>
                         <strong>{organizer.organizerName}</strong>
@@ -284,7 +281,9 @@ export default function MenuAppBar() {
                             管理活動
                         </Box>
                     </Link>
-                    <Divider />
+                    </>
+                    : 
+                    <>
                     <Link to="/MyAlbum" className={classes.link}>
                         <Box lineHeight={2} m={1}>
                             我的相簿
@@ -295,9 +294,10 @@ export default function MenuAppBar() {
                             活動相簿
                         </Box>
                     </Link>
+                    </>
+                    )}
                 </Typography>
-                </Container>
-
-
+            </Container>
+        </div>    
     );
-}*/}
+    */}

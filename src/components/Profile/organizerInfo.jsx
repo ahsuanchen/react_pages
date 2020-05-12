@@ -2,12 +2,10 @@ import React , {useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+// import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -52,17 +50,6 @@ const useStyles = makeStyles(theme => ({
 export default function OrganizerInfo() {
     const classes = useStyles();
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
-
     const [member, setMember] = useState([]);
     const [organizer, setOrganizer] = useState({
         organizerName : '' ,
@@ -76,36 +63,18 @@ export default function OrganizerInfo() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setMember(result.data);
-                        axios.get("/api/organizer/" + result.data.memberEmail)
-                        .then(result => {
-                            setOrganizer(result.data);
-                            console.log(result);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                    }
+                    setMember(result.data);
+                    axios.get("/api/organizer/" + result.data.memberEmail)
+                    .then(result => {
+                        setOrganizer(result.data);
+                        // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataOrg();
