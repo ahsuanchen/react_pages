@@ -57,15 +57,6 @@ export default function Updatepassword() {
     const classes = useStyles();
 
     let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
 
     const [member, setMember] = useState({
         oldPassword : '' ,
@@ -80,23 +71,10 @@ export default function Updatepassword() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setMember(result.data);
-                    }
+                    setMember(result.data);
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataMem();

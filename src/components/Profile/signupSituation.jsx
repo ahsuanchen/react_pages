@@ -74,86 +74,50 @@ const useStyles = makeStyles(theme => ({
 export default function SignupSituation() {
     const classes = useStyles();
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
-
-    // const [AInum, setAInum] = useState([]);
     const [registration, setRegistration] = useState([]);
     useEffect(() => {
         async function fetchDataReg() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        axios.get("/api/registration/member/" + result.data.memberEmail)
-                        .then(result => {
-                            setRegistration(result.data);
-                            console.log(result);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                    }
+                    axios.get("/api/registration/member/" + result.data.memberEmail)
+                    .then(result => {
+                        setRegistration(result.data);
+                        // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataReg();
     }, []);
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
+    const handleOpen = (AInum) => {
         setOpen(true);
     };
     const handleClose = () => {
       setOpen(false);
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        let url = "/api/registration/";
-        for (let num = 0 ; num < registration.length ; num++)
-        {
-            const AInum = registration[num].ainum ;
-            // if (setnum[num] == AInum)
-            // {
-            //     url = url + AInum ;
-            //     console.log(url);
-            // }
-        }
-        // axios.delete(url)
-        //     .then(res => {
-        //         console.log(url)
-        //         // window.location.reload();
-        //     })
-        //     .catch(function(error){
-        //         console.log(error.response.status);
-        //     });
+
+    const handleSubmit = (AInum) => {
+        let url = "/api/registration/cancel/";
+        url = url + AInum;
+        console.log(AInum);
+        console.log(url);
+        axios.patch(url)
+        .then(res => {
+            console.log(url)
+            // window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     }
 
     const activity_End_or_not = new Date().getTime();
@@ -185,15 +149,15 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {registration.map(registration =>
-                                    (new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) ?
+                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && registration.cancelRegistration === null ) ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
-                                            <Paper>
+                                            <Paper >
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName}
+                                                            {registration.activity.activityName} {registration.ainum}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
@@ -239,7 +203,7 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={handleOpen}
+                                                                onClick={() => handleOpen(registration.ainum)}
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -254,6 +218,7 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
+                                                                    <input type="text" value={registration.ainum} />
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>
@@ -264,7 +229,7 @@ export default function SignupSituation() {
                                                                     <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
                                                                         取消
                                                                     </Button>
-                                                                    <Button onClick={handleSubmit} className={classes.dig_butoon}>
+                                                                    <Button onClick={() => handleSubmit(registration.ainum)} className={classes.dig_butoon}>
                                                                         確定
                                                                     </Button>
                                                                 </DialogActions>

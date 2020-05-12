@@ -1,13 +1,10 @@
-import React , {useState,useEffect} from 'react';
+import React , {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+// import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -43,71 +40,27 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ManualCheck() {
+export default function ManualCheckIn() {
     const classes = useStyles();
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
+    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
 
-    function goHomePage()
-    {
-        history.push("/");
-    }
+    const [signinEmail , setSigninEmail] = useState("") ;
 
-    const [member, setMember] = useState([]);
-    
-    useEffect(() => {
-        async function fetchDataMem() {
-                let url = "/api/login/name"
-                await axios.get(url)
-                .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setMember(result.data);
-                        console.log(result);
-                    }
-                })
-                .catch(err => {
-                    console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
-                })
-        }
-        fetchDataMem();
-    }, []);
-
-    // const handleChange = updateMemPassword => (event) => {
-    //     setMember({ ...member, [updateMemPassword]: event.target.value });
-    // };
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();
-    //         let url =  "/api/member/updatepassword/" ;
-    //         url = url + oldPassword + updatePassword.memberPassword ;
-    //         axios.patch('/api/member/actforfun@gmail.com', updatePassword , {
-    //             auth:
-    //             {
-    //                 username : "actforfun@gmail.com",
-    //                 password : "123"
-    //             },
-    //         })
-    //         .then(response => {
-    //             console.log(response);
-    //         })
-    //         .catch(function(error){
-    //         });
-    // };
+    const handleSubmit = event => {
+        event.preventDefault();    
+        let url =  "/api/registration/signIn/" ;
+        url = url + actID + "/" + signinEmail ;
+            axios.post(url)
+            .then(res => {
+                alert("簽到成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("該使用者並未報名此活動或帳號輸入錯誤");
+                console.log(error.response.status);
+            });
+    };
 
     return (
         <div className={classes.div}>
@@ -134,7 +87,8 @@ export default function ManualCheck() {
                                             <TableCell>
                                                 <TextField
                                                     variant="outlined"
-                                                    // value={member.memberEmail}
+                                                    value={signinEmail}
+                                                    onChange={e=>setSigninEmail(e.target.value)}
                                                     name="Email"
                                                 />
                                             </TableCell>
@@ -142,10 +96,8 @@ export default function ManualCheck() {
                                                 <Button
                                                     type="submit"
                                                     variant="contained"
-                                                    // onClick={handleSubmit}
+                                                    onClick={handleSubmit}
                                                     className={classes.button}
-                                                    // component={Link}
-                                                    // to="/profile"
                                                 >
                                                     確認身分
                                                 </Button>
@@ -154,7 +106,7 @@ export default function ManualCheck() {
                                     </TableBody>
                                 </Table>
                             </form>
-                        </div>
+                        </div>  
                 </Container>
             </div>
         </div>

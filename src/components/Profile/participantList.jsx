@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
@@ -82,16 +82,45 @@ export default function ParticipantList() {
     var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
     let count = 0 ;
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
+    const handleClick = event => {
+        event.preventDefault();    
+        let url =  "/api/line/postMessage/" ;
+        url = url + activityId ;
+            axios.post(url)
+            .then(res => {
+                alert("推播成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("推播失敗");
+                console.log(error.response.status);
+            });
+    };
 
-    function goHomePage()
-    {
-        history.push("/");
+    function download() {
+        // fake server request, getting the file url as response
+        setTimeout(() => {
+          const response = {
+            file: 'http://localhost:8080/api/registration/writeExcel/'+ activityId,
+          };
+          // server sent the url to the file!
+          // now, let's download:
+          window.open(response.file);
+          // you could also do:
+          // window.location.href = response.file;
+        }, 100);
     }
+    const OutputExcel = event => {
+        event.preventDefault();
+        if (registration.length === 0)
+        {
+            alert("您的活動尚未有人報名")
+        }
+        else
+        {
+            download(activityId);
+        } 
+    };
 
     const [activity, setActivity] = useState([]);
     const [registration, setRegistration] = useState([]);
@@ -100,47 +129,25 @@ export default function ParticipantList() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        axios.get("/api/activity/" + activityId)
-                        .then(result => {
-                            setActivity(result.data);
-                            console.log(result);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                        axios.get("/api/registration/activity/" + activityId)
-                        .then(result => {
-                            setRegistration(result.data);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                    }
+                    axios.get("/api/activity/" + activityId)
+                    .then(res1 => {
+                        setActivity(res1.data);
+                        console.log(res1);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                    axios.get("/api/registration/activity/" + activityId)
+                    .then(res2 => {
+                        setRegistration(res2.data);
+                        console.log(res2)
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchData();
@@ -182,7 +189,7 @@ export default function ParticipantList() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button1}
-                                                                // onClick={}
+                                                                onClick={OutputExcel}
                                                             >
                                                                 匯出名單
                                                             </Button>
@@ -191,7 +198,7 @@ export default function ParticipantList() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button1}
-                                                                // onClick={}
+                                                                onClick={handleClick}
                                                             >
                                                                 Line推播
                                                             </Button>
@@ -201,7 +208,7 @@ export default function ParticipantList() {
                                                                 variant="contained"
                                                                 className={classes.button1}
                                                                 component={Link}
-                                                                to="/makeAnnouncement"
+                                                                to={"/makeAnnouncement?" + activityId}
                                                             >
                                                                 發行公告
                                                             </Button>
@@ -214,15 +221,15 @@ export default function ParticipantList() {
                                                             <TableCell align="center">編號</TableCell>
                                                             <TableCell align="center">姓名</TableCell>
                                                             <TableCell align="center">聯絡電話</TableCell>
-                                                            <TableCell align="center">聯絡Email</TableCell>
+                                                            <TableCell align="center">聯絡電子郵件</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
                                                             <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    {registration.map(registration=>
+                                                    {registration.map(registration =>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                    <TableCell align="center">{count += 1}</TableCell>
+                                                            <TableCell align="center">{count += 1}</TableCell>
                                                             <TableCell align="center">{registration.member.memberName}</TableCell>
                                                             <TableCell align="center">{registration.member.memberPhone}</TableCell>
                                                             <TableCell align="center">{registration.member.memberEmail}</TableCell>
@@ -236,7 +243,7 @@ export default function ParticipantList() {
                                                             </TableCell>
                                                         </TableRow>
                                                     </TableBody>
-                                                    )}
+                                                    )}  
                                                 </Table>
                                             </Paper>
                                         </Grid>

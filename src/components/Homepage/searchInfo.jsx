@@ -1,7 +1,8 @@
-import React , {useState} from 'react';
+import React , {useState , useEffect} from 'react';
 import Header from '../Header/HM_header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
 import {faSearch} from "@fortawesome/free-solid-svg-icons";
@@ -133,6 +134,8 @@ function SearchResult(props) {
     );
 }
 
+
+
 function SearchOrgResult(props) { 
     return (
         <Grid container spacing={3}>
@@ -175,6 +178,24 @@ export default function SearchInfo() {
     const classes = useStyles();
 
     const [searchResult] =  useState(localStorage.getItem('searchResult'));
+
+    const [activity, setActivity] = useState();
+    useEffect(() => {
+        async function fetchDataSearch() {
+            let url = "/api/activity/search"
+            const searchInfo = searchResult;
+            axios.get(url , searchInfo)
+            .then(result => {
+                setActivity(result.data);
+                console.log(result);
+            })
+            .catch(err => {
+                alert(searchInfo.search)
+                console.log(err.response.status);
+            })
+        }
+        fetchDataSearch();
+    }, []);
 
     return (
         <div className={classes.div}>
