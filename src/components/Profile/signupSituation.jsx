@@ -157,7 +157,7 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName}
+                                                            {registration.activity.activityName} {registration.ainum}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
@@ -203,7 +203,7 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={handleOpen}
+                                                                onClick={() => handleOpen(registration.ainum)}
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -218,6 +218,7 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
+                                                                    <input type="text" value={registration.ainum} />
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>

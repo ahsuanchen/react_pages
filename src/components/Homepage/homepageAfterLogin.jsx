@@ -159,6 +159,7 @@ export default function MenuApp() {
         }
     }
 
+    const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchDataOrg() {
@@ -169,6 +170,14 @@ export default function MenuApp() {
                     .then(result => {
                         setOrganizer(result.data);
                         // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                    axios.get("/api/activity")
+                    .then(res => {
+                        setActivity(res.data);
+                        console.log(res);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -191,21 +200,13 @@ export default function MenuApp() {
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
+                        {activity.map(activity =>
                         <div className={classes.slide}>
                             <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide1.jpg" alt="img1" />
+                                <img className={classes.slide_img} src={activity.activityCover} alt={activity.activityName} />
                             </Link>
                         </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide2.jpg" alt="img2" />
-                            </Link>
-                        </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide3.jpg" alt="img3" />
-                            </Link>
-                        </div>
+                        )}
                     </Slide>
                 </div>
                 <div className={classes.search}>
@@ -309,22 +310,23 @@ export default function MenuApp() {
                 </div>
                 <div className={classes.activity_part}>
                     <Grid container spacing={3}>
+                    {activity.map(activity =>
                         <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.card_content}
-                                        image="./img/slide1.jpg"
+                                        image={activity.activityCover}
                                         title="act_1"
                                     />
                                     <CardContent>
                                         <Typography variant="h6">
-                                            「#管他就跑我的」路跑
+                                            {activity.activityName}
                                         </Typography>
                                         <hr/>
                                         <Typography variant="h6">
                                             <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-03-22 (日)
+                                            &nbsp; {activity.activityStartDateString.substring(0,10)}
                                         </Typography>
                                     </CardContent>
                                     <Divider/>
@@ -335,58 +337,7 @@ export default function MenuApp() {
                                 </CardActions>
                             </Card>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide2.jpg"
-                                        title="act_2"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            世界巡迴演唱會-高雄場
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-07-25 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#singer </Link>
-                                    <Link to="/" className={classes.link}>#concert </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide3.jpg"
-                                        title="act_3"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            Pinkoi Experience | 質感體驗
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-05-20 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#fashion </Link>
-                                    <Link to="/" className={classes.link}>#experience </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
+                    )}
                     </Grid>
                 </div>
             </div>

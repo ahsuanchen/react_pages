@@ -181,19 +181,20 @@ export default function SearchInfo() {
 
     const [activity, setActivity] = useState();
     useEffect(() => {
-        async function fetchDataAct() {
+        async function fetchDataSearch() {
             let url = "/api/activity/search"
-            // url = url + searchResult ;
-            axios.get(url)
+            const searchInfo = searchResult;
+            axios.get(url , searchInfo)
             .then(result => {
                 setActivity(result.data);
                 console.log(result);
             })
             .catch(err => {
+                alert(searchInfo.search)
                 console.log(err.response.status);
             })
         }
-        fetchDataAct();
+        fetchDataSearch();
     }, []);
 
     return (
