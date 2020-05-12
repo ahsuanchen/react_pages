@@ -95,13 +95,15 @@ export default function SignupSituation() {
                     {
                         alert("您尚未登入，請先登入！")
                         goSignin();
+                        console.log(result.data.memberEmail)
                     }
                     else
                     {
                         axios.get("/api/registration/member/" + result.data.memberEmail)
-                        .then(result => {
-                            setRegistration(result.data);
-                            console.log(result);
+                        
+                        .then(res => {
+                            setRegistration(res.data);
+                            console.log(res);
                         })
                         .catch(err => {
                             console.log(err.response.status);
@@ -122,8 +124,11 @@ export default function SignupSituation() {
                     }
                 })
         }
+        
         fetchDataReg();
     }, []);
+
+    
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = (AInum) => {

@@ -1,11 +1,18 @@
-import React from 'react';
+import React ,{useState}from 'react';
+import axios from 'axios';
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import FaceIcon from '@material-ui/icons/Face';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import SyncAltIcon from '@material-ui/icons/SyncAlt';
@@ -32,7 +39,8 @@ const useStyles = makeStyles(theme => ({
     container : {
         maxWidth : '550px' ,
         minHeight : '580px' ,
-        background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
+        //background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
+        background : '#E0E0E0' ,
         overflow : "visible"
     } ,
     img : {
@@ -41,36 +49,114 @@ const useStyles = makeStyles(theme => ({
         margin : "auto" ,
         display: "flex" ,
         justifyContent : "center" ,
+        //alignItems: 'center',
+        //width: '100%',
     } ,
+
+   
     button : {
         margin : "5% auto" ,
         display: "flex" ,
         justifyContent : "center" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        color : "#fff"
+        background : '#00bfa5',
+        color : "#fff",
+        //margin:"10% 1%"
     } ,
     open_paper : {
         maxWidth : '500px' ,
         maxHeight : '600px' ,
-        background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
+        //background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
+        background : '#6C6C6C' ,
         margin : "auto" ,
         alignItems : "center"
+    } ,
+
+    file : {
+        fontSize : "30px" ,
+        position: "absolute" ,
+        left: 0 ,
+        top: 0 ,
+        opacity: 0 ,
+        //margin:"1% 10%"
     } ,
   }));
 
 export default function TrainingFace() {
     const classes = useStyles();
 
-    const [open, setOpen] = React.useState(false);
+    //取memberEmail
+    const [member,setMember] = useState({
+        memberEmail:'',
+    });
 
-    const handleOpen = () => {
-      setOpen(true);
+    useEffect(() =>{
+    async function fetchData(){
+        const url = '/api/login/name';
+        const result = await axios.get(url);
+        setMember(result.data);
+      }
+      fetchData();
+    },[]);
+
+    const [data , setData] = useState();
+    const [image, setImage] = useState({preview: '', raw: ''});
+    const handleChange = (e) => {
+        setData(e.target.files[0])
+        setImage({
+            
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0]
+        })
     };
 
-    const handleClose = () => {
-      setOpen(false);
-    };
+    console.log(data);
 
+    // const [open, setOpen] = React.useState(false);
+
+    // const handleOpen = () => {
+    //   setOpen(true);
+    // };
+
+    // const handleClose = () => {
+    //   setOpen(false);
+    // };
+
+    let history = useHistory();
+
+    const handleSubmit=(event)=> {
+
+        let formData = new FormData();
+        formData.append('file',data,data.name);
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Access-Control-Allow-Origin' : '*'
+                }
+            }
+            console.log(formData);
+
+        let url = "/api/files/uploadFace/";
+        url = url + member.memberEmail;
+
+        console.log(url)
+
+       
+        axios.post(url, formData,config)
+        .then(res => {
+            console.log(res);
+            console.log(res.data);
+            history.push({
+                pathname: "/trainingFace",
+            });
+
+
+        }).catch(function(error){
+            alert(error);
+            console.log(error);
+        });
+
+       
+    }
     return (
         <div className={classes.div}>
             <Header />
@@ -87,7 +173,59 @@ export default function TrainingFace() {
                         <form className={classes.form}>
                                 <Box lineHeight="normal" m={1}>
                                     <Container className={classes.container}>
-                                        <img className={classes.img} src="./img/profile.jpg" alt="img" />
+                                        {/* <img className={classes.img} src="./img/profile.jpg" alt="img" /> */}
+                                        <div className={classes.upload_btn_wrapper}>
+                                            <br/><br/><br/>
+                                            {
+                                                image.preview ?
+                                            <>
+                                                <img src={ image.preview } width='50%' height="50%" className={classes.img}/>
+                                                <br/>
+                                                <Button
+                                                    variant="contained"
+                                                    className={classes.button}
+                                                    startIcon={<PhotoLibraryIcon />}
+                                                >
+                                                    重新上傳
+                                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                                </Button>
+                                                <Button 
+                                                    className={classes.button} 
+                                                    variant="contained" 
+                                                    onClick={handleSubmit} 
+                                                    startIcon={<FaceIcon />}
+                                                >
+                                                    訓練人臉
+                                                            
+                                                </Button>
+                                            </>
+                                            :(
+                                            <>
+                                            {/* <img src={} width='50%' height="50%" /> */}
+                                                <Button
+                                                    variant="contained"
+                                                    className={classes.button}
+                                                    startIcon={<PhotoLibraryIcon />}
+                                                >
+                                                    上傳大頭照
+                                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                                </Button>
+                                                <div>
+                                                <Typography variant="overline">
+                                                        ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且檔案不得超過1GB
+                                                    </Typography>
+                                                </div>
+                                            </>
+                                        )}
+                                        </div> 
+                                        {/* <Button
+                                            variant="contained"
+                                            className={classes.button}
+                                            onClick={handleOpen}
+                                            startIcon={<SyncAltIcon />}
+                                        >
+                                            上傳大頭照
+                                        </Button>
                                         <Button
                                             variant="contained"
                                             className={classes.button}
@@ -95,10 +233,10 @@ export default function TrainingFace() {
                                             startIcon={<SyncAltIcon />}
                                         >
                                             開始訓練
-                                        </Button>
+                                        </Button> */}
                                     </Container>
                                 </Box>
-                                <Box lineHeight={1} m={1}>
+                                {/* <Box lineHeight={1} m={1}>
                                     <Modal
                                         open={open}
                                         onClose={handleClose}
@@ -121,7 +259,7 @@ export default function TrainingFace() {
                                             </div>
                                         </Fade>
                                     </Modal>
-                                </Box>
+                                </Box> */}
                             </form>
                         </div>
                 </Container>

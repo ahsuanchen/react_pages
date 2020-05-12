@@ -152,11 +152,11 @@ export default function SettingFace() {
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files[0])
-      setImage({
-          
+        setImage({
+            
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
-      })
+        })
     };
 
     console.log(data);
