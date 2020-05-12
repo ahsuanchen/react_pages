@@ -160,7 +160,7 @@ export default function MenuAppBar() {
                               <ListItemText primary="個人檔案" />
                             </ListItem>
                             <form method="post" action="/logout">
-                              <ListItem button type="submit" component='button'>
+                              <ListItem button type="submit" component="button">
                                 <ListItemIcon>
                                   <ExitToAppIcon/>
                                 </ListItemIcon>

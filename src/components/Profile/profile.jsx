@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState , useEffect } from 'react';
 import { makeStyles , withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Header from '../Header/PF_header.jsx';
@@ -71,14 +71,7 @@ export default function Profile() {
     const classes = useStyles();
 
     let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-    function goHomePage()
-    {
-        history.push("/");
-    }
+
     const [member, setMember] = useState({
         memberName : '' ,
         memberEmail : '' ,
@@ -95,25 +88,12 @@ export default function Profile() {
     useEffect(() => {
         async function fetchDataMem() {
                 let url = "/api/login/name"
-                await axios.get(url)
+                axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        setMember(result.data);
-                    }
+                    setMember(result.data);
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataMem();
@@ -155,13 +135,11 @@ export default function Profile() {
             url = url + member.memberEmail;
             axios.patch(url , updateMemberInfo)
             .then(response => {
-                console.log(response);
-                // console.log(response.data);
-                console.log(updateMemberInfo);
                 alert("個人檔案內容已修改");
                 window.location.reload();
             })
             .catch(function(error){
+                console.log(error.response.status);
             });
         }
     };
