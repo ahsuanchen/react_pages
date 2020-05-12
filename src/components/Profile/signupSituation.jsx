@@ -74,54 +74,23 @@ const useStyles = makeStyles(theme => ({
 export default function SignupSituation() {
     const classes = useStyles();
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
-
     const [registration, setRegistration] = useState([]);
     useEffect(() => {
         async function fetchDataReg() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                        console.log(result.data.memberEmail)
-                    }
-                    else
-                    {
-                        axios.get("/api/registration/member/" + result.data.memberEmail)
-                        
-                        .then(res => {
-                            setRegistration(res.data);
-                            console.log(res);
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                    }
+                    axios.get("/api/registration/member/" + result.data.memberEmail)
+                    .then(result => {
+                        setRegistration(result.data);
+                        // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         
@@ -131,7 +100,7 @@ export default function SignupSituation() {
     
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = (AInum) => {
+    const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
@@ -191,7 +160,7 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName}
+                                                            {registration.activity.activityName} {registration.ainum}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
@@ -237,7 +206,7 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={handleOpen}
+                                                                onClick={(event) => handleOpen(registration.ainum , event)}
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -252,6 +221,7 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
+                                                                    <input type="text" value={registration.ainum} />
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>

@@ -94,6 +94,9 @@ const useStyles = makeStyles(theme => ({
     } ,
     icon_part : {
         fontSize : "150px"
+    } ,
+    card_Title : {
+        fontSize : "32px" ,
     }
   }));
 
@@ -116,24 +119,21 @@ export default function ManageActivity() {
       setOpen(false);
     };
 
-    const [modelopen, setModelOpen] = React.useState(false);
-    const handlemodelOpen = () => {
-      setModelOpen(true);
+    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
+    const handlecheckInmodelOpen = () => {
+      setCheckInModelOpen(true);
     };
-    const handlemodelClose = () => {
-      setModelOpen(false);
+    const handlecheckInmodelClose = () => {
+      setCheckInModelOpen(false);
     };
 
-    let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
+    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
+    const handlecheckOutmodelOpen = () => {
+      setCheckOutModelOpen(true);
+    };
+    const handlecheckOutmodelClose = () => {
+      setCheckOutModelOpen(false);
+    };
 
     const [activity, setActivity] = useState([]);
     useEffect(() => {
@@ -141,41 +141,54 @@ export default function ManageActivity() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(res => {
-                    if(res.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
-                        axios.get("/api/activity/organizer/" + res.data.memberEmail)
-                        .then(result => {
-                            setActivity(result.data);
-                            console.log(result)
-                        })
-                        .catch(err => {
-                            console.log(err.response.status);
-                            if(err.response.status === 403)
-                            {
-                                alert("您的權限不足!");
-                                goHomePage();
-                            }
-                        })
-                    }
+                    axios.get("/api/activity/organizer/" + res.data.memberEmail)
+                    .then(result => {
+                        setActivity(result.data);
+                        // console.log(result)
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataAct();
     }, []);
 
     const activity_End_or_not = new Date().getTime();
+
+    const FaceCheckIn = event => {
+        event.preventDefault();    
+        let url = "/api/signIn/" ;
+        url = url + activity.activityID ;
+            axios.post(url)
+            .then(res => {
+                alert("簽到成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("簽到失敗");
+                console.log(error.response.status);
+                console.log(activity.activityID);
+            });
+    };
+    const FaceCheckOut = event => {
+        event.preventDefault();    
+        let url = "/api/line/postMessage/announcement/" ;
+        url = url + activity.activityID ;
+            axios.post(url)
+            .then(res => {
+                alert("簽退成功");
+                window.location.reload();
+            })
+            .catch(function(error){
+                alert("簽退失敗");
+                console.log(error.response.status);
+                console.log(activity.activityID);
+            });
+    };
 
     return (
         <div className={classes.div}>
@@ -374,30 +387,30 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={handlemodelOpen}
+                                                                    onClick={handlecheckInmodelOpen}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
                                                                 <Modal
                                                                     className={classes.modal}
-                                                                    open={modelopen}
-                                                                    onClose={handlemodelClose}
+                                                                    open={checkInModelopen}
+                                                                    onClose={handlecheckInmodelClose}
                                                                     closeAfterTransition
                                                                     BackdropComponent={Backdrop}
                                                                     BackdropProps={{
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
-                                                                    <Fade in={modelopen}>
+                                                                    <Fade in={checkInModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1">
-                                                                                        <CardActionArea component={Link} to="/">
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckIn}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 人臉辨識簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -405,12 +418,61 @@ export default function ManageActivity() {
                                                                                 </Grid>
                                                                                 <Grid item xs={12} sm={6}>
                                                                                     <Card className={classes.choose_type} title="type_2">
-                                                                                        <CardActionArea component={Link} to={"/manualCheck?" + activity.activityId}>
+                                                                                        <CardActionArea component={Link} to={"/manualCheckIn?" + activity.activityId}>
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
                                                                                             <CardContent>
                                                                                                 手動簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    onClick={handlecheckOutmodelOpen}
+                                                                >
+                                                                    活動簽退
+                                                                </Button>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={checkOutModelopen}
+                                                                    onClose={handlecheckOutmodelClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={checkOutModelopen}>
+                                                                        <div>
+                                                                            <Grid container spacing={10}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckOut}>
+                                                                                        <CardActionArea>
+                                                                                            <CardMedia>
+                                                                                                <TagFacesIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent className={classes.card_Title}>
+                                                                                                人臉辨識簽退
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_2">
+                                                                                        <CardActionArea component={Link} to={"/manualCheckOut?" + activity.activityId}>
+                                                                                            <CardMedia>
+                                                                                                <KeyboardIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent>
+                                                                                                手動簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>
                                                                                     </Card>

@@ -73,15 +73,6 @@ export default function EditSignupInfo() {
     var AINum = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
     
     let history = useHistory();
-    function goSignin()
-    {
-        history.push("/signin");
-    }
-
-    function goHomePage()
-    {
-        history.push("/");
-    }
 
     const [member, setMember] = useState([]);
     const [activity, setActivity] = useState([]);
@@ -91,13 +82,6 @@ export default function EditSignupInfo() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result1 => {
-                    if(result1.data.toString().startsWith("<!DOCTYPE html>"))
-                    {
-                        alert("您尚未登入，請先登入！")
-                        goSignin();
-                    }
-                    else
-                    {
                         axios.get("/api/registration/" + AINum)
                         .then(result2 => {
                             setRegistration(result2.data);
@@ -120,15 +104,9 @@ export default function EditSignupInfo() {
                         .catch(err => {
                             console.log(err.response.status);
                         })
-                    }
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    if(err.response.status === 403)
-                    {
-                        alert("您的權限不足!");
-                        goHomePage();
-                    }
                 })
         }
         fetchDataReg();

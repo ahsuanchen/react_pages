@@ -1,8 +1,8 @@
-import React , {useState,useEffect} from 'react';
+import React , {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+// import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Table from '@material-ui/core/Table';
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ManualCheck() {
+export default function ManualCheckIn() {
     const classes = useStyles();
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
@@ -58,7 +58,7 @@ export default function ManualCheck() {
             })
             .catch(function(error){
                 alert("該使用者並未報名此活動或帳號輸入錯誤");
-                // console.log(error.response.status);
+                console.log(error.response.status);
             });
     };
 

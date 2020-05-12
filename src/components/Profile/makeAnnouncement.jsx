@@ -1,13 +1,11 @@
-import React , {useState,useEffect} from 'react';
+import React , {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
-import { Link , useHistory} from 'react-router-dom';
+// import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -58,14 +56,6 @@ export default function MakeAnnouncement() {
     const [activityannounceContent , setActivityAnnounceContent] = useState("");
     const announcement = [activityannounceTitle , activityannounceContent] ;
 
-    // const [activityannounce , setActivityAnnounce] = useState([{
-    //     nnaounceTitle : "" ,
-    //     announceContent : ""
-    // }]) ;
-
-    // const handleChange = annInfo => event => {
-    //     setActivityAnnounce({...activityannounce, [annInfo]: event.target.value});
-    // }
     const handleSubmit = event => {
         event.preventDefault();    
         let url = "/api/line/postMessage/announcement/" ;
