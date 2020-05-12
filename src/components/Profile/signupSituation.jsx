@@ -97,7 +97,7 @@ export default function SignupSituation() {
     }, []);
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = (AInum) => {
+    const handleOpen = () => {
         setOpen(true);
     };
     const handleClose = () => {
@@ -203,7 +203,7 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={() => handleOpen(registration.ainum)}
+                                                                onClick={(event) => handleOpen(registration.ainum , event)}
                                                             >
                                                                 取消報名
                                                             </Button>
