@@ -98,9 +98,19 @@ export default function UpdateActivity_step2() {
     url = url + act.activityId;
 
     useEffect(() => {
+         fetchDataActCover();
         async function fetchDataActCover() {
             await axios.get(url)
             .then(result => {
+                // if (result !== null){
+                //     alert(result);
+                //     alert("進入");
+                    setAct(result.data);
+                    console.log(result);
+                // }
+                // else{
+                //     return;
+                // }
                 // if(result.data.toString().startsWith("<!DOCTYPE html>"))
                 // {
                 //     alert("您尚未登入，請先登入！")
@@ -109,27 +119,25 @@ export default function UpdateActivity_step2() {
                 // else
                 // {
                     
-                    setAct(result.data);
-                    console.log(result);
                     
             
                 // }
             })
-            .catch(err => {
-                console.log(err.response.status);
-                if(err.response.status === 403)
-                {
-                    alert("您的權限不足!");
+            // .catch(err => {
+            //     console.log(err.response.status);
+            //     if(err.response.status === 403)
+            //     {
+            //         alert("您的權限不足!");
                     
-                }
-            })
+            //     }
+            // })
         }
-        fetchDataActCover();
-        
+         
     }, []);
 
     
-    let cover_src = "." + act.activityCover.substring(6);
+    //let cover_src = "." + act.activityCover.substring(6);
+    let cover_src = act.activityCover;
     console.log(cover_src)
 
 
