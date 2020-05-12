@@ -119,18 +119,24 @@ export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();
 
-  const [member, setMember] = useState([]);
-  useEffect(() => {
-      async function fetchDataMem() {
-              const result = await axios.get("/api/member/actforfun@gmail.com")
-              setMember(result.data);
-              console.log(result);
+  const activityList = ['activityName'];
+  //設定activity物件
+  const [act,setAct] = useState({});
+  useEffect(() =>{
+    async function fetchData(){
+      //將抓取到的id拿去資料庫中查詢
+        const url = '/api/activity/' + activityId ;
+        const result = await axios.get(url);
+        setAct(result.data);
+        console.log(result.data);
+        //抓取資料並將資料Set給上面設定好的activity物件
+        //act = result.data;
+        //console.log(act);
       }
-      fetchDataMem();
-  }, []);
+      fetchData();
+  },[]);
 
-
-  const [act,setAct] = useState([{}]);
+  {/*const [act,setAct] = useState([{}]);
   useEffect(() =>{
     async function fetchData(){
         const result = await axios.get('/api/activity/');
@@ -138,7 +144,7 @@ export default function TestGridList(props) {
         //獲取資料
       }
       fetchData();
-  },[]);
+  },[]);*/}
 
   const[photo , setPhoto] = useState([]);
   useEffect(() => {
@@ -164,11 +170,11 @@ export default function TestGridList(props) {
     <div className={classes.container}>
     <GridList cols={3} cellHeight={200} className={classes.gridList}>
     <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-      <ListSubheader component="div">活動名稱</ListSubheader>
+      <ListSubheader component="div">{act.activityName}</ListSubheader>
     </GridListTile>
       {[...photo].map(pic => {
         return  <GridListTile cols={1} key={pic.photoId}>
-                <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px" height="188px"/>
+                <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
                 </GridListTile>
                 //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
         })
