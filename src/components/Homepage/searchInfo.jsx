@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from 'react';
 import Header from '../Header/HM_header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
@@ -37,19 +37,6 @@ const useStyles = makeStyles(theme => ({
         minWidth : "1010px" ,
         padding : "5px 20px" ,
     } ,
-  }));
-
-const SearchOrganizerdata = [
-    {
-        src : 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        organizer : '王氏股份有限公司',
-        activitycount : "30 Activities" ,
-        createdAt : 'Created 1 year ago',
-        content : '本主辦單位之目標旨在讓使用者能應用資訊科技解決組織的管理問題，因此，除資訊科技與管理理論之傳授外，整合二者於資訊管理與資訊系統之課程更為本主辦單位之重心。'
-    },
-];
-
-const style = {
     Typography : {
         color : "#000" ,
         "&:hover" : {
@@ -65,13 +52,41 @@ const style = {
     } ,
     content : {
         overflow: "hidden"
+    } ,
+    search_NoResult : {
+        display: "flex" ,
+        justifyContent : "center" ,
     }
+  }));
+
+const style = {
+    
 }
 
 export default function SearchInfo() {
     const classes = useStyles();
 
     const [searchResult] =  useState(localStorage.getItem('searchResult'));
+
+    const [searchAgain , setSearchAgain] = useState("");
+
+    let history = useHistory();
+    const SendSearchResult = event =>
+    {
+        if (searchAgain === "")
+        {
+            alert("您未輸入任何東西");
+        }
+        else
+        {
+            localStorage.setItem('searchResult' , searchAgain);
+            // searchResult = searchAgain ;
+            history.push({
+                pathname: "/searchInfo",
+            });
+            // window.location.reload();
+        }
+    }
 
     const [activity, setActivity] = useState([]);
     useEffect(() => {
@@ -114,10 +129,15 @@ export default function SearchInfo() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
-                            value={searchResult}
+                            value={searchAgain}
+                            onChange={e=>setSearchAgain(e.target.value)}
                         />
                         <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon}>
+                            <Button
+                                type="submit"
+                                className={classes.search_butoon}
+                                onClick={SendSearchResult}
+                            >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
                         </Tooltip>
@@ -136,6 +156,11 @@ export default function SearchInfo() {
                         與搜尋內容相關
                     </Typography>
                     <br/>
+                    {activity.length === 0 ? 
+                        <Typography variant="h6" className={classes.search_NoResult}>
+                            查無相關之內容
+                        </Typography>
+                        : 
                     <Box overflow="hidden">
                     {activity.map(activity =>
                         <Grid container spacing={3}>    
@@ -148,12 +173,12 @@ export default function SearchInfo() {
                                                     style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
                                                 />
                                                 <Box lineHeight="normal">
-                                                    <Typography variant="h6" title={activity.activityName} style={style.Typography}>
+                                                    <Typography variant="h6" title={activity.activityName} className={classes.Typography}>
                                                         {activity.activityName}
                                                     </Typography>
                                                     <Link 
                                                         to={"/ActivityInformation?" + activity.activityId}
-                                                        style={style.link}
+                                                        className={classes.link}
                                                         title={activity.activityName}
                                                     >
                                                         <Typography variant="overline">
@@ -161,7 +186,7 @@ export default function SearchInfo() {
                                                         </Typography>
                                                     </Link>
                                                     <Typography variant="caption" color="textSecondary">
-                                                        {` • ${activity.activityStartDateString}`}
+                                                        {` • ${activity.activityStartDateString} • ${activity.activitySpace}`}
                                                     </Typography>
                                                     <br/>
                                                     <Typography variant="caption" color="textSecondary" style={style.content}>
@@ -174,6 +199,7 @@ export default function SearchInfo() {
                         </Grid>
                         )} 
                     </Box>
+                    }
                 </div>
                 <br/>
                 <Divider />
@@ -183,7 +209,10 @@ export default function SearchInfo() {
                         與主辦單位相關
                     </Typography>
                     <br/>
-                   {organizer.length === 0 ? ""
+                   {organizer.length === 0 ? 
+                        <Typography variant="h6" className={classes.search_NoResult}>
+                            查無相關之主辦單位
+                        </Typography>
                         : 
                     <Box overflow="hidden">
                         {organizer.map(organizer =>       
@@ -192,21 +221,23 @@ export default function SearchInfo() {
                                     <div>
                                         <Container style={{textDecoration : "none"}}>
                                                 <Box lineHeight="normal">
-                                                    <Typography variant="h6" title={organizer.organizerName} style={style.Typography}>
+                                                    <Typography variant="h6" title={organizer.organizerName} className={classes.Typography}>
                                                         {organizer.organizerName}
                                                     </Typography>
-
-                                                        <Typography variant="overline">
-                                                            電話：{organizer.organizerPhone}
-                                                        </Typography>
-                                                        <br/>
-                                             
-                                                    <Typography variant="caption" color="textSecondary">
-                                                       資訊： {`  ${organizer.organizerInfo}`}
+                                                    <Typography variant="overline">
+                                                        電話：{organizer.organizerPhone}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary" style={style.content}>
-                                                        {organizer.organizerEmail}
+                                                    <Typography variant="overline">
+                                                        聯絡信箱： {organizer.organizerEmail}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="overline">
+                                                        聯絡地址： {organizer.organizerAddress}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        資訊： {`  ${organizer.organizerInfo}`}
                                                     </Typography>
                                                 </Box>
                                         </Container> 
