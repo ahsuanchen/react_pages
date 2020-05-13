@@ -228,7 +228,7 @@ export default function ManageActivity() {
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽到失敗");
+                alert("簽到失敗或該使用者未參加此活動");
                 console.log(error.response.status);
             });
         })
@@ -256,7 +256,7 @@ export default function ManageActivity() {
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽退失敗");
+                alert("簽退失敗或該使用者未參加此活動");
                 console.log(error.response.status);
             });
         })
