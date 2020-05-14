@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   } ,
   root: {
     //width:"100%",
-    margin: "2% 2%",
+    margin: "2%",
     overflow: "visible"
       //boxSizing: "border-box"
   },
@@ -32,30 +32,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%",
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
-  title: {
-    'fontSize' : 20,
-    'fontWeight' : 'bolder',
-  },
   left_menu: {
-      display: "flex",
-      justifyContent: "space-around",
-      minHeight: 800,
-      color: "#000"
-  },
-  link: {
-      textDecoration: "none",
-      color: "#D0D0D0",
-      '&:hover': {
-          color: '#00AEAE'
-      }
-  },
-  button: {
-      background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-      color : "#fff" ,
-      margin: "2% auto",
       display: "flex",
       justifyContent: "center",
   },
