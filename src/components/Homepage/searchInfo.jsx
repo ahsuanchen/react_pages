@@ -64,29 +64,11 @@ const useStyles = makeStyles(theme => ({
 export default function SearchInfo() {
     const classes = useStyles();
 
-    const [searchResult, setSearchResult] =  useState(localStorage.getItem('searchResult'));
+    const [searchResult , setSearchResult] =  useState(localStorage.getItem('searchResult'));
 
-    const [searchAgain , setSearchAgain] = useState("");
-
-    let history = useHistory();
-    const SendSearchResult = event =>
-    {
-        if (searchAgain === "")
-        {
-            alert("您未輸入任何東西");
-        }
-        else
-        {
-            localStorage.setItem('searchResult' , searchAgain);
-            // searchResult = searchAgain ;
-            history.push({
-                pathname: "/searchInfo",
-            });
-            // window.location.reload();
-        }
-    }
-
+    const [count, setCount] = useState(0);
     const [activity, setActivity] = useState([]);
+    const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchDataSearch() {
             let url = "/api/activity/search"+"?search="+searchResult;
@@ -94,40 +76,20 @@ export default function SearchInfo() {
             axios.get(url)
             .then(result => {
                 setActivity(result.data);
-                console.log(result);
             })
             .catch(err => {
-                // console.log(err.response.status);
+                console.log(err.response.status);
             })
-
             axios.get(url1)
             .then(result => {
                 setOrganizer(result.data);
-                console.log(result);
             })
             .catch(err => {
-                // console.log(err.response.status);
+                console.log(err.response.status);
             })
         }
         fetchDataSearch();
-    },[searchResult]);
-
-
-    const [organizer, setOrganizer] = useState([]);
-    // useEffect(() => {
-    //     async function fetchDataOrgSearch() {
-    //         let url1 = "/api/organizer/search"+"?search="+searchResult;
-    //         axios.get(url1)
-    //         .then(result => {
-    //             setOrganizer(result.data);
-    //             console.log(result);
-    //         })
-    //         .catch(err => {
-    //             // console.log(err.response.status);
-    //         })
-    //     }
-    //     fetchDataOrgSearch();
-    // });
+    },[count]);
 
     return (
         <div className={classes.div}>
@@ -139,14 +101,13 @@ export default function SearchInfo() {
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
                             value={searchResult}
-                            id = 'keyword'
                             onChange={e=>setSearchResult(e.target.value)}
                         />
                         <Tooltip title="搜尋">
                             <Button
                                 type="submit"
                                 className={classes.search_butoon}
-                                //onClick={setSearchResult(keyword)}
+                                onClick={() => setCount(count+1)}
                             >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
@@ -238,7 +199,7 @@ export default function SearchInfo() {
                                                         電話：{organizer.organizerPhone}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="caption">
                                                         聯絡信箱： {organizer.organizerEmail}
                                                     </Typography>
                                                     <br/>
@@ -247,7 +208,7 @@ export default function SearchInfo() {
                                                     </Typography>
                                                     <br/>
                                                     <Typography variant="caption" color="textSecondary">
-                                                        資訊： {`  ${organizer.organizerInfo}`}
+                                                        主辦單位資訊： {`  ${organizer.organizerInfo}`}
                                                     </Typography>
                                                 </Box>
                                         </Container> 
