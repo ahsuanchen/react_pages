@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
-import { browserHistory } from 'react-router'
+// import { browserHistory } from 'react'
 
 
 const useStyles = makeStyles(theme => ({
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
 export default function SearchInfo() {
     const classes = useStyles();
 
-    const [searchResult] =  useState(localStorage.getItem('searchResult'));
+    const [searchResult, setSearchResult] =  useState(localStorage.getItem('searchResult'));
 
     const [searchAgain , setSearchAgain] = useState("");
 
@@ -90,6 +90,7 @@ export default function SearchInfo() {
     useEffect(() => {
         async function fetchDataSearch() {
             let url = "/api/activity/search"+"?search="+searchResult;
+            let url1 = "/api/organizer/search"+"?search="+searchResult;
             axios.get(url)
             .then(result => {
                 setActivity(result.data);
@@ -98,33 +99,7 @@ export default function SearchInfo() {
             .catch(err => {
                 // console.log(err.response.status);
             })
-        }
-        fetchDataSearch();
-    }, []);
 
-
-    const [searchResult_N , setSearchResult_N] = useState("");
-
-    let history = useHistory();
-    const SendSearchResult = event =>
-    {
-        if (searchResult_N === "")
-        {
-            alert("您未輸入任何東西");
-        }
-        else
-        {
-            localStorage.setItem('searchResult' , searchResult_N);
-            // history.push({
-            //     pathname: "/searchInfo",
-            // });
-            browserHistory.push('/searchInfo')
-        }
-    }
-    const [organizer, setOrganizer] = useState([]);
-    useEffect(() => {
-        async function fetchDataOrgSearch() {
-            let url1 = "/api/organizer/search"+"?search="+searchResult;
             axios.get(url1)
             .then(result => {
                 setOrganizer(result.data);
@@ -134,8 +109,25 @@ export default function SearchInfo() {
                 // console.log(err.response.status);
             })
         }
-        fetchDataOrgSearch();
-    }, []);
+        fetchDataSearch();
+    },[searchResult]);
+
+
+    const [organizer, setOrganizer] = useState([]);
+    // useEffect(() => {
+    //     async function fetchDataOrgSearch() {
+    //         let url1 = "/api/organizer/search"+"?search="+searchResult;
+    //         axios.get(url1)
+    //         .then(result => {
+    //             setOrganizer(result.data);
+    //             console.log(result);
+    //         })
+    //         .catch(err => {
+    //             // console.log(err.response.status);
+    //         })
+    //     }
+    //     fetchDataOrgSearch();
+    // });
 
     return (
         <div className={classes.div}>
@@ -146,14 +138,15 @@ export default function SearchInfo() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
-                            value={searchAgain}
-                            onChange={e=>setSearchAgain(e.target.value)}
+                            value={searchResult}
+                            id = 'keyword'
+                            onChange={e=>setSearchResult(e.target.value)}
                         />
                         <Tooltip title="搜尋">
                             <Button
                                 type="submit"
                                 className={classes.search_butoon}
-                                onClick={SendSearchResult}
+                                //onClick={setSearchResult(keyword)}
                             >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
