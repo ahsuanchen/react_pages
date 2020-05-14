@@ -72,9 +72,6 @@ const useStyles = makeStyles(theme => ({
   } ,
 }));
 
-
-const imageList = [1,2,3,4,5];
-
 export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
 

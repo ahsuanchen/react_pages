@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
-// import Zmage from 'react-zmage';
+import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
 import Cat1 from 'assets/images/11.jpg';

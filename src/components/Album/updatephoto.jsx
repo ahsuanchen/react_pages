@@ -24,6 +24,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Popover from '@material-ui/core/Popover';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import Zmage from 'react-zmage';
 
 const useStyles = makeStyles(theme => ({
     root : {
@@ -57,6 +60,16 @@ const useStyles = makeStyles(theme => ({
       icon: {
         color: 'white',
       },
+      typography: {
+        padding: theme.spacing(2),
+      },
+      btn_file : {
+          fontSize : "30px" ,
+          position: "absolute" ,
+          left: 0 ,
+          top: 0 ,
+          opacity: 0 ,
+      } ,
 }));
 
 export default function Updatephoto() {
@@ -166,6 +179,31 @@ export default function Updatephoto() {
       alert("上傳中，等待畫面轉跳");
       refreshPage();
     }
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+     const handleClickk = (event) => {
+       setAnchorEl(event.currentTarget);
+     };
+
+     const handleClose = () => {
+       setAnchorEl(null);
+     };
+
+     const open = Boolean(anchorEl);
+     const id = open ? 'simple-popover' : undefined;
+
+
+     async function recoPhoto(){
+       const url = '/api/photo/all/' + activityId ;
+       const result = await axios.post(url);
+       alert(result.data);
+       }
+     const handleSubmitt = (e) =>{
+
+       recoPhoto();
+
+
+     };
 
     return (
       <div>
@@ -177,15 +215,50 @@ export default function Updatephoto() {
 
           <Typography variant="h4">
              管理活動相片
+
+             <IconButton
+             aria-describedby={id}
+             variant="contained"
+             color="primary"
+             onClick={handleClickk}>
+               <HelpOutlineIcon />
+             </IconButton>
+
+             <Popover
+             id={id}
+             open={open}
+             anchorEl={anchorEl}
+             onClose={handleClose}
+             anchorOrigin={{
+               vertical: 'bottom',
+               horizontal: 'center',
+             }}
+             transformOrigin={{
+               vertical: 'top',
+               horizontal: 'center',
+             }}>
+            <Typography className={classes.typography}>
+            辨識限制:<br/>
+            1.同時辨識人數越多，辨識速度越慢<br/>
+            2.圖片解析度越高，辨識速度越慢
+            </Typography>
+          </Popover>
               </Typography>
+
           <hr/>
+
           <Button variant="outlined" >
               新增檔案
-              <input type="file" onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+              <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
           </Button>
 
-
-
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleSubmitt}
+            >
+          一鍵辨識
+          </Button>
 
           {image.preview ?
             <div className={classes.container}>
@@ -215,7 +288,7 @@ export default function Updatephoto() {
             </GridListTile>
               {[...photo].map(pic => {
                 return  <GridListTile cols={1} key={pic.photoId}>
-                        <img key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px" height="188px"/>
+                        <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
                         <GridListTileBar
                           title={pic.name}
                           titlePosition="top"

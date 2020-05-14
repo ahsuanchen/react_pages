@@ -83,7 +83,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
     },
     choose_type : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         width : "250px" ,
         height : "250px" ,
         color : "#E0E0E0" ,
@@ -157,7 +157,7 @@ export default function ManageActivity() {
     const activity_End_or_not = new Date().getTime();
 
     const FaceCheckIn = event => {
-        event.preventDefault();    
+        event.preventDefault();
         let url = "/api/signIn/" ;
         url = url + activity.activityID ;
             axios.post(url)
@@ -172,7 +172,7 @@ export default function ManageActivity() {
             });
     };
     const FaceCheckOut = event => {
-        event.preventDefault();    
+        event.preventDefault();
         let url = "/api/line/postMessage/announcement/" ;
         url = url + activity.activityID ;
             axios.post(url)
@@ -248,18 +248,18 @@ export default function ManageActivity() {
                                                                 {activity.attendPeople}&nbsp;/&nbsp;{activity.registeredPeople}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||
                                                                 (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? "活動報名中" 
-                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                                    ? "活動報名中"
+                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                     (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
                                                                     ? "等待活動中"
                                                                : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
                                                                     ? "活動進行中" : "活動已結束"}
                                                             </TableCell>
-                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||
                                                                 (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? 
+                                                                    ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -313,9 +313,9 @@ export default function ManageActivity() {
                                                                         </DialogActions>
                                                                     </Dialog>
                                                                 </TableCell>
-                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                 (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
-                                                                ? 
+                                                                ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -370,7 +370,7 @@ export default function ManageActivity() {
                                                                     </Dialog>
                                                                 </TableCell>
                                                                : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
-                                                                    ? 
+                                                                    ?
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -500,6 +500,8 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
+                                                                    component={Link}
+                                                                    to={"/UpdatePhoto?" + activity.activityId}
                                                                 >
                                                                     管理照片
                                                                 </Button>

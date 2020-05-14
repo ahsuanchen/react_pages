@@ -27,6 +27,7 @@ import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfie
 import Box from '@material-ui/core/Box';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from 'components/Header/PF_header.jsx';
+import { Link } from 'react-router-dom';
 
 const StyledRating = withStyles({
   iconFilled: {
@@ -165,6 +166,7 @@ const [suggest,setSuggest] = useState("");
 
     alert("感謝您的建議!");
 
+
     const Feedback =
     {
       activity_Id : 1,
@@ -279,7 +281,7 @@ const [suggest,setSuggest] = useState("");
               onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
-          <Button onClick={handleSubmit} variant="contained" color="secondary">確定</Button>
+          <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/signupSituation">確定</Button>
         </CardActions>
       </Card>
       </Container>
