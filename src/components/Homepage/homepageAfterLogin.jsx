@@ -159,6 +159,7 @@ export default function MenuApp() {
         }
     }
 
+    const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
@@ -166,6 +167,8 @@ export default function MenuApp() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
+                    setMember(result.data);
+                    console.log(result);
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
@@ -177,7 +180,7 @@ export default function MenuApp() {
                     axios.get("/api/activity")
                     .then(res => {
                         setActivity(res.data);
-                        console.log(res);
+                        // console.log(res);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -192,11 +195,11 @@ export default function MenuApp() {
 
     return (
         <div className={classes.div}>
-            {/* {member.memberEmail === null ?
-                <Header1 />
-             : */}
+            {member.length != 0 ?
                 <Header2/>
-            {/* } */}
+             :
+                <Header1 />
+            }
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>

@@ -59,10 +59,6 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-const style = {
-    
-}
-
 export default function SearchInfo() {
     const classes = useStyles();
 
@@ -160,7 +156,7 @@ export default function SearchInfo() {
                         <Typography variant="h6" className={classes.search_NoResult}>
                             查無相關之內容
                         </Typography>
-                        : 
+                        :
                     <Box overflow="hidden">
                     {activity.map(activity =>
                         <Grid container spacing={3}>    
@@ -189,7 +185,7 @@ export default function SearchInfo() {
                                                         {` • ${activity.activityStartDateString} • ${activity.activitySpace}`}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary" style={style.content}>
+                                                    <Typography variant="caption" color="textSecondary" className={classes.content}>
                                                         {activity.activityInfo}
                                                     </Typography>
                                                 </Box>
@@ -242,8 +238,7 @@ export default function SearchInfo() {
                                                 </Box>
                                         </Container> 
                                     </div>                          
-                            </Grid>            
-                            
+                            </Grid>
                         </Grid>
                         )} 
                     </Box>
