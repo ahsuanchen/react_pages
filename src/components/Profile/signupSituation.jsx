@@ -97,10 +97,13 @@ export default function SignupSituation() {
         fetchDataReg();
     }, []);
 
+    const[cancel , setCancel] = useState(0);
     
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
+    const handleOpen = (ainum,event) => {
+        console.log(ainum);
+        setCancel(ainum);
         setOpen(true);
     };
     const handleClose = () => {
@@ -109,6 +112,7 @@ export default function SignupSituation() {
 
 
     const handleSubmit = (AInum) => {
+        console.log(AInum);
         let url = "/api/registration/cancel/";
         url = url + AInum;
         console.log(AInum);
@@ -207,6 +211,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 onClick={(event) => handleOpen(registration.ainum , event)}
+                                                                
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -221,7 +226,7 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
-                                                                    <input type="text" value={registration.ainum} />
+                                                                    <input type="text" value={cancel} />
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>
@@ -232,7 +237,7 @@ export default function SignupSituation() {
                                                                     <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
                                                                         取消
                                                                     </Button>
-                                                                    <Button onClick={() => handleSubmit(registration.ainum)} className={classes.dig_butoon}>
+                                                                    <Button onClick={() => handleSubmit(cancel)} className={classes.dig_butoon}>
                                                                         確定
                                                                     </Button>
                                                                 </DialogActions>

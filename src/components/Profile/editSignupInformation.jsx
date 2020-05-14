@@ -188,7 +188,7 @@ export default function EditSignupInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>供餐選項：</TableCell>
-                                            {activity.activityMeal == 0 ?
+                                            {activity.activityMeal == "N" ?
                                             <TableCell>
                                                 <RadioGroup name="Gender" value={registration.registrationMeal + ""}>
                                                     <FormControlLabel value="0" control={<RadioColor />} label="暫不供餐" disabled />

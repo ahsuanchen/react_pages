@@ -2,11 +2,13 @@ import React ,{useState}from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 //import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
@@ -33,10 +35,10 @@ const useStyles = makeStyles(theme => ({
 
 
     paper: {
-        marginTop: theme.spacing(8),
-
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
+        color:'white',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
@@ -51,13 +53,30 @@ const useStyles = makeStyles(theme => ({
     form: {
         width: '100%',
         height: theme.spacing(1),
-
-
     },
+
+    link: {
+        marginTop: theme.spacing(5),
+    },
+
+    // submit: {
+    //     background : '#00bfa5',
+    //     color : '#fafafa' ,
+    //     minWidth : "100px" ,
+    //     '&:hover' : {
+    //         background : '#00bfa5',
+    //         color : "#fff"
+    //     } , 
+    //     margin: theme.spacing(3, 0, 2),
+    // },
     submit: {
-        color : "#fff" ,
+        color : "#fafafa" ,
         textAlign : "center" ,
         background : '#00bfa5',
+        '&:hover' : {
+            background : '#00bfa5',
+            color : "#fff"
+        } , 
         fontSize: "15px",
         marginTop : "10%" ,
     },
@@ -110,9 +129,9 @@ export default function ForgotPW1() {
                 <Typography className={classes.font} component="h1" variant="h5" align="center">
                     無 法 登 入 ？
                     </Typography>
-                <div className={classes.paper}>
-                    <paper>
-                        
+                <Paper className={classes.paper}>
+                <Grid container justify="center">
+                            <Container className={classes.container}>
                             請輸入您的電子信箱，我們將會傳送新密碼至您的信箱。
                             <TextField
                                 margin="normal"
@@ -134,7 +153,7 @@ export default function ForgotPW1() {
                             >
                                 傳送新密碼
                             </Button>
-
+<br/><br/>
                             <Typography variant="overline" display="block" gutterBottom align="center">
                             ---或---
                             </Typography>
@@ -150,12 +169,17 @@ export default function ForgotPW1() {
                                 註冊新帳號
                             </Button>
 
-                    </paper>
+                    </Container>
+                    </Grid>
                     <Grid align-items-xs-flex-end>
                     </Grid>
 
-                </div>
-
+                </Paper>
+                <Grid container justify="center" className={classes.link}>
+                    <Link href="signin" variant="body1" color="inherit">
+                    或 登入
+                  </Link>
+                </Grid>
             </Container>
         </Grid>
     );

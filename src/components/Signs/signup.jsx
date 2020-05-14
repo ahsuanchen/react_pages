@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom'
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -33,8 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 
     paper: {
-        marginTop: theme.spacing(8),
-        
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
             marginTop: theme.spacing(5),
             //margin: theme.spacing(1),
             width: theme.spacing(40),
-            height: theme.spacing(20),
+            height: theme.spacing(15),
         },
     },
 
@@ -59,12 +59,12 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+        background : '#00bfa5',
+        color : '#fafafa' ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : '#00bfa5',
+            color : "#fff"
         } , 
         margin: theme.spacing(3, 0, 2),
     },
@@ -128,9 +128,9 @@ const SignUpPage = props => {
                     <Typography className={classes.font} component="h1" variant="h5" align="center">
                         註 冊
                     </Typography>
-                    <div className={classes.paper}>
-                        <paper>
-                            {/* <form className={classes.form} noValidate onSubmit={handleSubmit}> */}
+                    <Paper className={classes.paper} elevation='5'>
+                        <Grid container justify="center">
+                            <Container className={classes.container}>
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -153,7 +153,7 @@ const SignUpPage = props => {
                                     id="memberPassword"
                                     onChange={e=>setMemberPassword(e.target.value)}
                                 />
-    
+
                                 <TextField
                                     variant="outlined"
                                     margin="normal"
@@ -165,27 +165,27 @@ const SignUpPage = props => {
                                     id="checkpassword"
                                     onChange={e=>setCheckPassword(e.target.value)}
                                 />
-    
-                                <Button
-                                    type="submit"
-                                    fullWidth
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.submit}
-                                    //onClick={passText}
-                                    onClick={handleSubmit}
-                                >
-                                    <ChevronRightIcon />
-                                    下一步
-                                </Button>
 
-                                {/* <Button onClick={passText}>pass</Button>; */}
-    
-                        </paper>
+                            </Container>
+                        </Grid>
+                        
                         <Grid align-items-xs-flex-end>
                         </Grid>
-    
-                    </div>
+                        
+                    </Paper>
+
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        className={classes.submit}
+                        //onClick={passText}
+                        onClick={handleSubmit}
+                    >
+                        <ChevronRightIcon />
+                        下一步
+                    </Button>
     
                 </Container>
             </Grid>
