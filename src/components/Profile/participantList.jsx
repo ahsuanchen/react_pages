@@ -97,19 +97,29 @@ export default function ParticipantList() {
             });
     };
 
+    function download() {
+        // fake server request, getting the file url as response
+        setTimeout(() => {
+          const response = {
+            file: 'http://localhost:8080/api/registration/writeExcel/'+ activityId,
+          };
+          // server sent the url to the file!
+          // now, let's download:
+          window.open(response.file);
+          // you could also do:
+          // window.location.href = response.file;
+        }, 100);
+    }
     const OutputExcel = event => {
-        event.preventDefault();    
-        let url =  "/api/registration/writeExcel/" ;
-        url = url + activityId ;
-            axios.get(url)
-            .then(res => {
-                alert("匯出成功");
-                window.location.reload();
-            })
-            .catch(function(error){
-                alert("匯出失敗或是您的活動並無報名者");
-                console.log(error.response.status);
-            });
+        event.preventDefault();
+        if (registration.length === 0)
+        {
+            alert("您的活動尚未有人報名")
+        }
+        else
+        {
+            download(activityId);
+        } 
     };
 
     const [activity, setActivity] = useState([]);

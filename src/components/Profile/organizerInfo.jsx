@@ -124,7 +124,7 @@ export default function OrganizerInfo() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4">
-                                {organizer.organizerName}
+                                主 辦 單 位 資 訊
                             </Typography>
                             <hr />
                         </div>
@@ -132,7 +132,7 @@ export default function OrganizerInfo() {
                             <form>
                                 <Box lineHeight="normal" m={1}>
                                     <Typography variant="h4" className={classes.topic}>
-                                        主 辦 單 位 資 訊
+                                        我 的 主 辦 單 位
                                     </Typography>
                                 </Box>
                                 <Table className={classes.table}>

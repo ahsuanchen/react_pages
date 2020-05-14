@@ -1,7 +1,7 @@
 import React , {useState , useEffect} from 'react';
 import Header from '../Header/HM_header2.jsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Box from '@material-ui/core/Box';
 import InputBase from '@material-ui/core/InputBase';
@@ -37,163 +37,83 @@ const useStyles = makeStyles(theme => ({
         minWidth : "1010px" ,
         padding : "5px 20px" ,
     } ,
-  }));
-
-const Searchdata = [
-    {
-        src : 'https://images.pexels.com/photos/3418058/pexels-photo-3418058.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260',
-        title : '臺北市政府跨年晚會',
-        organizer : '王氏股份有限公司',
-        createdAt : 'A week ago',
-        content : '我們以「臺北」做發想，找出臺北獨有的特色，臺北本是個多元融合的城市，匯集了來自臺灣、世界各地擁有個性故事的人們，在臺北打拼生活、追逐夢想、壯志旅遊，無限想像、無限可能、無時無刻的事情都在發生，這就是臺北，是我們「混」大的地方。因此，以「混」為核心概念，將臺北「多元」特色帶出來，打破以往純粹歌手拼盤的演出形式，藉由跨界的mix、不同領域的crossover產生出新的內容！'
-    },
-    {
-        src : 'https://images.pexels.com/photos/3171837/pexels-photo-3171837.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        title : '三校六系聯合聖誕舞會',
-        organizer : '王氏股份有限公司',
-        createdAt : 'A month ago',
-        content : '「對岸的城堡，總是在黑夜中綻放動人的光芒，誰也不知道它的主人來自何方，而耗之不盡的財富又源自何處？眾人只曉得，每當夜幕低垂，他壯觀的堡壘即聚滿了整個城市的活力......」「看著紙醉金迷、沈浸在歡愉喜樂當中的各方人士，城堡的主人 — 蓋茲比，卻無法與他的客人們同樂⋯⋯」12/23 星期三 晚上六點 我們在三創生活園區 繼續我們的未完待續...'
-    },
-    {
-        src : 'https://images.pexels.com/photos/339620/pexels-photo-339620.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        title : '從「心」開始，你我無「礙」-助人者自我照護活動',
-        organizer : '王氏股份有限公司',
-        createdAt : 'A week ago',
-        content : 'ALTC長照網，完整的機構介紹，免費護理師諮詢，給家人第二個溫暖的家'
-    }
-];
-
-const SearchOrganizerdata = [
-    {
-        src : 'https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-        organizer : '王氏股份有限公司',
-        activitycount : "30 Activities" ,
-        createdAt : 'Created 1 year ago',
-        content : '本主辦單位之目標旨在讓使用者能應用資訊科技解決組織的管理問題，因此，除資訊科技與管理理論之傳授外，整合二者於資訊管理與資訊系統之課程更為本主辦單位之重心。'
-    },
-];
-
-function SearchResult(props) { 
-
-    const style = {
-        Typography : {
-            color : "#000" ,
-            "&:hover" : {
-                color : "#00AEAE"
-            }
-        } ,
-        link : {
-            textDecoration : "none" , 
-            color : "#ADADAD" , 
-            "&:hover" : {
-                color : "#00AEAE"
-            }
-        } ,
-        content : {
-            overflow: "hidden"
+    Typography : {
+        color : "#000" ,
+        "&:hover" : {
+            color : "#00AEAE"
         }
+    } ,
+    link : {
+        textDecoration : "none" , 
+        color : "#ADADAD" , 
+        "&:hover" : {
+            color : "#00AEAE"
+        }
+    } ,
+    content : {
+        overflow: "hidden"
+    } ,
+    search_NoResult : {
+        display: "flex" ,
+        justifyContent : "center" ,
     }
-
-    return (
-        <Grid container spacing={3}>
-            {Searchdata.map(Searchdata =>           
-            <Grid item xs={12}>
-                    <div>
-                        <Container component={Link} to="/" style={{textDecoration : "none"}}>
-                                <img 
-                                    src={Searchdata.src}
-                                    title={Searchdata.title}
-                                    style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
-                                />
-                                <Box lineHeight="normal">
-                                    <Typography variant="h6" title={Searchdata.title} style={style.Typography}>
-                                        {Searchdata.title}
-                                    </Typography>
-                                    <Link 
-                                        to="/"
-                                        style={style.link}
-                                        title={Searchdata.organizer}
-                                    >
-                                        <Typography variant="overline">
-                                            {Searchdata.organizer}
-                                        </Typography>
-                                    </Link>
-                                    <Typography variant="caption" color="textSecondary">
-                                        {` • ${Searchdata.createdAt}`}
-                                    </Typography>
-                                    <br/>
-                                    <Typography variant="caption" color="textSecondary" style={style.content}>
-                                        {Searchdata.content}
-                                    </Typography>
-                                </Box>
-                        </Container> 
-                    </div>                          
-            </Grid>            
-            )}    
-        </Grid>
-    );
-}
-
-
-
-function SearchOrgResult(props) { 
-    return (
-        <Grid container spacing={3}>
-            {SearchOrganizerdata.map(SearchOrganizerdata =>           
-            <Grid item xs={12}>
-                    <div>
-                        <Container component={Link} to="/" style={{textDecoration : "none"}}>
-                                <Avatar 
-                                    src={SearchOrganizerdata.src}
-                                    title={SearchOrganizerdata.organizer}
-                                    style={{
-                                        width : 150 , 
-                                        height : 150 , 
-                                        float : "left" , 
-                                        marginLeft : "3%" ,
-                                        marginRight : "6%" , }}
-                                />
-                                <Box lineHeight="normal">
-                                    <Typography variant="h6" style={{color: "#000"}}>
-                                        {SearchOrganizerdata.organizer}
-                                    </Typography>
-                                    <Typography variant="caption" color="textSecondary">
-                                        {`${SearchOrganizerdata.activitycount} • ${SearchOrganizerdata.createdAt}`}
-                                    </Typography>
-                                    <br/>
-                                    <Typography variant="caption" color="textSecondary" overflow="hidden">
-                                        {SearchOrganizerdata.content}
-                                    </Typography>
-                                </Box>
-                        </Container> 
-                    </div>                          
-            </Grid>            
-            )}    
-        </Grid>
-    );
-}
-
+  }));
 
 export default function SearchInfo() {
     const classes = useStyles();
 
     const [searchResult] =  useState(localStorage.getItem('searchResult'));
 
-    const [activity, setActivity] = useState();
+    const [searchAgain , setSearchAgain] = useState("");
+
+    let history = useHistory();
+    const SendSearchResult = event =>
+    {
+        if (searchAgain === "")
+        {
+            alert("您未輸入任何東西");
+        }
+        else
+        {
+            localStorage.setItem('searchResult' , searchAgain);
+            // searchResult = searchAgain ;
+            history.push({
+                pathname: "/searchInfo",
+            });
+            // window.location.reload();
+        }
+    }
+
+    const [activity, setActivity] = useState([]);
     useEffect(() => {
-        async function fetchDataAct() {
-            let url = "/api/activity/search"
-            // url = url + searchResult ;
+        async function fetchDataSearch() {
+            let url = "/api/activity/search"+"?search="+searchResult;
             axios.get(url)
             .then(result => {
                 setActivity(result.data);
                 console.log(result);
             })
             .catch(err => {
-                console.log(err.response.status);
+                // console.log(err.response.status);
             })
         }
-        fetchDataAct();
+        fetchDataSearch();
+    }, []);
+
+    const [organizer, setOrganizer] = useState([]);
+    useEffect(() => {
+        async function fetchDataOrgSearch() {
+            let url1 = "/api/organizer/search"+"?search="+searchResult;
+            axios.get(url1)
+            .then(result => {
+                setOrganizer(result.data);
+                console.log(result);
+            })
+            .catch(err => {
+                // console.log(err.response.status);
+            })
+        }
+        fetchDataOrgSearch();
     }, []);
 
     return (
@@ -205,10 +125,15 @@ export default function SearchInfo() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
-                            value={searchResult}
+                            value={searchAgain}
+                            onChange={e=>setSearchAgain(e.target.value)}
                         />
                         <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon}>
+                            <Button
+                                type="submit"
+                                className={classes.search_butoon}
+                                onClick={SendSearchResult}
+                            >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
                         </Tooltip>
@@ -227,9 +152,50 @@ export default function SearchInfo() {
                         與搜尋內容相關
                     </Typography>
                     <br/>
+                    {activity.length === 0 ? 
+                        <Typography variant="h6" className={classes.search_NoResult}>
+                            查無相關之內容
+                        </Typography>
+                        :
                     <Box overflow="hidden">
-                        <SearchResult />
+                    {activity.map(activity =>
+                        <Grid container spacing={3}>    
+                            <Grid item xs={12}>
+                                    <div>
+                                        <Container component={Link} to={"/ActivityInformation?" + activity.activityId} style={{textDecoration : "none"}}>
+                                                <img 
+                                                    src={activity.activityCover}
+                                                    title={activity.activityName}
+                                                    style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
+                                                />
+                                                <Box lineHeight="normal">
+                                                    <Typography variant="h6" title={activity.activityName} className={classes.Typography}>
+                                                        {activity.activityName}
+                                                    </Typography>
+                                                    <Link 
+                                                        to={"/ActivityInformation?" + activity.activityId}
+                                                        className={classes.link}
+                                                        title={activity.activityName}
+                                                    >
+                                                        <Typography variant="overline">
+                                                            {activity.organizerName}
+                                                        </Typography>
+                                                    </Link>
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        {` • ${activity.activityStartDateString} • ${activity.activitySpace}`}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="caption" color="textSecondary" className={classes.content}>
+                                                        {activity.activityInfo}
+                                                    </Typography>
+                                                </Box>
+                                        </Container> 
+                                    </div>                          
+                            </Grid>            
+                        </Grid>
+                        )} 
                     </Box>
+                    }
                 </div>
                 <br/>
                 <Divider />
@@ -239,11 +205,44 @@ export default function SearchInfo() {
                         與主辦單位相關
                     </Typography>
                     <br/>
+                   {organizer.length === 0 ? 
+                        <Typography variant="h6" className={classes.search_NoResult}>
+                            查無相關之主辦單位
+                        </Typography>
+                        : 
                     <Box overflow="hidden">
-                        <SearchOrgResult />
-                        <br/>
-                        <SearchResult />
+                        {organizer.map(organizer =>       
+                        <Grid container spacing={3}>
+                            <Grid item xs={12}>
+                                    <div>
+                                        <Container style={{textDecoration : "none"}}>
+                                                <Box lineHeight="normal">
+                                                    <Typography variant="h6" title={organizer.organizerName} className={classes.Typography}>
+                                                        {organizer.organizerName}
+                                                    </Typography>
+                                                    <Typography variant="overline">
+                                                        電話：{organizer.organizerPhone}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="overline">
+                                                        聯絡信箱： {organizer.organizerEmail}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="overline">
+                                                        聯絡地址： {organizer.organizerAddress}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        資訊： {`  ${organizer.organizerInfo}`}
+                                                    </Typography>
+                                                </Box>
+                                        </Container> 
+                                    </div>                          
+                            </Grid>
+                        </Grid>
+                        )} 
                     </Box>
+                   } 
                 </div>
             </div>
         </div>

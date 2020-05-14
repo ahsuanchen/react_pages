@@ -26,29 +26,31 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "5% auto"
+        margin : "3% auto"
     } ,
     button_part : {
         display: "flex" ,
-        justifyContent : "space-between"
+        justifyContent : "space-between",
+        marginTop: theme.spacing(3),
     } ,
-    button_part1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    button1 : {
+        background : '#bdbdbd',
+        color : "#424242" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : '#757575',
+            color : "#fff"
         } , 
     } ,
-    button_part2 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+
+    button2 : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
     } ,
     space: {
@@ -64,7 +66,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(43),
+            height: theme.spacing(33),
         },
     },
 
@@ -257,7 +259,7 @@ export default function UpdateActivity_step() {
                                 <Grid item xs={12} sm={6} className={classes.button_part}>
                                     <Box lineHeight="normal" m={1}>
                                         <Button 
-                                            className={classes.button_part1}
+                                            className={classes.button1}
                                             component={Link}
                                             to="/updateInfo"
                                         >
@@ -267,7 +269,7 @@ export default function UpdateActivity_step() {
                                     <Box lineHeight="normal" m={1}>
                                         <Button
                                             type="submit"
-                                            className={classes.button_part2}
+                                            className={classes.button2}
                                             onClick={handleSubmit}
                                         >
                                             下一步
