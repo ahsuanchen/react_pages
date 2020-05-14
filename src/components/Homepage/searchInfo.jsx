@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+// import { browserHistory } from 'react'
+
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -76,8 +78,8 @@ export default function SearchInfo() {
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchDataSearch() {
-            let url = "/api/activity/search" + "?search=" + searchResult;
-            let url1 = "/api/organizer/search" + "?search=" + searchResult;
+            let url = "/api/activity/search"+"?search="+searchResult;
+            let url1 = "/api/organizer/search"+"?search="+searchResult;
             axios.get(url)
             .then(result => {
                 setActivity(result.data);
