@@ -14,8 +14,12 @@ const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box" ,
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     container : {
-        maxWidth : "1080px" ,
+        width : "100%" ,
+        maxWidth : "80%" ,
         margin : "2% auto" ,
     } ,
     service_type : {
@@ -28,7 +32,7 @@ const useStyles = makeStyles(theme => ({
         color : "#fff"
     } ,
     bottom_link : {
-        
+        fontFamily : "微軟正黑體" ,
         color : "#ADADAD" ,
         textDecoration : "none" ,
         '&:hover' : {
@@ -64,7 +68,7 @@ export default function MenuApp() {
                 <Grid container spacing={3} >
                     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.service_type}>
                         <Box lineHeight={2} >
-                            <Typography variant="h6">
+                            <Typography variant="h6" className={classes.word}>
                                 會員服務
                             </Typography>
                             <Link className={classes.bottom_link} to="">
@@ -86,7 +90,7 @@ export default function MenuApp() {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.service_type}>
                         <Box lineHeight={2}>
-                            <Typography variant="h6">
+                            <Typography variant="h6" className={classes.word}>
                                 聯絡我們
                             </Typography>
                             <br/>
@@ -111,15 +115,15 @@ export default function MenuApp() {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={3} className={classes.service_type}>
                         <Box lineHeight={1}>
-                            <Typography variant="h6">
+                            <Typography variant="h6" className={classes.word}>
                                 客服中心
                             </Typography>
                             <br/>
-                            <Typography variant="body2">
+                            <Typography variant="body2" className={classes.word}>
                                 Email : actfun.official@gmail.com
                             </Typography>
                             <br/>
-                            <Typography variant="body2">
+                            <Typography variant="body2" className={classes.word}>
                                 服務時間 : 周一至周五 9:00 ~ 18:00
                             </Typography>
                         </Box>

@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme => ({
         display : "flex" ,
         justifyContent: "center",
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     table : {
         margin : "auto" ,
     } ,
@@ -65,7 +68,8 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
-        minWidth : "125px"
+        minWidth : "125px" ,
+        fontFamily : "微軟正黑體"
     } ,
     Exclamation_Mark : {
         fontSize : "40px" ,
@@ -73,6 +77,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     dig_butoon : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
           color : '#00AEAE'
         }
@@ -97,6 +102,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     card_Title : {
         fontSize : "32px" ,
+        fontFamily : "微軟正黑體"
     } ,
     open_paper : {
         maxWidth : '500px' ,
@@ -313,7 +319,7 @@ export default function ManageActivity() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             管 理 活 動
                         </Typography>
                         <hr />
@@ -327,7 +333,7 @@ export default function ManageActivity() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         我所主辦的活動
                                     </Typography>
                                 </div>
@@ -339,12 +345,12 @@ export default function ManageActivity() {
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">活動名稱</TableCell>
-                                                            <TableCell align="center">活動地點</TableCell>
-                                                            <TableCell align="center">活動時間</TableCell>
-                                                            <TableCell align="center">可報名總額 / 已報名人數</TableCell>
-                                                            <TableCell align="center">活動狀況</TableCell>
-                                                            <TableCell align="center">功能</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動名稱</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動地點</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動時間</TableCell>
+                                                            <TableCell className={classes.word} align="center">可報名總額 / 已報名人數</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動狀況</TableCell>
+                                                            <TableCell className={classes.word} align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
@@ -352,23 +358,23 @@ export default function ManageActivity() {
                                                         (activity.activityCancelTime === null
                                                             ?
                                                         <TableRow hover>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activityName}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activitySpace}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activityStartDateString}
                                                                 <br/>
                                                                 <span>|</span>
                                                                 <br/>
                                                                 {activity.activityEndDateString}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.attendPeople}&nbsp;/&nbsp;{activity.registeredPeople}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                             {   (new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
                                                                     ? "尚未開始報名"
                                                                 :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) &&  
@@ -406,13 +412,13 @@ export default function ManageActivity() {
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
-                                                                            <Typography variant="h5">
+                                                                            <Typography variant="h5" className={classes.word}>
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
                                                                                 刪除活動
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
-                                                                            <DialogContentText style={{fontSize:"20px"}}>
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
                                                                                 您確定要刪除該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
@@ -462,13 +468,13 @@ export default function ManageActivity() {
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
-                                                                            <Typography variant="h5">
+                                                                            <Typography variant="h5" className={classes.word}>
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
                                                                                 停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
-                                                                            <DialogContentText style={{fontSize:"20px"}}>
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
                                                                                 您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
@@ -518,13 +524,13 @@ export default function ManageActivity() {
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
-                                                                            <Typography variant="h5">
+                                                                            <Typography variant="h5" className={classes.word}>
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
                                                                                 停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
-                                                                            <DialogContentText style={{fontSize:"20px"}}>
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
                                                                                 您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
@@ -589,7 +595,7 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.word}>
                                                                                                 手動簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -654,7 +660,7 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.word}>
                                                                                                 手動簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>

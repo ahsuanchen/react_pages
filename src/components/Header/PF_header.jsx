@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     toolbar : {
         width : "95%" ,
-        //maxWidth : "1080px" ,
+        // maxWidth : "80%" ,
         margin : "0 auto" ,
         display: "flex" ,
         justifyContent : "space-between"
@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     leftbar: theme.mixins.toolbar,
     list: {
       width: "220px" ,
+    } ,
+    word : {
+      fontFamily : "微軟正黑體"
     } ,
     link : {
       textDecoration : "none" ,
@@ -129,7 +132,7 @@ export default function MenuAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         ACTFUN
                     </Typography>
                     <IconButton

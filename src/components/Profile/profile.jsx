@@ -24,7 +24,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     div: {
-        boxSizing: "border-box"
+        boxSizing: "border-box" ,
     },
     content_part : {
         display : "flex" ,
@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
         margin: "2%",
         overflow: "visible" ,
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     table_form : {
         margin: "5% auto",
     } ,
@@ -151,7 +154,7 @@ export default function Profile() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             個 人 檔 案
                         </Typography>
                         <hr />
@@ -161,7 +164,7 @@ export default function Profile() {
                             <Table>
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell>姓名：</TableCell>
+                                        <TableCell className={classes.word}>姓名：</TableCell>
                                         <TableCell>
                                             <TextField
                                                 variant="outlined"
@@ -170,10 +173,15 @@ export default function Profile() {
                                                 onChange={handleChange('memberName')}
                                             />
                                         </TableCell>
-                                        <TableCell>電子郵件(帳號)：</TableCell>
+                                        <TableCell className={classes.word}>電子郵件(帳號)：</TableCell>
                                         <TableCell>
-                                            <TextField variant="outlined" style={{ minWidth: "250px" }} value={member.memberEmail} disabled />
-                                            <Tooltip title="修改密碼">
+                                            <TextField
+                                                variant="outlined"
+                                                style={{ minWidth: "250px" }}
+                                                value={member.memberEmail}
+                                                disabled
+                                            />
+                                            <Tooltip title="修改密碼" className={classes.word}>
                                                 <Button
                                                     className={classes.change_password}
                                                     component={Link}
@@ -186,11 +194,11 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>身分證字號：</TableCell>
+                                        <TableCell className={classes.word}>身分證字號：</TableCell>
                                         <TableCell>
                                             <TextField variant="outlined" value={member.memberID} disabled />
                                         </TableCell>
-                                        <TableCell>血型：</TableCell>
+                                        <TableCell className={classes.word}>血型：</TableCell>
                                         <TableCell>
                                             <FormControl style={{ minWidth: "100px" }} variant="outlined">
                                                 <Select
@@ -198,18 +206,19 @@ export default function Profile() {
                                                     value={member.memberBloodType}
                                                     onChange={handleChange('memberBloodType')}
                                                     name="BloodType"
+                                                    className={classes.word}
                                                 >
-                                                    <MenuItem value="A" >A</MenuItem>
-                                                    <MenuItem value="B" >B</MenuItem>
-                                                    <MenuItem value="AB" >AB</MenuItem>
-                                                    <MenuItem value="O">O</MenuItem>
-                                                    <MenuItem value="RH" >RH 陰性</MenuItem>
+                                                    <MenuItem value="A" className={classes.word}>A</MenuItem>
+                                                    <MenuItem value="B" className={classes.word}>B</MenuItem>
+                                                    <MenuItem value="AB" className={classes.word}>AB</MenuItem>
+                                                    <MenuItem value="O" className={classes.word}>O</MenuItem>
+                                                    <MenuItem value="RH" className={classes.word}>RH 陰性</MenuItem>
                                                 </Select>
                                             </FormControl>
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>性別：</TableCell>
+                                        <TableCell className={classes.word}>性別：</TableCell>
                                         <TableCell>
                                             <RadioGroup name="Gender" value={member.memberGender} onChange={handleChange('memberGender')}>
                                                 <FormControlLabel value="male" control={<RadioColor />} label="男性" />
@@ -217,7 +226,7 @@ export default function Profile() {
                                                 <FormControlLabel value="unknown" control={<RadioColor />} label="暫不透露" />
                                             </RadioGroup>
                                         </TableCell>
-                                        <TableCell>生日：</TableCell>
+                                        <TableCell className={classes.word}>生日：</TableCell>
                                         <TableCell>
                                             <TextField
                                                 type="date"
@@ -231,7 +240,7 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>聯絡電話：</TableCell>
+                                        <TableCell className={classes.word}>聯絡電話：</TableCell>
                                         <TableCell>
                                             <TextField 
                                                 variant="outlined"
@@ -241,7 +250,7 @@ export default function Profile() {
                                                 // onChange={e=>setMemberPhone(e.target.value)}
                                             />
                                         </TableCell>
-                                        <TableCell>聯絡地址：</TableCell>
+                                        <TableCell className={classes.word}>聯絡地址：</TableCell>
                                         <TableCell>
                                             <TextField 
                                                 variant="outlined"
@@ -254,7 +263,7 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>緊急聯絡人：</TableCell>
+                                        <TableCell className={classes.word}>緊急聯絡人：</TableCell>
                                         <TableCell>
                                             <TextField
                                                 variant="outlined"
@@ -264,7 +273,7 @@ export default function Profile() {
                                                 // onChange={e=>setEmergencyContact(e.target.value)}
                                             />
                                         </TableCell>
-                                        <TableCell>緊急聯絡人關係：</TableCell>
+                                        <TableCell className={classes.word}>緊急聯絡人關係：</TableCell>
                                         <TableCell>
                                             <TextField
                                                 variant="outlined"
@@ -276,7 +285,7 @@ export default function Profile() {
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
-                                        <TableCell>緊急連絡人電話：</TableCell>
+                                        <TableCell className={classes.word}>緊急連絡人電話：</TableCell>
                                         <TableCell colspan="3">
                                             <TextField
                                                 variant="outlined"
@@ -290,7 +299,7 @@ export default function Profile() {
                                 </TableBody>
                             </Table>
                             <Box lineHeight={5} m={1}>
-                                <Tooltip title="確認儲存">
+                                <Tooltip title="確認儲存" className={classes.word}>
                                     <Button
                                         type="submit"
                                         className={classes.button}

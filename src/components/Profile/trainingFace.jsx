@@ -52,14 +52,16 @@ const useStyles = makeStyles(theme => ({
         //alignItems: 'center',
         //width: '100%',
     } ,
-
-   
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     button : {
         margin : "5% auto" ,
         display: "flex" ,
         justifyContent : "center" ,
         background : '#00bfa5',
         color : "#fff",
+        fontFamily : "微軟正黑體"
         //margin:"10% 1%"
     } ,
     open_paper : {
@@ -164,7 +166,7 @@ export default function TrainingFace() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             訓 練 人 臉
                         </Typography>
                         <hr />
@@ -211,7 +213,7 @@ export default function TrainingFace() {
                                                     <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                                 </Button>
                                                 <div>
-                                                <Typography variant="overline">
+                                                    <Typography variant="overline" className={classes.word}>
                                                         ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且檔案不得超過1GB
                                                     </Typography>
                                                 </div>

@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box"
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } , 
     content_part : {
         display : "flex" ,
         justifyContent: "center",
@@ -50,6 +53,7 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
+        fontFamily : "微軟正黑體"
     } ,
     Exclamation_Mark : {
         fontSize : "40px" ,
@@ -57,6 +61,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     dig_butoon : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
           color : '#00AEAE'
         }
@@ -101,7 +106,7 @@ export default function SignupSituation() {
     
     const [open, setOpen] = React.useState(false);
     const handleOpen = (ainum,event) => {
-        console.log(ainum);
+        // console.log(ainum);
         setCancel(ainum);
         setOpen(true);
     };
@@ -131,7 +136,7 @@ export default function SignupSituation() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             報 名 狀 況
                         </Typography>
                         <hr />
@@ -145,7 +150,7 @@ export default function SignupSituation() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         已報名
                                     </Typography>
                                 </div>
@@ -160,16 +165,16 @@ export default function SignupSituation() {
                                             <Paper >
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
-                                                        <Typography variant="h5" >
+                                                        <Typography variant="h5" className={classes.word}>
                                                             {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
                                                             {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
                                                             {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
@@ -219,13 +224,13 @@ export default function SignupSituation() {
                                                                 aria-labelledby="draggable-dialog-title"
                                                             >
                                                                 <DialogTitle id="draggable-dialog-title">
-                                                                    <Typography variant="h5">
+                                                                    <Typography variant="h5" className={classes.word}>
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
                                                                 </DialogTitle>
                                                                 <DialogContent>
-                                                                    <DialogContentText style={{fontSize:"20px"}}>
+                                                                    <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
                                                                         您確定要取消該活動報名嗎？
                                                                     </DialogContentText>
                                                                 </DialogContent>
@@ -254,7 +259,7 @@ export default function SignupSituation() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         已結束
                                     </Typography>
                                 </div>
@@ -267,16 +272,16 @@ export default function SignupSituation() {
                                             <Paper>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
-                                                        <Typography variant="h5" >
+                                                        <Typography variant="h5" className={classes.word}>
                                                             {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
                                                             {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
                                                             {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>

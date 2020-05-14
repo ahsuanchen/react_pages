@@ -32,9 +32,8 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
-    topic : {
-        margin : "2% auto" ,
-        textAlign : "center"
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         display: "flex" ,
@@ -50,6 +49,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -130,24 +130,18 @@ export default function Updatepassword() {
                 <LeftBar/>
                 <Container className={classes.content}>
                         <div>
-                            <Typography variant="h4">
+                            <Typography variant="h4" className={classes.word}>
                                 更 改 密 碼
                             </Typography>
                             <hr />
                         </div>
-                        <input
-                                type="hidden"
-                                id="memberPassword"
-                                label="密碼"
-                                // value={oldPassword}
-                            />
                         <div>
                             <form>
                                 <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     請輸入舊密碼：
                                                 </Typography>
                                             </TableCell>
@@ -179,7 +173,7 @@ export default function Updatepassword() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     請輸入新密碼：
                                                 </Typography>
                                             </TableCell>
@@ -211,7 +205,7 @@ export default function Updatepassword() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     再次輸入新密碼：
                                                 </Typography>
                                             </TableCell>

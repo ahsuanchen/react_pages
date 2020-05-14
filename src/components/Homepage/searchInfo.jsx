@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
         maxWidth : "1080px" ,
         margin : "2% auto" ,
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     search: {
         margin : "2% auto" ,
         display: "flex" ,
@@ -36,9 +39,11 @@ const useStyles = makeStyles(theme => ({
     inputBase : {
         minWidth : "1010px" ,
         padding : "5px 20px" ,
+        fontFamily : "微軟正黑體"
     } ,
     Typography : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         "&:hover" : {
             color : "#00AEAE"
         }
@@ -46,6 +51,7 @@ const useStyles = makeStyles(theme => ({
     link : {
         textDecoration : "none" , 
         color : "#ADADAD" , 
+        fontFamily : "微軟正黑體" ,
         "&:hover" : {
             color : "#00AEAE"
         }
@@ -56,6 +62,7 @@ const useStyles = makeStyles(theme => ({
     search_NoResult : {
         display: "flex" ,
         justifyContent : "center" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -101,7 +108,7 @@ export default function SearchInfo() {
                             value={searchResult}
                             onChange={e=>setSearchResult(e.target.value)}
                         />
-                        <Tooltip title="搜尋">
+                        <Tooltip title="搜尋" className={classes.word}>
                             <Button
                                 type="submit"
                                 className={classes.search_butoon}
@@ -113,7 +120,7 @@ export default function SearchInfo() {
                     </Box>
                 </div>
                 <div>
-                    <Typography variant="h5">
+                    <Typography variant="h5" className={classes.word}>
                         搜尋關鍵字&nbsp;&nbsp;"{searchResult}"
                     </Typography>
                 </div>
@@ -121,7 +128,7 @@ export default function SearchInfo() {
                 <Divider />
                 <br/>
                 <div>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         與搜尋內容相關
                     </Typography>
                     <br/>
@@ -146,19 +153,19 @@ export default function SearchInfo() {
                                                         {activity.activityName}
                                                     </Typography>
                                                     <Link 
-                                                        to={"/ActivityInformation?" + activity.activityId}
+                                                        // to={"/ActivityInformation?" + activity.activityId}
                                                         className={classes.link}
-                                                        title={activity.activityName}
+                                                        title={activity.organizerName}
                                                     >
                                                         <Typography variant="overline">
                                                             {activity.organizerName}
                                                         </Typography>
                                                     </Link>
-                                                    <Typography variant="caption" color="textSecondary">
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary">
                                                         {` • ${activity.activityStartDateString} • ${activity.activitySpace}`}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary" className={classes.content}>
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary" className={classes.content}>
                                                         {activity.activityInfo}
                                                     </Typography>
                                                 </Box>
@@ -174,7 +181,7 @@ export default function SearchInfo() {
                 <Divider />
                 <br/>
                 <div>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         與主辦單位相關
                     </Typography>
                     <br/>
@@ -188,24 +195,24 @@ export default function SearchInfo() {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                     <div>
-                                        <Container style={{textDecoration : "none"}}>
+                                        <Container component={Link} to="" style={{textDecoration : "none"}}>
                                                 <Box lineHeight="normal">
                                                     <Typography variant="h6" title={organizer.organizerName} className={classes.Typography}>
                                                         {organizer.organizerName}
                                                     </Typography>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="overline" className={classes.word}>
                                                         電話：{organizer.organizerPhone}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption">
+                                                    <Typography variant="caption" className={classes.word}>
                                                         聯絡信箱： {organizer.organizerEmail}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="overline" className={classes.word}>
                                                         聯絡地址： {organizer.organizerAddress}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary">
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary">
                                                         主辦單位資訊： {`  ${organizer.organizerInfo}`}
                                                     </Typography>
                                                 </Box>
