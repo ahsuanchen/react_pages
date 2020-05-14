@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -11,8 +12,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-
 
 
 const useStyles = makeStyles(theme => ({
@@ -56,37 +55,39 @@ const useStyles = makeStyles(theme => ({
     } ,
 
     upload_button : {
-        border: 0 ,
+        border:'0',
         color : "#fff" ,
         textAlign : "center" ,
         background : '#00bfa5',
-        borderRadius: "5px",
         fontSize: "15px",
         marginBottom : "10%" ,
+        margin:"10% 1%"
     } ,
 
-    btn_file : {
+    file : {
         fontSize : "30px" ,
         position: "absolute" ,
         left: 0 ,
         top: 0 ,
         opacity: 0 ,
+        //margin:"1% 10%"
     } ,
 
 
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(4),
         flexDirection: 'column',
         alignItems: 'center',
+        color:'white',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(70),
             height: theme.spacing(20),
         },
     },
+
 
 
     avatar: {
@@ -100,15 +101,19 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        border: 0 ,
-        color : "#fff" ,
+        color : '#fafafa' ,
         textAlign : "center" ,
         background : '#00bfa5',
-        borderRadius: "5px",
+        '&:hover' : {
+            background : '#00bfa5',
+            color : "#fff"
+        } , 
         fontSize: "10px",
         marginTop : "10%" ,
         margin:"1% 10%"
     },
+
+
     font: {
         color: theme.palette.grey,
     },
@@ -151,11 +156,11 @@ export default function SettingFace() {
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files[0])
-      setImage({
-          
+        setImage({
+            
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
-      })
+        })
     };
 
     console.log(data);
@@ -180,23 +185,31 @@ export default function SettingFace() {
         let url = "/api/files/uploadFace/";
         url = url + memberEmail;
 
-
-        axios.post(url, formData,config)
-          .then(res => {
-            //alert("yes")
-            console.log("test")
-            console.log(res);
-            console.log(res.data);
+        if(formData == null){
             history.push({
                 pathname: "/finish",
               });
+        }
 
-
-          }).catch(function(error){
-              alert(error);
-              console.log(error);
-          });
-
+        else{
+            axios.post(url, formData,config)
+            .then(res => {
+              //alert("yes")
+              console.log("test")
+              console.log(res);
+              console.log(res.data);
+              history.push({
+                  pathname: "/finish",
+                });
+  
+  
+            }).catch(function(error){
+                alert(error);
+                console.log(error);
+            });
+  
+        }
+       
     }
 
     return (
@@ -205,15 +218,14 @@ export default function SettingFace() {
                 <CssBaseline />
                 <Typography className={classes.font} component="h1" variant="h5" align="center">
                     註 冊
+                </Typography>
+                <br/>
+                <Typography variant="subtitle1" gutterBottom align="center">
+                        設定使用者人臉
                     </Typography>
-                <div className={classes.paper}>
-                    <paper>
-                        <Typography variant="subtitle1" gutterBottom align="center">
-                            設定使用者人臉<br/>
-                        </Typography>
-                       
-                        {/* <img className={classes.img} src="./img/1.jpg" alt="description of ./img/1.jpg"></img> */}
-                        <Grid container justify="center">
+                <Paper className={classes.paper} elevation='5'>
+                        
+                    <Grid container justify="center">
                     <Container className={classes.container}>
                     <div className={classes.upload_btn_wrapper}>
                         <br/><br/><br/>
@@ -224,25 +236,30 @@ export default function SettingFace() {
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
 
-                                    新增檔案
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                    重新選擇
+                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                </Button>
+
+                                <Button className={classes.upload_button} variant="outlined" onClick={handleSubmit}>
+                                    訓練人臉
+                                    
                                 </Button>
                                 <div>
                                     <Typography variant="overline">
                                         ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
                                     </Typography>
-                                    <br/>
+                                    {/* <br/>
                                     <Typography variant="overline">
-                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
-                                    </Typography>
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可點選「下一步」略過此步驟！
+                                    </Typography> */}
                                 </div>
                             </>
                             :(
                             <>
                                 <Button className={classes.upload_button} variant="outlined">
 
-                                    新增檔案
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                    選擇檔案
+                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
                                 <Typography variant="overline">
@@ -250,7 +267,7 @@ export default function SettingFace() {
                                     </Typography>
                                     <br/>
                                     <Typography variant="overline">
-                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可略過此步驟！
+                                        ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可點選「下一步」略過此步驟！
                                     </Typography>
                                 </div>
                             </>
@@ -259,11 +276,11 @@ export default function SettingFace() {
                         </Container>
                         </Grid>
 
-                    </paper>
+                    
                     <Grid align-items-xs-flex-end>
                     </Grid>
 
-                </div>
+                    </Paper>
                 <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"
@@ -280,7 +297,7 @@ export default function SettingFace() {
                                 Width="50"
                                 variant="contained"
                                 className={classes.submit}
-                                onClick={handleSubmit}
+                                href="./finish"
                             >
                                 <ChevronRightIcon />
                                 下一步

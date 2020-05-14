@@ -93,13 +93,16 @@ export default function SignupSituation() {
                     console.log(err.response.status);
                 })
         }
+        
         fetchDataReg();
     }, []);
 
     const[cancel , setCancel] = useState(0);
     
+
     const [open, setOpen] = React.useState(false);
-    const handleOpen = (ainum , event) => {
+    const handleOpen = (ainum,event) => {
+        console.log(ainum);
         setCancel(ainum);
         setOpen(true);
     };
@@ -108,6 +111,7 @@ export default function SignupSituation() {
     };
 
     const handleSubmit = (AInum) => {
+        console.log(AInum);
         let url = "/api/registration/cancel/";
         url = url + AInum;
         axios.patch(url)
@@ -203,6 +207,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 onClick={(event) => handleOpen(registration.ainum , event)}
+                                                                
                                                             >
                                                                 取消報名
                                                             </Button>

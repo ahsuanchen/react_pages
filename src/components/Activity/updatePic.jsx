@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
+import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "5% auto"
+        margin : "3% auto"
     } ,
     container : {
         minHeight : "600px" ,
@@ -44,8 +45,8 @@ const useStyles = makeStyles(theme => ({
         fontSize: "20px",
         marginBottom : "5%" ,
         '&:hover' : {
-            background : 'none',
-            color : "#000"
+            background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
+            color : "#fff"
         }
     } ,
     btn_file : {
@@ -64,24 +65,25 @@ const useStyles = makeStyles(theme => ({
         display: "flex" ,
         justifyContent : "space-between"
     } ,
-    button_part1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    button1 : {
+        background : '#bdbdbd',
+        color : "#424242" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : '#757575',
+            color : "#fff"
         } , 
     } ,
-    button_part2 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+
+    button2 : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
-    }
+    } ,
 
 }));
 
@@ -129,7 +131,8 @@ export default function UpdateActivity_step2() {
     }, []);
 
     
-    let cover_src = "." + act.activityCover.substring(6);
+    //let cover_src = "." + act.activityCover.substring(6);
+    let cover_src = act.activityCover;
     console.log(cover_src)
 
 
@@ -178,7 +181,7 @@ export default function UpdateActivity_step2() {
             console.log(res);
             console.log(res.data);
             history.push({
-                pathname: "/.",
+                pathname: "/manageActivity",
               });
             
             
@@ -206,7 +209,7 @@ export default function UpdateActivity_step2() {
                         {
                             image.preview ? 
                             <>
-                                <img src={ image.preview } width="800" height="480" />
+                                <img src={ image.preview } width="50%" height="50%" />
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
@@ -224,7 +227,7 @@ export default function UpdateActivity_step2() {
                             :(
                             <>
                             {/* 修改前 */}
-                                <img src= {cover_src}  width="800" height="480" />
+                                <img src= {cover_src}  width="50%" height="50%" />
                                 <br/><br/><br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
@@ -245,7 +248,7 @@ export default function UpdateActivity_step2() {
                 <Grid item xs={12} sm={6} className={classes.button_part}>
                     <Box lineHeight="normal" m={1}>
                         <Button 
-                            className={classes.button_part1}
+                            className={classes.button1}
                             component={Link}
                             to="/updateDetails"
                         >
@@ -254,9 +257,8 @@ export default function UpdateActivity_step2() {
                     </Box>
                     <Box lineHeight="normal" m={1}>
                         <Button 
-                            className={classes.button_part2}
-                            component={Link}
-                            to="/manageActivity"
+                            className={classes.button2}
+                            onClick={handleSubmit}
                         >
                             完成修改
                         </Button>

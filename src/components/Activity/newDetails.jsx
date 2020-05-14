@@ -59,31 +59,35 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "3% auto"
     } ,
     button_part : {
+        marginTop: theme.spacing(5),
         display: "flex" ,
         justifyContent : "space-between"
     } ,
-    button_part1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    button1 : {
+        background : '#bdbdbd',
+        color : "#424242" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : '#757575',
+            color : "#fff"
         } , 
     } ,
-    button_part2 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+
+    button2 : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
     } ,
+
+
     space: {
         marginTop: theme.spacing(5),
     },
@@ -97,7 +101,7 @@ const useStyles = makeStyles(theme => ({
         '& > *': {
             marginTop: theme.spacing(3),
             width: theme.spacing(40),
-            height: theme.spacing(40),
+            height: theme.spacing(33),
         },
     },
 
@@ -200,6 +204,7 @@ export default function BulidActivity_step3() {
 
             setAct(res.data)
             const actId = res.data.activityId;
+            
             axios.post(url, Types_array)
             .then(result =>{
                 console.log(result);
@@ -220,10 +225,10 @@ export default function BulidActivity_step3() {
     //console.log(url)
 
     return (
-        <div className={classes.root}>
+        <div className={classes.div}>
             <Header/>
             <div>
-            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={2} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={2} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h5">
@@ -235,148 +240,142 @@ export default function BulidActivity_step3() {
                     <CssBaseline />
                     <div className={classes.paper}>
                         <paper>
-                            {/* <form className={classes.form} noValidate> */}
-
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityName"
                                 value={activityName}
                                 onChange={e=>setactivityName(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityStartDate"
                                 value={activityStartDate}
                                 onChange={e=>setactivityStartDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityEndDate"
                                 value={activityEndDate}
                                 onChange={e=>setactivityEndDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="startSignUpDate"
                                 value={startSignUpDate}
                                 onChange={e=>setstartSignUpDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="endSignUpDate"
                                 value={endSignUpDate}
                                 onChange={e=>setendSignUpDate(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="attendPeople"
                                 value={attendPeople}
                                 onChange={e=>setattendPeople(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activitySpace"
                                 value={activitySpace}
                                 onChange={e=>setactivitySpace(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activitySummary"
                                 value={activitySummary}
                                 onChange={e=>setactivitySummary(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityInfo"
                                 value={activityInfo}
                                 onChange={e=>setactivityInfo(e.target.value)}
                             />
                             <input
-                                //type="hidden"
+                                type="hidden"
                                 id="activityMeal"
                                 value={activityMeal}
                                 onChange={e=>setactivityMeal(e.target.value)}
                             />
-                            {/* <input
-                                //type="hidden"
-                                id="activityOrganizer"
-                                onChange={e=>setactivityOrganizer(e.target.value)}
-                            /> */}
 
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    autoFocus
-                                    id="activityMoreContent"
-                                    label="更多內容"
-                                    variant="outlined"
-                                    multiline
-                                    rows="8"
-                                    placeholder="請填寫更多內容"
-                                    onChange={e=>setactivityMoreContent(e.target.value)}
-                                />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                autoFocus
+                                id="activityMoreContent"
+                                label="更多內容"
+                                variant="outlined"
+                                multiline
+                                rows="8"
+                                placeholder="請填寫更多內容"
+                                onChange={e=>setactivityMoreContent(e.target.value)}
+                            />
 
-                                <TextField
-                                    margin="normal"
-                                    required
-                                    fullWidth
-                                    id="activityPrecautions"
-                                    label="注意事項"
-                                    variant="outlined"
-                                    multiline
-                                    rows="5"
-                                    placeholder="請填寫注意事項（限五十字）"
-                                    onChange={e=>setactivityPrecautions(e.target.value)}
-                                />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="activityPrecautions"
+                                label="注意事項"
+                                variant="outlined"
+                                multiline
+                                rows="5"
+                                placeholder="請填寫注意事項（限五十字）"
+                                onChange={e=>setactivityPrecautions(e.target.value)}
+                            />
 
-                                <TextField
-                                    margin="normal"
-                                    fullWidth
-                                    label="參考網站名稱（例：Facebook）"
-                                    id="activityLinkName"
-                                    variant="outlined"
-                                    onChange={e=>setactivityLinkName(e.target.value)}
-                                />
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                label="參考網站名稱（例：Facebook）"
+                                id="activityLinkName"
+                                variant="outlined"
+                                onChange={e=>setactivityLinkName(e.target.value)}
+                            />
 
-                                <TextField
-                                    margin="normal"
-                                    fullWidth
-                                    label="參考網站連結"
-                                    id="activityLink"
-                                    variant="outlined"
-                                    onChange={e=>setactivityLink(e.target.value)}
-                                />
+                            <TextField
+                                margin="normal"
+                                fullWidth
+                                label="參考網站連結"
+                                id="activityLink"
+                                variant="outlined"
+                                onChange={e=>setactivityLink(e.target.value)}
+                            />
+                            <Grid item xs={12} sm={6} className={classes.button_part}>
+                                <Box lineHeight="normal" m={1}>
+                                    <Button 
+                                        className={classes.button1}
+                                        component={Link}
+                                        to="/newInfo"
+                                    >
+                                        上一步
+                                    </Button>
+                                </Box>
+                                <Box lineHeight="normal" m={1}>
+                                    <Button
+                                        type="submit"
+                                        className={classes.button2}
+                                        // onChange={e=>setactivityOrganizer("87")}
+                                        onClick={handleSubmit}
+                                    >
+                                        下一步
+                                    </Button>
+                                </Box>
+                            </Grid>
 
 
-                                <Grid item xs={12} sm={6} className={classes.button_part}>
-                                    <Box lineHeight="normal" m={1}>
-                                        <Button 
-                                            className={classes.button_part1}
-                                            component={Link}
-                                            to="/newInfo"
-                                        >
-                                            上一步
-                                        </Button>
-                                    </Box>
-                                    <Box lineHeight="normal" m={1}>
-                                        <Button
-                                            type="submit"
-                                            className={classes.button_part2}
-                                            // onChange={e=>setactivityOrganizer("87")}
-                                            onClick={handleSubmit}
-                                        >
-                                            下一步
-                                        </Button>
-                                    </Box>
-                                </Grid>
+                                
                         </paper>
                         <Grid align-items-xs-flex-end>
                         </Grid>
 
                     </div>
-
+                    
                 </Container>
             </Grid>
         </div>

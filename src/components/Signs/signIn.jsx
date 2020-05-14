@@ -54,11 +54,6 @@ const useStyles = makeStyles(theme => ({
     height: '80vh',
     width:'85%',
     margin: theme.spacing(10,25),
-    // height: '100vh',
-    // margin: theme.spacing(10, 15),
-
-    //borderRadius: 10,
-    //border: 0,
     
   },
   paperout:{
@@ -66,7 +61,6 @@ const useStyles = makeStyles(theme => ({
   },
 
   image: {
-    //backgroundImage: 'url(https://source.unsplash.com/random)',
     backgroundImage: 'url(./img/logot.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor: 
@@ -74,32 +68,33 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
+
   paper: {
     margin: theme.spacing(5, 4),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    color: 'white',
+    color: '#fff',
     background: '#a5d6a7',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
+
+  
   form: {
     width: '100%',
     marginTop: theme.spacing(1),
   },
+
   submit: {
     margin: theme.spacing(3, 0, 2),
-    background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    background : '#00bfa5',
+        color : "#fafafa" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : '#00bfa5',
+            color : "#fff"
         } , 
   },
+  
 }));
 
 
@@ -132,12 +127,12 @@ export default function SignInSide() {
             </Alert>
           </Snackbar>
         </div>
-          <div className={classes.paper}>
+        <div className={classes.paper}>
             
-            <Typography component="h1" variant="h5">
-              登入
-              
+          <Typography component="h1" variant="h5">
+            登入
           </Typography>
+
             <form className={classes.form} noValidate action = "/login" method = "post">
               <TextField
                 variant="outlined"
@@ -146,14 +141,12 @@ export default function SignInSide() {
                 fullWidth
                 id="username"
                 label="帳號"
-                name="username"
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                name="password"
                 label="密碼"
                 type="password"
                 id="password"
@@ -170,15 +163,15 @@ export default function SignInSide() {
                 className={classes.submit}
               >
                 登入
-            </Button>
+              </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="forgot1" variant="body2">
+                  <Link href="forgot1" variant="body2" color="inherit">
                     忘記密碼？
-                </Link>
+                  </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2">
+                  <Link href="signup" variant="body2" color="inherit">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

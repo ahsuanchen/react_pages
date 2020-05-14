@@ -41,7 +41,8 @@ const useStyles = makeStyles(theme => ({
     } , 
     slide_img : {
         maxWidth : "100%" ,
-        maxHeight : "100%" 
+        maxHeight : "100%",
+        objectFit : 'contain' 
     } ,
     search: {
         margin : "2% auto" ,
@@ -51,11 +52,13 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        // background : 'linear-gradient(50deg, #80cbc4 40%, #80deea 85%)' ,
+        background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "450px" ,
         padding : "5px 20px" ,
+        //color:"white"
     } ,
     search_butoon : {
         padding : "10px 0" ,
@@ -128,6 +131,7 @@ const properties = {
     infinite: true,
     indicators: true,
     arrows: true,
+    //variableWidth: true
 }
 
 export default function MenuApp() {
@@ -244,7 +248,7 @@ export default function MenuApp() {
                             className={classes.fab}
                             onClick={handleOpen}
                         >
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FontAwesomeIcon icon={faPlus} color="white" />
                         </Fab>
                     </Tooltip>
                     <Modal

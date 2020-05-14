@@ -116,7 +116,7 @@ export default function MenuApp() {
                             </Typography>
                             <br/>
                             <Typography variant="body2">
-                                Email : actforfun@gmail.com
+                                Email : actfun.official@gmail.com
                             </Typography>
                             <br/>
                             <Typography variant="body2">

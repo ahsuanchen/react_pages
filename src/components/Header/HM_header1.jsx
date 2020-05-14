@@ -129,8 +129,15 @@ export default function (props) {
                     component={Link}
                     to="/signIn"
                   >
-                    Log in
+                    登入
                   </Button>
+                  {/* <Button 
+                    color="inherit"
+                    variant="outlined"
+                    href="./signUp"
+                  >
+                    註冊
+                </Button> */}
                   <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                     {sideList('left')}
                   </Drawer>

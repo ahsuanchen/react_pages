@@ -214,7 +214,7 @@ export default function Profile() {
                                             <RadioGroup name="Gender" value={member.memberGender} onChange={handleChange('memberGender')}>
                                                 <FormControlLabel value="male" control={<RadioColor />} label="男性" />
                                                 <FormControlLabel value="female" control={<RadioColor />} label="女性" />
-                                                <FormControlLabel value="unknown" control={<RadioColor />} label="暫不透漏" />
+                                                <FormControlLabel value="unknown" control={<RadioColor />} label="暫不透露" />
                                             </RadioGroup>
                                         </TableCell>
                                         <TableCell>生日：</TableCell>
