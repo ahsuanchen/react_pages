@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+import { browserHistory } from 'react-router'
+
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -197,6 +199,25 @@ export default function SearchInfo() {
         fetchDataSearch();
     }, []);
 
+
+    const [searchResult_N , setSearchResult_N] = useState("");
+
+    let history = useHistory();
+    const SendSearchResult = event =>
+    {
+        if (searchResult_N === "")
+        {
+            alert("您未輸入任何東西");
+        }
+        else
+        {
+            localStorage.setItem('searchResult' , searchResult_N);
+            // history.push({
+            //     pathname: "/searchInfo",
+            // });
+            browserHistory.push('/searchInfo')
+        }
+    }
     return (
         <div className={classes.div}>
             <Header />

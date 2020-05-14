@@ -68,10 +68,19 @@ const useStyles = makeStyles(theme => ({
     } ,
     card : {
         maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_area : {
+        maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_media : {
+        width : "100%" ,
+        minHeight : "250px"
     } ,
     card_content : {
         width : "100%" ,
-        minHeight : "200px"
+        minHeight : "50px" ,
     } ,
     img : {
         width : "100%" ,
@@ -131,6 +140,7 @@ const properties = {
     infinite: true,
     indicators: true,
     arrows: true,
+    //objectFit : 'contain'
     //variableWidth: true
 }
 
@@ -317,9 +327,9 @@ export default function MenuApp() {
                     {activity.map(activity =>
                         <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
-                                <CardActionArea>
+                                <CardActionArea className={classes.card_area}>
                                     <CardMedia
-                                        className={classes.card_content}
+                                        className={classes.card_media}
                                         image={activity.activityCover}
                                         title="act_1"
                                     />
@@ -333,8 +343,9 @@ export default function MenuApp() {
                                             &nbsp; {activity.activityStartDateString.substring(0,10)}
                                         </Typography>
                                     </CardContent>
-                                    <Divider/>
+                                    
                                 </CardActionArea>
+                                <Divider/>
                                 <CardActions>
                                     <Link to="/" className={classes.link}>#running </Link>
                                     <Link to="/" className={classes.link}>#marathon </Link>
