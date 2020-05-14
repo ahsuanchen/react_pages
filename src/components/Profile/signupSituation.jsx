@@ -110,17 +110,13 @@ export default function SignupSituation() {
       setOpen(false);
     };
 
-
     const handleSubmit = (AInum) => {
         console.log(AInum);
         let url = "/api/registration/cancel/";
         url = url + AInum;
-        console.log(AInum);
-        console.log(url);
         axios.patch(url)
         .then(res => {
-            console.log(url)
-            // window.location.reload();
+            window.location.reload();
         })
         .catch(function(error){
             console.log(error.response.status);
@@ -164,7 +160,7 @@ export default function SignupSituation() {
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" >
-                                                            {registration.activity.activityName} {registration.ainum}
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
                                                         <Typography variant="h6">
@@ -226,7 +222,7 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
-                                                                    <input type="text" value={cancel} />
+                                                                    {/* <input type="text" value={registration.ainum} /> */}
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>

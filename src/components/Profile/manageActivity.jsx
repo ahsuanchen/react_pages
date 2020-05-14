@@ -97,7 +97,11 @@ const useStyles = makeStyles(theme => ({
     } ,
     card_Title : {
         fontSize : "32px" ,
-    }
+    } ,
+    open_paper : {
+        maxWidth : '500px' ,
+        maxHeight : '600px' ,
+    } ,
   }));
 
   function PaperComponent(props) {
@@ -108,32 +112,56 @@ const useStyles = makeStyles(theme => ({
     );
   }
 
+function getUserMedia(constraints) {
+    // if Promise-based API is available, use it
+    if (navigator.mediaDevices) {
+      return navigator.mediaDevices.getUserMedia(constraints);
+    }
+      
+    // otherwise try falling back to old, possibly prefixed API...
+    var legacyApi = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      
+    if (legacyApi) {
+      // ...and promisify it
+      return new Promise(function (resolve, reject) {
+        legacyApi.bind(navigator)(constraints, resolve, reject);
+      });
+    }
+}
+  
+function getStream (type) {
+    if (!navigator.mediaDevices && !navigator.getUserMedia && !navigator.webkitGetUserMedia &&
+      !navigator.mozGetUserMedia && !navigator.msGetUserMedia) {
+      alert('User Media API not supported.');
+      return;
+    }
+  
+    var constraints = {};
+    constraints[type] = true;
+    
+    getUserMedia(constraints)
+    .then(function (stream) {
+        var mediaControl = document.querySelector(type);
+        
+        if ('srcObject' in mediaControl) {
+          mediaControl.srcObject = stream;
+        }
+        else if (navigator.mozGetUserMedia) {
+          mediaControl.mozSrcObject = stream;
+        }
+        else {
+          mediaControl.src = (window.URL || window.webkitURL).createObjectURL(stream);
+        }
+        mediaControl.play();
+    })
+    .catch(function (err) {
+        alert('Error: ' + err);
+    });
+}
+
 export default function ManageActivity() {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
-    const handlecheckInmodelOpen = () => {
-      setCheckInModelOpen(true);
-    };
-    const handlecheckInmodelClose = () => {
-      setCheckInModelOpen(false);
-    };
-
-    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
-    const handlecheckOutmodelOpen = () => {
-      setCheckOutModelOpen(true);
-    };
-    const handlecheckOutmodelClose = () => {
-      setCheckOutModelOpen(false);
-    };
 
     const [activity, setActivity] = useState([]);
     useEffect(() => {
@@ -157,38 +185,91 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
-    const activity_End_or_not = new Date().getTime();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    const handleClose = () => {
+      setOpen(false);
+    };
 
-    const FaceCheckIn = event => {
-        event.preventDefault();    
+    const [sendActID , setSendActID] = useState(0);
+    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
+    const handlecheckInmodelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCheckInModelOpen(true);
+    };
+    const handlecheckInmodelClose = () => {
+      setCheckInModelOpen(false);
+    };
+    
+    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
+    const handlecheckOutmodelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCheckOutModelOpen(true);
+    };
+    const handlecheckOutmodelClose = () => {
+      setCheckOutModelOpen(false);
+    };
+
+    const [CameraModelInopen, setCameraModelInopen] = React.useState(false);
+    const CameraModelCheckInopen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCameraModelInopen(true);
+        let openEngineUrl = "/api/engine" ;
         let url = "/api/signIn/" ;
-        url = url + activity.activityID ;
+        url = url + ActID ;
+        getStream("video")
+        axios.get(openEngineUrl)
+        .then(res => {
             axios.post(url)
             .then(res => {
                 alert("簽到成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽到失敗");
+                alert("簽到失敗或該使用者未參加此活動");
                 console.log(error.response.status);
-                console.log(activity.activityID);
             });
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     };
-    const FaceCheckOut = event => {
-        event.preventDefault();    
-        let url = "/api/line/postMessage/announcement/" ;
-        url = url + activity.activityID ;
+    const CameraModelCheckInClose = () => {
+        setCameraModelInopen(false);
+    };
+
+    const [CameraModelOutopen, setCameraModelOutopen] = React.useState(false);
+    const CameraModelCheckOutopen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCameraModelOutopen(true);
+        let openEngineUrl = "/api/engine" ;
+        let url = "/api/signOut/" ;
+        url = url + ActID ;
+        getStream("video")
+        axios.get(openEngineUrl)
+        .then(res => {
             axios.post(url)
             .then(res => {
                 alert("簽退成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽退失敗");
+                alert("簽退失敗或該使用者未參加此活動");
                 console.log(error.response.status);
-                console.log(activity.activityID);
             });
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     };
+    const CameraModelCheckOutClose = () => {
+        setCameraModelOutopen(false);
+    };   
+    
+
+    const activity_End_or_not = new Date().getTime();
 
     return (
         <div className={classes.div}>
@@ -387,7 +468,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={handlecheckInmodelOpen}
+                                                                    onClick={(event) => handlecheckInmodelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
@@ -401,11 +482,12 @@ export default function ManageActivity() {
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
+                                                                    {/* () => FaceCheckIn(sendActID) ,  */}
                                                                     <Fade in={checkInModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckIn}>
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={CameraModelCheckInopen}>
                                                                                         <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
@@ -432,11 +514,27 @@ export default function ManageActivity() {
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={CameraModelInopen}
+                                                                    onClose={CameraModelCheckInClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={CameraModelInopen}>
+                                                                        <div>
+                                                                            <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
                                                                 <br /><br />
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={handlecheckOutmodelOpen}
+                                                                    onClick={(event) => handlecheckOutmodelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽退
                                                                 </Button>
@@ -454,7 +552,7 @@ export default function ManageActivity() {
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckOut}>
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={() => CameraModelCheckOutopen(sendActID)}>
                                                                                         <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
@@ -478,6 +576,22 @@ export default function ManageActivity() {
                                                                                     </Card>
                                                                                 </Grid>
                                                                             </Grid>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={CameraModelOutopen}
+                                                                    onClose={CameraModelCheckOutClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={CameraModelOutopen}>
+                                                                        <div>
+                                                                            <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal>
