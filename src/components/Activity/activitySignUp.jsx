@@ -182,7 +182,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             readOnly: true,
           }}/>
           <Typography>
-            {(act.activityMeal==1)?"餐點:":null}
+            {(act.activityMeal=="Y")?"餐點:":null}
           </Typography>
           {(act.activityMeal==1)?
             <FormControl component="fieldset">
@@ -204,7 +204,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             rows={4}
             variant="outlined"
             onChange={e=>setRegistrationRemark(e.target.value)}/>
-          <Typography gutterBottom>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
+          <Typography gutterBottom>{(act.activityMeal=="Y")?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?

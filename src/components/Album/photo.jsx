@@ -16,18 +16,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
-
-import Cat1 from 'assets/images/11.jpg';
-import Cat2 from 'assets/images/12.jpg';
-import Cat3 from 'assets/images/13.jpg';
-import Cat4 from 'assets/images/14.jpg';
-import Cat5 from 'assets/images/15.jpg';
-import Cat6 from 'assets/images/16.jpg';
-import Cat7 from 'assets/images/17.jpg';
-import Cat8 from 'assets/images/18.jpg';
-import Cat9 from 'assets/images/19.jpg';
+import Header from '../Header/PF_header.jsx';
 
 const useStyles = makeStyles(theme => ({
+  div : {
+      boxSizing : "border-box"
+  } ,
   root: {
     //width:"100%",
     margin: "2% 2%",
@@ -74,47 +68,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
-const tileData =[
-  {
-    img:Cat1,
-    title:'Image',
-
-  },
-  {
-    img:Cat2,
-    title:'Image',
-  },
-  {
-    img:Cat3,
-    title:'Image',
-  },
-  {
-    img:Cat4,
-    title:'Image',
-  },
-  {
-    img:Cat5,
-    title:'Image',
-  },
-  {
-    img:Cat6,
-    title:'Image',
-  },
-  {
-    img:Cat7,
-    title:'Image',
-  },
-  {
-    img:Cat8,
-    title:'Image',
-  },
-  {
-    img:Cat9,
-    title:'Image',
-  },
-];
-
 export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();
@@ -158,6 +111,8 @@ export default function TestGridList(props) {
 
 
   return (
+    <div className={classes.div}>
+    <Header/>
      <div className={classes.left_menu}>
       <LeftBar/>
     <Container className={classes.root}>
@@ -168,7 +123,7 @@ export default function TestGridList(props) {
       <hr />
 
     <div className={classes.container}>
-    <GridList cols={3} cellHeight={200} className={classes.gridList}>
+    <GridList cols={3}  className={classes.gridList}>
     <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
       <ListSubheader component="div">{act.activityName}</ListSubheader>
     </GridListTile>
@@ -182,6 +137,7 @@ export default function TestGridList(props) {
       </GridList>
       </div>
     </Container>
+  </div>
 </div>
   );
 }

@@ -16,6 +16,7 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
+import Header from 'components/Header/PF_header.jsx';
 
 const useStyles = makeStyles(theme => ({
   div: {
@@ -153,6 +154,8 @@ export default function TestGridList(props) {
   const now = new Date().getTime();
 
   return (
+    <div className={classes.div}>
+    <Header/>
      <div className={classes.left_menu}>
      <LeftBar/>
     <Container className={classes.content}>
@@ -179,6 +182,7 @@ export default function TestGridList(props) {
         </GridList>
       </div>
     </Container>
+    </div>
     </div>
   );
   }

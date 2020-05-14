@@ -18,6 +18,7 @@ import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Zmage from 'react-zmage';
 import Button from '@material-ui/core/Button';
+import Header from 'components/Header/PF_header.jsx';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -154,6 +155,8 @@ const[photo , setPhoto] = useState([]);
 
 
   return (
+    <div className={classes.div}>
+    <Header/>
      <div className={classes.left_menu}>
       <LeftBar/>
     <Container className={classes.root}>
@@ -179,6 +182,7 @@ const[photo , setPhoto] = useState([]);
       </GridList>
       </div>
     </Container>
+</div>
 </div>
   );
 }

@@ -17,6 +17,7 @@ import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
+import Header from 'components/Header/PF_header.jsx';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,8 +25,8 @@ const useStyles = makeStyles(theme => ({
       boxSizing: "border-box"
   },
   gridList: {
-    width: 900,
-    height: 500,
+    width: "100%",
+    height: "100%",
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -147,6 +148,8 @@ export default function TestGridList(props) {
   const now = new Date().getTime();
 
   return (
+    <div className={classes.div}>
+        <Header />
      <div className={classes.left_menu}>
      <LeftBar/>
     <Container className={classes.content}>
@@ -158,7 +161,7 @@ export default function TestGridList(props) {
       </div>
 
       <div className={classes.container}>
-      <GridList cols={3} cellHeight={200} className={classes.gridList}>
+      <GridList cols={3}  className={classes.gridList}>
       {registration.map( registration=>
           (new Date(registration.activity.activityEndDate).getTime() <= now) ?
 
@@ -173,6 +176,7 @@ export default function TestGridList(props) {
         </GridList>
       </div>
     </Container>
+    </div>
     </div>
   );
 }

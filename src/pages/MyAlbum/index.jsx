@@ -1,6 +1,5 @@
 import React from 'react';
 import Album from 'components/Album/myAlbum.jsx';
-import Header from 'components/Header/PF_header.jsx';
 
 class Albumpage extends React.Component {
 
@@ -8,7 +7,6 @@ class Albumpage extends React.Component {
 
     return (
         <>
-        <Header/>
         <Album />
       </>
     )

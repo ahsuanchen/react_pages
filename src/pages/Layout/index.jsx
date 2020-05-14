@@ -43,12 +43,12 @@ import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
-import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
-import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
+import ActivityAlbum from 'components/Album/album.jsx';
+import ActivityPhoto from 'components/Album/photo.jsx';
 import ActivityInformation from 'pages/ActivityInfo/index.jsx';
 import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
-import MyAlbum from 'pages/MyAlbum/index.jsx';
-import MyPhoto from 'pages/MyPhoto/index.jsx';
+import MyAlbum from 'components/Album/myAlbum.jsx';
+import MyPhoto from 'components/Album/myPhoto.jsx';
 import UpdatePhoto from 'components/Album/updatephoto.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
