@@ -172,7 +172,7 @@ export default function ManageActivity() {
                     axios.get("/api/activity/organizer/" + res.data.memberEmail)
                     .then(result => {
                         setActivity(result.data);
-                        // console.log(result)
+                        console.log(result)
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -185,13 +185,48 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-      setOpen(true);
+    const [Cancel , setCancel] = useState(0);
+    const [Cancelopen, setCancelOpen] = React.useState(false);
+    const handleCancelOpen = (ActID , event) => {
+        console.log(ActID);
+        setCancel(ActID);
+        setCancelOpen(true);
     };
-    const handleClose = () => {
-      setOpen(false);
+    const handleCancelClose = () => {
+      setCancelOpen(false);
     };
+    const handleCancel = (ActID) => {
+        let url = "/api/activity/cancel/";
+        url = url + ActID;
+        axios.patch(url)
+        .then(res => {
+            window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
+    }
+
+    const [Delete , setDelete] = useState(0);
+    const [Deleteopen, setDeleteOpen] = React.useState(false);
+    const handleDeleteOpen = (ActID , event) => {
+        setDelete(ActID);
+        setDeleteOpen(true);
+    };
+    const handleDeleteClose = () => {
+      setDeleteOpen(false);
+    };
+    const handleDelete = (ActID) => {
+        let url = "/api/activity/";
+        url = url + ActID;
+        axios.delete(url)
+        .then(res => {
+            window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
+    }
 
     const [sendActID , setSendActID] = useState(0);
     const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
@@ -314,6 +349,8 @@ export default function ManageActivity() {
                                                     </TableHead>
                                                     <TableBody>
                                                     {activity.map(activity =>
+                                                        (activity.activityCancelTime === null
+                                                            ?
                                                         <TableRow hover>
                                                             <TableCell align="center">
                                                                 {activity.activityName}
@@ -332,17 +369,65 @@ export default function ManageActivity() {
                                                                 {activity.attendPeople}&nbsp;/&nbsp;{activity.registeredPeople}
                                                             </TableCell>
                                                             <TableCell align="center">
-                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
-                                                                (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
+                                                            {   (new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
+                                                                    ? "尚未開始報名"
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) &&  
+                                                                    (new Date(activity.startSignUpDate).getTime() < activity_End_or_not))
                                                                     ? "活動報名中" 
                                                                 :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
                                                                     (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
                                                                     ? "等待活動中"
-                                                               : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
+                                                                :   (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
                                                                     ? "活動進行中" : "活動已結束"}
                                                             </TableCell>
-                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
-                                                                (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
+                                                            {  ((new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
+                                                                    ?
+                                                                <TableCell align="center">
+                                                                    <Button
+                                                                        variant="contained"
+                                                                        className={classes.button}
+                                                                        component={Link}
+                                                                        to={"/updateInfo?" + activity.activityId}
+                                                                    >
+                                                                        修改活動
+                                                                    </Button>
+                                                                    <br /><br />
+                                                                    <Button
+                                                                        variant="contained"
+                                                                        className={classes.button}
+                                                                        onClick={(event) => handleDeleteOpen(activity.activityId , event)}
+                                                                    >
+                                                                        刪除活動
+                                                                    </Button>
+                                                                    <Dialog
+                                                                        open={Deleteopen}
+                                                                        onClose={handleDeleteClose}
+                                                                        PaperComponent={PaperComponent}
+                                                                        aria-labelledby="draggable-dialog-title"
+                                                                    >
+                                                                        <DialogTitle id="draggable-dialog-title">
+                                                                            <Typography variant="h5">
+                                                                                <ErrorIcon className={classes.Exclamation_Mark} />
+                                                                                刪除活動
+                                                                            </Typography>
+                                                                        </DialogTitle>
+                                                                        <DialogContent>
+                                                                            <DialogContentText style={{fontSize:"20px"}}>
+                                                                                您確定要刪除該活動嗎？
+                                                                            </DialogContentText>
+                                                                        </DialogContent>
+                                                                        <DialogActions>
+                                                                            <Button autoFocus onClick={handleDeleteClose} className={classes.dig_butoon}>
+                                                                                取消
+                                                                            </Button>
+                                                                            <Button onClick={() => handleDelete(Delete)} className={classes.dig_butoon}>
+                                                                                確定
+                                                                            </Button>
+                                                                        </DialogActions>
+                                                                    </Dialog>
+                                                                </TableCell>
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                                    (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
                                                                     ? 
                                                                 <TableCell align="center">
                                                                     <Button
@@ -366,32 +451,32 @@ export default function ManageActivity() {
                                                                     <Button
                                                                         variant="contained"
                                                                         className={classes.button}
-                                                                        onClick={handleOpen}
+                                                                        onClick={(event) => handleCancelOpen(activity.activityId , event)}
                                                                     >
-                                                                        刪除活動
+                                                                        停止舉辦
                                                                     </Button>
                                                                     <Dialog
-                                                                        open={open}
-                                                                        onClose={handleClose}
+                                                                        open={Cancelopen}
+                                                                        onClose={handleCancelClose}
                                                                         PaperComponent={PaperComponent}
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
                                                                             <Typography variant="h5">
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
-                                                                                刪除活動
+                                                                                停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
                                                                             <DialogContentText style={{fontSize:"20px"}}>
-                                                                                您確定要刪除該活動嗎？
+                                                                                您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
                                                                         <DialogActions>
-                                                                            <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button autoFocus onClick={handleCancelClose} className={classes.dig_butoon}>
                                                                                 取消
                                                                             </Button>
-                                                                            <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button onClick={() => handleCancel(Cancel)} className={classes.dig_butoon}>
                                                                                 確定
                                                                             </Button>
                                                                         </DialogActions>
@@ -422,32 +507,32 @@ export default function ManageActivity() {
                                                                     <Button
                                                                         variant="contained"
                                                                         className={classes.button}
-                                                                        onClick={handleOpen}
+                                                                        onClick={(event) => handleCancelOpen(activity.activityId , event)}
                                                                     >
-                                                                        刪除活動
+                                                                        停止舉辦
                                                                     </Button>
                                                                     <Dialog
-                                                                        open={open}
-                                                                        onClose={handleClose}
+                                                                        open={Cancelopen}
+                                                                        onClose={handleCancelClose}
                                                                         PaperComponent={PaperComponent}
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
                                                                             <Typography variant="h5">
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
-                                                                                刪除活動
+                                                                                停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
                                                                             <DialogContentText style={{fontSize:"20px"}}>
-                                                                                您確定要刪除該活動嗎？
+                                                                                您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
                                                                         <DialogActions>
-                                                                            <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button autoFocus onClick={handleCancelClose} className={classes.dig_butoon}>
                                                                                 取消
                                                                             </Button>
-                                                                            <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button onClick={() => handleCancel(Cancel)} className={classes.dig_butoon}>
                                                                                 確定
                                                                             </Button>
                                                                         </DialogActions>
@@ -611,20 +696,15 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                 >
-                                                                    上傳照片
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                >
-                                                                    管理照片
+                                                                    上傳/管理照片
                                                                 </Button>
                                                             </TableCell>
                                                             )}
                                                         </TableRow>
-                                                        )}
+                                                        : ""
+                                                       ))}
                                                     </TableBody>
+                                                    
                                                 </Table>
                                             </Paper>
                                         </Grid>

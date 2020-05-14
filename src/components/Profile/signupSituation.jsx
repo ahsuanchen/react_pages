@@ -99,7 +99,6 @@ export default function SignupSituation() {
 
     const[cancel , setCancel] = useState(0);
     
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = (ainum,event) => {
         console.log(ainum);
@@ -152,7 +151,9 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {registration.map(registration =>
-                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && registration.cancelRegistration === null ) ?
+                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && 
+                                    registration.cancelRegistration === null )
+                                    ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
@@ -179,7 +180,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityInformation?" + registration.activity.activityId}
                                                             >
                                                                 活動頁面
                                                             </Button>
@@ -222,7 +223,6 @@ export default function SignupSituation() {
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
-                                                                    {/* <input type="text" value={registration.ainum} /> */}
                                                                 </DialogTitle>
                                                                 <DialogContent>
                                                                     <DialogContentText style={{fontSize:"20px"}}>
@@ -287,7 +287,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityInformation?" + registration.activity.activityId}
                                                             >
                                                                 查看資訊
                                                             </Button>
@@ -296,7 +296,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityPhoto?" + registration.ainum}
                                                             >
                                                                 活動照片
                                                             </Button>
@@ -306,7 +306,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/FeedBack?" + registration.activity.activityId}
                                                             >
                                                                 給予回饋
                                                             </Button>
@@ -315,7 +315,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/MyPhoto?" + registration.activity.activityId}
                                                             >
                                                                 我的照片
                                                             </Button>

@@ -20,7 +20,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -66,12 +65,6 @@ const useStyles = makeStyles(theme => ({
         color : "#000" ,
         '&:hover' : {
           color : '#00AEAE'
-        }
-    } ,
-    feedback_Link : {
-        color : "#000" ,
-        '&:hover' : {
-            color : '#00AEAE'
         }
     }
   }));
@@ -194,6 +187,16 @@ export default function ParticipantList() {
                                                                 匯出名單
                                                             </Button>
                                                         </Tooltip>
+                                                        <Tooltip title="查看活動回饋">
+                                                            <Button
+                                                                variant="contained"
+                                                                className={classes.button1}
+                                                                component={Link}
+                                                                // to={"/makeAnnouncement?" + activityId}
+                                                            >
+                                                                活動回饋單
+                                                            </Button>
+                                                        </Tooltip>
                                                         <Tooltip title="宣傳活動內容、提醒活動時間">
                                                             <Button
                                                                 variant="contained"
@@ -223,7 +226,6 @@ export default function ParticipantList() {
                                                             <TableCell align="center">聯絡電話</TableCell>
                                                             <TableCell align="center">聯絡電子郵件</TableCell>
                                                             <TableCell align="center">報名狀況</TableCell>
-                                                            <TableCell align="center">回饋單</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {registration.map(registration =>
@@ -234,13 +236,6 @@ export default function ParticipantList() {
                                                             <TableCell align="center">{registration.member.memberPhone}</TableCell>
                                                             <TableCell align="center">{registration.member.memberEmail}</TableCell>
                                                             <TableCell align="center">報名成功</TableCell>
-                                                            <TableCell align="center">
-                                                                <Tooltip title="予後回饋">
-                                                                    <Link to="/" className={classes.feedback_Link}>
-                                                                        <CommentIcon />
-                                                                    </Link>
-                                                                </Tooltip>
-                                                            </TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                     )}  

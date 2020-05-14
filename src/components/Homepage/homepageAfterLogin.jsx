@@ -37,11 +37,12 @@ const useStyles = makeStyles(theme => ({
         margin : "2% auto" ,
     } ,
     slide : {
-        maxHeight : "540px" ,
+        height : "100%",
+        maxHeight : "500px" ,
     } , 
     slide_img : {
-        maxWidth : "100%" ,
-        maxHeight : "100%",
+        width : "100%" ,
+        height : "100%",
         objectFit : 'contain' 
     } ,
     search: {
