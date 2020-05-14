@@ -169,7 +169,7 @@ const [suggest,setSuggest] = useState("");
 
     const Feedback =
     {
-      activity_Id : 1,
+      activity_Id : activityId,
       placeFeedback : place,
       scheduleFeedback : schedule,
       processFeedback : process,
@@ -186,6 +186,7 @@ const [suggest,setSuggest] = useState("");
 
     }).catch(function(error)
   {
+    alert("您已經填寫過了喔!");
     console.log(error);
   });
 
@@ -206,6 +207,7 @@ const [suggest,setSuggest] = useState("");
        </Typography>
        <hr />
      </div>
+
       <Card className={classes.cardroot}>
         <CardContent>
         <Typography>
@@ -264,7 +266,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setStaff(e.target.value)}
               />
 
-                <Typography component="legend">活動整體滿意度</Typography>
+                <Typography component="legend">整體滿意度</Typography>
                 <Rating name="overall" defaultValue={0} max={5} onChange={e=>setOverall(e.target.value)}/>
             </Box>
 

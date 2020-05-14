@@ -102,6 +102,10 @@ const [registrationMeal,setRegistrationMeal] = useState("");
     setValue(event.target.value);
   };
 
+  const handleDontSubmit = (e) =>{
+    alert("無法報名，可能因為該活動與您報名過的其他活動時間衝突或報名活動人數已達上限");
+  }
+
   const handleSubmit = (event) =>{
 
     alert("報名成功");
@@ -206,7 +210,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
         {(isSignup =="ok")?
         <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/Activity">確定報名</Button>
         :
-        <Button variant="contained" color="secondary" disabled>無法報名</Button>}
+        <Button onClick={handleDontSubmit} variant="contained" color="secondary" >確定報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

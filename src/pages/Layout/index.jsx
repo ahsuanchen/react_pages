@@ -52,7 +52,8 @@ import MyPhoto from 'pages/MyPhoto/index.jsx';
 import UpdatePhoto from 'components/Album/updatephoto.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
-import FeedBack from 'components/Activity/feedback.jsx';
+import Feedback from 'components/Activity/feedback.jsx';
+import FeedbackResponse from 'components/Activity/feedbackResponse.jsx';
 
 class Layout extends React.Component {
 
@@ -107,10 +108,11 @@ class Layout extends React.Component {
       <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
       <Route path="/UpdatePhoto" component={UpdatePhoto} />
-      
+
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/leftBar" component={LeftBar} />
-      <Route path="/FeedBack" component={FeedBack}/>
+      <Route path="/Feedback" component={Feedback}/>
+      <Route path="/FeedbackResponse" component={FeedbackResponse}/>
       </>
     );
   }
