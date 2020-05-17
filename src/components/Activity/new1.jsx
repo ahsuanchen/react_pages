@@ -56,18 +56,23 @@ const useStyles = makeStyles(theme => ({
         fontSize : "80px"
     } , 
     typeword : {
-        fontSize : "20px"
+        fontSize : "20px" ,
+        fontFamily : "微軟正黑體"
     } ,
     button : {
         background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "50%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
             color : "#fff"
         } , 
-    }
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 export default function BulidActivity_step1() {
@@ -188,7 +193,7 @@ export default function BulidActivity_step1() {
                 <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h5">
+                <Typography variant="h5" className={classes.word}>
                     請選擇至少一種活動類別
                 </Typography>
             </div>
