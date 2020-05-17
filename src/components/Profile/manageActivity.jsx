@@ -123,11 +123,11 @@ function getUserMedia(constraints) {
     if (navigator.mediaDevices) {
       return navigator.mediaDevices.getUserMedia(constraints);
     }
-      
+
     // otherwise try falling back to old, possibly prefixed API...
     var legacyApi = navigator.getUserMedia || navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia || navigator.msGetUserMedia;
-      
+
     if (legacyApi) {
       // ...and promisify it
       return new Promise(function (resolve, reject) {
@@ -135,21 +135,21 @@ function getUserMedia(constraints) {
       });
     }
 }
-  
+
 function getStream (type) {
     if (!navigator.mediaDevices && !navigator.getUserMedia && !navigator.webkitGetUserMedia &&
       !navigator.mozGetUserMedia && !navigator.msGetUserMedia) {
       alert('User Media API not supported.');
       return;
     }
-  
+
     var constraints = {};
     constraints[type] = true;
-    
+
     getUserMedia(constraints)
     .then(function (stream) {
         var mediaControl = document.querySelector(type);
-        
+
         if ('srcObject' in mediaControl) {
           mediaControl.srcObject = stream;
         }
@@ -243,7 +243,7 @@ export default function ManageActivity() {
     const handlecheckInmodelClose = () => {
       setCheckInModelOpen(false);
     };
-    
+
     const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
     const handlecheckOutmodelOpen = (ActID , event) => {
         setSendActID(ActID) ;
@@ -307,8 +307,8 @@ export default function ManageActivity() {
     };
     const CameraModelCheckOutClose = () => {
         setCameraModelOutopen(false);
-    };   
-    
+    };
+
 
     const activity_End_or_not = new Date().getTime();
 
@@ -377,10 +377,10 @@ export default function ManageActivity() {
                                                             <TableCell className={classes.word} align="center">
                                                             {   (new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
                                                                     ? "尚未開始報名"
-                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) &&  
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) &&
                                                                     (new Date(activity.startSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? "活動報名中" 
-                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                                    ? "活動報名中"
+                                                                :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                     (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
                                                                     ? "等待活動中"
                                                                 :   (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
@@ -432,9 +432,9 @@ export default function ManageActivity() {
                                                                         </DialogActions>
                                                                     </Dialog>
                                                                 </TableCell>
-                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||
                                                                     (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
-                                                                    ? 
+                                                                    ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -701,6 +701,9 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
+                                                                    component={Link}
+                                                                    to={"/UpdatePhoto?" + activity.activityId}
+
                                                                 >
                                                                     上傳照片
                                                                 </Button>
@@ -719,7 +722,7 @@ export default function ManageActivity() {
                                                         : ""
                                                        ))}
                                                     </TableBody>
-                                                    
+
                                                 </Table>
                                             </Paper>
                                         </Grid>

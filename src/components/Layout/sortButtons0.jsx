@@ -88,6 +88,28 @@ export default function SortButtons() {
         資訊
       </Button>
 
+    <div>
+      {/*
+      利用迴圈(act.map)來把所有的活動資訊都顯示出來
+      要顯示的各欄位都用act.xxxx來呼叫
+      */}
+      <GridList cols={3} cellHeight={200} className={classes.gridList}>
+        <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+          <ListSubheader component="div" className={classes.act}>
+          全部活動
+          </ListSubheader>
+        </GridListTile>
+        {act.map(actt =>  (
+        <GridListTile cols={1} key={actt.activityId}>
+        <img src={actt.activityCover} alt={actt.activityCover}/>
+      <GridListTileBar title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
+        <IconButton aria-label={`info about ${actt.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityInformation?"+actt.activityId}>
+          <InfoIcon/>
+        </IconButton>}/>
+      </GridListTile>))}
+      </GridList>
+    </div>
+    
     </div>
   );
 }

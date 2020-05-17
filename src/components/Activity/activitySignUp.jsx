@@ -5,7 +5,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -213,9 +212,9 @@ const [registrationMeal,setRegistrationMeal] = useState("0");
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/Activity">確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/homepageAfterLogin">確定報名</Button>
         :
-        <Button onClick={handleDontSubmit} variant="contained" color="secondary" >確定報名</Button>}
+        <Button onClick={handleDontSubmit} className={classes.word} variant="contained" color="secondary" component={Link} to="/homepageAfterLogin">確定報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

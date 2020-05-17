@@ -184,7 +184,7 @@ export default function ActivityInfo() {
                       <DateRangeIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="活動時間" secondary={act.activityStartDateString}/>
+                  <ListItemText primary="活動時間" secondary={act.activityStartDateString + " ~ " + act.activityEndDateString }/>
                 </ListItem>
               </List>
             </TableCell>
@@ -198,25 +198,12 @@ export default function ActivityInfo() {
                       <ScheduleIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="報名開始時間" secondary={act.startSignUpDateString} />
+                  <ListItemText primary="報名時間" secondary={act.startSignUpDateString + " ~ " + act.endSignUpDateString } />
                 </ListItem>
               </List>
             </TableCell>
           </TableRow>
-          <TableRow>
-            <TableCell>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <ScheduleIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary="報名結束時間" secondary={act.endSignUpDateString} />
-                </ListItem>
-              </List>
-            </TableCell>
-          </TableRow>
+         
 
       </TableBody>
       </Table>

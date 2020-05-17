@@ -24,9 +24,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-const imageList = [1,2,3,4,5];
-
 export default function TestGridList(props) {
   const classes = useStyles();
 
@@ -38,7 +35,7 @@ export default function TestGridList(props) {
         const result = await axios.get('/api/activity/');
         setAct(result.data);
         //獲取資料
-        
+
       }
       fetchData();
   },[]);
@@ -47,7 +44,7 @@ export default function TestGridList(props) {
 
   return (
     <div>
-      {/* 
+      {/*
       利用迴圈(act.map)來把所有的活動資訊都顯示出來
       要顯示的各欄位都用act.xxxx來呼叫
       */}

@@ -5,20 +5,12 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import Button from '@material-ui/core/Button';
 import React, { useState,useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Rating from '@material-ui/lab/Rating';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
 import SentimentSatisfiedIcon from '@material-ui/icons/SentimentSatisfied';
@@ -270,7 +262,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setStaff(e.target.value)}
               />
 
-                <Typography component="legend">整體滿意度</Typography>
+                <Typography component="legend" className={classes.word}>整體滿意度</Typography>
                 <Rating name="overall" defaultValue={0} max={5} onChange={e=>setOverall(e.target.value)}/>
             </Box>
 
@@ -287,7 +279,7 @@ const [suggest,setSuggest] = useState("");
               onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
-          <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/signupSituation">確定</Button>
+          <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/signupSituation">確定</Button>
         </CardActions>
       </Card>
       </Container>

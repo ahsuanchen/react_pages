@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React,{ useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -12,7 +13,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from '@material-ui/core/Button';
 import { faClock , faSearch , faPlus} from "@fortawesome/free-solid-svg-icons";
-import { Link } from 'react-router-dom';
+import { Link ,useHistory } from 'react-router-dom';
 import { Slide } from 'react-slideshow-image';
 import Tooltip from '@material-ui/core/Tooltip';
 import Inputt from '@material-ui/core/Input';
@@ -35,19 +36,54 @@ const useStyles = makeStyles(theme => ({
 export default function HomeTextField(props) {
   const classes = useStyles();
 
+  const [act,setAct] = useState([{}]);
+  useEffect(() =>{
+    async function fetchData(){
+        const result = await axios.get('/api/activity/');
+        setAct(result.data);
+        //獲取資料
+
+      }
+      fetchData();
+  },[]);
+
+  console.log(act);
+
+  const [searchResult , setSearchResult] = useState("");
+
+  let history = useHistory();
+  const SendSearchResult = event =>
+  {
+      if (searchResult === "")
+      {
+          alert("您未輸入任何東西");
+      }
+      else
+      {
+          localStorage.setItem('searchResult' , searchResult);
+          history.push({
+              pathname: "/searchInfo",
+          });
+      }
+  }
+
   return (
 
     <div>
 
         <form className={classes.root} noValidate autoComplete="off" color="secondary">
           <span className={classes.title}>搜尋:</span>
-          <Inputt placeholder="輸入活動名稱" inputProps={{ 'aria-label': 'description' }} />
+          <Inputt placeholder="輸入活動名稱"
+          inputProps={ {'aria-label': 'description'} } 
+          value={searchResult}
+          onChange={e=>setSearchResult(e.target.value)}
+          />
 
-          <IconButton color="primary" aria-label="upload picture" component="span">
+          <IconButton color="primary" aria-label="upload picture" component="submit" onClick={SendSearchResult}>
             <SearchIcon />
           </IconButton>
-
         </form>
+
     </div>
 
 

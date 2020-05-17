@@ -1,21 +1,15 @@
 //活動相簿
-
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import Image from 'assets/images/1.jpg';
 import { Link , useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from 'components/Header/PF_header.jsx';
 
@@ -127,8 +121,6 @@ export default function TestGridList(props) {
       fetchDataReg();
   }, []);
 
-
-
   const now = new Date().getTime();
 
   return (
@@ -144,8 +136,9 @@ export default function TestGridList(props) {
         <hr />
       </div>
 
-      <div className={classes.container}>
-      <GridList cols={3}  className={classes.gridList}>
+      <div>
+      <form>
+      <GridList cols={3} cellHeight={200} className={classes.gridList}>
       {registration.map( registration=>
           (new Date(registration.activity.activityEndDate).getTime() <= now) ?
 
@@ -157,7 +150,8 @@ export default function TestGridList(props) {
               </IconButton>}/>
               </GridListTile>
               :null)}
-        </GridList>
+      </GridList>
+      </form>
       </div>
     </Container>
     </div>
