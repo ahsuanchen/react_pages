@@ -30,7 +30,10 @@ const useStyles = makeStyles(theme => ({
   },
   cardroot:{
     maxWidth:500,
-  }
+  } ,
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
 }));
 
 export default function ActivityInfo() {
@@ -139,25 +142,25 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             <TableCell style={{width: '40%'}} rowSpan={2}>
               <img src={act.activityCover} width = "500"/>
               <Typography variant="h6" gutterBottom>{act.activityName}</Typography>
-              <Typography gutterBottom>活動報名時間:</Typography>
+              <Typography gutterBottom className={classes.word}>活動報名時間:</Typography>
               <Typography gutterBottom>{act.startSignUpDateString}到{act.endSignUpDateString} </Typography>
-              <Typography gutterBottom>活動時間:</Typography>
+              <Typography gutterBottom className={classes.word}>活動時間:</Typography>
               <Typography gutterBottom>{act.activityStartDateString}到{act.activityEndDateString}</Typography>
-              <Typography gutterBottom>活動地點:</Typography>
+              <Typography gutterBottom className={classes.word}>活動地點:</Typography>
               <Typography gutterBottom>{act.activitySpace}</Typography>
-              <Typography gutterBottom>參加人數:</Typography>
+              <Typography gutterBottom className={classes.word}>參加人數:</Typography>
               <Typography gutterBottom>{act.attendPeople}</Typography>
-              <Typography gutterBottom>相關連結:</Typography>
+              <Typography gutterBottom className={classes.word}>相關連結:</Typography>
               <Typography gutterBottom>{act.activityLink}</Typography>
 
             </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
-                <Typography variant="h6">確認參加者資料</Typography>
+                <Typography variant="h6" className={classes.word}>確認參加者資料</Typography>
                 <Card className={classes.cardroot}>
       <CardContent>
-        <Typography>
+        <Typography className={classes.word}>
           姓名:
         </Typography>
         <TextField style={{minWidth:"100%"}} value={member.memberName}
@@ -165,7 +168,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           InputProps={{
             readOnly: true,
           }}/>
-        <Typography>
+        <Typography className={classes.word}>
           電子郵件:
         </Typography>
         <TextField style={{minWidth:"100%"}} value={member.memberEmail}
@@ -173,7 +176,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           InputProps={{
             readOnly: true,
           }}/>
-          <Typography>
+          <Typography className={classes.word}>
             行動電話:
           </Typography>
         <TextField style={{minWidth:"100%"}} value={member.memberPhone}
@@ -181,8 +184,8 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           InputProps={{
             readOnly: true,
           }}/>
-          <Typography>
-            {(act.activityMeal=="Y")?"餐點:":null}
+          <Typography className={classes.word}>
+            {(act.activityMeal==1)?"餐點:":null}
           </Typography>
           {(act.activityMeal==1)?
             <FormControl component="fieldset">
@@ -193,7 +196,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           </RadioGroup>
           </FormControl> : null
           }
-          <Typography>
+          <Typography className={classes.word}>
             備註:
           </Typography>
           <TextField
@@ -204,13 +207,13 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             rows={4}
             variant="outlined"
             onChange={e=>setRegistrationRemark(e.target.value)}/>
-          <Typography gutterBottom>{(act.activityMeal=="Y")?null:"*此活動不提供餐點*"}</Typography>
+          <Typography gutterBottom className={classes.word}>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/Activity">確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定報名</Button>
         :
-        <Button onClick={handleDontSubmit} variant="contained" color="secondary" >確定報名</Button>}
+        <Button className={classes.word} variant="contained" color="secondary" disabled>無法報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
     toolbar : {
-        maxWidth: "1080px" ,
+        maxWidth: "80%" ,
         width : "100%" ,
         margin : "0 auto" ,
         display: "flex" ,
@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
     leftbar: theme.mixins.toolbar,
     list: {
       width: "220px" ,
+    } ,
+    word : {
+      fontFamily : "微軟正黑體"
     } ,
     link : {
       textDecoration : "none" ,
@@ -90,7 +93,7 @@ export default function MenuAppBar() {
               <ListItemIcon>
                 <FontAwesomeIcon icon={faTasks} />
               </ListItemIcon>
-              <ListItemText primary="活動總覽" />
+              <ListItemText primary="活動總覽" className={classes.word} />
             </ListItem>
             <Divider/>
             <ListItem component={Link} to="/" button>
@@ -129,7 +132,7 @@ export default function MenuAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         ACTFUN
                     </Typography>
                     <IconButton
@@ -157,14 +160,14 @@ export default function MenuAppBar() {
                               <ListItemIcon>
                                 <PersonIcon/>
                               </ListItemIcon>
-                              <ListItemText primary="個人檔案" />
+                              <ListItemText primary="個人檔案" className={classes.word} />
                             </ListItem>
                             <form method="post" action="/logout">
                               <ListItem button type="submit" component="button">
                                 <ListItemIcon>
                                   <ExitToAppIcon/>
                                 </ListItemIcon>
-                                <ListItemText primary="登出" />
+                                <ListItemText primary="登出" className={classes.word} />
                               </ListItem>
                             </form>
                       </Menu>

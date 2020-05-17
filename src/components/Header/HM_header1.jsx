@@ -38,6 +38,9 @@ const useStyles = makeStyles(theme => ({
     list: {
       width: "220px" ,
     } ,
+    word : {
+      fontFamily : "微軟正黑體"
+    } ,
     img : {
       width: "50px" ,
       height: "64px" ,
@@ -45,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     link : {
       textDecoration : "none" ,
       color : "#9D9D9D" ,
+      fontFamily : "微軟正黑體" ,
       '&:hover' : {
         color : '#00AEAE'
       }
@@ -86,7 +90,7 @@ export default function (props) {
               <ListItemText primary="首頁" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/profile" button>
+            <ListItem component={Link} to="/Activity" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faTasks} />
               </ListItemIcon>
@@ -128,16 +132,10 @@ export default function (props) {
                     color="inherit"
                     component={Link}
                     to="/signIn"
+                    className={classes.word}
                   >
                     登入
                   </Button>
-                  {/* <Button 
-                    color="inherit"
-                    variant="outlined"
-                    href="./signUp"
-                  >
-                    註冊
-                </Button> */}
                   <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
                     {sideList('left')}
                   </Drawer>

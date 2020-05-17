@@ -27,9 +27,13 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     topic : {
         margin : "2% auto" ,
-        textAlign : "center"
+        textAlign : "center" ,
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         display: "flex" ,
@@ -44,6 +48,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -79,7 +84,7 @@ export default function MakeAnnouncement() {
                 <LeftBar/>
                 <Container className={classes.content}>
                         <div>
-                            <Typography variant="h4">
+                            <Typography variant="h4" className={classes.word}>
                                 發 布 公 告
                             </Typography>
                             <hr />
@@ -95,7 +100,7 @@ export default function MakeAnnouncement() {
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     公告標題：
                                                 </Typography>
                                             </TableCell>
@@ -109,7 +114,7 @@ export default function MakeAnnouncement() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     公告內容：
                                                 </Typography>
                                             </TableCell>

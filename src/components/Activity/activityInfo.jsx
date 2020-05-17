@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
   extendedIcon: {
     marginRight: theme.spacing(1),
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
 }));
 
 export default function ActivityInfo() {
@@ -145,12 +148,18 @@ export default function ActivityInfo() {
       <Table align = "center" style = {{width : "85%"}}>
         <TableHead>
             <TableRow>
-              <TableCell colSpan={2}><Typography variant="h5">{act.activityName}</Typography></TableCell>
+              <TableCell colSpan={2}>
+                <Typography variant="h5" className={classes.word}>
+                  {act.activityName}
+                </Typography>
+              </TableCell>
             </TableRow>
         </TableHead>
         <TableBody>
           <TableRow >
-            <TableCell style={{width: '40%'}} rowSpan={5}><img src={act.activityCover} width = "700"/></TableCell>
+            <TableCell style={{width: '40%'}} rowSpan={5}>
+              <img src={act.activityCover} width = "700"/>
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
@@ -212,7 +221,7 @@ export default function ActivityInfo() {
       </TableBody>
       </Table>
       <div className={classes.fab}>
-      <Fab variant="extended" size="medium" color="secondary" component={Link}
+      <Fab className={classes.word} variant="extended" size="medium" color="secondary" component={Link}
       to={"/activitySignUp?" +act.activityId}>
       <PersonAddIcon className={classes.extendedIcon} />
         我要報名!

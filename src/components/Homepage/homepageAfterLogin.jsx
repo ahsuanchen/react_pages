@@ -33,15 +33,16 @@ const useStyles = makeStyles(theme => ({
         boxSizing : "border-box" ,
     } ,
     container : {
-        maxWidth : "1080px" ,
+        maxWidth : "80%" ,
         margin : "2% auto" ,
     } ,
     slide : {
+        height : "100%",
         maxHeight : "540px" ,
     } , 
     slide_img : {
-        maxWidth : "100%" ,
-        maxHeight : "100%",
+        width : "100%" ,
+        height : "100%",
         objectFit : 'contain' 
     } ,
     search: {
@@ -52,26 +53,37 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        // background : 'linear-gradient(50deg, #80cbc4 40%, #80deea 85%)' ,
         background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "450px" ,
         padding : "5px 20px" ,
-        //color:"white"
+        fontFamily : "微軟正黑體"
     } ,
     search_butoon : {
         padding : "10px 0" ,
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     activity_part : {
         margin : "2% auto" ,
     } ,
     card : {
         maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_area : {
+        maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_media : {
+        width : "100%" ,
+        minHeight : "250px"
     } ,
     card_content : {
         width : "100%" ,
-        minHeight : "200px"
+        minHeight : "50px" ,
     } ,
     img : {
         width : "100%" ,
@@ -122,6 +134,7 @@ const useStyles = makeStyles(theme => ({
     } , 
     warning_content : {
         fontSize : "24px" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -131,6 +144,7 @@ const properties = {
     infinite: true,
     indicators: true,
     arrows: true,
+    //objectFit : 'contain'
     //variableWidth: true
 }
 
@@ -163,7 +177,8 @@ export default function MenuApp() {
         }
     }
 
-    const [member , setMember] = useState([]);
+    const [isSign , setIsSign] = React.useState(false);
+    // const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
@@ -171,8 +186,9 @@ export default function MenuApp() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    setMember(result.data);
-                    console.log(result);
+                    setIsSign(true);
+                    // setMember(result.data);
+                    console.log(isSign);
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
@@ -192,6 +208,7 @@ export default function MenuApp() {
                 })
                 .catch(err => {
                     console.log(err.response.status);
+                    console.log(isSign);
                 })
         }
         fetchDataOrg();
@@ -199,11 +216,7 @@ export default function MenuApp() {
 
     return (
         <div className={classes.div}>
-            {member.length != 0 ?
-                <Header2/>
-             :
-                <Header1 />
-            }
+            <Header2/>
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
@@ -271,7 +284,7 @@ export default function MenuApp() {
                                                 <CardMedia>
                                                     <GroupIcon className={classes.icon_part} />
                                                 </CardMedia>
-                                                <CardContent>
+                                                <CardContent className={classes.word}>
                                                     申請主辦單位
                                                 </CardContent>
                                             </CardActionArea>
@@ -297,7 +310,7 @@ export default function MenuApp() {
                                                 <CardMedia>
                                                     <EventIcon className={classes.icon_part} />
                                                 </CardMedia>
-                                                <CardContent>
+                                                <CardContent className={classes.word}>
                                                     建立活動
                                                 </CardContent>
                                             </CardActionArea>
@@ -311,7 +324,7 @@ export default function MenuApp() {
             </div>
             <div className={classes.container}>
                 <div>
-                    <Typography variant="h5">
+                    <Typography variant="h5" className={classes.word}>
                         熱 門 活 動 /
                     </Typography>
                 </div>
@@ -320,24 +333,25 @@ export default function MenuApp() {
                     {activity.map(activity =>
                         <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
-                                <CardActionArea>
+                                <CardActionArea className={classes.card_area} component={Link} to={"/ActivityInformation?" + activity.activityId}>
                                     <CardMedia
-                                        className={classes.card_content}
+                                        className={classes.card_media}
                                         image={activity.activityCover}
                                         title="act_1"
                                     />
                                     <CardContent>
-                                        <Typography variant="h6">
+                                        <Typography variant="h6" className={classes.word}>
                                             {activity.activityName}
                                         </Typography>
                                         <hr/>
-                                        <Typography variant="h6">
+                                        <Typography variant="h6" className={classes.word}>
                                             <FontAwesomeIcon icon={faClock} />
                                             &nbsp; {activity.activityStartDateString.substring(0,10)}
                                         </Typography>
                                     </CardContent>
-                                    <Divider/>
+                                    
                                 </CardActionArea>
+                                <Divider/>
                                 <CardActions>
                                     <Link to="/" className={classes.link}>#running </Link>
                                     <Link to="/" className={classes.link}>#marathon </Link>

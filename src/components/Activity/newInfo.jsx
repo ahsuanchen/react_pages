@@ -40,6 +40,7 @@ const useStyles = makeStyles(theme => ({
         background : '#bdbdbd',
         color : "#424242" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#757575',
             color : "#fff"
@@ -51,6 +52,7 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
             color : "#fff"
@@ -91,6 +93,9 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
  //radio 顏色設定
@@ -204,7 +209,7 @@ export default function BulidActivity_step2() {
             <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h5">
+                <Typography variant="h5" className={classes.word}>
                     請填寫活動基本資訊
                 </Typography>
             </div>
@@ -365,7 +370,7 @@ export default function BulidActivity_step2() {
 
 
                                     <FormControl component="fieldset" className={classes.formControl}>
-                                        <FormLabel component="legend">是否供餐</FormLabel>
+                                        <FormLabel component="legend" className={classes.word}>是否供餐</FormLabel>
                                         <RadioGroup 
                                             aria-label="是否供餐" 
                                             name="activityMeal" 

@@ -32,9 +32,13 @@ const useStyles = makeStyles(theme => ({
         margin : "2%" ,
         overflow : "visible"
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     topic : {
         margin : "2% auto" ,
-        textAlign : "center"
+        textAlign : "center" ,
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         display: "flex" ,
@@ -49,11 +53,13 @@ const useStyles = makeStyles(theme => ({
         background : '#ADADAD' ,
         color : "#fff" ,
         margin : "auto 2%" ,
+        fontFamily : "微軟正黑體"
     } ,
     button2 : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -142,16 +148,16 @@ export default function EditSignupInfo() {
                     <div>
                         <Grid container>
                             <Grid item xs={10}>
-                                <Typography variant="h3">
+                                <Typography variant="h3" className={classes.word}>
                                     {activity.activityName}
                                 </Typography>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">
+                                <Typography variant="h6" className={classes.word} >
                                     <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;&nbsp;
                                     {activity.activitySpace}
                                 </Typography>
-                                <Typography variant="h6">
+                                <Typography variant="h6" className={classes.word}>
                                     <FontAwesomeIcon icon={faClock} />&nbsp;
                                     {activity.activityStartDateStringDate}
                                 </Typography>
@@ -169,25 +175,25 @@ export default function EditSignupInfo() {
                                 <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell>姓名：</TableCell>
+                                            <TableCell className={classes.word}>姓名：</TableCell>
                                             <TableCell>
                                                 <TextField value={member.memberName} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>聯絡電子信箱：</TableCell>
+                                            <TableCell className={classes.word}>聯絡電子信箱：</TableCell>
                                             <TableCell>
                                                 <TextField value={member.memberEmail} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>連絡電話：</TableCell>
+                                            <TableCell className={classes.word}>連絡電話：</TableCell>
                                             <TableCell>
                                                 <TextField value={member.memberPhone} disabled />
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>供餐選項：</TableCell>
+                                            <TableCell className={classes.word}>供餐選項：</TableCell>
                                             {activity.activityMeal == "N" ?
                                             <TableCell>
                                                 <RadioGroup name="Gender" value={registration.registrationMeal + ""}>
@@ -204,7 +210,7 @@ export default function EditSignupInfo() {
                                             }
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>備註：</TableCell>
+                                            <TableCell className={classes.word}>備註：</TableCell>
                                             <TableCell>
                                                 <TextField style={{minWidth:"350px"}} value={registration.registrationRemark} onChange={handleChange('registrationRemark')} />
                                             </TableCell>

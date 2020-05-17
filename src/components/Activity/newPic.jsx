@@ -89,7 +89,9 @@ const useStyles = makeStyles(theme => ({
             color : "#fff"
         } , 
     } ,
-
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 
 }));
 

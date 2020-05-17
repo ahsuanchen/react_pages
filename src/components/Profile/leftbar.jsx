@@ -17,12 +17,16 @@ const useStyles = makeStyles(theme => ({
         mixWidth: "100%",
         borderRight: "1px solid",
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     avatar : {
         minWidth : 150 ,
         minHeight : 150 ,
     } ,
     link : {
         textDecoration : "none" ,
+        fontFamily : "微軟正黑體" ,
         color : "#8E8E8E" ,
         '&:hover' : {
             color : '#00AEAE'
@@ -100,7 +104,7 @@ export default function LeftBar() {
                         <Avatar className={classes.avatar} />
                     </Box>
                     <Box lineHeight={2} m={1}>
-                        <strong>{member.memberName}</strong>
+                        <strong className={classes.word}>{member.memberName}</strong>
                    </Box>
                     <Divider />
                     <Link to="/profile" className={classes.link}>
@@ -122,13 +126,13 @@ export default function LeftBar() {
                     {(organizer.memberEmail != null ?
                     <>
                     <Box lineHeight={3} m={1}>
-                        <strong>{organizer.organizerName}</strong>
+                        <strong className={classes.word}>{organizer.organizerName}</strong>
                     </Box>
                     <Divider />
                     <Link to="/organizerInfo" className={classes.link}>
                         <Box lineHeight={1} m={4} >
                             主辦單位資訊
-                            </Box>
+                        </Box>
                     </Link>
                     <Link to="/manageActivity" className={classes.link}>
                         <Box lineHeight={1} m={4}>

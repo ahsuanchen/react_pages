@@ -30,7 +30,19 @@ const useStyles = makeStyles(theme => ({
   },
   left_menu: {
       display: "flex",
-      justifyContent: "center",
+      justifyContent: "space-around",
+      minHeight: 800,
+      color: "#000"
+  },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
+  link: {
+      textDecoration: "none",
+      color: "#D0D0D0",
+      '&:hover': {
+          color: '#00AEAE'
+      }
   },
   content: {
       margin: "2%",
@@ -126,26 +138,25 @@ export default function TestGridList(props) {
      <LeftBar/>
     <Container className={classes.content}>
       <div>
-        <Typography variant="h4">
+        <Typography variant="h4" className={classes.word}>
            活動相簿
         </Typography>
         <hr />
       </div>
 
-      <div className={classes.container}>
-      <GridList cols={3}  className={classes.gridList}>
-      {registration.map( registration=>
-          (new Date(registration.activity.activityEndDate).getTime() <= now) ?
-
-              <GridListTile cols={1} key={registration.activity.activityId}>
-                <img src={registration.activity.activityCover} alt={registration.activity.activityCover} />
-              <GridListTileBar title={registration.activity.activityName} subtitle={<span> {registration.activity.activitySummary}</span>} actionIcon={
-              <IconButton aria-label={`info about ${registration.activity.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityPhoto?"+registration.activity.activityId}>
-                <InfoIcon/>
-              </IconButton>}/>
-              </GridListTile>
-              :null)}
-        </GridList>
+      <div>
+      <form>
+      <GridList cols={3} cellHeight={200} className={classes.gridList}>
+        {act.map(actt =>  (
+        <GridListTile cols={1} key={actt.activityId}>
+          <img src={actt.activityCover} alt={actt.activityCover} />
+        <GridListTileBar className={classes.word} title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
+          <IconButton aria-label={`info about ${actt.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityPhoto?"+actt.activityId}>
+            <InfoIcon/>
+          </IconButton>}/>
+        </GridListTile>))}
+      </GridList>
+      </form>
       </div>
     </Container>
     </div>

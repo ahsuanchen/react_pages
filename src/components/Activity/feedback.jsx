@@ -88,6 +88,9 @@ const useStyles = makeStyles(theme => ({
       minHeight: 800,
       color: "#000"
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
 }));
 
 export default function ActivityInfo() {
@@ -202,7 +205,7 @@ const [suggest,setSuggest] = useState("");
     <LeftBar/>
     <Container className={classes.content}>
      <div>
-       <Typography variant="h4">
+       <Typography variant="h4" className={classes.word}>
           活動回饋單
        </Typography>
        <hr />
@@ -210,18 +213,18 @@ const [suggest,setSuggest] = useState("");
 
       <Card className={classes.cardroot}>
         <CardContent>
-        <Typography>
+        <Typography className={classes.word}>
           活動名稱:{act.activityName}
         </Typography>
           <br/>
 
-          <Typography>
+          <Typography className={classes.word}>
             滿意度調查:
           </Typography>
 
             <Box component="fieldset" borderColor="transparent">
 
-              <Typography component="legend">活動場地</Typography>
+              <Typography component="legend" className={classes.word}>活動場地</Typography>
               <Rating
                 name="place"
                 defaultValue={0}
@@ -230,7 +233,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setPlace(e.target.value)}
               />
 
-              <Typography component="legend">活動時間安排</Typography>
+              <Typography component="legend" className={classes.word}>活動時間安排</Typography>
               <Rating
                 name="schedule"
                 defaultValue={0}
@@ -239,7 +242,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setSchedule(e.target.value)}
               />
 
-              <Typography component="legend">活動流程</Typography>
+              <Typography component="legend" className={classes.word}>活動流程</Typography>
               <Rating
                 name="process"
                 defaultValue={0}
@@ -248,7 +251,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setProcess(e.target.value)}
               />
 
-              <Typography component="legend">活動內容</Typography>
+              <Typography component="legend" className={classes.word}>活動內容</Typography>
               <Rating
                 name="content"
                 defaultValue={0}
@@ -257,7 +260,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setContent(e.target.value)}
               />
 
-              <Typography component="legend">工作人員(服務品質)</Typography>
+              <Typography component="legend" className={classes.word}>工作人員(服務品質)</Typography>
               <Rating
                 name="staff"
                 defaultValue={0}
@@ -266,11 +269,11 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setStaff(e.target.value)}
               />
 
-                <Typography component="legend">整體滿意度</Typography>
+                <Typography component="legend" className={classes.word}>活動整體滿意度</Typography>
                 <Rating name="overall" defaultValue={0} max={5} onChange={e=>setOverall(e.target.value)}/>
             </Box>
 
-            <Typography>
+            <Typography className={classes.word}>
               其他建議:
             </Typography>
             <TextField
@@ -283,7 +286,7 @@ const [suggest,setSuggest] = useState("");
               onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
-          <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/signupSituation">確定</Button>
+          <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定</Button>
         </CardActions>
       </Card>
       </Container>

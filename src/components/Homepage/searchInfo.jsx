@@ -14,6 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
+// import { browserHistory } from 'react'
+
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -22,6 +24,9 @@ const useStyles = makeStyles(theme => ({
     container : {
         maxWidth : "1080px" ,
         margin : "2% auto" ,
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     search: {
         margin : "2% auto" ,
@@ -36,9 +41,11 @@ const useStyles = makeStyles(theme => ({
     inputBase : {
         minWidth : "1010px" ,
         padding : "5px 20px" ,
+        fontFamily : "微軟正黑體"
     } ,
     Typography : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         "&:hover" : {
             color : "#00AEAE"
         }
@@ -46,6 +53,7 @@ const useStyles = makeStyles(theme => ({
     link : {
         textDecoration : "none" , 
         color : "#ADADAD" , 
+        fontFamily : "微軟正黑體" ,
         "&:hover" : {
             color : "#00AEAE"
         }
@@ -56,65 +64,39 @@ const useStyles = makeStyles(theme => ({
     search_NoResult : {
         display: "flex" ,
         justifyContent : "center" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
 export default function SearchInfo() {
     const classes = useStyles();
 
-    const [searchResult] =  useState(localStorage.getItem('searchResult'));
+    const [searchResult , setSearchResult] =  useState(localStorage.getItem('searchResult'));
 
-    const [searchAgain , setSearchAgain] = useState("");
-
-    let history = useHistory();
-    const SendSearchResult = event =>
-    {
-        if (searchAgain === "")
-        {
-            alert("您未輸入任何東西");
-        }
-        else
-        {
-            localStorage.setItem('searchResult' , searchAgain);
-            // searchResult = searchAgain ;
-            history.push({
-                pathname: "/searchInfo",
-            });
-            // window.location.reload();
-        }
-    }
-
+    const [count, setCount] = useState(0);
     const [activity, setActivity] = useState([]);
+    const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchDataSearch() {
             let url = "/api/activity/search"+"?search="+searchResult;
+            let url1 = "/api/organizer/search"+"?search="+searchResult;
             axios.get(url)
             .then(result => {
                 setActivity(result.data);
-                console.log(result);
             })
             .catch(err => {
-                // console.log(err.response.status);
+                console.log(err.response.status);
             })
-        }
-        fetchDataSearch();
-    }, []);
-
-    const [organizer, setOrganizer] = useState([]);
-    useEffect(() => {
-        async function fetchDataOrgSearch() {
-            let url1 = "/api/organizer/search"+"?search="+searchResult;
             axios.get(url1)
             .then(result => {
                 setOrganizer(result.data);
-                console.log(result);
             })
             .catch(err => {
-                // console.log(err.response.status);
+                console.log(err.response.status);
             })
         }
-        fetchDataOrgSearch();
-    }, []);
+        fetchDataSearch();
+    },[count]);
 
     return (
         <div className={classes.div}>
@@ -125,14 +107,14 @@ export default function SearchInfo() {
                         <InputBase
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
-                            value={searchAgain}
-                            onChange={e=>setSearchAgain(e.target.value)}
+                            value={searchResult}
+                            onChange={e=>setSearchResult(e.target.value)}
                         />
-                        <Tooltip title="搜尋">
+                        <Tooltip title="搜尋" className={classes.word}>
                             <Button
                                 type="submit"
                                 className={classes.search_butoon}
-                                onClick={SendSearchResult}
+                                onClick={() => setCount(count+1)}
                             >
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
@@ -140,7 +122,7 @@ export default function SearchInfo() {
                     </Box>
                 </div>
                 <div>
-                    <Typography variant="h5">
+                    <Typography variant="h5" className={classes.word}>
                         搜尋關鍵字&nbsp;&nbsp;"{searchResult}"
                     </Typography>
                 </div>
@@ -148,7 +130,7 @@ export default function SearchInfo() {
                 <Divider />
                 <br/>
                 <div>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         與搜尋內容相關
                     </Typography>
                     <br/>
@@ -173,19 +155,19 @@ export default function SearchInfo() {
                                                         {activity.activityName}
                                                     </Typography>
                                                     <Link 
-                                                        to={"/ActivityInformation?" + activity.activityId}
+                                                        // to={"/ActivityInformation?" + activity.activityId}
                                                         className={classes.link}
-                                                        title={activity.activityName}
+                                                        title={activity.organizerName}
                                                     >
                                                         <Typography variant="overline">
                                                             {activity.organizerName}
                                                         </Typography>
                                                     </Link>
-                                                    <Typography variant="caption" color="textSecondary">
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary">
                                                         {` • ${activity.activityStartDateString} • ${activity.activitySpace}`}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary" className={classes.content}>
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary" className={classes.content}>
                                                         {activity.activityInfo}
                                                     </Typography>
                                                 </Box>
@@ -201,7 +183,7 @@ export default function SearchInfo() {
                 <Divider />
                 <br/>
                 <div>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.word}>
                         與主辦單位相關
                     </Typography>
                     <br/>
@@ -215,25 +197,25 @@ export default function SearchInfo() {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                     <div>
-                                        <Container style={{textDecoration : "none"}}>
+                                        <Container component={Link} to="" style={{textDecoration : "none"}}>
                                                 <Box lineHeight="normal">
                                                     <Typography variant="h6" title={organizer.organizerName} className={classes.Typography}>
                                                         {organizer.organizerName}
                                                     </Typography>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="overline" className={classes.word}>
                                                         電話：{organizer.organizerPhone}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="caption" className={classes.word}>
                                                         聯絡信箱： {organizer.organizerEmail}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="overline">
+                                                    <Typography variant="overline" className={classes.word}>
                                                         聯絡地址： {organizer.organizerAddress}
                                                     </Typography>
                                                     <br/>
-                                                    <Typography variant="caption" color="textSecondary">
-                                                        資訊： {`  ${organizer.organizerInfo}`}
+                                                    <Typography variant="caption" className={classes.word} color="textSecondary">
+                                                        主辦單位資訊： {`  ${organizer.organizerInfo}`}
                                                     </Typography>
                                                 </Box>
                                         </Container> 
