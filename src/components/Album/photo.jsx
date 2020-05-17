@@ -47,43 +47,6 @@ const useStyles = makeStyles(theme => ({
   } ,
 }));
 
-
-const tileData =[
-  {
-    img:Cat1,
-    title:'Image',
-
-  },
-  {
-    img:Cat2,
-    title:'Image',
-  },
-  {
-    img:Cat3,
-    title:'Image',
-  },
-  {
-    img:Cat4,
-    title:'Image',
-  },
-  {
-    img:Cat5,
-    title:'Image',
-  },
-  {
-    img:Cat6,
-    title:'Image',
-  },
-  {
-    img:Cat7,
-    title:'Image',
-  },
-  {
-    img:Cat8,
-    title:'Image',
-  },
-];
-
 export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();

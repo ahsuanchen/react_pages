@@ -147,7 +147,7 @@ export default function TestGridList(props) {
       <div>
       <form>
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
-        {act.map(actt =>  (
+        {registration.map(actt =>  (
         <GridListTile cols={1} key={actt.activityId}>
           <img src={actt.activityCover} alt={actt.activityCover} />
         <GridListTileBar className={classes.word} title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
