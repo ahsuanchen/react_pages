@@ -222,7 +222,12 @@ export default function MenuApp() {
                         {activity.map(activity =>
                         <div className={classes.slide}>
                             <Link to={"/ActivityInformation?" + activity.activityId}>
-                                <img className={classes.slide_img} title={activity.activityName} src={activity.activityCover} alt={activity.activityName} />
+                                <img
+                                    className={classes.slide_img}
+                                    title={activity.activityName}
+                                    src={activity.activityCover}
+                                    alt={activity.activityName}
+                                />
                             </Link>
                         </div>
                         )}
