@@ -64,10 +64,15 @@ const useStyles = makeStyles(theme => ({
         background : '#00bfa5',
         fontSize: "15px",
         marginTop : "10%" ,
+        fontFamily : "微軟正黑體"
     },
     font: {
-        color: theme.palette.grey,
+        color: theme.palette.grey ,
+        fontFamily : "微軟正黑體"
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 const Forgot2Page = props => {
@@ -166,7 +171,7 @@ export default function ForgotPW() {
                 <div className={classes.paper}>
                     <paper>
                     
-                        <Typography variant="subtitle1" gutterBottom align="center">
+                        <Typography className={classes.word} variant="subtitle1" gutterBottom align="center">
                         <HelloMessage name="Mark" />, 請重新設定密碼。
                         </Typography>
                         

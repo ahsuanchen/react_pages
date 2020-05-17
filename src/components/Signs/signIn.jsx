@@ -89,12 +89,15 @@ const useStyles = makeStyles(theme => ({
     background : '#00bfa5',
         color : "#fafafa" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#00bfa5',
             color : "#fff"
         } , 
   },
-  
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
 }));
 
 
@@ -129,7 +132,7 @@ export default function SignInSide() {
         </div>
         <div className={classes.paper}>
             
-          <Typography component="h1" variant="h5">
+          <Typography className={classes.word} component="h1" variant="h5">
             登入
           </Typography>
 
@@ -166,12 +169,12 @@ export default function SignInSide() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                  <Link href="forgot1" variant="body2" color="inherit">
+                  <Link href="forgot1" className={classes.word} variant="body2" color="inherit">
                     忘記密碼？
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="signup" variant="body2" color="inherit">
+                  <Link href="signup" className={classes.word} variant="body2" color="inherit">
                     {"尚未有帳號？註冊"}
                   </Link>
                 </Grid>

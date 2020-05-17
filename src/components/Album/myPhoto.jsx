@@ -33,6 +33,9 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%",
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
   left_menu: {
       display: "flex",
       justifyContent: "center",
@@ -147,7 +150,7 @@ const[photo , setPhoto] = useState([]);
      <LeftBar/>
          <Container className={classes.content}>
          <div>
-           <Typography variant="h4">
+           <Typography variant="h4" className={classes.word}>
               我的相簿 > 我的照片
            </Typography>
            <hr />
@@ -161,7 +164,7 @@ const[photo , setPhoto] = useState([]);
           </ListSubheader>
         </GridListTile>}
         {imageList.map(tile => (
-        <GridListTile cols={1} key={tile}>
+        <GridListTile className={classes.word} cols={1} key={tile}>
           <img src={`/assets/images/${tile}.jpg`} alt={tile} />
         </GridListTile>))}
       </GridList>

@@ -25,7 +25,9 @@ const useStyles = makeStyles(theme => ({
       margin: "2% 2%",
       overflow: "visible"
     },
-
+    word : {
+      fontFamily : "微軟正黑體"
+    } ,
     container : {
       display: 'flex',
       flexWrap: 'wrap',
@@ -53,6 +55,7 @@ const useStyles = makeStyles(theme => ({
       },
       typography: {
         padding: theme.spacing(2),
+        fontFamily : "微軟正黑體"
       },
       btn_file : {
           fontSize : "30px" ,
@@ -199,23 +202,22 @@ export default function Updatephoto() {
     return (
       <div>
       <Header/>
-
         <div className={classes.left_menu}>
-        <LeftBar/>
-        <div className={classes.root}>
+          <LeftBar/>
+          <div className={classes.root}>
 
-          <Typography variant="h4">
+          <Typography variant="h4" className={classes.word}>
              管理活動相片
-
-             <IconButton
-             aria-describedby={id}
-             variant="contained"
-             color="primary"
-             onClick={handleClickk}>
-               <HelpOutlineIcon />
-             </IconButton>
-
-             <Popover
+          </Typography>
+          <IconButton
+            aria-describedby={id}
+            variant="contained"
+            color="primary"
+            onClick={handleClickk}
+            >
+            <HelpOutlineIcon />
+          </IconButton>
+          <Popover
              id={id}
              open={open}
              anchorEl={anchorEl}
@@ -234,38 +236,40 @@ export default function Updatephoto() {
             2.圖片解析度越高，辨識速度越慢
             </Typography>
           </Popover>
-              </Typography>
+          <Typography variant="h4" className={classes.word}>
+             上傳活動相片
+          </Typography>
 
           <hr/>
-
-          <Button variant="outlined" >
+          <Button variant="outlined" className={classes.word}>
               新增檔案
               <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
           </Button>
 
           <Button
+            className={classes.word}
             variant="contained"
             color="secondary"
             onClick={handleSubmitt}
             >
-          一鍵辨識
+            一鍵辨識
           </Button>
 
           {image.preview ?
             <div className={classes.container}>
           <GridList cols={3} cellHeight={200} className={classes.gridList}>
           <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-            <ListSubheader component="div">預覽照片</ListSubheader>
+            <ListSubheader component="div" className={classes.word}>預覽照片</ListSubheader>
           </GridListTile>
             {[...data].map(pic => {
-              return  <GridListTile cols={1} key={pic.id}>
+              return  <GridListTile className={classes.word} cols={1} key={pic.id}>
                       <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px" height="188px"/>
                       </GridListTile>
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })
             }
           </GridList>
-          <Button onClick={handleSubmit} variant="outlined" color="secondary">
+          <Button className={classes.word} onClick={handleSubmit} variant="outlined" color="secondary">
             確定上傳
           </Button>
            </div>
@@ -275,7 +279,7 @@ export default function Updatephoto() {
             <div className={classes.container}>
             <GridList cols={3} cellHeight={200} className={classes.gridList}>
             <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-              <ListSubheader component="div">已上傳照片</ListSubheader>
+              <ListSubheader component="div" className={classes.word}>已上傳照片</ListSubheader>
             </GridListTile>
               {[...photo].map(pic => {
                 return  <GridListTile cols={1} key={pic.photoId}>
