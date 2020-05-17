@@ -26,6 +26,9 @@ export default function SortButtons() {
     <div className={classes.root} >
       <span className={classes.title}>分類:</span>
       <Button classes={{root:classes.test}} variant="contained">
+        全部
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
         學習
       </Button>
       <Button classes={{root:classes.test}} variant="contained">

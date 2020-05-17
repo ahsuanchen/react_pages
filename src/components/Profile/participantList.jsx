@@ -20,6 +20,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -61,7 +62,7 @@ export default function ParticipantList() {
     let count = 0 ;
 
     const handleClick = event => {
-        event.preventDefault();    
+        event.preventDefault();
         let url =  "/api/line/postMessage/" ;
         url = url + activityId ;
             axios.post(url)
@@ -97,7 +98,7 @@ export default function ParticipantList() {
         else
         {
             download(activityId);
-        } 
+        }
     };
 
     const [activity, setActivity] = useState([]);
@@ -221,14 +222,21 @@ export default function ParticipantList() {
                                                     {registration.map(registration =>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell className={classes.word} align="center">{count += 1}</TableCell>
-                                                            <TableCell className={classes.word} align="center">{registration.member.memberName}</TableCell>
-                                                            <TableCell className={classes.word} align="center">{registration.member.memberPhone}</TableCell>
-                                                            <TableCell className={classes.word} align="center">{registration.member.memberEmail}</TableCell>
-                                                            <TableCell className={classes.word} align="center">報名成功</TableCell>
+                                                            <TableCell align="center">{count += 1}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberName}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberPhone}</TableCell>
+                                                            <TableCell align="center">{registration.member.memberEmail}</TableCell>
+                                                            <TableCell align="center">報名成功</TableCell>
+                                                            <TableCell align="center">
+                                                                <Tooltip title="予後回饋">
+                                                                    <Link to={"/FeedbackResponse?" + activityId} className={classes.feedback_Link}>
+                                                                        <CommentIcon />
+                                                                    </Link>
+                                                                </Tooltip>
+                                                            </TableCell>
                                                         </TableRow>
                                                     </TableBody>
-                                                    )}  
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>

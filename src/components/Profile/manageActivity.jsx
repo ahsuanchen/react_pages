@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
     },
     choose_type : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' , 
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         width : "250px" ,
         height : "250px" ,
         color : "#E0E0E0" ,
@@ -488,9 +488,9 @@ export default function ManageActivity() {
                                                                         </DialogActions>
                                                                     </Dialog>
                                                                 </TableCell>
-                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
+                                                               : ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&
                                                                 (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
-                                                                ? 
+                                                                ?
                                                                 <TableCell align="center">
                                                                     <Button
                                                                         variant="contained"
@@ -545,7 +545,7 @@ export default function ManageActivity() {
                                                                     </Dialog>
                                                                 </TableCell>
                                                                : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
-                                                                    ? 
+                                                                    ?
                                                             <TableCell align="center">
                                                                 <Button
                                                                     variant="contained"
@@ -702,7 +702,16 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                 >
-                                                                    上傳/管理照片
+                                                                    上傳照片
+                                                                </Button>
+                                                                <br /><br />
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to={"/UpdatePhoto?" + activity.activityId}
+                                                                >
+                                                                    管理照片
                                                                 </Button>
                                                             </TableCell>
                                                             )}

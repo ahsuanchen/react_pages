@@ -21,7 +21,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Header from 'components/Header/PF_header.jsx';
-
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -93,7 +93,7 @@ export default function ActivityInfo() {
 const [member_Email,setMember_Email] = useState("");
 const [activity_Id,setActivity_Id] = useState("");
 const [registrationRemark,setRegistrationRemark] = useState("");
-const [registrationMeal,setRegistrationMeal] = useState("");
+const [registrationMeal,setRegistrationMeal] = useState("0");
 
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
@@ -105,9 +105,13 @@ const [registrationMeal,setRegistrationMeal] = useState("");
     setValue(event.target.value);
   };
 
+  const handleDontSubmit = (e) =>{
+    alert("無法報名，可能因為該活動與您報名過的其他活動時間衝突或報名活動人數已達上限");
+  }
+
   const handleSubmit = (event) =>{
 
-    alert("報名成功");
+    
 
     const Registration =
     {
@@ -121,10 +125,12 @@ const [registrationMeal,setRegistrationMeal] = useState("");
     axios.post("/api/registration/",Registration)
     .then( res => {
       console.log("ok");
+      alert("報名成功");
 
     }).catch(function(error)
   {
     console.log(error);
+    alert("無法報名，可能因為該活動與您報名過的其他活動時間衝突或報名活動人數已達上限");
   });
 
 
@@ -180,10 +186,10 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           InputProps={{
             readOnly: true,
           }}/>
-          <Typography className={classes.word}>
-            {(act.activityMeal==1)?"餐點:":null}
+          <Typography>
+            {(act.activityMeal=="Y")?"餐點:":null}
           </Typography>
-          {(act.activityMeal==1)?
+          {(act.activityMeal=="Y")?
             <FormControl component="fieldset">
               <RadioGroup aria-label="meal" name="registrationMeal" value={registrationMeal} onChange={e=>setRegistrationMeal(e.target.value)}>
               <FormControlLabel value="2" control={<Radio />} label="葷食" />
@@ -203,13 +209,13 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             rows={4}
             variant="outlined"
             onChange={e=>setRegistrationRemark(e.target.value)}/>
-          <Typography gutterBottom className={classes.word}>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
+          <Typography gutterBottom>{(act.activityMeal=="Y")?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/Activity">確定報名</Button>
         :
-        <Button className={classes.word} variant="contained" color="secondary" disabled>無法報名</Button>}
+        <Button onClick={handleDontSubmit} variant="contained" color="secondary" >確定報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

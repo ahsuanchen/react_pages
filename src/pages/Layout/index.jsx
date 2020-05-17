@@ -43,16 +43,17 @@ import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
-import ActivityAlbum from 'pages/ActivityAlbum/index.jsx';
-import ActivityPhoto from 'pages/ActivityPhoto/index.jsx';
+import ActivityAlbum from 'components/Album/album.jsx';
+import ActivityPhoto from 'components/Album/photo.jsx';
 import ActivityInformation from 'pages/ActivityInfo/index.jsx';
 import ActivitySignUp from 'pages/ActivitySignUp/index.jsx';
-import MyAlbum from 'pages/MyAlbum/index.jsx';
-import MyPhoto from 'pages/MyPhoto/index.jsx';
+import MyAlbum from 'components/Album/myAlbum.jsx';
+import MyPhoto from 'components/Album/myPhoto.jsx';
 import UpdatePhoto from 'components/Album/updatephoto.jsx';
 import LeftBar from 'components/Profile/leftbar.jsx';
 
-import FeedBack from 'components/Activity/feedback.jsx';
+import Feedback from 'components/Activity/feedback.jsx';
+import FeedbackResponse from 'components/Activity/feedbackResponse.jsx';
 
 class Layout extends React.Component {
 
@@ -107,10 +108,11 @@ class Layout extends React.Component {
       <Route path="/MyPhoto" component={MyPhoto} />
       <Route path="/ActivitySignUp" component={ActivitySignUp}/>
       <Route path="/UpdatePhoto" component={UpdatePhoto} />
-      
+
       <Route path="/participantList" component={ParticipantList} />
       <Route path="/leftBar" component={LeftBar} />
-      <Route path="/FeedBack" component={FeedBack}/>
+      <Route path="/Feedback" component={Feedback}/>
+      <Route path="/FeedbackResponse" component={FeedbackResponse}/>
       </>
     );
   }

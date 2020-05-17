@@ -14,15 +14,15 @@ const useStyles = makeStyles(theme => ({
         color: "#000" ,
     },
     left_container: {
-        maxWidth: "280px",
+        mixWidth: "100%",
         borderRight: "1px solid",
     },
     word : {
         fontFamily : "微軟正黑體"
     } ,
     avatar : {
-        minWidth : "150px" ,
-        minHeight : "150px" ,
+        minWidth : 150 ,
+        minHeight : 150 ,
     } ,
     link : {
         textDecoration : "none" ,
@@ -35,11 +35,6 @@ const useStyles = makeStyles(theme => ({
     content : {
         margin : "2% 2%" ,
     } ,
-    img : {
-        margin : "2% 0" ,
-        minWidth : '150px' ,
-        maxHeight : '200px'
-    } ,
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         alignItems : "right"
@@ -48,7 +43,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function LeftBar() {
     const classes = useStyles();
-    
+
     let history = useHistory();
     function goSignin()
     {
@@ -128,7 +123,7 @@ export default function LeftBar() {
                         </Box>
                     </Link>
                     <Divider />
-                    {(organizer.memberEmail != null ? 
+                    {(organizer.memberEmail != null ?
                     <>
                     <Box lineHeight={3} m={1}>
                         <strong className={classes.word}>{organizer.organizerName}</strong>
@@ -156,7 +151,7 @@ export default function LeftBar() {
                         </Box>
                     </Link>
                     </>
-                    : 
+                    :
                     <>
                     <Link to="/MyAlbum" className={classes.link}>
                         <Box lineHeight={2} m={1}>
@@ -172,6 +167,38 @@ export default function LeftBar() {
                     )}
                 </Typography>
             </Container>
-        </div>    
+        </div>
     );
 }
+{/*    left_menu: {
+        display: "-webkit-inline-box",
+        color: "#000" ,
+    },
+    left_container: {
+        maxWidth: "280px",
+        borderRight: "1px solid",
+    },
+    avatar : {
+        minWidth : "150px" ,
+        minHeight : "150px" ,
+    } ,
+    link : {
+        textDecoration : "none" ,
+        color : "#D0D0D0" ,
+        '&:hover' : {
+            color : '#00AEAE'
+        } ,
+    } ,
+    content : {
+        margin : "2% 2%" ,
+    } ,
+    img : {
+        margin : "2% 0" ,
+        minWidth : '150px' ,
+        maxHeight : '200px'
+    } ,
+    button : {
+        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        alignItems : "right"
+    }
+    */}

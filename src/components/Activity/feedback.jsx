@@ -27,6 +27,7 @@ import SentimentVerySatisfiedIcon from '@material-ui/icons/SentimentVerySatisfie
 import Box from '@material-ui/core/Box';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from 'components/Header/PF_header.jsx';
+import { Link } from 'react-router-dom';
 
 const StyledRating = withStyles({
   iconFilled: {
@@ -168,9 +169,10 @@ const [suggest,setSuggest] = useState("");
 
     alert("感謝您的建議!");
 
+
     const Feedback =
     {
-      activity_Id : 1,
+      activity_Id : activityId,
       placeFeedback : place,
       scheduleFeedback : schedule,
       processFeedback : process,
@@ -187,6 +189,7 @@ const [suggest,setSuggest] = useState("");
 
     }).catch(function(error)
   {
+    alert("您已經填寫過了喔!");
     console.log(error);
   });
 
@@ -207,6 +210,7 @@ const [suggest,setSuggest] = useState("");
        </Typography>
        <hr />
      </div>
+
       <Card className={classes.cardroot}>
         <CardContent>
         <Typography className={classes.word}>
@@ -265,7 +269,7 @@ const [suggest,setSuggest] = useState("");
                 onChange={e=>setStaff(e.target.value)}
               />
 
-                <Typography component="legend" className={classes.word}>活動整體滿意度</Typography>
+                <Typography component="legend">整體滿意度</Typography>
                 <Rating name="overall" defaultValue={0} max={5} onChange={e=>setOverall(e.target.value)}/>
             </Box>
 
@@ -282,7 +286,7 @@ const [suggest,setSuggest] = useState("");
               onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
-          <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定</Button>
+          <Button onClick={handleSubmit} variant="contained" color="secondary" component={Link} to="/signupSituation">確定</Button>
         </CardActions>
       </Card>
       </Container>
