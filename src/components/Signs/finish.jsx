@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     root: {
-        height: '120vh',
+        height: '90vh',
         width:'100%',
         marginTop: theme.spacing(10),
         color: 'white',
@@ -32,18 +33,32 @@ const useStyles = makeStyles(theme => ({
 
 
     paper: {
-        marginTop: theme.spacing(8),
+        marginTop: theme.spacing(5),
         flexDirection: 'column',
         alignItems: 'center',
+        color:'white',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(40),
             height: theme.spacing(20),
         },
     },
+
+    // paper: {
+    //     marginTop: theme.spacing(4),
+    //     flexDirection: 'column',
+    //     alignItems: 'center',
+    //     color:'white',
+    //     background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
+    //     display: 'flex',
+    //     '& > *': {
+    //         marginTop: theme.spacing(5),
+    //         width: theme.spacing(70),
+    //         height: theme.spacing(20),
+    //     },
+    // },
 
 
     avatar: {
@@ -57,14 +72,14 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        margin: theme.spacing(13, 15),
+        margin: theme.spacing(10, 12),
         color: 'white',
         borderColor:'white'
     },
 
     icon: {
         //size: '20',
-        margin: theme.spacing(5, 18),
+        margin: theme.spacing(5, 15),
     },
     font: {
         color: theme.palette.grey,
@@ -87,8 +102,9 @@ export default function Finish() {
                 <Typography className={classes.font} component="h1" variant="h5" align="center">
                     註 冊
                     </Typography>
-                <div className={classes.paper}>
-                    <paper>
+                <Paper className={classes.paper}>
+                <Grid container justify="center">
+                        <Container className={classes.container}>
                         <CheckCircleOutlineIcon className={classes.icon}></CheckCircleOutlineIcon>
 
                         <Typography variant="h5" gutterBottom align="center">
@@ -110,12 +126,12 @@ export default function Finish() {
                                 >
                                     登入
                             </Button>
-
-                    </paper>
+</Container>
+</Grid>
                     <Grid align-items-xs-flex-end>
                     </Grid>
 
-                </div>
+                </Paper>
 
             </Container>
         </Grid>

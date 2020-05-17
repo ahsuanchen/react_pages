@@ -16,15 +16,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import GroupIcon from '@material-ui/icons/Group';
-import BrushIcon from '@material-ui/icons/Brush';
+import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import ComputerIcon from '@material-ui/icons/Computer';
-import RowingIcon from '@material-ui/icons/Rowing';
 import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
 import HotTubIcon from '@material-ui/icons/HotTub';
-import NaturePeopleIcon from '@material-ui/icons/NaturePeople';
-import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
+import ChildCareIcon from '@material-ui/icons/ChildCare';
+import LandscapeIcon from '@material-ui/icons/Landscape';
+import PaletteIcon from '@material-ui/icons/Palette';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -32,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "3% auto"
     } ,
     type_part : {
         maxWidth : "750px"
@@ -53,19 +53,19 @@ const useStyles = makeStyles(theme => ({
     } ,
     icon_part : {
         margin : "20% auto" ,
-        fontSize : "90px"
+        fontSize : "80px"
     } , 
-    typeword_part : {
-        fontSize : "24px"
+    typeword : {
+        fontSize : "20px"
     } ,
-    button_part : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+    button : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
-        marginLeft : "50%", 
+        marginLeft : "50%" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
     }
 }));
@@ -74,29 +74,6 @@ export default function BulidActivity_step1() {
     const classes = useStyles();
 
     const  [activityTypes,setActivityTypes] =  useState("");
-
-    // //取memberEmail
-    // const [member,setMember] = useState({
-    //     memberEmail:'',
-    // });
-
-    // useEffect(() =>{
-    // async function fetchData(){
-    //     const url = '/api/login/name';
-    //     const result = await axios.get(url);
-    //     setMember(result.data);
-    //   }
-    //   fetchData();
-    // },[]);
-
-
-    // const [cardActive, setCardActive] = React.useState();
-    // const clickCard = event => {
-    //     const active = cardActive;
-    //     setCardActive(!active);
-    // };
-
-    //const types = [];
 
     let types = []
     
@@ -136,21 +113,18 @@ export default function BulidActivity_step1() {
     const clickCard6 = event => {
         const active = cardActive6;
         setCardActive6(!active);
-        
     };
     //藝文
     const [cardActive7, setCardActive7] = React.useState();
     const clickCard7 = event => {
         const active = cardActive7;
         setCardActive7(!active);
-        
     };
     //運動
     const [cardActive8, setCardActive8] = React.useState();
     const clickCard8 = event => {
         const active = cardActive8;
         setCardActive8(!active);
-        
     };
     //戶外
     const [cardActive9, setCardActive9] = React.useState();
@@ -158,10 +132,8 @@ export default function BulidActivity_step1() {
         const active = cardActive9;
         console.log(active);
         setCardActive9(!active);
-        
     };
 
-    
 
     console.log(types);
 
@@ -175,7 +147,6 @@ export default function BulidActivity_step1() {
         if(cardActive2 == true){
             types.push("資訊")
         }
-
         if(cardActive3 == true){
             types.push("體驗")
         }
@@ -214,11 +185,11 @@ export default function BulidActivity_step1() {
         <div className={classes.div}>
             <Header/>
             <div>
-                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={0} />
+                <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={0} />
             </div>
             <div className={classes.topic_part}>
                 <Typography variant="h5">
-                    請選擇一種活動類別
+                    請選擇至少一種活動類別
                 </Typography>
             </div>
             <div>
@@ -231,9 +202,9 @@ export default function BulidActivity_step1() {
                                         className={classes.card_content}
                                         title="type_1"
                                     >
-                                        <LocalLibraryIcon className={classes.icon_part} />
+                                        <ImportContactsIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         學術
                                     </CardContent>
                                 </CardActionArea>
@@ -246,7 +217,7 @@ export default function BulidActivity_step1() {
                                     >
                                         <GroupIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         講座
                                     </CardContent>
                                 </CardActionArea>
@@ -257,9 +228,9 @@ export default function BulidActivity_step1() {
                                         className={classes.card_content}
                                         title="type_7"
                                     >
-                                        <BrushIcon className={classes.icon_part} />
+                                        <PaletteIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         藝文
                                     </CardContent>
                                 </CardActionArea>
@@ -274,7 +245,7 @@ export default function BulidActivity_step1() {
                                     >
                                         <ComputerIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         資訊
                                     </CardContent>
                                 </CardActionArea>
@@ -285,9 +256,9 @@ export default function BulidActivity_step1() {
                                         className={classes.card_content}
                                         title="type_5"
                                     >
-                                        <RowingIcon className={classes.icon_part} />
+                                        <BeachAccessIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         休閒
                                     </CardContent>
                                 </CardActionArea>
@@ -300,7 +271,7 @@ export default function BulidActivity_step1() {
                                     >
                                         <SportsBasketballIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         運動
                                     </CardContent>
                                 </CardActionArea>
@@ -315,7 +286,7 @@ export default function BulidActivity_step1() {
                                     >
                                         <HotTubIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         體驗
                                     </CardContent>
                                 </CardActionArea>
@@ -326,9 +297,9 @@ export default function BulidActivity_step1() {
                                         className={classes.card_content}
                                         title="type_6"
                                     >
-                                        <NaturePeopleIcon className={classes.icon_part} />
+                                        <ChildCareIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         親子
                                     </CardContent>
                                 </CardActionArea>
@@ -339,16 +310,16 @@ export default function BulidActivity_step1() {
                                         className={classes.card_content}
                                         title="type_9"
                                     >
-                                        <DirectionsBikeIcon className={classes.icon_part} />
+                                        <LandscapeIcon className={classes.icon_part} />
                                     </CardMedia>
-                                    <CardContent className={classes.typeword_part}>
+                                    <CardContent className={classes.typeword}>
                                         戶外
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
                             <Box lineHeight={5} m={2}>
                                 <Button 
-                                    className={classes.button_part}
+                                    className={classes.button}
                                     onClick={handleSubmit}
                                     // component={Link}
                                     // to="/newInfo"

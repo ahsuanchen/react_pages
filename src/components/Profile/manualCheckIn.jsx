@@ -25,9 +25,8 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
-    topic : {
-        margin : "2% auto" ,
-        textAlign : "center"
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         display: "flex" ,
@@ -37,10 +36,11 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
-export default function ManualCheck() {
+export default function ManualCheckIn() {
     const classes = useStyles();
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
@@ -69,7 +69,7 @@ export default function ManualCheck() {
                 <LeftBar/>
                 <Container className={classes.content}>
                         <div>
-                            <Typography variant="h4">
+                            <Typography variant="h4" className={classes.word}>
                                 手 動 簽 到
                             </Typography>
                             <hr />
@@ -80,7 +80,7 @@ export default function ManualCheck() {
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     請輸入參加者帳號：
                                                 </Typography>
                                             </TableCell>

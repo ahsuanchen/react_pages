@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
+import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 import Stepper from 'react-stepper-horizontal'
 import Typography from '@material-ui/core/Typography';
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "5% auto"
+        margin : "3% auto"
     } ,
     container : {
         minHeight : "600px" ,
@@ -44,8 +45,8 @@ const useStyles = makeStyles(theme => ({
         fontSize: "20px",
         marginBottom : "5%" ,
         '&:hover' : {
-            background : 'none',
-            color : "#000"
+            background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
+            color : "#fff"
         }
     } ,
     btn_file : {
@@ -64,64 +65,61 @@ const useStyles = makeStyles(theme => ({
         display: "flex" ,
         justifyContent : "space-between"
     } ,
-    button_part1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    button1 : {
+        background : '#bdbdbd',
+        color : "#424242" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : '#757575',
+            color : "#fff"
         } , 
     } ,
-    button_part2 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+
+    button2 : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         '&:hover' : {
-            background : '#E0E0E0',
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
-    }
+    } ,
 
 }));
 
 export default function UpdateActivity_step2() {
-    function goSignin()
-    {
-        history.push("/signin");
-    }
+
     const classes = useStyles();
-console.log(parseInt(localStorage.getItem('activityId')));
+
     const [act, setAct] = useState({
-        activityId:parseInt(localStorage.getItem('activityId')),
+        activityId:localStorage.getItem('activityId'),
         activityCover:'',
     });
 
-    let url = "/api/activity/";
+    let url = "api/activity/";
     url = url + act.activityId;
-    let cover_src;
+
     useEffect(() => {
         async function fetchDataActCover() {
             await axios.get(url)
             .then(result => {
-                if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                {
-                    alert("您尚未登入，請先登入！")
-                    goSignin();
-                }
-                else
-                {
+                // if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                // {
+                //     alert("您尚未登入，請先登入！")
+                //     goSignin();
+                // }
+                // else
+                // {
                     
                     setAct(result.data);
                     console.log(result);
                     
-                    cover_src = "." + act.activityCover.substring(6);
-                    console.log(cover_src)
-                }
+            
+                // }
             })
             .catch(err => {
-                console.log(err.response);
-                if(err.response=== 403)
+                console.log(err.response.status);
+                if(err.response.status === 403)
                 {
                     alert("您的權限不足!");
                     
@@ -133,7 +131,9 @@ console.log(parseInt(localStorage.getItem('activityId')));
     }, []);
 
     
-    
+    //let cover_src = "." + act.activityCover.substring(6);
+    let cover_src = act.activityCover;
+    console.log(cover_src)
 
 
     const [data , setData] = useState();
@@ -181,7 +181,7 @@ console.log(parseInt(localStorage.getItem('activityId')));
             console.log(res);
             console.log(res.data);
             history.push({
-                pathname: "/.",
+                pathname: "/manageActivity",
               });
             
             
@@ -209,7 +209,7 @@ console.log(parseInt(localStorage.getItem('activityId')));
                         {
                             image.preview ? 
                             <>
-                                <img src={ image.preview } width="800" height="480" />
+                                <img src={ image.preview } width="50%" height="50%" />
                                 <br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
@@ -227,7 +227,7 @@ console.log(parseInt(localStorage.getItem('activityId')));
                             :(
                             <>
                             {/* 修改前 */}
-                                <img src= {cover_src}  width="800" height="480" />
+                                <img src= {cover_src}  width="50%" height="50%" />
                                 <br/><br/><br/>
                                 <Button className={classes.upload_button} variant="outlined">
                                     <CropOriginalIcon/>
@@ -248,7 +248,7 @@ console.log(parseInt(localStorage.getItem('activityId')));
                 <Grid item xs={12} sm={6} className={classes.button_part}>
                     <Box lineHeight="normal" m={1}>
                         <Button 
-                            className={classes.button_part1}
+                            className={classes.button1}
                             component={Link}
                             to="/updateDetails"
                         >
@@ -257,8 +257,8 @@ console.log(parseInt(localStorage.getItem('activityId')));
                     </Box>
                     <Box lineHeight="normal" m={1}>
                         <Button 
-                            className={classes.button_part2}
-                            onClick = {handleSubmit}
+                            className={classes.button2}
+                            onClick={handleSubmit}
                         >
                             完成修改
                         </Button>

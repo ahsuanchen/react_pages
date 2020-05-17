@@ -27,9 +27,13 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 2%" ,
         overflow : "visible"
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     topic : {
         margin : "2% auto" ,
-        textAlign : "center"
+        textAlign : "center" ,
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         display: "flex" ,
@@ -44,6 +48,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         margin : "auto 2%" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -123,8 +128,8 @@ export default function OrganizerInfo() {
                 <LeftBar/>
                 <Container className={classes.content}>
                         <div>
-                            <Typography variant="h4">
-                                {organizer.organizerName}
+                            <Typography variant="h4" className={classes.word}>
+                                主 辦 單 位 資 訊
                             </Typography>
                             <hr />
                         </div>
@@ -132,14 +137,14 @@ export default function OrganizerInfo() {
                             <form>
                                 <Box lineHeight="normal" m={1}>
                                     <Typography variant="h4" className={classes.topic}>
-                                        主 辦 單 位 資 訊
+                                        我 的 主 辦 單 位
                                     </Typography>
                                 </Box>
                                 <Table className={classes.table}>
                                     <TableBody>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     主辦單位名稱：
                                                 </Typography>
                                             </TableCell>
@@ -153,7 +158,7 @@ export default function OrganizerInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     聯絡電子信箱：
                                                 </Typography>
                                             </TableCell>
@@ -168,7 +173,7 @@ export default function OrganizerInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     連絡電話：
                                                 </Typography>
                                             </TableCell>
@@ -178,7 +183,7 @@ export default function OrganizerInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     聯絡地址：
                                                 </Typography>
                                             </TableCell>
@@ -192,7 +197,7 @@ export default function OrganizerInfo() {
                                         </TableRow>
                                         <TableRow>
                                             <TableCell>
-                                                <Typography variant="h6">
+                                                <Typography variant="h6" className={classes.word}>
                                                     主辦單位簡介：
                                                 </Typography>
                                             </TableCell>

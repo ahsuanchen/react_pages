@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
       minHeight: 800,
       color: "#000"
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
   link: {
       textDecoration: "none",
       color: "#D0D0D0",
@@ -113,7 +116,7 @@ export default function TestGridList(props) {
      <LeftBar/>
     <Container className={classes.content}>
       <div>
-        <Typography variant="h4">
+        <Typography variant="h4" className={classes.word}>
            活動相簿
         </Typography>
         <hr />
@@ -125,7 +128,7 @@ export default function TestGridList(props) {
         {act.map(actt =>  (
         <GridListTile cols={1} key={actt.activityId}>
           <img src={actt.activityCover} alt={actt.activityCover} />
-        <GridListTileBar title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
+        <GridListTileBar className={classes.word} title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
           <IconButton aria-label={`info about ${actt.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityPhoto?"+actt.activityId}>
             <InfoIcon/>
           </IconButton>}/>

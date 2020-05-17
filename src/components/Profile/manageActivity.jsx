@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme => ({
         display : "flex" ,
         justifyContent: "center",
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
     table : {
         margin : "auto" ,
     } ,
@@ -65,7 +68,8 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
-        minWidth : "125px"
+        minWidth : "125px" ,
+        fontFamily : "微軟正黑體"
     } ,
     Exclamation_Mark : {
         fontSize : "40px" ,
@@ -73,6 +77,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     dig_butoon : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
           color : '#00AEAE'
         }
@@ -94,7 +99,15 @@ const useStyles = makeStyles(theme => ({
     } ,
     icon_part : {
         fontSize : "150px"
-    }
+    } ,
+    card_Title : {
+        fontSize : "32px" ,
+        fontFamily : "微軟正黑體"
+    } ,
+    open_paper : {
+        maxWidth : '500px' ,
+        maxHeight : '600px' ,
+    } ,
   }));
 
   function PaperComponent(props) {
@@ -105,32 +118,56 @@ const useStyles = makeStyles(theme => ({
     );
   }
 
+function getUserMedia(constraints) {
+    // if Promise-based API is available, use it
+    if (navigator.mediaDevices) {
+      return navigator.mediaDevices.getUserMedia(constraints);
+    }
+      
+    // otherwise try falling back to old, possibly prefixed API...
+    var legacyApi = navigator.getUserMedia || navigator.webkitGetUserMedia ||
+      navigator.mozGetUserMedia || navigator.msGetUserMedia;
+      
+    if (legacyApi) {
+      // ...and promisify it
+      return new Promise(function (resolve, reject) {
+        legacyApi.bind(navigator)(constraints, resolve, reject);
+      });
+    }
+}
+  
+function getStream (type) {
+    if (!navigator.mediaDevices && !navigator.getUserMedia && !navigator.webkitGetUserMedia &&
+      !navigator.mozGetUserMedia && !navigator.msGetUserMedia) {
+      alert('User Media API not supported.');
+      return;
+    }
+  
+    var constraints = {};
+    constraints[type] = true;
+    
+    getUserMedia(constraints)
+    .then(function (stream) {
+        var mediaControl = document.querySelector(type);
+        
+        if ('srcObject' in mediaControl) {
+          mediaControl.srcObject = stream;
+        }
+        else if (navigator.mozGetUserMedia) {
+          mediaControl.mozSrcObject = stream;
+        }
+        else {
+          mediaControl.src = (window.URL || window.webkitURL).createObjectURL(stream);
+        }
+        mediaControl.play();
+    })
+    .catch(function (err) {
+        alert('Error: ' + err);
+    });
+}
+
 export default function ManageActivity() {
     const classes = useStyles();
-
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
-    const handlecheckInmodelOpen = () => {
-      setCheckInModelOpen(true);
-    };
-    const handlecheckInmodelClose = () => {
-      setCheckInModelOpen(false);
-    };
-
-    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
-    const handlecheckOutmodelOpen = () => {
-      setCheckOutModelOpen(true);
-    };
-    const handlecheckOutmodelClose = () => {
-      setCheckOutModelOpen(false);
-    };
 
     const [activity, setActivity] = useState([]);
     useEffect(() => {
@@ -141,7 +178,7 @@ export default function ManageActivity() {
                     axios.get("/api/activity/organizer/" + res.data.memberEmail)
                     .then(result => {
                         setActivity(result.data);
-                        // console.log(result)
+                        console.log(result)
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -154,38 +191,126 @@ export default function ManageActivity() {
         fetchDataAct();
     }, []);
 
-    const activity_End_or_not = new Date().getTime();
+    const [Cancel , setCancel] = useState(0);
+    const [Cancelopen, setCancelOpen] = React.useState(false);
+    const handleCancelOpen = (ActID , event) => {
+        console.log(ActID);
+        setCancel(ActID);
+        setCancelOpen(true);
+    };
+    const handleCancelClose = () => {
+      setCancelOpen(false);
+    };
+    const handleCancel = (ActID) => {
+        let url = "/api/activity/cancel/";
+        url = url + ActID;
+        axios.patch(url)
+        .then(res => {
+            window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
+    }
 
-    const FaceCheckIn = event => {
-        event.preventDefault();    
+    const [Delete , setDelete] = useState(0);
+    const [Deleteopen, setDeleteOpen] = React.useState(false);
+    const handleDeleteOpen = (ActID , event) => {
+        setDelete(ActID);
+        setDeleteOpen(true);
+    };
+    const handleDeleteClose = () => {
+      setDeleteOpen(false);
+    };
+    const handleDelete = (ActID) => {
+        let url = "/api/activity/";
+        url = url + ActID;
+        axios.delete(url)
+        .then(res => {
+            window.location.reload();
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
+    }
+
+    const [sendActID , setSendActID] = useState(0);
+    const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
+    const handlecheckInmodelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCheckInModelOpen(true);
+    };
+    const handlecheckInmodelClose = () => {
+      setCheckInModelOpen(false);
+    };
+    
+    const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
+    const handlecheckOutmodelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCheckOutModelOpen(true);
+    };
+    const handlecheckOutmodelClose = () => {
+      setCheckOutModelOpen(false);
+    };
+
+    const [CameraModelInopen, setCameraModelInopen] = React.useState(false);
+    const CameraModelCheckInopen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCameraModelInopen(true);
+        let openEngineUrl = "/api/engine" ;
         let url = "/api/signIn/" ;
-        url = url + activity.activityID ;
+        url = url + ActID ;
+        getStream("video")
+        axios.get(openEngineUrl)
+        .then(res => {
             axios.post(url)
             .then(res => {
                 alert("簽到成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽到失敗");
+                alert("簽到失敗或該使用者未參加此活動");
                 console.log(error.response.status);
-                console.log(activity.activityID);
             });
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     };
-    const FaceCheckOut = event => {
-        event.preventDefault();    
-        let url = "/api/line/postMessage/announcement/" ;
-        url = url + activity.activityID ;
+    const CameraModelCheckInClose = () => {
+        setCameraModelInopen(false);
+    };
+
+    const [CameraModelOutopen, setCameraModelOutopen] = React.useState(false);
+    const CameraModelCheckOutopen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setCameraModelOutopen(true);
+        let openEngineUrl = "/api/engine" ;
+        let url = "/api/signOut/" ;
+        url = url + ActID ;
+        getStream("video")
+        axios.get(openEngineUrl)
+        .then(res => {
             axios.post(url)
             .then(res => {
                 alert("簽退成功");
                 window.location.reload();
             })
             .catch(function(error){
-                alert("簽退失敗");
+                alert("簽退失敗或該使用者未參加此活動");
                 console.log(error.response.status);
-                console.log(activity.activityID);
             });
+        })
+        .catch(function(error){
+            console.log(error.response.status);
+        });
     };
+    const CameraModelCheckOutClose = () => {
+        setCameraModelOutopen(false);
+    };   
+    
+
+    const activity_End_or_not = new Date().getTime();
 
     return (
         <div className={classes.div}>
@@ -194,7 +319,7 @@ export default function ManageActivity() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             管 理 活 動
                         </Typography>
                         <hr />
@@ -208,7 +333,7 @@ export default function ManageActivity() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         我所主辦的活動
                                     </Typography>
                                 </div>
@@ -220,45 +345,95 @@ export default function ManageActivity() {
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">活動名稱</TableCell>
-                                                            <TableCell align="center">活動地點</TableCell>
-                                                            <TableCell align="center">活動時間</TableCell>
-                                                            <TableCell align="center">可報名總額 / 已報名人數</TableCell>
-                                                            <TableCell align="center">活動狀況</TableCell>
-                                                            <TableCell align="center">功能</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動名稱</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動地點</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動時間</TableCell>
+                                                            <TableCell className={classes.word} align="center">可報名總額 / 已報名人數</TableCell>
+                                                            <TableCell className={classes.word} align="center">活動狀況</TableCell>
+                                                            <TableCell className={classes.word} align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     <TableBody>
                                                     {activity.map(activity =>
+                                                        (activity.activityCancelTime === null
+                                                            ?
                                                         <TableRow hover>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activityName}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activitySpace}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.activityStartDateString}
                                                                 <br/>
                                                                 <span>|</span>
                                                                 <br/>
                                                                 {activity.activityEndDateString}
                                                             </TableCell>
-                                                            <TableCell align="center">
+                                                            <TableCell className={classes.word} align="center">
                                                                 {activity.attendPeople}&nbsp;/&nbsp;{activity.registeredPeople}
                                                             </TableCell>
-                                                            <TableCell align="center">
-                                                            {   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
-                                                                (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
+                                                            <TableCell className={classes.word} align="center">
+                                                            {   (new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
+                                                                    ? "尚未開始報名"
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) &&  
+                                                                    (new Date(activity.startSignUpDate).getTime() < activity_End_or_not))
                                                                     ? "活動報名中" 
                                                                 :   ((new Date(activity.endSignUpDate).getTime() < activity_End_or_not) &&  
                                                                     (new Date(activity.activityStartDate).getTime() > activity_End_or_not))
                                                                     ? "等待活動中"
-                                                               : (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
+                                                                :   (new Date(activity.activityEndDate).getTime() >= activity_End_or_not)
                                                                     ? "活動進行中" : "活動已結束"}
                                                             </TableCell>
-                                                            {  (((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
-                                                                (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
+                                                            {  ((new Date(activity.startSignUpDate).getTime() > activity_End_or_not)
+                                                                    ?
+                                                                <TableCell align="center">
+                                                                    <Button
+                                                                        variant="contained"
+                                                                        className={classes.button}
+                                                                        component={Link}
+                                                                        to={"/updateInfo?" + activity.activityId}
+                                                                    >
+                                                                        修改活動
+                                                                    </Button>
+                                                                    <br /><br />
+                                                                    <Button
+                                                                        variant="contained"
+                                                                        className={classes.button}
+                                                                        onClick={(event) => handleDeleteOpen(activity.activityId , event)}
+                                                                    >
+                                                                        刪除活動
+                                                                    </Button>
+                                                                    <Dialog
+                                                                        open={Deleteopen}
+                                                                        onClose={handleDeleteClose}
+                                                                        PaperComponent={PaperComponent}
+                                                                        aria-labelledby="draggable-dialog-title"
+                                                                    >
+                                                                        <DialogTitle id="draggable-dialog-title">
+                                                                            <Typography variant="h5" className={classes.word}>
+                                                                                <ErrorIcon className={classes.Exclamation_Mark} />
+                                                                                刪除活動
+                                                                            </Typography>
+                                                                        </DialogTitle>
+                                                                        <DialogContent>
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
+                                                                                您確定要刪除該活動嗎？
+                                                                            </DialogContentText>
+                                                                        </DialogContent>
+                                                                        <DialogActions>
+                                                                            <Button autoFocus onClick={handleDeleteClose} className={classes.dig_butoon}>
+                                                                                取消
+                                                                            </Button>
+                                                                            <Button onClick={() => handleDelete(Delete)} className={classes.dig_butoon}>
+                                                                                確定
+                                                                            </Button>
+                                                                        </DialogActions>
+                                                                    </Dialog>
+                                                                </TableCell>
+                                                                :   ((new Date(activity.endSignUpDate).getTime() > activity_End_or_not) ||  
+                                                                    (new Date(activity.StartSignUpDate).getTime() < activity_End_or_not))
                                                                     ? 
                                                                 <TableCell align="center">
                                                                     <Button
@@ -282,32 +457,32 @@ export default function ManageActivity() {
                                                                     <Button
                                                                         variant="contained"
                                                                         className={classes.button}
-                                                                        onClick={handleOpen}
+                                                                        onClick={(event) => handleCancelOpen(activity.activityId , event)}
                                                                     >
-                                                                        刪除活動
+                                                                        停止舉辦
                                                                     </Button>
                                                                     <Dialog
-                                                                        open={open}
-                                                                        onClose={handleClose}
+                                                                        open={Cancelopen}
+                                                                        onClose={handleCancelClose}
                                                                         PaperComponent={PaperComponent}
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
-                                                                            <Typography variant="h5">
+                                                                            <Typography variant="h5" className={classes.word}>
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
-                                                                                刪除活動
+                                                                                停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
-                                                                            <DialogContentText style={{fontSize:"20px"}}>
-                                                                                您確定要刪除該活動嗎？
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
+                                                                                您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
                                                                         <DialogActions>
-                                                                            <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button autoFocus onClick={handleCancelClose} className={classes.dig_butoon}>
                                                                                 取消
                                                                             </Button>
-                                                                            <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button onClick={() => handleCancel(Cancel)} className={classes.dig_butoon}>
                                                                                 確定
                                                                             </Button>
                                                                         </DialogActions>
@@ -338,32 +513,32 @@ export default function ManageActivity() {
                                                                     <Button
                                                                         variant="contained"
                                                                         className={classes.button}
-                                                                        onClick={handleOpen}
+                                                                        onClick={(event) => handleCancelOpen(activity.activityId , event)}
                                                                     >
-                                                                        刪除活動
+                                                                        停止舉辦
                                                                     </Button>
                                                                     <Dialog
-                                                                        open={open}
-                                                                        onClose={handleClose}
+                                                                        open={Cancelopen}
+                                                                        onClose={handleCancelClose}
                                                                         PaperComponent={PaperComponent}
                                                                         aria-labelledby="draggable-dialog-title"
                                                                     >
                                                                         <DialogTitle id="draggable-dialog-title">
-                                                                            <Typography variant="h5">
+                                                                            <Typography variant="h5" className={classes.word}>
                                                                                 <ErrorIcon className={classes.Exclamation_Mark} />
-                                                                                刪除活動
+                                                                                停止舉辦
                                                                             </Typography>
                                                                         </DialogTitle>
                                                                         <DialogContent>
-                                                                            <DialogContentText style={{fontSize:"20px"}}>
-                                                                                您確定要刪除該活動嗎？
+                                                                            <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
+                                                                                您確定要停止舉辦該活動嗎？
                                                                             </DialogContentText>
                                                                         </DialogContent>
                                                                         <DialogActions>
-                                                                            <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button autoFocus onClick={handleCancelClose} className={classes.dig_butoon}>
                                                                                 取消
                                                                             </Button>
-                                                                            <Button onClick={handleClose} className={classes.dig_butoon}>
+                                                                            <Button onClick={() => handleCancel(Cancel)} className={classes.dig_butoon}>
                                                                                 確定
                                                                             </Button>
                                                                         </DialogActions>
@@ -384,7 +559,7 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={handlecheckInmodelOpen}
+                                                                    onClick={(event) => handlecheckInmodelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
@@ -398,16 +573,17 @@ export default function ManageActivity() {
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
+                                                                    {/* () => FaceCheckIn(sendActID) ,  */}
                                                                     <Fade in={checkInModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1" onClick={FaceCheckIn}>
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={CameraModelCheckInopen}>
                                                                                         <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 人臉辨識簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -419,7 +595,7 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.word}>
                                                                                                 手動簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -429,11 +605,27 @@ export default function ManageActivity() {
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={CameraModelInopen}
+                                                                    onClose={CameraModelCheckInClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={CameraModelInopen}>
+                                                                        <div>
+                                                                            <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
                                                                 <br /><br />
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={handlecheckOutmodelOpen}
+                                                                    onClick={(event) => handlecheckOutmodelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽退
                                                                 </Button>
@@ -451,12 +643,12 @@ export default function ManageActivity() {
                                                                         <div>
                                                                             <Grid container spacing={10}>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_1">
-                                                                                        <CardActionArea component={Link} to="/">
+                                                                                    <Card className={classes.choose_type} title="type_1" onClick={() => CameraModelCheckOutopen(sendActID)}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <TagFacesIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 人臉辨識簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -468,13 +660,29 @@ export default function ManageActivity() {
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent>
+                                                                                            <CardContent className={classes.word}>
                                                                                                 手動簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>
                                                                                     </Card>
                                                                                 </Grid>
                                                                             </Grid>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal>
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={CameraModelOutopen}
+                                                                    onClose={CameraModelCheckOutClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={CameraModelOutopen}>
+                                                                        <div>
+                                                                            <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal>
@@ -494,20 +702,15 @@ export default function ManageActivity() {
                                                                     variant="contained"
                                                                     className={classes.button}
                                                                 >
-                                                                    上傳照片
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                >
-                                                                    管理照片
+                                                                    上傳/管理照片
                                                                 </Button>
                                                             </TableCell>
                                                             )}
                                                         </TableRow>
-                                                        )}
+                                                        : ""
+                                                       ))}
                                                     </TableBody>
+                                                    
                                                 </Table>
                                             </Paper>
                                         </Grid>

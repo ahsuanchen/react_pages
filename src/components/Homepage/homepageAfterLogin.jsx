@@ -26,21 +26,24 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import EventIcon from '@material-ui/icons/Event';
 import GroupIcon from '@material-ui/icons/Group';
+import WarningIcon from '@material-ui/icons/Warning';
 
 const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box" ,
     } ,
     container : {
-        maxWidth : "1080px" ,
+        maxWidth : "80%" ,
         margin : "2% auto" ,
     } ,
     slide : {
+        height : "100%",
         maxHeight : "540px" ,
     } , 
     slide_img : {
-        maxWidth : "100%" ,
-        maxHeight : "100%" 
+        width : "100%" ,
+        height : "100%",
+        objectFit : 'contain' 
     } ,
     search: {
         margin : "2% auto" ,
@@ -50,24 +53,37 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "450px" ,
         padding : "5px 20px" ,
+        fontFamily : "微軟正黑體"
     } ,
     search_butoon : {
         padding : "10px 0" ,
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     activity_part : {
         margin : "2% auto" ,
     } ,
     card : {
         maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_area : {
+        maxWidth : "400px" ,
+        minHeight : "400px" ,
+    } ,
+    card_media : {
+        width : "100%" ,
+        minHeight : "250px"
     } ,
     card_content : {
         width : "100%" ,
-        height : "200px"
+        minHeight : "50px" ,
     } ,
     img : {
         width : "100%" ,
@@ -103,8 +119,22 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
     } ,
+    warning_type : {
+        background : '#ADADAD' , 
+        width : "250px" ,
+        height : "250px" ,
+        color : "#E0E0E0" ,
+        fontSize : "32px" ,
+        textAlign : "center" ,
+        display: 'flex',
+        alignItems: 'center',
+    } ,
     icon_part : {
         fontSize : "150px"
+    } , 
+    warning_content : {
+        fontSize : "24px" ,
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -114,6 +144,8 @@ const properties = {
     infinite: true,
     indicators: true,
     arrows: true,
+    //objectFit : 'contain'
+    //variableWidth: true
 }
 
 export default function MenuApp() {
@@ -145,67 +177,56 @@ export default function MenuApp() {
         }
     }
 
-    // function goSignin()
-    // {
-    //     history.push("/signin");
-    // }
-    // function goHomePage()
-    // {
-    //     history.push("/");
-    // }
-    // const [member, setMember] = useState([]);
-    // useEffect(() => {
-    //     async function fetchDataMem() {
-    //             let url = "/api/login/name"
-    //             axios.get(url)
-    //             .then(result => {
-    //                 if(result.data.toString().startsWith("<!DOCTYPE html>"))
-    //                 {
-    //                     alert("您尚未登入，請先登入！")
-    //                     goSignin();
-    //                 }
-    //                 else
-    //                 {
-    //                     setMember(result.data);
-    //                 }
-    //             })
-    //             .catch(err => {
-    //                 console.log(err.response.status);
-    //                 if(err.response.status === 403)
-    //                 {
-    //                     alert("您的權限不足!");
-    //                     goHomePage();
-    //                 }
-    //             })
-    //     }
-    //     fetchDataMem();
-    // }, []);
+    const [isSign , setIsSign] = React.useState(false);
+    // const [member , setMember] = useState([]);
+    const [activity, setActivity] = useState([]);
+    const [organizer, setOrganizer] = useState([]);
+    useEffect(() => {
+        async function fetchDataOrg() {
+                let url = "/api/login/name"
+                await axios.get(url)
+                .then(result => {
+                    setIsSign(true);
+                    // setMember(result.data);
+                    console.log(isSign);
+                    axios.get("/api/organizer/" + result.data.memberEmail)
+                    .then(result => {
+                        setOrganizer(result.data);
+                        // console.log(result);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                    axios.get("/api/activity")
+                    .then(res => {
+                        setActivity(res.data);
+                        // console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                    console.log(isSign);
+                })
+        }
+        fetchDataOrg();
+    }, []);
 
     return (
         <div className={classes.div}>
-            {/* {member.memberEmail === null ?
-                <Header1 />
-             : */}
-                <Header2/>
-            {/* } */}
+            <Header2/>
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
+                        {activity.map(activity =>
                         <div className={classes.slide}>
                             <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide1.jpg" alt="img1" />
+                                <img className={classes.slide_img} src={activity.activityCover} alt={activity.activityName} />
                             </Link>
                         </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide2.jpg" alt="img2" />
-                            </Link>
-                        </div>
-                        <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src="./img/slide3.jpg" alt="img3" />
-                            </Link>
-                        </div>
+                        )}
                     </Slide>
                 </div>
                 <div className={classes.search}>
@@ -240,7 +261,7 @@ export default function MenuApp() {
                             className={classes.fab}
                             onClick={handleOpen}
                         >
-                            <FontAwesomeIcon icon={faPlus} />
+                            <FontAwesomeIcon icon={faPlus} color="white" />
                         </Fab>
                     </Tooltip>
                     <Modal
@@ -256,25 +277,40 @@ export default function MenuApp() {
                         <Fade in={open}>
                             <div>
                                 <Grid container spacing={10}>
+                                    {organizer.memberEmail === null ?
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
                                             <CardActionArea component={Link} to="/organizer">
                                                 <CardMedia>
                                                     <GroupIcon className={classes.icon_part} />
                                                 </CardMedia>
-                                                <CardContent>
+                                                <CardContent className={classes.word}>
                                                     申請主辦單位
                                                 </CardContent>
                                             </CardActionArea>
                                         </Card>
                                     </Grid>
+                                    :
+                                    <Grid item xs={12} sm={6}>
+                                        <Card className={classes.warning_type} title="warning">
+                                            <CardActionArea>
+                                                <CardMedia>
+                                                    <WarningIcon className={classes.icon_part} />
+                                                </CardMedia>
+                                                <CardContent className={classes.warning_content}>
+                                                    您已申請過主辦單位
+                                                </CardContent>
+                                            </CardActionArea>
+                                        </Card>
+                                    </Grid>
+                                    }
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_2">
                                             <CardActionArea component={Link} to="/new1">
                                                 <CardMedia>
                                                     <EventIcon className={classes.icon_part} />
                                                 </CardMedia>
-                                                <CardContent>
+                                                <CardContent className={classes.word}>
                                                     建立活動
                                                 </CardContent>
                                             </CardActionArea>
@@ -288,90 +324,41 @@ export default function MenuApp() {
             </div>
             <div className={classes.container}>
                 <div>
-                    <Typography variant="h5">
+                    <Typography variant="h5" className={classes.word}>
                         熱 門 活 動 /
                     </Typography>
                 </div>
                 <div className={classes.activity_part}>
                     <Grid container spacing={3}>
+                    {activity.map(activity =>
                         <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
-                                <CardActionArea>
+                                <CardActionArea className={classes.card_area}>
                                     <CardMedia
-                                        className={classes.card_content}
-                                        image="../img/slide1.jpg"
+                                        className={classes.card_media}
+                                        image={activity.activityCover}
                                         title="act_1"
                                     />
                                     <CardContent>
-                                        <Typography variant="h6">
-                                            「#管他就跑我的」路跑
+                                        <Typography variant="h6" className={classes.word}>
+                                            {activity.activityName}
                                         </Typography>
                                         <hr/>
-                                        <Typography variant="h6">
+                                        <Typography variant="h6" className={classes.word}>
                                             <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-03-22 (日)
+                                            &nbsp; {activity.activityStartDateString.substring(0,10)}
                                         </Typography>
                                     </CardContent>
-                                    <Divider/>
+                                    
                                 </CardActionArea>
+                                <Divider/>
                                 <CardActions>
                                     <Link to="/" className={classes.link}>#running </Link>
                                     <Link to="/" className={classes.link}>#marathon </Link>
                                 </CardActions>
                             </Card>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide2.jpg"
-                                        title="act_2"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            世界巡迴演唱會-高雄場
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-07-25 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#singer </Link>
-                                    <Link to="/" className={classes.link}>#concert </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={classes.card}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        image="./img/slide3.jpg"
-                                        title="act_3"
-                                    />
-                                    <CardContent>
-                                        <Typography variant="h6">
-                                            Pinkoi Experience | 質感體驗
-                                        </Typography>
-                                        <hr/>
-                                        <Typography variant="h6">
-                                            <FontAwesomeIcon icon={faClock} />
-                                            &nbsp; 2020-05-20 (六)
-                                        </Typography>
-                                    </CardContent>
-                                    <Divider/>
-                                </CardActionArea>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#fashion </Link>
-                                    <Link to="/" className={classes.link}>#experience </Link>
-                                </CardActions>
-                            </Card>
-                        </Grid>
+                    )}
                     </Grid>
                 </div>
             </div>

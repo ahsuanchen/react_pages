@@ -38,6 +38,9 @@ const useStyles = makeStyles(theme => ({
       minHeight: 800,
       color: "#000"
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
   left_container: {
       maxWidth: "280px",
       borderRight: "1px solid",
@@ -119,7 +122,7 @@ export default function TestGridList(props) {
     <LeftBar/>
         <Container className={classes.content}>
         <div>
-          <Typography variant="h4">
+          <Typography variant="h4" className={classes.word}>
              我的相簿
               </Typography>
           <hr />
@@ -131,7 +134,7 @@ export default function TestGridList(props) {
         {imageList.map(tile => (
         <GridListTile cols={1} key={tile}>
           <img src={`/assets/images/${tile}.jpg`} alt={tile} />
-        <GridListTileBar title={tile.title} subtitle={<span>by: {tile.author}</span>} actionIcon={
+        <GridListTileBar className={classes.word} title={tile.title} subtitle={<span>by: {tile.author}</span>} actionIcon={
           <IconButton aria-label={`info about ${tile.title}`} className={classes.icon} component={Link} to="/MyPhoto">
             <InfoIcon/>
           </IconButton>}/>
