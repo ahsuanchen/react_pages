@@ -208,7 +208,6 @@ export default function MenuApp() {
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    console.log(isSign);
                 })
         }
         fetchDataOrg();
@@ -222,8 +221,13 @@ export default function MenuApp() {
                     <Slide {...properties}>
                         {activity.map(activity =>
                         <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src={activity.activityCover} alt={activity.activityName} />
+                            <Link to={"/ActivityInformation?" + activity.activityId}>
+                                <img
+                                    className={classes.slide_img}
+                                    title={activity.activityName}
+                                    src={activity.activityCover}
+                                    alt={activity.activityName}
+                                />
                             </Link>
                         </div>
                         )}
@@ -277,7 +281,7 @@ export default function MenuApp() {
                         <Fade in={open}>
                             <div>
                                 <Grid container spacing={10}>
-                                    {organizer.memberEmail === null ?
+                                    {organizer.memberEmail === undefined ?
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
                                             <CardActionArea component={Link} to="/organizer">
@@ -337,7 +341,7 @@ export default function MenuApp() {
                                     <CardMedia
                                         className={classes.card_media}
                                         image={activity.activityCover}
-                                        title="act_1"
+                                        title={activity.activityName}
                                     />
                                     <CardContent>
                                         <Typography variant="h6" className={classes.word}>
