@@ -76,21 +76,17 @@ export default function LeftBar() {
                     })
                     .catch(error => {
                         console.log(error.response.status);
-                        if(error.response.status === 403)
-                        {
-                            alert("您的權限不足!");
-                            goHomePage();
-                        }
+                       
                     })
                 }
             })
             .catch(err => {
-                console.log(err.response.status);
+                console.log(err.response.status); 
                 if(err.response.status === 403)
-                {
-                    alert("您的權限不足!");
-                    goHomePage();
-                }
+                        {
+                            alert("您的權限不足!");
+                            goHomePage();
+                        }
             })
         }
         fetchDataMem();

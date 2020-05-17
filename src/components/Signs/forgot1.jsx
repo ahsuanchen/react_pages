@@ -73,6 +73,7 @@ const useStyles = makeStyles(theme => ({
         color : "#fafafa" ,
         textAlign : "center" ,
         background : '#00bfa5',
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#00bfa5',
             color : "#fff"
@@ -82,7 +83,11 @@ const useStyles = makeStyles(theme => ({
     },
     font: {
         color: theme.palette.grey,
+        fontFamily : "微軟正黑體"
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 export default function ForgotPW1() {
@@ -131,7 +136,7 @@ export default function ForgotPW1() {
                     </Typography>
                 <Paper className={classes.paper}>
                 <Grid container justify="center">
-                            <Container className={classes.container}>
+                            <Container className={classes.word}>
                             請輸入您的電子信箱，我們將會傳送新密碼至您的信箱。
                             <TextField
                                 margin="normal"
@@ -154,7 +159,7 @@ export default function ForgotPW1() {
                                 傳送新密碼
                             </Button>
 <br/><br/>
-                            <Typography variant="overline" display="block" gutterBottom align="center">
+                            <Typography className={classes.word} variant="overline" display="block" gutterBottom align="center">
                             ---或---
                             </Typography>
 
@@ -176,9 +181,9 @@ export default function ForgotPW1() {
 
                 </Paper>
                 <Grid container justify="center" className={classes.link}>
-                    <Link href="signin" variant="body1" color="inherit">
-                    或 登入
-                  </Link>
+                    <Link className={classes.word} href="signin" variant="body1" color="inherit">
+                        或 登入
+                    </Link>
                 </Grid>
             </Container>
         </Grid>

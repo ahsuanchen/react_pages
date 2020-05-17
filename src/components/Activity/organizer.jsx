@@ -51,6 +51,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : "none" ,
             color : "#000"
@@ -61,11 +62,15 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : "none" ,
             color : "#000"
         } , 
-    }
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 export default function Organizer() {
@@ -142,7 +147,7 @@ export default function Organizer() {
             <Grid className={classes.space}>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <Typography component="h1" variant="h5" align="center">
+                <Typography component="h1" variant="h5" align="center" className={classes.word}>
                     新增主辦單位
                     </Typography>
                 <div className={classes.paper}>

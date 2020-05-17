@@ -112,8 +112,17 @@ export default function ActivityInfo() {
 
       const result = await axios.get("api/feedback/activity/"+activityId)
       .then(result => {
-        setFeedbacks(result.data);
-        console.log(result.data);
+        
+        if(result.data.length == 0)
+        {
+
+        }
+        else
+        {
+          setFeedbacks(result.data);
+          console.log(result.data);
+        }
+        
       })
 
     }

@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "5px",
         fontSize: "20px",
         marginBottom : "5%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
             color : "#fff"
@@ -57,7 +58,8 @@ const useStyles = makeStyles(theme => ({
     } ,
     span : {
         color : "red" ,
-        fontSize: "12px"
+        fontSize: "12px" ,
+        fontFamily : "微軟正黑體"
     } ,
     // button_part : {
     //     margin : "1% auto" ,
@@ -74,6 +76,7 @@ const useStyles = makeStyles(theme => ({
         background : '#bdbdbd',
         color : "#424242" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#757575',
             color : "#fff"
@@ -84,6 +87,7 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
             color : "#fff"
@@ -175,7 +179,7 @@ export default function BulidActivity_step4() {
             <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={3} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h5">
+                <Typography variant="h5" className={classes.word}>
                     請上傳活動封面照
                 </Typography>
             </div>
@@ -195,13 +199,13 @@ export default function BulidActivity_step4() {
                                 </Button>
                                 <div>
                                     <span className={classes.span}>* </span>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
                                     <span className={classes.span}> 1GB</span>
                                     <br/>
                                     <span className={classes.span}>* </span>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         圖片尺寸建議
                                     </Typography>
                                     <span className={classes.span}> 3:2</span>
@@ -216,13 +220,13 @@ export default function BulidActivity_step4() {
                                 </Button>
                                 <div>
                                     <span className={classes.span}>* </span>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過
                                     </Typography>
                                     <span className={classes.span}> 1GB</span>
                                     <br/>
                                     <span className={classes.span}>* </span>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         圖片尺寸建議
                                     </Typography>
                                     <span className={classes.span}> 3:2</span>

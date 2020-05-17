@@ -167,12 +167,13 @@ const [suggest,setSuggest] = useState("");
 
   const handleSubmit = (event) =>{
 
-    alert("感謝您的建議!");
+    
 
 
     const Feedback =
     {
       activity_Id : activityId,
+      member_Email : feedback.memberEmail,
       placeFeedback : place,
       scheduleFeedback : schedule,
       processFeedback : process,
@@ -186,7 +187,7 @@ const [suggest,setSuggest] = useState("");
     axios.post("api/feedback/",Feedback)
     .then( res => {
       console.log("ok");
-
+      alert("感謝您的建議!");
     }).catch(function(error)
   {
     alert("您已經填寫過了喔!");

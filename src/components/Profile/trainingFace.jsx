@@ -145,7 +145,7 @@ export default function TrainingFace() {
        
         axios.post(url, formData,config)
         .then(res => {
-            console.log(res);
+            alert("訓練成功!");
             console.log(res.data);
             history.push({
                 pathname: "/trainingFace",
