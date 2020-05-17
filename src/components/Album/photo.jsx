@@ -6,14 +6,9 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import { Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from '../Header/PF_header.jsx';
@@ -50,9 +45,7 @@ const useStyles = makeStyles(theme => ({
 export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();
-
-  const activityList = ['activityName'];
-  //設定activity物件
+  
   const [act,setAct] = useState({});
   useEffect(() =>{
     async function fetchData(){
