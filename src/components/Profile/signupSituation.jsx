@@ -203,7 +203,7 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={() => handleOpen(registration.ainum)}
+                                                                onClick={handleOpen}
                                                             >
                                                                 取消報名
                                                             </Button>

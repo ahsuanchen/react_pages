@@ -41,7 +41,9 @@ const useStyles = makeStyles(theme => ({
     } , 
     slide_img : {
         maxWidth : "100%" ,
-        maxHeight : "100%" 
+        maxHeight : "100%" ,
+        resizeMode: 'contain',
+    ...StyleSheet.absoluteFillObject,
     } ,
     search: {
         margin : "2% auto" ,

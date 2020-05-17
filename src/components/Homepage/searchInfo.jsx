@@ -73,68 +73,24 @@ const SearchOrganizerdata = [
     },
 ];
 
-function SearchResult(props) { 
-
-    const style = {
-        Typography : {
-            color : "#000" ,
-            "&:hover" : {
-                color : "#00AEAE"
-            }
-        } ,
-        link : {
-            textDecoration : "none" , 
-            color : "#ADADAD" , 
-            "&:hover" : {
-                color : "#00AEAE"
-            }
-        } ,
-        content : {
-            overflow: "hidden"
+const style = {
+    Typography : {
+        color : "#000" ,
+        "&:hover" : {
+            color : "#00AEAE"
         }
+    } ,
+    link : {
+        textDecoration : "none" , 
+        color : "#ADADAD" , 
+        "&:hover" : {
+            color : "#00AEAE"
+        }
+    } ,
+    content : {
+        overflow: "hidden"
     }
-
-    return (
-        <Grid container spacing={3}>
-            {Searchdata.map(Searchdata =>           
-            <Grid item xs={12}>
-                    <div>
-                        <Container component={Link} to="/" style={{textDecoration : "none"}}>
-                                <img 
-                                    src={Searchdata.src}
-                                    title={Searchdata.title}
-                                    style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
-                                />
-                                <Box lineHeight="normal">
-                                    <Typography variant="h6" title={Searchdata.title} style={style.Typography}>
-                                        {Searchdata.title}
-                                    </Typography>
-                                    <Link 
-                                        to="/"
-                                        style={style.link}
-                                        title={Searchdata.organizer}
-                                    >
-                                        <Typography variant="overline">
-                                            {Searchdata.organizer}
-                                        </Typography>
-                                    </Link>
-                                    <Typography variant="caption" color="textSecondary">
-                                        {` • ${Searchdata.createdAt}`}
-                                    </Typography>
-                                    <br/>
-                                    <Typography variant="caption" color="textSecondary" style={style.content}>
-                                        {Searchdata.content}
-                                    </Typography>
-                                </Box>
-                        </Container> 
-                    </div>                          
-            </Grid>            
-            )}    
-        </Grid>
-    );
 }
-
-
 
 function SearchOrgResult(props) { 
     return (
@@ -177,25 +133,60 @@ function SearchOrgResult(props) {
 export default function SearchInfo() {
     const classes = useStyles();
 
-    const [searchResult] =  useState(localStorage.getItem('searchResult'));
+    const [searchResult, setSearchResult] =  useState(localStorage.getItem('searchResult'));
 
-    const [activity, setActivity] = useState();
+    const [activity, setActivity] = useState([]);
+    const [count, setCount] = useState(0);
+
+    // const makeCount = () => {
+    //     setCount(count+1)
+    //     alert(count)
+    // }
+
     useEffect(() => {
         async function fetchDataSearch() {
-            let url = "/api/activity/search"
-            const searchInfo = searchResult;
-            axios.get(url , searchInfo)
+            let url = "/api/activity/search"+"?search="+searchResult;
+            let url1 = "/api/organizer/search"+"?search="+searchResult;
+            axios.get(url)
             .then(result => {
                 setActivity(result.data);
                 console.log(result);
             })
             .catch(err => {
-                alert(searchInfo.search)
-                console.log(err.response.status);
+                // console.log(err.response.status);
+            })
+
+            axios.get(url1)
+            .then(result => {
+                setOrganizer(result.data);
+                console.log(result);
+            })
+            .catch(err => {
+                // console.log(err.response.status);
             })
         }
         fetchDataSearch();
-    }, []);
+
+    },[count]);
+    
+    
+
+
+    const [organizer, setOrganizer] = useState([]);
+    // useEffect(() => {
+    //     async function fetchDataOrgSearch() {
+    //         let url1 = "/api/organizer/search"+"?search="+searchResult;
+    //         axios.get(url1)
+    //         .then(result => {
+    //             setOrganizer(result.data);
+    //             console.log(result);
+    //         })
+    //         .catch(err => {
+    //             // console.log(err.response.status);
+    //         })
+    //     }
+    //     fetchDataOrgSearch();
+    // }, [count1]);
 
     return (
         <div className={classes.div}>
@@ -207,9 +198,11 @@ export default function SearchInfo() {
                             placeholder="搜尋你感興趣的活動"
                             className={classes.inputBase}
                             value={searchResult}
+                            onChange={e=>setSearchResult(e.target.value)}
                         />
                         <Tooltip title="搜尋">
-                            <Button className={classes.search_butoon}>
+                            <Button className={classes.search_butoon}
+                            onClick={() => setCount(count+1)}>
                                 &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                             </Button>
                         </Tooltip>
@@ -229,7 +222,44 @@ export default function SearchInfo() {
                     </Typography>
                     <br/>
                     <Box overflow="hidden">
-                        <SearchResult />
+                    {activity.map(activity =>
+                        <Grid container spacing={3}>
+                                   
+                            <Grid item xs={12}>
+                                    <div>
+                                        <Container component={Link} to={"/ActivityInformation?" + activity.activityId} style={{textDecoration : "none"}}>
+                                                <img 
+                                                    src={activity.activityCover}
+                                                    title={activity.activityName}
+                                                    style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
+                                                />
+                                                <Box lineHeight="normal">
+                                                    <Typography variant="h6" title={activity.activityName} style={style.Typography}>
+                                                        {activity.activityName}
+                                                    </Typography>
+                                                    <Link 
+                                                        to={"/ActivityInformation?" + activity.activityId}
+                                                        style={style.link}
+                                                        title={activity.activityName}
+                                                    >
+                                                        <Typography variant="overline">
+                                                            {activity.organizerName}
+                                                        </Typography>
+                                                    </Link>
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        {` • ${activity.activityStartDateString}`}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="caption" color="textSecondary" style={style.content}>
+                                                        {activity.activityInfo}
+                                                    </Typography>
+                                                </Box>
+                                        </Container> 
+                                    </div>                          
+                            </Grid>            
+                               
+                        </Grid>
+                        )} 
                     </Box>
                 </div>
                 <br/>
@@ -240,11 +270,47 @@ export default function SearchInfo() {
                         與主辦單位相關
                     </Typography>
                     <br/>
+                   {organizer.length === 0 ? ""
+                        : 
                     <Box overflow="hidden">
-                        <SearchOrgResult />
-                        <br/>
-                        <SearchResult />
+                        {organizer.map(organizer =>
+                            
+                        <Grid container spacing={3}>
+                               
+                            <Grid item xs={12}>
+                                    <div>
+                                        <Container style={{textDecoration : "none"}}>
+                                                {/* <img 
+                                                    src={activity.activityCover}
+                                                    title={activity.activityName}
+                                                    style={{width : 225 , height : 135 , float : "left" , marginRight : "2%"}}
+                                                /> */}
+                                                <Box lineHeight="normal">
+                                                    <Typography variant="h6" title={organizer.organizerName} style={style.Typography}>
+                                                        {organizer.organizerName}
+                                                    </Typography>
+
+                                                        <Typography variant="overline">
+                                                            電話：{organizer.organizerPhone}
+                                                        </Typography>
+                                                        <br/>
+                                             
+                                                    <Typography variant="caption" color="textSecondary">
+                                                       資訊： {`  ${organizer.organizerInfo}`}
+                                                    </Typography>
+                                                    <br/>
+                                                    <Typography variant="caption" color="textSecondary" style={style.content}>
+                                                        {organizer.organizerEmail}
+                                                    </Typography>
+                                                </Box>
+                                        </Container> 
+                                    </div>                          
+                            </Grid>            
+                            
+                        </Grid>
+                        )} 
                     </Box>
+                   } 
                 </div>
             </div>
         </div>
