@@ -192,6 +192,7 @@ export default function SettingFace() {
         url = url + memberEmail;
 
         if(formData == null){
+            
             history.push({
                 pathname: "/finish",
               });

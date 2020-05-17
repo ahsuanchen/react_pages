@@ -277,7 +277,7 @@ export default function MenuApp() {
                         <Fade in={open}>
                             <div>
                                 <Grid container spacing={10}>
-                                    {organizer.memberEmail === null ?
+                                    {organizer.memberEmail === undefined ?
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
                                             <CardActionArea component={Link} to="/organizer">

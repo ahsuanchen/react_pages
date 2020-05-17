@@ -1,21 +1,15 @@
 //活動相簿
-
 import axios from 'axios';
 import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
-import Image from 'assets/images/1.jpg';
 import { Link , useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from 'components/Header/PF_header.jsx';
 
@@ -127,8 +121,6 @@ export default function TestGridList(props) {
       fetchDataReg();
   }, []);
 
-
-
   const now = new Date().getTime();
 
   return (
@@ -147,14 +139,17 @@ export default function TestGridList(props) {
       <div>
       <form>
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
-        {registration.map(actt =>  (
-        <GridListTile cols={1} key={actt.activityId}>
-          <img src={actt.activityCover} alt={actt.activityCover} />
-        <GridListTileBar className={classes.word} title={actt.activityName} subtitle={<span> {actt.activitySummary}</span>} actionIcon={
-          <IconButton aria-label={`info about ${actt.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityPhoto?"+actt.activityId}>
-            <InfoIcon/>
-          </IconButton>}/>
-        </GridListTile>))}
+      {registration.map( registration=>
+          (new Date(registration.activity.activityEndDate).getTime() <= now) ?
+
+              <GridListTile cols={1} key={registration.activity.activityId}>
+                <img src={registration.activity.activityCover} alt={registration.activity.activityCover} />
+              <GridListTileBar title={registration.activity.activityName} subtitle={<span> {registration.activity.activitySummary}</span>} actionIcon={
+              <IconButton aria-label={`info about ${registration.activity.activitySummary}`} className={classes.icon} component={Link} to={"/ActivityPhoto?"+registration.activity.activityId}>
+                <InfoIcon/>
+              </IconButton>}/>
+              </GridListTile>
+              :null)}
       </GridList>
       </form>
       </div>
