@@ -62,6 +62,7 @@ const useStyles = makeStyles(theme => ({
         background : '#00bfa5',
         color : '#fafafa' ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#00bfa5',
             color : "#fff"
@@ -70,6 +71,7 @@ const useStyles = makeStyles(theme => ({
     },
     font: {
         color: theme.palette.grey,
+        fontFamily : "微軟正黑體"
     },
 }));
 

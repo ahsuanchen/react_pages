@@ -18,7 +18,9 @@ const useStyles = makeStyles(theme => ({
       margin: "2% 2%",
       overflow: "visible"
     },
-
+    word : {
+      fontFamily : "微軟正黑體"
+    } ,
     container : {
         maxWidth : "350px" ,
         maxHeight: "220px",
@@ -154,15 +156,15 @@ export default function SettingFace() {
         <LeftBar/>
         <div className={classes.root}>
 
-          <Typography variant="h4">
+          <Typography variant="h4" className={classes.word}>
              上傳活動相片
               </Typography>
           <hr/>
-          <Button variant="outlined" >
+          <Button variant="outlined" className={classes.word}>
               新增檔案
               <input type="file" onChange={handleChange} id="upload-button" accept="image/*" multiple/>
           </Button>
-          <Button onClick={handleSubmit} variant="outlined" color="secondary">
+          <Button className={classes.word} onClick={handleSubmit} variant="outlined" color="secondary">
             確定上傳
           </Button>
 
@@ -170,7 +172,7 @@ export default function SettingFace() {
           <>
           <GridList cols={3} cellHeight={200} className={classes.gridList}>
             {[...data].map(pic => {
-              return  <GridListTile cols={1} key={pic.id}>
+              return  <GridListTile className={classes.word} cols={1} key={pic.id}>
                       <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px" height="188px"/>
                       <GridListTileBar title={pic.name} subtitle={<span> {pic.type}</span>} />
                       </GridListTile>

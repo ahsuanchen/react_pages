@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     'fontSize' : 20,
     'fontWeight' : 'bolder',
   },
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
   left_menu: {
       display: "flex",
       justifyContent: "space-around",
@@ -109,7 +112,7 @@ export default function TestGridList(props) {
      <LeftBar/>
          <Container className={classes.content}>
          <div>
-           <Typography variant="h4">
+           <Typography variant="h4" className={classes.word}>
               我的相簿 > 我的照片
            </Typography>
            <hr />
@@ -123,7 +126,7 @@ export default function TestGridList(props) {
           </ListSubheader>
         </GridListTile>*/}
         {imageList.map(tile => (
-        <GridListTile cols={1} key={tile}>
+        <GridListTile className={classes.word} cols={1} key={tile}>
           <img src={`/assets/images/${tile}.jpg`} alt={tile} />
         </GridListTile>))}
       </GridList>

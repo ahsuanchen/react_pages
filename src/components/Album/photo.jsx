@@ -78,7 +78,10 @@ const useStyles = makeStyles(theme => ({
       margin: "2% auto",
       display: "flex",
       justifyContent: "center",
-  }
+  } ,
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
 }));
 
 
@@ -168,9 +171,9 @@ export default function TestGridList(props) {
       <LeftBar/>
     <Container className={classes.content}>
     <div>
-      <Typography variant="h4">
+      <Typography variant="h4" className={classes.word}>
          活動照片
-          </Typography>
+      </Typography>
       <hr />
     </div>
 
@@ -178,12 +181,12 @@ export default function TestGridList(props) {
     <form>
       <GridList cols={3} cellHeight={200} className={classes.gridList}>
         <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-          <ListSubheader component="div" className={classes.title}>
+          <ListSubheader component="div" className={classes.title} className={classes.word}>
           {act.activityName}
           </ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
-        <GridListTile cols={1} key={tile}>
+        <GridListTile className={classes.word} cols={1} key={tile}>
            <Zmage width="250px" src={tile.img} alt={tile} />
         </GridListTile>))}
       </GridList>

@@ -74,7 +74,8 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(10, 12),
         color: 'white',
-        borderColor:'white'
+        borderColor:'white' ,
+        fontFamily : "微軟正黑體"
     },
 
     icon: {
@@ -82,7 +83,8 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(5, 15),
     },
     font: {
-        color: theme.palette.grey,
+        color: theme.palette.grey ,
+        fontFamily : "微軟正黑體"
     },
 
     button: {
@@ -90,6 +92,9 @@ const useStyles = makeStyles(theme => ({
           margin: theme.spacing(1),
         },
       },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 export default function Finish() {
@@ -107,7 +112,7 @@ export default function Finish() {
                         <Container className={classes.container}>
                         <CheckCircleOutlineIcon className={classes.icon}></CheckCircleOutlineIcon>
 
-                        <Typography variant="h5" gutterBottom align="center">
+                        <Typography className={classes.word} variant="h5" gutterBottom align="center">
                             完成註冊
                         </Typography>
 
