@@ -19,11 +19,15 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
-    fontSize: 16,
+    fontSize: 16 ,
+    fontFamily : "微軟正黑體"
   },
   pos: {
     marginBottom: 12,
   },
+  word : {
+    fontFamily : "微軟正黑體"
+} ,
 });
 
 export default function SimpleCard() {
@@ -58,7 +62,7 @@ export default function SimpleCard() {
         <Typography  className={classes.title} color="textSecondary" gutterBottom>
           活動介紹
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component="p" className={classes.word}>
           {content.activityInfo}
         </Typography>
         <br/>
@@ -66,14 +70,14 @@ export default function SimpleCard() {
         <Typography  className={classes.title} color="textSecondary" gutterBottom>
           更多資訊
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component="p" className={classes.word}>
           {content.activityMoreContent}
         </Typography>
         <br/>
         <Typography  className={classes.title} color="textSecondary" gutterBottom>
           注意事項
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2" component="p" className={classes.word}>
           {content.activityPrecautions}
         </Typography>
       </CardContent>

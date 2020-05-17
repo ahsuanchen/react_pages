@@ -232,7 +232,7 @@ export default function MenuApp() {
                     {activity.map(activity =>
                         <Grid item xs={12} sm={6} md={4}>
                             <Card className={classes.card}>
-                                <CardActionArea className={classes.card_area}>
+                                <CardActionArea className={classes.card_area} component={Link} to={"/ActivityInformation?" + activity.activityId}>
                                     <CardMedia
                                         className={classes.card_media}
                                         image={activity.activityCover}
