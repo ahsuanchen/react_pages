@@ -301,7 +301,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to={"/ActivityPhoto?" + registration.ainum}
+                                                                to={"/ActivityPhoto?" + registration.activity.activityId}
                                                             >
                                                                 活動照片
                                                             </Button>
