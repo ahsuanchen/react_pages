@@ -53,14 +53,12 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        // background : 'linear-gradient(50deg, #80cbc4 40%, #80deea 85%)' ,
         background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "450px" ,
         padding : "5px 20px" ,
         fontFamily : "微軟正黑體"
-        //color:"white"
     } ,
     search_butoon : {
         padding : "10px 0" ,
@@ -218,11 +216,7 @@ export default function MenuApp() {
 
     return (
         <div className={classes.div}>
-            {isSign !== false ?
-                <Header2/>
-            :
-                <Header1 />
-            }
+            <Header2/>
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
