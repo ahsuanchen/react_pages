@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from 'components/Header/PF_header.jsx';
-import { Link } from 'react-router-dom';
+import { Link ,useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -90,10 +90,16 @@ export default function ActivityInfo() {
 
       const result = await axios.get("api/feedback/activity/"+activityId)
       .then(result => {
+        if(result.data.length == 0)
+        {
+
+        }
+        else
+        {
         setFeedbacks(result.data);
         console.log(result.data);
+        }
       })
-
     }
     fetchData();
   },[]);
@@ -174,7 +180,6 @@ for(var i = 0 ; i < feedbacks.length ; i++)
                 <TableCell align="center" width = '32%'>活動建議</TableCell>
             </TableRow>
           </TableHead>
-
           {feedbacks.map(feedback =>
           <TableBody>
               <TableRow hover>
@@ -190,7 +195,6 @@ for(var i = 0 ; i < feedbacks.length ; i++)
           </TableBody>
           )}
           <TableHead>
-
               <TableRow >
                 <TableCell align="center">平均</TableCell>
                 <TableCell align="center">{sumPlace / count}</TableCell>
