@@ -30,14 +30,16 @@ const useStyles = makeStyles(theme => ({
   left_menu: {
       display: "flex",
       justifyContent: "center",
-  },
+  } ,
+  word : {
+    fontFamily : "微軟正黑體"
+  } ,
   container : {
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
   } ,
-
 }));
 
 export default function TestGridList(props) {
@@ -81,34 +83,35 @@ export default function TestGridList(props) {
 
 
   return (
-    <div className={classes.div}>
+  <div className={classes.div}>
     <Header/>
-     <div className={classes.left_menu}>
+    <div className={classes.left_menu}>
       <LeftBar/>
-    <Container className={classes.root}>
+      <Container className={classes.content}>
+        <div>
+          <Typography variant="h4" className={classes.word}>
+            活動照片
+          </Typography>
+          <hr />
 
-      <Typography variant="h4">
-         活動照片
-      </Typography>
-      <hr />
-
-    <div className={classes.container}>
-    <GridList cols={3}  className={classes.gridList}>
-    <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-      <ListSubheader component="div">{act.activityName}</ListSubheader>
-    </GridListTile>
-      {[...photo].map(pic => {
-        return  <GridListTile cols={1} key={pic.photoId}>
-                <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
-                </GridListTile>
-                //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
-        })
-      }
-      </GridList>
-      </div>
-    </Container>
+          <div className={classes.container}>
+          <GridList cols={3}  className={classes.gridList}>
+          <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+            <ListSubheader component="div">{act.activityName}</ListSubheader>
+          </GridListTile>
+            {[...photo].map(pic => {
+              return  <GridListTile cols={1} key={pic.photoId}>
+                      <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
+                      </GridListTile>
+                      //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+              })
+            }
+            </GridList>
+          </div>
+        </div>  
+      </Container>
+    </div>
   </div>
-</div>
   );
 }
 {/*

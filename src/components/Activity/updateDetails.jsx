@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
         background : '#bdbdbd',
         color : "#424242" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#757575',
             color : "#fff"
@@ -48,6 +49,7 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
             color : "#fff"
@@ -84,6 +86,9 @@ const useStyles = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(2),
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 const UpdateContentPage = props => {
@@ -197,7 +202,7 @@ export default function UpdateActivity_step() {
             <Stepper steps={[{title: '修改基本資訊'},{title: '修改活動內容'},{title: '修改活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-            <Typography variant="h5">
+            <Typography variant="h5" className={classes.word}>
                     修改活動內容
                 </Typography>
             </div>
