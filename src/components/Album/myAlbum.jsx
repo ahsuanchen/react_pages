@@ -139,7 +139,7 @@ export default function TestGridList(props) {
      <LeftBar/>
     <Container className={classes.content}>
       <div>
-        <Typography variant="h4">
+        <Typography variant="h4" className={classes.word}>
            我的相簿
         </Typography>
         <hr />
