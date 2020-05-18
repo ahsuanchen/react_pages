@@ -20,7 +20,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import CommentIcon from '@material-ui/icons/Comment';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -29,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     content_part : {
         display : "flex" ,
         justifyContent: "center",
+    } ,
+    word : {
+        fontFamily : "微軟正黑體"
     } ,
     table : {
         margin : "auto" ,
@@ -47,32 +49,8 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
-    } ,
-    button1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
-        color : "#fff" ,
         margin : "2% 1%" ,
-    } ,
-    button2 : {
-        background : 'linear-gradient(50deg, #FF0000 30%, #EA0000 70%)' ,
-        color : "#fff" ,
-        margin : "2% 1%" ,
-    } ,
-    Exclamation_Mark : {
-        fontSize : "40px" ,
-        color : "red" ,
-    } ,
-    dig_butoon : {
-        color : "#000" ,
-        '&:hover' : {
-          color : '#00AEAE'
-        }
-    } ,
-    feedback_Link : {
-        color : "#000" ,
-        '&:hover' : {
-            color : '#00AEAE'
-        }
+        fontFamily : "微軟正黑體"
     }
   }));
 
@@ -160,7 +138,7 @@ export default function ParticipantList() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             參 加 者 名 單
                         </Typography>
                         <hr />
@@ -174,7 +152,7 @@ export default function ParticipantList() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h5">
+                                    <Typography variant="h5" className={classes.word}>
                                         {activity.activityName} 參加者名單
                                     </Typography>
                                 </div>
@@ -188,16 +166,26 @@ export default function ParticipantList() {
                                                         <Tooltip title="匯出成Excel檔">
                                                             <Button
                                                                 variant="contained"
-                                                                className={classes.button1}
+                                                                className={classes.button}
                                                                 onClick={OutputExcel}
                                                             >
                                                                 匯出名單
                                                             </Button>
                                                         </Tooltip>
+                                                        <Tooltip title="查看活動回饋">
+                                                            <Button
+                                                                variant="contained"
+                                                                className={classes.button}
+                                                                component={Link}
+                                                                // to={"/makeAnnouncement?" + activityId}
+                                                            >
+                                                                活動回饋單
+                                                            </Button>
+                                                        </Tooltip>
                                                         <Tooltip title="宣傳活動內容、提醒活動時間">
                                                             <Button
                                                                 variant="contained"
-                                                                className={classes.button1}
+                                                                className={classes.button}
                                                                 onClick={handleClick}
                                                             >
                                                                 Line推播
@@ -206,7 +194,7 @@ export default function ParticipantList() {
                                                         <Tooltip title="發行活動公告">
                                                             <Button
                                                                 variant="contained"
-                                                                className={classes.button1}
+                                                                className={classes.button}
                                                                 component={Link}
                                                                 to={"/makeAnnouncement?" + activityId}
                                                             >
@@ -218,29 +206,21 @@ export default function ParticipantList() {
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
-                                                            <TableCell align="center">編號</TableCell>
-                                                            <TableCell align="center">姓名</TableCell>
-                                                            <TableCell align="center">聯絡電話</TableCell>
-                                                            <TableCell align="center">聯絡電子郵件</TableCell>
-                                                            <TableCell align="center">報名狀況</TableCell>
-                                                            <TableCell align="center">回饋單</TableCell>
+                                                            <TableCell className={classes.word} align="center">編號</TableCell>
+                                                            <TableCell className={classes.word} align="center">姓名</TableCell>
+                                                            <TableCell className={classes.word} align="center">聯絡電話</TableCell>
+                                                            <TableCell className={classes.word} align="center">聯絡電子郵件</TableCell>
+                                                            <TableCell className={classes.word} align="center">報名狀況</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {registration.map(registration =>
                                                     <TableBody>
                                                         <TableRow hover>
-                                                            <TableCell align="center">{count += 1}</TableCell>
-                                                            <TableCell align="center">{registration.member.memberName}</TableCell>
-                                                            <TableCell align="center">{registration.member.memberPhone}</TableCell>
-                                                            <TableCell align="center">{registration.member.memberEmail}</TableCell>
-                                                            <TableCell align="center">報名成功</TableCell>
-                                                            <TableCell align="center">
-                                                                <Tooltip title="予後回饋">
-                                                                    <Link to="/" className={classes.feedback_Link}>
-                                                                        <CommentIcon />
-                                                                    </Link>
-                                                                </Tooltip>
-                                                            </TableCell>
+                                                            <TableCell className={classes.word} align="center">{count += 1}</TableCell>
+                                                            <TableCell className={classes.word} align="center">{registration.member.memberName}</TableCell>
+                                                            <TableCell className={classes.word} align="center">{registration.member.memberPhone}</TableCell>
+                                                            <TableCell className={classes.word} align="center">{registration.member.memberEmail}</TableCell>
+                                                            <TableCell className={classes.word} align="center">報名成功</TableCell>
                                                         </TableRow>
                                                     </TableBody>
                                                     )}  

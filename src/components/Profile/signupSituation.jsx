@@ -28,6 +28,9 @@ const useStyles = makeStyles(theme => ({
     div : {
         boxSizing : "border-box"
     } ,
+    word : {
+        fontFamily : "微軟正黑體"
+    } , 
     content_part : {
         display : "flex" ,
         justifyContent: "center",
@@ -50,6 +53,7 @@ const useStyles = makeStyles(theme => ({
     button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
+        fontFamily : "微軟正黑體"
     } ,
     Exclamation_Mark : {
         fontSize : "40px" ,
@@ -57,6 +61,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     dig_butoon : {
         color : "#000" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
           color : '#00AEAE'
         }
@@ -93,27 +98,29 @@ export default function SignupSituation() {
                     console.log(err.response.status);
                 })
         }
+        
         fetchDataReg();
     }, []);
 
+    const[cancel , setCancel] = useState(0);
+    
     const [open, setOpen] = React.useState(false);
-    const handleOpen = (AInum) => {
+    const handleOpen = (ainum,event) => {
+        // console.log(ainum);
+        setCancel(ainum);
         setOpen(true);
     };
     const handleClose = () => {
       setOpen(false);
     };
 
-
     const handleSubmit = (AInum) => {
+        console.log(AInum);
         let url = "/api/registration/cancel/";
         url = url + AInum;
-        console.log(AInum);
-        console.log(url);
         axios.patch(url)
         .then(res => {
-            console.log(url)
-            // window.location.reload();
+            window.location.reload();
         })
         .catch(function(error){
             console.log(error.response.status);
@@ -129,7 +136,7 @@ export default function SignupSituation() {
                 <LeftBar/>
                 <Container className={classes.content}>
                     <div>
-                        <Typography variant="h4">
+                        <Typography variant="h4" className={classes.word}>
                             報 名 狀 況
                         </Typography>
                         <hr />
@@ -143,29 +150,31 @@ export default function SignupSituation() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         已報名
                                     </Typography>
                                 </div>
                                 </ExpansionPanelSummary>
                                 {registration.map(registration =>
-                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && registration.cancelRegistration === null ) ?
+                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && 
+                                    registration.cancelRegistration === null )
+                                    ?
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
                                             <Paper >
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
-                                                        <Typography variant="h5" >
-                                                            {registration.activity.activityName} {registration.ainum}
+                                                        <Typography variant="h5" className={classes.word}>
+                                                            {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
                                                             {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
                                                             {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
@@ -176,7 +185,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityInformation?" + registration.activity.activityId}
                                                             >
                                                                 活動頁面
                                                             </Button>
@@ -203,7 +212,8 @@ export default function SignupSituation() {
                                                             <Button
                                                                 variant="contained"
                                                                 className={classes.button}
-                                                                onClick={handleOpen}
+                                                                onClick={(event) => handleOpen(registration.ainum , event)}
+                                                                
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -214,14 +224,13 @@ export default function SignupSituation() {
                                                                 aria-labelledby="draggable-dialog-title"
                                                             >
                                                                 <DialogTitle id="draggable-dialog-title">
-                                                                    <Typography variant="h5">
+                                                                    <Typography variant="h5" className={classes.word}>
                                                                         <ErrorIcon className={classes.Exclamation_Mark} />
                                                                         取消報名
                                                                     </Typography>
-                                                                    <input type="text" value={registration.ainum} />
                                                                 </DialogTitle>
                                                                 <DialogContent>
-                                                                    <DialogContentText style={{fontSize:"20px"}}>
+                                                                    <DialogContentText className={classes.word} style={{fontSize:"20px"}}>
                                                                         您確定要取消該活動報名嗎？
                                                                     </DialogContentText>
                                                                 </DialogContent>
@@ -229,7 +238,7 @@ export default function SignupSituation() {
                                                                     <Button autoFocus onClick={handleClose} className={classes.dig_butoon}>
                                                                         取消
                                                                     </Button>
-                                                                    <Button onClick={() => handleSubmit(registration.ainum)} className={classes.dig_butoon}>
+                                                                    <Button onClick={() => handleSubmit(cancel)} className={classes.dig_butoon}>
                                                                         確定
                                                                     </Button>
                                                                 </DialogActions>
@@ -250,7 +259,7 @@ export default function SignupSituation() {
                                     id="panel1c-header"
                                 >
                                 <div>
-                                    <Typography variant="h6">
+                                    <Typography variant="h6" className={classes.word}>
                                         已結束
                                     </Typography>
                                 </div>
@@ -263,16 +272,16 @@ export default function SignupSituation() {
                                             <Paper>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
-                                                        <Typography variant="h5" >
+                                                        <Typography variant="h5" className={classes.word}>
                                                             {registration.activity.activityName}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faMapMarkerAlt} />&nbsp;
                                                             {registration.activity.activitySpace}
                                                         </Typography>
                                                         <br/>
-                                                        <Typography variant="h6">
+                                                        <Typography variant="h6" className={classes.word}>
                                                             <FontAwesomeIcon icon={faClock} />&nbsp;
                                                             {registration.activity.activityStartDateString} ~ {registration.activity.activityEndDateString}
                                                         </Typography>
@@ -283,7 +292,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityInformation?" + registration.activity.activityId}
                                                             >
                                                                 查看資訊
                                                             </Button>
@@ -292,7 +301,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/ActivityPhoto?" + registration.ainum}
                                                             >
                                                                 活動照片
                                                             </Button>
@@ -302,7 +311,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/FeedBack?" + registration.activity.activityId}
                                                             >
                                                                 給予回饋
                                                             </Button>
@@ -311,7 +320,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to="/"
+                                                                to={"/MyPhoto?" + registration.activity.activityId}
                                                             >
                                                                 我的照片
                                                             </Button>

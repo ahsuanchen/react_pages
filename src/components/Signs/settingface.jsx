@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -54,17 +55,16 @@ const useStyles = makeStyles(theme => ({
     } ,
 
     upload_button : {
-        border: 0 ,
+        border:'0',
         color : "#fff" ,
         textAlign : "center" ,
         background : '#00bfa5',
-        borderRadius: "5px",
         fontSize: "15px",
         marginBottom : "10%" ,
         margin:"10% 1%"
     } ,
 
-    btn_file : {
+    file : {
         fontSize : "30px" ,
         position: "absolute" ,
         left: 0 ,
@@ -78,11 +78,11 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(4),
         flexDirection: 'column',
         alignItems: 'center',
+        color:'white',
         background: 'linear-gradient(45deg, #81c784 30%, #9ad29c 90%)',
         display: 'flex',
         '& > *': {
             marginTop: theme.spacing(5),
-            //margin: theme.spacing(1),
             width: theme.spacing(70),
             height: theme.spacing(20),
         },
@@ -101,15 +101,19 @@ const useStyles = makeStyles(theme => ({
 
     },
     submit: {
-        border: 0 ,
-        color : "#fff" ,
+        color : '#fafafa' ,
         textAlign : "center" ,
         background : '#00bfa5',
-        borderRadius: "5px",
+        '&:hover' : {
+            background : '#00bfa5',
+            color : "#fff"
+        } , 
         fontSize: "10px",
-        marginTop : "5%" ,
+        marginTop : "10%" ,
         margin:"1% 10%"
     },
+
+
     font: {
         color: theme.palette.grey,
     },
@@ -152,11 +156,11 @@ export default function SettingFace() {
     const [image, setImage] = useState({preview: '', raw: ''});
     const handleChange = (e) => {
         setData(e.target.files[0])
-      setImage({
-          
+        setImage({
+            
         preview: URL.createObjectURL(e.target.files[0]),
         raw: e.target.files[0]
-      })
+        })
     };
 
     console.log(data);
@@ -219,10 +223,9 @@ export default function SettingFace() {
                 <Typography variant="subtitle1" gutterBottom align="center">
                         設定使用者人臉
                     </Typography>
-                <div className={classes.paper}>
-                    <paper>
+                <Paper className={classes.paper} elevation='5'>
                         
-                        <Grid container justify="center">
+                    <Grid container justify="center">
                     <Container className={classes.container}>
                     <div className={classes.upload_btn_wrapper}>
                         <br/><br/><br/>
@@ -234,7 +237,7 @@ export default function SettingFace() {
                                 <Button className={classes.upload_button} variant="outlined">
 
                                     重新選擇
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
 
                                 <Button className={classes.upload_button} variant="outlined" onClick={handleSubmit}>
@@ -256,7 +259,7 @@ export default function SettingFace() {
                                 <Button className={classes.upload_button} variant="outlined">
 
                                     選擇檔案
-                                    <input type="file" className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+                                    <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
                                 <Typography variant="overline">
@@ -273,11 +276,11 @@ export default function SettingFace() {
                         </Container>
                         </Grid>
 
-                    </paper>
+                    
                     <Grid align-items-xs-flex-end>
                     </Grid>
 
-                </div>
+                    </Paper>
                 <Grid container justify="center"  key={10}>
                             <Button
                                 type="submit"

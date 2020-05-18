@@ -29,30 +29,33 @@ const useStyles = makeStyles(theme => ({
     },
     topic_part : {
         textAlign : "center" , 
-        margin : "2% auto"
+        margin : "3% auto"
     } ,
     button_part : {
         display: "flex" ,
         justifyContent : "space-between",
-        //marginTop: theme.spacing(10),
+        marginTop: theme.spacing(2),
     } ,
-    button_part1 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
-        color : "#fff" ,
+    button1 : {
+        background : '#bdbdbd',
+        color : "#424242" ,
         minWidth : "100px" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : '#757575',
+            color : "#fff"
         } , 
     } ,
-    button_part2 : {
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+
+    button2 : {
+        background : 'linear-gradient(50deg, #00acc1 40%, #00bfa5 85%)',
         color : "#fff" ,
         minWidth : "100px" ,
         marginLeft : "80%" ,
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
-            background : "none" ,
-            color : "#000"
+            background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
+            color : "#fff"
         } , 
     } ,
     space: {
@@ -90,6 +93,9 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
  //radio 顏色設定
@@ -117,19 +123,6 @@ const NewInfo = props => {
 
 export default function BulidActivity_step2() {
     const classes = useStyles();
-
-    // //宣吿要接值的變數
-    // const [inputs, setInputs] = React.useState({
-    //     activityName:'',
-    //     activitySpace:'',
-    //     activityStartDate:'',
-    //     activityEndDate:'',
-    //     startSignUpDate:'',
-    //     endSignUpDate:'',
-    //     activityLinkName:'',
-    //     activityLink:'',
-    //     activityMeal:'',
-    // });
 
     
     const  [activityTypes,setactivityTypes] =  useState(localStorage.getItem('activityTypes'));
@@ -210,13 +203,13 @@ export default function BulidActivity_step2() {
     }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.div}>
             <Header/>
             <div>
-            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '上傳活動封面照片'}]} activeStep={1} />
+            <Stepper steps={[{title: '活動類別'},{title: '基本資訊'},{title: '活動內容'},{title: '活動封面照片'}]} activeStep={1} />
             </div>
             <div className={classes.topic_part}>
-                <Typography variant="h5">
+                <Typography variant="h5" className={classes.word}>
                     請填寫活動基本資訊
                 </Typography>
             </div>
@@ -377,7 +370,7 @@ export default function BulidActivity_step2() {
 
 
                                     <FormControl component="fieldset" className={classes.formControl}>
-                                        <FormLabel component="legend">是否供餐</FormLabel>
+                                        <FormLabel component="legend" className={classes.word}>是否供餐</FormLabel>
                                         <RadioGroup 
                                             aria-label="是否供餐" 
                                             name="activityMeal" 
@@ -405,7 +398,7 @@ export default function BulidActivity_step2() {
                                     <Grid item xs={12} sm={6} className={classes.button_part}>
                                         <Box lineHeight="normal" m={1}>
                                             <Button 
-                                                className={classes.button_part1}
+                                                className={classes.button1}
                                                 component={Link}
                                                 to="/new1"
                                             >
@@ -415,7 +408,7 @@ export default function BulidActivity_step2() {
                                         <Box lineHeight="normal" m={1}>
                                             <Button 
                                                 type="submit"
-                                                className={classes.button_part2}
+                                                className={classes.button2}
                                                 onClick={handleSubmit}
                                             >
                                                 下一步
