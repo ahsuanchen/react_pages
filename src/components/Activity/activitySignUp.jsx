@@ -5,7 +5,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import ScheduleIcon from '@material-ui/icons/Schedule';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -21,7 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Header from 'components/Header/PF_header.jsx';
-
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -104,6 +103,10 @@ const [registrationMeal,setRegistrationMeal] = useState("");
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  const handleDontSubmit = (e) =>{
+    alert("無法報名，可能因為該活動與您報名過的其他活動時間衝突或報名活動人數已達上限");
+  }
 
   const handleSubmit = (event) =>{
 
@@ -207,9 +210,9 @@ const [registrationMeal,setRegistrationMeal] = useState("");
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/homepageAfterLogin">確定報名</Button>
         :
-        <Button className={classes.word} variant="contained" color="secondary" disabled>無法報名</Button>}
+        <Button onClick={handleDontSubmit} className={classes.word} variant="contained" color="secondary" component={Link} to="/homepageAfterLogin">確定報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

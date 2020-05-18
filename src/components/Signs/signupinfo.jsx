@@ -73,6 +73,7 @@ const useStyles = makeStyles(theme => ({
         textAlign : "center" ,
         background : '#00bfa5',
         color : '#fafafa' ,
+        fontFamily : "微軟正黑體" ,
         //minWidth : "100px" ,
         '&:hover' : {
             background : '#00bfa5',
@@ -85,7 +86,8 @@ const useStyles = makeStyles(theme => ({
     },
     
     font: {
-        color: theme.palette.grey,
+        color: theme.palette.grey ,
+        fontFamily : "微軟正黑體"
     },
 
     //下拉式
@@ -96,6 +98,9 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 //radio 顏色設定
@@ -234,7 +239,7 @@ export default function SignUpInfo(props) {
                             />
 
                             <FormControl component="fieldset" className={classes.formControl} required>
-                                <FormLabel component="legend">性別</FormLabel>
+                                <FormLabel component="legend" className={classes.word}>性別</FormLabel>
                                 <RadioGroup 
                                     aria-label="性別"
                                     id="memberGender" 
@@ -256,7 +261,7 @@ export default function SignUpInfo(props) {
                             </FormControl>
 
                             <FormControl component="fieldset" className={classes.formControl} required>
-                                <FormLabel component="legend">血型</FormLabel>
+                                <FormLabel component="legend" className={classes.word}>血型</FormLabel>
                                 <RadioGroup 
                                     aria-label="血型" 
                                     id="memberBloodType" 

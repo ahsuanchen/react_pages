@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
         textAlign : "center" ,
         background : '#00bfa5',
         fontSize: "15px",
+        fontFamily : "微軟正黑體" ,
         marginBottom : "10%" ,
         margin:"10% 1%"
     } ,
@@ -104,6 +105,7 @@ const useStyles = makeStyles(theme => ({
         color : '#fafafa' ,
         textAlign : "center" ,
         background : '#00bfa5',
+        fontFamily : "微軟正黑體" ,
         '&:hover' : {
             background : '#00bfa5',
             color : "#fff"
@@ -116,6 +118,7 @@ const useStyles = makeStyles(theme => ({
 
     font: {
         color: theme.palette.grey,
+        fontFamily : "微軟正黑體"
     },
 
     img: {
@@ -136,6 +139,9 @@ const useStyles = makeStyles(theme => ({
         gridRowGap: '20px',
 
       },
+    word : {
+        fontFamily : "微軟正黑體"
+    } ,
 }));
 
 export default function SettingFace() {
@@ -220,9 +226,9 @@ export default function SettingFace() {
                     註 冊
                 </Typography>
                 <br/>
-                <Typography variant="subtitle1" gutterBottom align="center">
-                        設定使用者人臉
-                    </Typography>
+                <Typography className={classes.word} variant="subtitle1" gutterBottom align="center">
+                    設定使用者人臉
+                </Typography>
                 <Paper className={classes.paper} elevation='5'>
                         
                     <Grid container justify="center">
@@ -245,7 +251,7 @@ export default function SettingFace() {
                                     
                                 </Button>
                                 <div>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
                                     </Typography>
                                     {/* <br/>
@@ -262,11 +268,11 @@ export default function SettingFace() {
                                     <input type="file" className={classes.file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
                                 </Button>
                                 <div>
-                                <Typography variant="overline">
+                                <Typography variant="overline" className={classes.word}>
                                         ＊請上傳清晰的大頭照，本系統僅支持jpg、jpeg和png檔，且單一檔案不得超過1GB
                                     </Typography>
                                     <br/>
-                                    <Typography variant="overline">
+                                    <Typography variant="overline" className={classes.word}>
                                         ＊人臉辨識將用於後續活動簽到、簽退及相簿功能，若您對此有隱私顧慮可點選「下一步」略過此步驟！
                                     </Typography>
                                 </div>

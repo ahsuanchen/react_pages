@@ -61,7 +61,7 @@ export default function ParticipantList() {
     let count = 0 ;
 
     const handleClick = event => {
-        event.preventDefault();    
+        event.preventDefault();
         let url =  "/api/line/postMessage/" ;
         url = url + activityId ;
             axios.post(url)
@@ -97,7 +97,7 @@ export default function ParticipantList() {
         else
         {
             download(activityId);
-        } 
+        }
     };
 
     const [activity, setActivity] = useState([]);
@@ -177,7 +177,7 @@ export default function ParticipantList() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                // to={"/makeAnnouncement?" + activityId}
+                                                                to={"/FeedbackResponse?" + activityId}
                                                             >
                                                                 活動回饋單
                                                             </Button>
@@ -223,7 +223,7 @@ export default function ParticipantList() {
                                                             <TableCell className={classes.word} align="center">報名成功</TableCell>
                                                         </TableRow>
                                                     </TableBody>
-                                                    )}  
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>
