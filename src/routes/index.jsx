@@ -1,4 +1,4 @@
-import HomePage from 'components/Homepage/homepageAfterLogin.jsx';
+import HomePage from 'components/Homepage/homepage.jsx';
 // import Activity from 'pages/Activity/index.jsx';
 // import News from 'pages/News/index.jsx';
 // import Album from 'pages/MyAlbum/index.jsx';

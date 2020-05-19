@@ -78,12 +78,12 @@ export default function (props) {
       >
         <div className={classes.leftbar}>
           <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >A C T F U N</Link>
+            <Link className={classes.link} to="/homepage" >A C T F U N</Link>
           </Box>
         </div>
         <Divider/>
         <List>
-            <ListItem component={Link} to="/homepageAfterLogin" button>
+            <ListItem component={Link} to="/homepage" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faHome} />
               </ListItemIcon>

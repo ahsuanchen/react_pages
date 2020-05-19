@@ -255,6 +255,8 @@ export default function MenuApp() {
                 </div>
             </div>
             <div>
+            {member.memberEmail === undefined ? ""
+                :
                 <Grid 
                     container
                     direction="column"
@@ -326,6 +328,7 @@ export default function MenuApp() {
                         </Fade>
                     </Modal>
                 </Grid>
+                }
             </div>
             <div className={classes.container}>
                 <div>
