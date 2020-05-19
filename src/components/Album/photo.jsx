@@ -45,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 export default function TestGridList(props) {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
   const classes = useStyles();
-  
+
   const [act,setAct] = useState({});
   useEffect(() =>{
     async function fetchData(){
@@ -87,8 +87,8 @@ export default function TestGridList(props) {
     <Header/>
     <div className={classes.left_menu}>
       <LeftBar/>
-      <Container className={classes.content}>
-        <div>
+      <Container className={classes.root}>
+
           <Typography variant="h4" className={classes.word}>
             活動照片
           </Typography>
@@ -107,8 +107,8 @@ export default function TestGridList(props) {
               })
             }
             </GridList>
-          </div>
-        </div>  
+
+        </div>
       </Container>
     </div>
   </div>

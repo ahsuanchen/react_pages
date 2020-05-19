@@ -162,6 +162,7 @@ const [suggest,setSuggest] = useState("");
     const Feedback =
     {
       activity_Id : activityId,
+
       placeFeedback : place,
       scheduleFeedback : schedule,
       processFeedback : process,
@@ -276,7 +277,7 @@ const [suggest,setSuggest] = useState("");
               onChange={e=>setSuggest(e.target.value)}/>
         </CardContent>
         <CardActions align="center">
-          <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word}>確定</Button>
+          <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/signupSituation">確定</Button>
         </CardActions>
       </Card>
       </Container>
