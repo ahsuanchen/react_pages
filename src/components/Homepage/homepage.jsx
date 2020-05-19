@@ -181,7 +181,7 @@ export default function MenuApp() {
     const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
-        async function fetchDataOrg() {
+        async function fetchData() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -207,9 +207,9 @@ export default function MenuApp() {
                     console.log(err.response.status);
                 })
         }
-        fetchDataOrg();
+        fetchData();
     }, []);
-
+    
     return (
         <div className={classes.div}>
             {member.memberEmail === undefined ?
