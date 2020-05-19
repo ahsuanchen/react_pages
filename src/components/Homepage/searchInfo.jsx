@@ -36,12 +36,17 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "1010px" ,
         padding : "5px 20px" ,
-        fontFamily : "微軟正黑體"
+        borderRadius : "10px" ,
+        fontFamily : "微軟正黑體" ,
+        background : '#80cbc4' ,
+    } ,
+    search_butoon : {
+        padding : "10px 0" ,
     } ,
     Typography : {
         color : "#000" ,

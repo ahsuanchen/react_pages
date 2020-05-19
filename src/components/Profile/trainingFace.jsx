@@ -1,7 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Header from '../Header/PF_header.jsx';
@@ -13,13 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import FaceIcon from '@material-ui/icons/Face';
-import Avatar from '@material-ui/core/Avatar';
-import Divider from '@material-ui/core/Divider';
-import SyncAltIcon from '@material-ui/icons/SyncAlt';
-import BackupIcon from '@material-ui/icons/Backup';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
@@ -31,14 +23,14 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "center",
     } ,
     content : {
-        margin : "2% 2%" ,
+        margin : "2%" ,
     } ,
     form : {
         margin : "5% auto" ,
     } ,
     container : {
         maxWidth : '550px' ,
-        minHeight : '580px' ,
+        minHeight : '650px' ,
         //background : "linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)" ,
         background : '#E0E0E0' ,
         overflow : "visible"
@@ -56,7 +48,7 @@ const useStyles = makeStyles(theme => ({
         fontFamily : "微軟正黑體"
     } ,
     button : {
-        margin : "5% auto" ,
+        margin : "3% auto" ,
         display: "flex" ,
         justifyContent : "center" ,
         background : '#00bfa5',
@@ -111,17 +103,7 @@ export default function TrainingFace() {
         })
     };
 
-    console.log(data);
-
-    // const [open, setOpen] = React.useState(false);
-
-    // const handleOpen = () => {
-    //   setOpen(true);
-    // };
-
-    // const handleClose = () => {
-    //   setOpen(false);
-    // };
+    // console.log(data);
 
     let history = useHistory();
 
@@ -140,8 +122,7 @@ export default function TrainingFace() {
         let url = "/api/files/uploadFace/";
         url = url + member.memberEmail;
 
-        console.log(url)
-
+        // console.log(url)
        
         axios.post(url, formData,config)
         .then(res => {
@@ -150,15 +131,13 @@ export default function TrainingFace() {
             history.push({
                 pathname: "/trainingFace",
             });
-
-
-        }).catch(function(error){
+        })
+        .catch(function(error){
             alert(error);
             console.log(error);
-        });
-
-       
+        });   
     }
+
     return (
         <div className={classes.div}>
             <Header />
@@ -176,13 +155,13 @@ export default function TrainingFace() {
                                 <Box lineHeight="normal" m={1}>
                                     <Container className={classes.container}>
                                         {/* <img className={classes.img} src="./img/profile.jpg" alt="img" /> */}
-                                        <div className={classes.upload_btn_wrapper}>
-                                            <br/><br/><br/>
+                                        <div>
+                                            <br/><br/>
                                             {
                                                 image.preview ?
                                             <>
                                                 <img src={ image.preview } width='50%' height="50%" className={classes.img}/>
-                                                <br/>
+                                                {/* <br/> */}
                                                 <Button
                                                     variant="contained"
                                                     className={classes.button}
@@ -220,48 +199,8 @@ export default function TrainingFace() {
                                             </>
                                         )}
                                         </div> 
-                                        {/* <Button
-                                            variant="contained"
-                                            className={classes.button}
-                                            onClick={handleOpen}
-                                            startIcon={<SyncAltIcon />}
-                                        >
-                                            上傳大頭照
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            className={classes.button}
-                                            onClick={handleOpen}
-                                            startIcon={<SyncAltIcon />}
-                                        >
-                                            開始訓練
-                                        </Button> */}
                                     </Container>
                                 </Box>
-                                {/* <Box lineHeight={1} m={1}>
-                                    <Modal
-                                        open={open}
-                                        onClose={handleClose}
-                                        closeAfterTransition
-                                        BackdropComponent={Backdrop}
-                                        BackdropProps={{
-                                            timeout: 1000,
-                                        }}
-                                    >
-                                        <Fade in={open}>
-                                            <div className={classes.open_paper}>
-                                                <img className={classes.img} src="./img/profile.jpg" alt="img" />
-                                                <Button
-                                                    variant="contained"
-                                                    className={classes.button}
-                                                    startIcon={<BackupIcon />}
-                                                >
-                                                    完成訓練
-                                                </Button>
-                                            </div>
-                                        </Fade>
-                                    </Modal>
-                                </Box> */}
                             </form>
                         </div>
                 </Container>

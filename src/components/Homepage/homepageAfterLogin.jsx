@@ -177,8 +177,7 @@ export default function MenuApp() {
         }
     }
 
-    const [isSign , setIsSign] = React.useState(false);
-    // const [member , setMember] = useState([]);
+    const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
@@ -186,9 +185,7 @@ export default function MenuApp() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    setIsSign(true);
-                    // setMember(result.data);
-                    console.log(isSign);
+                    setMember(result.data);
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
@@ -215,7 +212,11 @@ export default function MenuApp() {
 
     return (
         <div className={classes.div}>
-            <Header2/>
+            {member.memberEmail === undefined ?
+                <Header1/>
+                :
+                <Header2/> 
+            }
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
