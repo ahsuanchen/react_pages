@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
           color : '#00AEAE'
         }
+    } ,
+    cancel_part : {
+        background : "#D0D0D0" ,
     }
   }));
 
@@ -252,7 +255,7 @@ export default function SignupSituation() {
                                 </ExpansionPanelDetails>
                                 : "")}
                             </ExpansionPanel>
-                            <ExpansionPanel defaultExpanded>
+                            <ExpansionPanel defaultExpanded className={classes.cancel_part}>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1c-content"

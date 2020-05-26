@@ -1,5 +1,6 @@
 import React , {useState , useEffect} from 'react';
 import Header from '../Header/HM_header2.jsx';
+import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link , useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -232,6 +233,8 @@ export default function SearchInfo() {
                    } 
                 </div>
             </div>
+            <br/>
+            <BottomBar/>
         </div>
     )
 }

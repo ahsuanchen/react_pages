@@ -5,7 +5,7 @@ import ActivityInformation from 'components/Activity/activityInfo.jsx';
 import ActivityContent from 'components/Activity/activityContent.jsx';
 import Header1 from 'components/Header/PF_header.jsx';
 import Header2 from 'components/Header/PF_header2.jsx';
-
+import BottomBar from 'components/Homepage/bottomBar.jsx';
 
 export default function MenuApp() {
   const [member , setMember] = useState([]);
@@ -32,6 +32,8 @@ export default function MenuApp() {
       }
       <ActivityInformation/>
       <ActivityContent/>
+      <br/>
+      <BottomBar/>
     </div>
   );
 }

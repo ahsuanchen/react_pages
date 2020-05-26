@@ -10,6 +10,7 @@ import Header2 from 'components/Header/HM_header2.jsx';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import BottomBar from 'components/Homepage/bottomBar.jsx';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,6 +52,8 @@ export default function Home(props) {
         <SortButtons />
         <GridList />
       </Grid>
+      <br/>
+      <BottomBar/>
       </>
 
   );
