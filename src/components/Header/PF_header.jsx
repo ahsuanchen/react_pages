@@ -96,7 +96,7 @@ export default function MenuAppBar() {
               <ListItemText primary="活動總覽" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/" button>
+            <ListItem component={Link} to="/questionInfo" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </ListItemIcon>

@@ -27,6 +27,7 @@ import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
 import Homepage from 'components/Homepage/homepage.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
+import QuestionInfo from 'components/Homepage/questionInfo.jsx';
 
 // import Test from 'components/Profile/Test.jsx';
 import Profile from 'components/Profile/profile.jsx';
@@ -85,6 +86,7 @@ class Layout extends React.Component {
       <Route path="/updateDetails" component={UpdateDetails} />
       <Route path="/homepage" component={Homepage} />
       <Route path="/searchInfo" component={SearchInfo} />
+      <Route path="/questionInfo" component={QuestionInfo} />
 
       {/* <Route path="/Test" component={Test} /> */}
       <Route path="/profile" component={Profile} />

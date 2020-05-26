@@ -148,7 +148,7 @@ const properties = {
     //variableWidth: true
 }
 
-export default function MenuApp() {
+export default function Homepage() {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
