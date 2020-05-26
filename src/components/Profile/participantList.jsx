@@ -110,7 +110,7 @@ export default function ParticipantList() {
                     axios.get("/api/activity/" + activityId)
                     .then(res1 => {
                         setActivity(res1.data);
-                        console.log(res1);
+                        // console.log(res1);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -118,7 +118,7 @@ export default function ParticipantList() {
                     axios.get("/api/registration/activity/" + activityId)
                     .then(res2 => {
                         setRegistration(res2.data);
-                        console.log(res2)
+                        // console.log(res2)
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -206,6 +206,9 @@ export default function ParticipantList() {
                                                 <Table className={classes.table}>
                                                     <TableHead stickyHeader>
                                                         <TableRow>
+                                                            {/* <TableCell className={classes.word} align="center">
+                                                                
+                                                            </TableCell> */}
                                                             <TableCell className={classes.word} align="center">編號</TableCell>
                                                             <TableCell className={classes.word} align="center">姓名</TableCell>
                                                             <TableCell className={classes.word} align="center">聯絡電話</TableCell>

@@ -5,7 +5,7 @@ import routess from 'routes';
 
 //import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
-import Home from 'components/Homepage/homepageAfterLogin.jsx';
+import Home from 'components/Homepage/homepage.jsx';
 
 import ReactApp from 'components/react-app.jsx';
 import SignIn from 'components/Signs/signIn.jsx';
@@ -25,9 +25,9 @@ import UpdatePic from 'components/Activity/updatePic.jsx';
 import UpdateInfo from 'components/Activity/updateInfo.jsx';
 import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
-import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
-import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
+import Homepage from 'components/Homepage/homepage.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
+import QuestionInfo from 'components/Homepage/questionInfo.jsx';
 
 // import Test from 'components/Profile/Test.jsx';
 import Profile from 'components/Profile/profile.jsx';
@@ -84,9 +84,9 @@ class Layout extends React.Component {
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />
       <Route path="/updateDetails" component={UpdateDetails} />
-      <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
-      <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
+      <Route path="/homepage" component={Homepage} />
       <Route path="/searchInfo" component={SearchInfo} />
+      <Route path="/questionInfo" component={QuestionInfo} />
 
       {/* <Route path="/Test" component={Test} /> */}
       <Route path="/profile" component={Profile} />

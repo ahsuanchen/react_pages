@@ -108,6 +108,13 @@ const useStyles = makeStyles(theme => ({
         maxWidth : '500px' ,
         maxHeight : '600px' ,
     } ,
+    link : {
+        textDecoration : "none" ,
+        color : "#000" ,
+        '&:hover' : {
+            color : '#00AEAE'
+        } ,
+    } 
   }));
 
   function PaperComponent(props) {
@@ -178,7 +185,6 @@ export default function ManageActivity() {
                     axios.get("/api/activity/organizer/" + res.data.memberEmail)
                     .then(result => {
                         setActivity(result.data);
-                        console.log(result)
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -194,7 +200,6 @@ export default function ManageActivity() {
     const [Cancel , setCancel] = useState(0);
     const [Cancelopen, setCancelOpen] = React.useState(false);
     const handleCancelOpen = (ActID , event) => {
-        console.log(ActID);
         setCancel(ActID);
         setCancelOpen(true);
     };
@@ -359,7 +364,9 @@ export default function ManageActivity() {
                                                             ?
                                                         <TableRow hover>
                                                             <TableCell className={classes.word} align="center">
-                                                                {activity.activityName}
+                                                                <Link className={classes.link} to={"/ActivityInformation?" + activity.activityId}>
+                                                                    {activity.activityName}
+                                                                </Link>
                                                             </TableCell>
                                                             <TableCell className={classes.word} align="center">
                                                                 {activity.activitySpace}
