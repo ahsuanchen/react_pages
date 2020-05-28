@@ -41,6 +41,8 @@ import ParticipantList from 'components/Profile/participantList.jsx';
 import MakeAnnouncement from 'components/Profile/makeAnnouncement.jsx';
 import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
+import QRCodeCheckIn from 'components/Profile/QRCodeCheckIn.jsx';
+import QRCodeCheckOut from 'components/Profile/QRCodeCheckOut.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'components/Album/album.jsx';
@@ -100,6 +102,8 @@ class Layout extends React.Component {
       <Route path="/makeAnnouncement" component={MakeAnnouncement} />
       <Route path="/manualCheckIn" component={ManualCheckIn} />
       <Route path="/manualCheckOut" component={ManualCheckOut} />
+      <Route path="/QRCodeCheckIn" component={QRCodeCheckIn} />
+      <Route path="/QRCodeCheckOut" component={QRCodeCheckOut} />
 
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
