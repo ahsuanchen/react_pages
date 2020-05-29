@@ -114,7 +114,7 @@ const[photo , setPhoto] = useState([]);
       <LeftBar/>
     <Container className={classes.root}>
 
-      <Typography variant="h4">
+      <Typography variant="h4" className={classes.word}>
          我的照片
       </Typography>
 
@@ -133,6 +133,7 @@ const[photo , setPhoto] = useState([]);
         })
       }
       </GridList>
+      
       </div>
     </Container>
 </div>

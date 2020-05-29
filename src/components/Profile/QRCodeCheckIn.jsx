@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     }
   }));
 
-export default function ManualCheckOut() {
+export default function QRCodeCheckIn() {
     const classes = useStyles();
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
@@ -49,11 +49,11 @@ export default function ManualCheckOut() {
 
     const handleSubmit = event => {
         event.preventDefault();    
-        let url =  "/api/registration/signOut/" ;
+        let url =  "/api/registration/signIn/" ;
         url = url + actID + "/" + signinEmail ;
             axios.post(url)
             .then(res => {
-                alert("簽退成功");
+                alert("簽到成功");
                 window.location.reload();
             })
             .catch(function(error){
@@ -70,7 +70,7 @@ export default function ManualCheckOut() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4" className={classes.word}>
-                                手 動 簽 退 — 帳 號 簽 退
+                                手 動 簽 到 — QRCode 簽 到
                             </Typography>
                             <hr />
                         </div>

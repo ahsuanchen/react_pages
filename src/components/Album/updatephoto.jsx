@@ -105,6 +105,7 @@ export default function Updatephoto() {
     }
     const [data , setData] = useState([]);
     const [image, setImage] = useState({preview: '', raw: ''});
+
     const handleChange = (e) => {
         setData(e.target.files)
         console.log(e.target.files);
@@ -208,7 +209,6 @@ export default function Updatephoto() {
 
           <Typography variant="h4" className={classes.word}>
              管理活動相片
-          </Typography>
           <IconButton
             aria-describedby={id}
             variant="contained"
@@ -231,13 +231,13 @@ export default function Updatephoto() {
                horizontal: 'center',
              }}>
             <Typography className={classes.typography}>
+            新增檔案限制:<br/>
+            1.檔案名稱限英文<br/>
             辨識限制:<br/>
             1.同時辨識人數越多，辨識速度越慢<br/>
             2.圖片解析度越高，辨識速度越慢
             </Typography>
           </Popover>
-          <Typography variant="h4" className={classes.word}>
-             上傳活動相片
           </Typography>
 
           <hr/>
@@ -263,7 +263,7 @@ export default function Updatephoto() {
           </GridListTile>
             {[...data].map(pic => {
               return  <GridListTile className={classes.word} cols={1} key={pic.id}>
-                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px" height="188px"/>
+                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px"/>
                       </GridListTile>
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })

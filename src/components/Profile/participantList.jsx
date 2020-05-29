@@ -20,6 +20,7 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import SendIcon from '@material-ui/icons/Send';
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -31,6 +32,13 @@ const useStyles = makeStyles(theme => ({
     } ,
     word : {
         fontFamily : "微軟正黑體"
+    } ,
+    btn_have_line : {
+        color : '#00AEAE'
+    } ,
+    btn_no_line : {
+        color : "#8E8E8E" ,
+
     } ,
     table : {
         margin : "auto" ,
@@ -110,7 +118,7 @@ export default function ParticipantList() {
                     axios.get("/api/activity/" + activityId)
                     .then(res1 => {
                         setActivity(res1.data);
-                        console.log(res1);
+                        // console.log(res1);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -211,6 +219,7 @@ export default function ParticipantList() {
                                                             <TableCell className={classes.word} align="center">聯絡電話</TableCell>
                                                             <TableCell className={classes.word} align="center">聯絡電子郵件</TableCell>
                                                             <TableCell className={classes.word} align="center">報名狀況</TableCell>
+                                                            <TableCell className={classes.word} align="center">Line個人推播</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {registration.map(registration =>
@@ -221,6 +230,19 @@ export default function ParticipantList() {
                                                             <TableCell className={classes.word} align="center">{registration.member.memberPhone}</TableCell>
                                                             <TableCell className={classes.word} align="center">{registration.member.memberEmail}</TableCell>
                                                             <TableCell className={classes.word} align="center">報名成功</TableCell>
+                                                            {registration.member.memberLineId === null ?
+                                                                <TableCell className={classes.word} align="center">
+                                                                    <Tooltip title="會員未綁定Line官方帳號">
+                                                                        <SendIcon className={classes.btn_no_line} button disabled/>
+                                                                    </Tooltip>
+                                                                </TableCell>
+                                                            : 
+                                                                <TableCell className={classes.word} align="center">
+                                                                    <Tooltip title="進行Line個人推播">
+                                                                        <SendIcon className={classes.btn_have_line} button/>
+                                                                    </Tooltip>
+                                                                </TableCell>
+                                                            }
                                                         </TableRow>
                                                     </TableBody>
                                                     )}
