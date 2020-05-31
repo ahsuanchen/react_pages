@@ -23,7 +23,8 @@ export default function Video() {
         <div className={classes.player_wrapper}>
           <ReactPlayer
             className={classes.react_player}
-            url='https://youtu.be/68ir9IR-vDA'
+            //url='https://youtu.be/68ir9IR-vDA'
+            url='./assets/images/123.mp4'
             // width='100%'
             // height='100%'
             width="800px"
