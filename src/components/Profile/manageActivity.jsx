@@ -116,7 +116,10 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             color : '#00AEAE'
         } ,
-    } 
+    } ,
+    finish_part : {
+        background : "#D0D0D0" ,
+    }
   }));
 
   function PaperComponent(props) {
@@ -334,7 +337,6 @@ export default function ManageActivity() {
         setCameraModelOutopen(false);
     };
 
-
     const activity_End_or_not = new Date().getTime();
 
     return (
@@ -378,11 +380,14 @@ export default function ManageActivity() {
                                                             <TableCell className={classes.word} align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    <TableBody>
                                                     {activity.map(activity =>
+                                                    (activity.activityCancelTime === null
+                                                        ?
+                                                    <TableBody className={
+                                                        [(new Date(activity.activityEndDate).getTime() < activity_End_or_not)
+                                                        ? classes.finish_part : ""]}>
                                                     
-                                                        (activity.activityCancelTime === null
-                                                            ?
+                                                        
                                                         <TableRow hover>
                                                             <TableCell className={classes.word} align="center">
                                                                 <Link className={classes.link} to={"/ActivityInformation?" + activity.activityId}>
@@ -819,10 +824,8 @@ export default function ManageActivity() {
                                                             </TableCell>
                                                             )}
                                                         </TableRow>
-                                                        : ""
-                                                       ))}
                                                     </TableBody>
-
+                                                    : ""))}
                                                 </Table>
                                             </Paper>
                                         </Grid>

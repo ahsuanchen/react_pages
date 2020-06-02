@@ -66,7 +66,7 @@ const useStyles = makeStyles(theme => ({
           color : '#00AEAE'
         }
     } ,
-    cancel_part : {
+    finish_part : {
         background : "#D0D0D0" ,
     }
   }));
@@ -254,7 +254,7 @@ export default function SignupSituation() {
                                 </ExpansionPanelDetails>
                                 : "")}
                             </ExpansionPanel>
-                            <ExpansionPanel defaultExpanded className={classes.cancel_part}>
+                            <ExpansionPanel defaultExpanded className={classes.finish_part}>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1c-content"
