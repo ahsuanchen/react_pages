@@ -35,6 +35,7 @@ import UpdatePassword from 'components/Profile/updatePassword.jsx';
 import TrainingFace from 'components/Profile/trainingFace.jsx';
 import SignupSituation from 'components/Profile/signupSituation.jsx';
 import EditSignupInfo from 'components/Profile/editSignupInformation.jsx';
+import MyTicket from 'components/Profile/myTicket.jsx'
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
@@ -43,7 +44,6 @@ import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
 import QRCodeCheckIn from 'components/Profile/QRCodeCheckIn.jsx';
 import QRCodeCheckOut from 'components/Profile/QRCodeCheckOut.jsx';
-import MemberCheckIn from 'components/Profile/memberCheckIn.jsx'
 
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'components/Album/album.jsx';
@@ -96,8 +96,8 @@ class Layout extends React.Component {
       <Route path="/updatePassword" component={UpdatePassword} />
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
+      <Route path="/myTicket" component={MyTicket} />
       <Route path="/trainingFace" component={TrainingFace} />
-      <Route path="/memberCheckIn" component={MemberCheckIn} />
 
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />

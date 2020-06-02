@@ -9,7 +9,9 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import QRCode from 'qrcode.react';
 import {v4 as uuidv4} from 'uuid';
-// import {usePosition} from 'use-position';
+import QrReader from 'react-qr-reader'
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 
 const useStyles = makeStyles(theme => ({
@@ -30,9 +32,14 @@ const useStyles = makeStyles(theme => ({
     form : {
         margin : "5% auto" ,
     } ,
-    QRcode_part : {
+    scanner_part : {
         display: "flex" ,
         justifyContent : "center" ,
+    } ,
+    scanner : {
+        backgroundImage : "url(./assets/images/ticket/QRCode.png)",
+        backgroundSize : "100%" ,
+        width : 500 ,
     } ,
     button_part : {
         margin : "2%" ,
@@ -43,22 +50,47 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         fontFamily : "微軟正黑體" ,
-        margin: "5% 10%",
+        margin: "2% 10%",
     } ,
     button2 : {
         background : '#FF0000' ,
         color : "#fff" ,
         fontFamily : "微軟正黑體" ,
-        margin: "5% 10%",
+        margin: "2% 10%",
     }
   }));
 
-export default function QRCodeCheckOut() {
+export default function QRCodeCheckIn() {
     const classes = useStyles();
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
     const [qrcode , setQrcode] = React.useState('0');
+    // 成功簽到簽退
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    // 失敗(此QRCode不存在)
+    const [openErr, setOpenErr] = React.useState(false);
+    const [clicked , setClicked] = React.useState(true);
+
+    const [scan, setScan] = useState();
+    function handleScan (scan) {
+        if(scan){
+          setScan(scan);
+        }
+    }
+    function handleError (err) {
+        console.error(err);
+    }
+    const handleClickOpen = () => {
+        setQrcode(uuidv4());  
+    };
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setClicked(false);
+    };  
 
     // const handleSubmit = event => {
     //     event.preventDefault();    
@@ -83,35 +115,36 @@ export default function QRCodeCheckOut() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4" className={classes.word}>
-                                手 動 簽 退 — QRCode 簽 退
+                                手 動 簽 退 — QRCode 掃 描
                             </Typography>
                             <hr />
                         </div>
                         <div>
                             <form className={classes.form}>
-                                <div className={classes.QRcode_part}>
-                                    <QRCode value={qrcode} size={400}/>
-                                </div>
-                                <div className={classes.button_part}> 
-                                    <Button
-                                        className={classes.button1}
-                                        // onClick={handleSubmit}
-                                        variant="contained"
-                                    >
-                                        開始簽退
-                                    </Button>
-                                    <Button
-                                        className={classes.button2}
-                                        // onClick={handleSubmit}
-                                        variant="contained"
-                                    >
-                                        停止簽退
-                                    </Button>
+                                <div className={classes.scanner_part}>
+                                    <QrReader
+                                        // ref={qr}
+                                        className={classes.scanner}
+                                        facingMode="environment"
+                                        delay={300}
+                                        onError={handleError}
+                                        onScan={handleScan}
+                                    />
                                 </div>
                             </form>
                         </div>  
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
+                <Alert severity="success">
+                    簽退成功！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
+                <Alert severity="success">
+                    此QRCode不存在！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
