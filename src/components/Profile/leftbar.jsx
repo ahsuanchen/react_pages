@@ -117,6 +117,11 @@ export default function LeftBar() {
                             報名狀況
                         </Box>
                     </Link>
+                    <Link to="/memberCheckIn" className={classes.link}>
+                        <Box lineHeight={1} m={4}>
+                            活動簽到簽退
+                        </Box>
+                    </Link>
                     <Divider />
                     {(organizer.memberEmail != null ?
                     <>
