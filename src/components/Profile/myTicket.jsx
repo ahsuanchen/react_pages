@@ -124,7 +124,7 @@ export default function QRCodeCheckIn() {
                                     <Paper className={classes.paper}>
                                         <Grid container>
                                             <Grid item xs={12} sm={8} className={classes.topic_part}>
-                                                <Typography variant="h3" className={classes.word}>
+                                                <Typography variant="h4" className={classes.word}>
                                                     {activity.activityName}
                                                 </Typography>
                                                 <br/>
@@ -137,18 +137,12 @@ export default function QRCodeCheckIn() {
                                                 </Typography>
                                             </Grid>
                                             <Grid item xs={12} sm={3} className={classes.QRcode_part}>
-                                                <Box lineHeight="normal" m={1}>
+                                                <Box lineHeight="normal">
                                                     <QRCode value={qrcode} size={135}/>
                                                     <Typography variant="h6" className={classes.word}>
                                                         參加者：<strong>{member.memberName}</strong>
                                                     </Typography>
                                                 </Box>
-                                                <br/>
-                                                {/* <Box lineHeight="normal" m={1}>
-                                                    <Typography variant="h6" className={classes.word}>
-                                                        參加者：<strong>{member.memberName}</strong>
-                                                    </Typography>
-                                                </Box> */}
                                             </Grid>
                                         </Grid>
                                     </Paper>

@@ -68,44 +68,44 @@ export default function QRCodeCheckIn() {
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    const [qrcode , setQrcode] = React.useState('0');
+
+    const [change, setChange] = React.useState(0);  
     // 成功簽到
     const [openSuccess, setOpenSuccess] = React.useState(false);
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
-    const [clicked , setClicked] = React.useState(true);
 
     const [scan, setScan] = useState();
     function handleScan (scan) {
         if(scan){
           setScan(scan);
+          setChange(1);
         }
     }
     function handleError (err) {
         console.error(err);
     }
-    const handleClickOpen = () => {
-        setQrcode(uuidv4());  
-    };
     const ErrClose = () => {
         setOpenSuccess(false);
-        setClicked(false);
+        setOpenErr(false);
+        setChange(0);
     };  
 
-    // const handleSubmit = event => {
-    //     event.preventDefault();    
-    //     let url =  "/api/registration/signIn/" ;
-    //     url = url + actID + "/" + signinEmail ;
-    //         axios.post(url)
-    //         .then(res => {
-    //             alert("簽到成功");
-    //             window.location.reload();
-    //         })
-    //         .catch(function(error){
-    //             alert("該使用者並未報名此活動或帳號輸入錯誤");
-    //             console.log(error.response.status);
-    //         });
-    // };
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(scan);
+        // let url =  "/api/registration/signIn/" ;
+        // url = url + actID + "/" + signinEmail ;
+        //     axios.post(url)
+        //     .then(res => {
+        //         alert("簽到成功");
+        //         window.location.reload();
+        //     })
+        //     .catch(function(error){
+        //         alert("該使用者並未報名此活動或帳號輸入錯誤");
+        //         console.log(error.response.status);
+        //     });
+    };
 
     return (
         <div className={classes.div}>
@@ -123,13 +123,23 @@ export default function QRCodeCheckIn() {
                             <form className={classes.form}>
                                 <div className={classes.scanner_part}>
                                     <QrReader
-                                        // ref={qr}
                                         className={classes.scanner}
                                         facingMode="environment"
-                                        delay={300}
+                                        delay={200}
                                         onError={handleError}
                                         onScan={handleScan}
                                     />
+                                </div>
+                                <div className={classes.button_part}>
+                                    <Button
+                                        // type="submit"
+                                        variant="contained"
+                                        disabled={change === 0 ? true : false}
+                                        onClick={handleSubmit}
+                                        className={classes.button1}
+                                    >
+                                        我要簽到
+                                    </Button>
                                 </div>
                             </form>
                         </div>  
