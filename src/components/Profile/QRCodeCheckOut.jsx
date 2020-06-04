@@ -7,8 +7,6 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import QRCode from 'qrcode.react';
-import {v4 as uuidv4} from 'uuid';
 import QrReader from 'react-qr-reader'
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -46,17 +44,15 @@ const useStyles = makeStyles(theme => ({
         display: "flex" ,
         justifyContent : "center" ,
     } ,
-    button1 : {
+    button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         fontFamily : "微軟正黑體" ,
         margin: "2% 10%",
     } ,
-    button2 : {
-        background : '#FF0000' ,
-        color : "#fff" ,
-        fontFamily : "微軟正黑體" ,
-        margin: "2% 10%",
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
@@ -68,44 +64,49 @@ export default function QRCodeCheckIn() {
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    const [qrcode , setQrcode] = React.useState('0');
-    // 成功簽到簽退
+    const [registration, setRegistration] = useState({
+        ainum : ""
+    });
+    const [change, setChange] = React.useState(0);  
+    // 成功簽退
     const [openSuccess, setOpenSuccess] = React.useState(false);
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
-    const [clicked , setClicked] = React.useState(true);
 
     const [scan, setScan] = useState();
     function handleScan (scan) {
         if(scan){
           setScan(scan);
+          setChange(1);
+          setRegistration(scan.ainum)
         }
     }
     function handleError (err) {
         console.error(err);
     }
-    const handleClickOpen = () => {
-        setQrcode(uuidv4());  
-    };
     const ErrClose = () => {
         setOpenSuccess(false);
-        setClicked(false);
-    };  
+        setOpenErr(false);
+        setChange(0);
+    };
 
-    // const handleSubmit = event => {
-    //     event.preventDefault();    
-    //     let url =  "/api/registration/signIn/" ;
-    //     url = url + actID + "/" + signinEmail ;
-    //         axios.post(url)
-    //         .then(res => {
-    //             alert("簽到成功");
-    //             window.location.reload();
-    //         })
-    //         .catch(function(error){
-    //             alert("該使用者並未報名此活動或帳號輸入錯誤");
-    //             console.log(error.response.status);
-    //         });
-    // };
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(scan);
+        let url =  "/api/QRcodeSignIn" ;
+        axios.post(url , registration)
+        .then(res => {
+            console.log(registration)
+            setOpenSuccess(true);
+            window.location.reload();
+            
+        })
+        .catch(function(error){
+            setOpenErr(true);
+            console.log(registration)
+            console.log(error.response.status);
+        });
+    };
 
     return (
         <div className={classes.div}>
@@ -130,6 +131,17 @@ export default function QRCodeCheckIn() {
                                         onError={handleError}
                                         onScan={handleScan}
                                     />
+                                </div>
+                                <div className={classes.button_part}>
+                                    <Button
+                                        // type="submit"
+                                        variant="contained"
+                                        disabled={change === 0 ? true : false}
+                                        onClick={handleSubmit}
+                                        className={classes.button}
+                                    >
+                                        進行簽退
+                                    </Button>
                                 </div>
                             </form>
                         </div>  

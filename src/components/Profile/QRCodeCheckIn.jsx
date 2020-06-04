@@ -7,8 +7,6 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import QRCode from 'qrcode.react';
-import {v4 as uuidv4} from 'uuid';
 import QrReader from 'react-qr-reader'
 import MuiAlert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -46,17 +44,15 @@ const useStyles = makeStyles(theme => ({
         display: "flex" ,
         justifyContent : "center" ,
     } ,
-    button1 : {
+    button : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         fontFamily : "微軟正黑體" ,
         margin: "2% 10%",
     } ,
-    button2 : {
-        background : '#FF0000' ,
-        color : "#fff" ,
-        fontFamily : "微軟正黑體" ,
-        margin: "2% 10%",
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
@@ -69,6 +65,9 @@ export default function QRCodeCheckIn() {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
 
+    const [registration, setRegistration] = useState({
+        ainum : ""
+    });
     const [change, setChange] = React.useState(0);  
     // 成功簽到
     const [openSuccess, setOpenSuccess] = React.useState(false);
@@ -80,6 +79,7 @@ export default function QRCodeCheckIn() {
         if(scan){
           setScan(scan);
           setChange(1);
+          setRegistration(scan.ainum)
         }
     }
     function handleError (err) {
@@ -89,22 +89,23 @@ export default function QRCodeCheckIn() {
         setOpenSuccess(false);
         setOpenErr(false);
         setChange(0);
-    };  
+    };
 
     const handleSubmit = event => {
         event.preventDefault();
         console.log(scan);
-        // let url =  "/api/registration/signIn/" ;
-        // url = url + actID + "/" + signinEmail ;
-        //     axios.post(url)
-        //     .then(res => {
-        //         alert("簽到成功");
-        //         window.location.reload();
-        //     })
-        //     .catch(function(error){
-        //         alert("該使用者並未報名此活動或帳號輸入錯誤");
-        //         console.log(error.response.status);
-        //     });
+        let url =  "/api/QRcodeSignIn" ;
+        axios.post(url , registration)
+        .then(res => {
+            console.log(registration)
+            setOpenSuccess(true);
+            window.location.reload();
+        })
+        .catch(function(error){
+            setOpenErr(true);
+            console.log(registration)
+            console.log(error.response.status);
+        });
     };
 
     return (
@@ -136,22 +137,22 @@ export default function QRCodeCheckIn() {
                                         variant="contained"
                                         disabled={change === 0 ? true : false}
                                         onClick={handleSubmit}
-                                        className={classes.button1}
+                                        className={classes.button}
                                     >
-                                        我要簽到
+                                        進行簽到
                                     </Button>
                                 </div>
                             </form>
                         </div>  
                 </Container>
             </div>
-            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
                 <Alert severity="success">
                     簽到成功！
                 </Alert>
             </Snackbar>
-            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error">
                     此QRCode不存在！
                 </Alert>
             </Snackbar>
