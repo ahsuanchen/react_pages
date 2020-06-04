@@ -63,7 +63,7 @@ export default function PersonalLineAnnouncement() {
 
     const handleSubmit = event => {
         event.preventDefault();    
-        let url = "/api/line/postMessage/announcement/" ;
+        let url = "/api/postMessage/one/" ;
         url = url + actID ;
             axios.post(url)
             .then(res => {
