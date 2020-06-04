@@ -743,7 +743,7 @@ export default function ManageActivity() {
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal> */}
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={CameraModelOutopen}
                                                                     onClose={CameraModelCheckOutClose}
@@ -758,7 +758,7 @@ export default function ManageActivity() {
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
+                                                                </Modal> */}
                                                                 <Modal
                                                                     className={classes.modal}
                                                                     open={manualCheckOutModelopen}
