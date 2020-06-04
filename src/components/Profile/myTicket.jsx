@@ -59,10 +59,14 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
-    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
+    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1 , window.location.href.indexOf("!"))
+    var AInum = window.location.href.substring(window.location.href.lastIndexOf("!") + 1)
     
     const [member, setMember] = useState([]);
     const [activity, setActivity] = useState([]);
+    const [registration, setRegistration] = useState({
+        ainum : AInum
+    });
     useEffect(() => {
         async function fetchDataAct() {
                 let url = "/api/login/name"
@@ -72,7 +76,7 @@ export default function QRCodeCheckIn() {
                     axios.get("/api/activity/" + actID)
                     .then(result => {
                         setActivity(result.data);
-                        // console.log(result);
+                        console.log(registration.ainum);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -90,21 +94,6 @@ export default function QRCodeCheckIn() {
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();    
-    //     let url =  "/api/registration/signIn/" ;
-    //     url = url + actID + "/" + signinEmail ;
-    //         axios.post(url)
-    //         .then(res => {
-    //             alert("簽到成功");
-    //             window.location.reload();
-    //         })
-    //         .catch(function(error){
-    //             alert("該使用者並未報名此活動或帳號輸入錯誤");
-    //             console.log(error.response.status);
-    //         });
-    // };
 
     return (
         <div className={classes.div}>
