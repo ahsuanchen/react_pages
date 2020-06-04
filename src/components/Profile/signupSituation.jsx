@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
           color : '#00AEAE'
         }
+    } ,
+    finish_part : {
+        background : "#D0D0D0" ,
     }
   }));
 
@@ -98,7 +101,6 @@ export default function SignupSituation() {
                     console.log(err.response.status);
                 })
         }
-        
         fetchDataReg();
     }, []);
 
@@ -162,7 +164,7 @@ export default function SignupSituation() {
                                 <ExpansionPanelDetails>
                                     <Grid container spacing={5}>
                                         <Grid item xs={12}>
-                                            <Paper >
+                                            <Paper>
                                                 <Grid container>
                                                     <Grid item xs={12} sm={8} className={classes.topic_part}>
                                                         <Typography variant="h5" className={classes.word}>
@@ -204,9 +206,9 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to=""
+                                                                to={"/myTicket?" + registration.activity.activityId}
                                                             >
-                                                                前往繳費
+                                                                我的票券
                                                             </Button>
                                                             <br /><br />
                                                             <Button
@@ -252,7 +254,7 @@ export default function SignupSituation() {
                                 </ExpansionPanelDetails>
                                 : "")}
                             </ExpansionPanel>
-                            <ExpansionPanel defaultExpanded>
+                            <ExpansionPanel defaultExpanded className={classes.finish_part}>
                                 <ExpansionPanelSummary
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1c-content"

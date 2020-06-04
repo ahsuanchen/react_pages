@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 export default function SimpleCard() {
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
 
-  console.log(activityId);
+  // console.log(activityId);
 
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
@@ -46,7 +46,7 @@ export default function SimpleCard() {
         const url = '/api/activity/' + activityId ;
         const result = await axios.get(url);
         setContent(result.data);
-        console.log(result.data);
+        // console.log(result.data);
         //抓取資料並將資料Set給上面設定好的activity物件
         //act = result.data;
         //console.log(act);

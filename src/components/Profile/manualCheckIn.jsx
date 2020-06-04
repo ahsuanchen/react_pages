@@ -70,7 +70,7 @@ export default function ManualCheckIn() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4" className={classes.word}>
-                                手 動 簽 到
+                                手 動 簽 到 — 帳 號 簽 到
                             </Typography>
                             <hr />
                         </div>

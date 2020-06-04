@@ -45,9 +45,20 @@ const useStyles = makeStyles(theme => ({
 export default function ActivityInfo() {
   //抓取此筆活動Id，利用Url ?之後的數字
   var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1);
-
-  console.log(activityId);
-
+  const [member , setMember] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+            let url = "/api/login/name"
+            await axios.get(url)
+            .then(result => {
+                setMember(result.data);
+            })
+            .catch(err => {
+                console.log(err.response.status);
+            })
+    }
+    fetchData();
+  }, []);
 
 
   const classes = useStyles();
@@ -61,7 +72,7 @@ export default function ActivityInfo() {
         const url = '/api/activity/' + activityId ;
         const result = await axios.get(url);
         setAct(result.data);
-        console.log(result.data);
+        // console.log(result.data);
         //抓取資料並將資料Set給上面設定好的activity物件
         //act = result.data;
         //console.log(act);
@@ -140,7 +151,7 @@ export default function ActivityInfo() {
     </Table>
     </> */}
 
-    console.log(act);
+    // console.log(act);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
     //如資料庫中有照片路徑的話，可把src="assets/images/1.jpg" 改成 src = {act.activityCover}
   return (
@@ -184,7 +195,7 @@ export default function ActivityInfo() {
                       <DateRangeIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="活動時間" secondary={act.activityStartDateString + " ~ " + act.activityEndDateString }/>
+                  <ListItemText primary="活動時間" secondary={act.activityStartDateString + " ~ " +act.activityEndDateString}/>
                 </ListItem>
               </List>
             </TableCell>
@@ -207,13 +218,22 @@ export default function ActivityInfo() {
 
       </TableBody>
       </Table>
+      {member.memberEmail === undefined ? ""
+      :
       <div className={classes.fab}>
-      <Fab className={classes.word} variant="extended" size="medium" color="secondary" component={Link}
-      to={"/activitySignUp?" +act.activityId}>
-      <PersonAddIcon className={classes.extendedIcon} />
-        我要報名!
-      </Fab>
-    </div>
+        <Fab
+          className={classes.word}
+          variant="extended"
+          size="medium"
+          color="secondary"
+          component={Link}
+          to={"/activitySignUp?" +act.activityId}
+        >
+          <PersonAddIcon className={classes.extendedIcon} />
+          我要報名!
+        </Fab>
+      </div>
+      }
 
       </>
 

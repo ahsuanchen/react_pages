@@ -2,6 +2,7 @@
 import React from 'react';
 import ActivitySU from 'components/Activity/activitySignUp.jsx';
 import Header from 'components/Header/PF_header.jsx';
+import BottomBar from 'components/Homepage/bottomBar.jsx';
 
 class ActivitySignUp extends React.Component {
 
@@ -11,6 +12,8 @@ class ActivitySignUp extends React.Component {
       <>
         <Header/>
         <ActivitySU />
+        <br/>
+        <BottomBar/>
       </>
     )
   }

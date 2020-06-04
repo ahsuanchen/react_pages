@@ -198,9 +198,12 @@ export default function Updatephoto() {
 
        recoPhoto();
 
-
+       
+       
+       //read the file
+       
      };
-
+     
     return (
       <div>
       <Header/>
@@ -244,7 +247,7 @@ export default function Updatephoto() {
           <hr/>
           <Button variant="outlined" className={classes.word}>
               新增檔案
-              <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+              <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*,.mp4" multiple/>
           </Button>
 
           <Button
@@ -263,9 +266,25 @@ export default function Updatephoto() {
             <ListSubheader component="div" className={classes.word}>預覽照片</ListSubheader>
           </GridListTile>
             {[...data].map(pic => {
-              return  <GridListTile className={classes.word} cols={1} key={pic.id}>
+              console.log(pic);
+              if(pic.type === "video/mp4")
+              {
+                return  <GridListTile className={classes.word} cols={1} key={pic.id}>
+                  <video width="400" controls>
+                    <source src={URL.createObjectURL(pic)} type="video/mp4"/>
+                          Your browser does not support HTML5 video.
+                  </video>
+                
+               
+                </GridListTile>
+              }
+              else
+              {
+                return  <GridListTile className={classes.word} cols={1} key={pic.id}>
                       <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px"/>
                       </GridListTile>
+              }
+              
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })
             }

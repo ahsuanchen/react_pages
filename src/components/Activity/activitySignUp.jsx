@@ -212,9 +212,9 @@ const [registrationMeal,setRegistrationMeal] = useState("0");
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
-        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/homepageAfterLogin">確定報名</Button>
+        <Button onClick={handleSubmit} variant="contained" color="secondary" className={classes.word} component={Link} to="/homepage">確定報名</Button>
         :
-        <Button onClick={handleDontSubmit} className={classes.word} variant="contained" color="secondary" component={Link} to="/homepageAfterLogin">確定報名</Button>}
+        <Button onClick={handleDontSubmit} className={classes.word} variant="contained" color="secondary" component={Link} to="/homepage">確定報名</Button>}
       </CardActions>
     </Card>
            </TableCell>

@@ -70,7 +70,7 @@ export default function ManualCheckOut() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4" className={classes.word}>
-                                手 動 簽 退
+                                手 動 簽 退 — 帳 號 簽 退
                             </Typography>
                             <hr />
                         </div>

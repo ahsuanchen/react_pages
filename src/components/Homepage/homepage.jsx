@@ -148,7 +148,7 @@ const properties = {
     //variableWidth: true
 }
 
-export default function MenuApp() {
+export default function Homepage() {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -177,18 +177,23 @@ export default function MenuApp() {
         }
     }
 
-    const [isSign , setIsSign] = React.useState(false);
-    // const [member , setMember] = useState([]);
+    const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
-        async function fetchDataOrg() {
+        async function fetchData() {
+            axios.get("/api/activity")
+                    .then(res => {
+                        setActivity(res.data);
+                        // console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    setIsSign(true);
-                    // setMember(result.data);
-                    console.log(isSign);
+                    setMember(result.data);
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
@@ -197,27 +202,22 @@ export default function MenuApp() {
                     .catch(err => {
                         console.log(err.response.status);
                     })
-                    axios.get("/api/activity")
-                    .then(res => {
-                        setActivity(res.data);
-                        // console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err.response.status);
-                    })
+                    
                 })
                 .catch(err => {
                     console.log(err.response.status);
                 })
         }
-        fetchDataOrg();
+        fetchData();
     }, []);
-
-
-        console.log(organizer.memberEmail);
+    
     return (
         <div className={classes.div}>
-            <Header2/>
+            {member.memberEmail === undefined ?
+                <Header1/>
+                :
+                <Header2/> 
+            }
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
@@ -256,6 +256,8 @@ export default function MenuApp() {
                 </div>
             </div>
             <div>
+            {member.memberEmail === undefined ? ""
+                :
                 <Grid 
                     container
                     direction="column"
@@ -327,6 +329,7 @@ export default function MenuApp() {
                         </Fade>
                     </Modal>
                 </Grid>
+                }
             </div>
             <div className={classes.container}>
                 <div>
