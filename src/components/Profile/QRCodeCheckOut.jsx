@@ -93,7 +93,7 @@ export default function QRCodeCheckIn() {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(scan);
-        let url =  "/api/QRcodeSignIn" ;
+        let url =  "/api/registration/QRcodeSignOut" ;
         axios.post(url , registration)
         .then(res => {
             console.log(registration)
