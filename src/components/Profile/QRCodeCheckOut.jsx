@@ -153,7 +153,7 @@ export default function QRCodeCheckIn() {
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
+                <Alert severity="error">
                     此QRCode不存在！
                 </Alert>
             </Snackbar>
