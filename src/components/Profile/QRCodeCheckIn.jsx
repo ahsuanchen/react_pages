@@ -64,22 +64,20 @@ export default function QRCodeCheckIn() {
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
-    const [registration, setRegistration] = useState({
-        ainum : ""
-    });
+    
+    
     const [change, setChange] = React.useState(0);  
     // 成功簽到
     const [openSuccess, setOpenSuccess] = React.useState(false);
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
-
+    const [memberName , setMemberName] = React.useState("");
     const [scan, setScan] = useState();
     function handleScan (scan) {
         if(scan){
           setScan(scan);
           setChange(1);
-          setRegistration(scan.ainum)
+          
         }
     }
     function handleError (err) {
@@ -90,16 +88,17 @@ export default function QRCodeCheckIn() {
         setOpenErr(false);
         setChange(0);
     };
-
-    const handleSubmit = event => {
-        event.preventDefault();
-        console.log(scan);
-        let url =  "/api/QRcodeSignIn" ;
-        axios.post(url , registration)
+    async function signIn(registration)
+    {
+        let url =  "/api/registration/QRcodeSignIn" ;
+        await axios.post(url , registration)
         .then(res => {
             console.log(registration);
             console.log(res);
             setOpenSuccess(true);
+            console.log()
+            
+            setMemberName(res.data.memberName);
             // window.location.reload();
         })
         .catch(function(error){
@@ -107,6 +106,16 @@ export default function QRCodeCheckIn() {
             console.log(registration)
             console.log(error.response.status);
         });
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(scan);
+        const registration = {
+            ainum : parseInt(scan)
+        }
+        console.log(registration);
+        signIn(registration);
     };
 
     return (
@@ -149,7 +158,7 @@ export default function QRCodeCheckIn() {
             </div>
             <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
                 <Alert severity="success">
-                    簽到成功！
+                    會員 {memberName} 簽到成功！
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>

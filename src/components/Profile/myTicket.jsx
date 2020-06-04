@@ -89,7 +89,7 @@ export default function QRCodeCheckIn() {
         fetchDataAct();
     }, []);
 
-    const [qrcode , setQrcode] = React.useState(actID);
+    const [qrcode , setQrcode] = React.useState(AInum);
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
