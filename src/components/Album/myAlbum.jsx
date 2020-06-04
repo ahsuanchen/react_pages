@@ -114,11 +114,6 @@ export default function TestGridList(props) {
                       })
                       .catch(err => {
                           console.log(err.response.status);
-                          if(err.response.status === 403)
-                          {
-                              alert("您的權限不足!");
-                              goHomePage();
-                          }
                       })
                   }
               })
@@ -144,7 +139,7 @@ export default function TestGridList(props) {
      <LeftBar/>
     <Container className={classes.content}>
       <div>
-        <Typography variant="h4">
+        <Typography variant="h4" className={classes.word}>
            我的相簿
         </Typography>
         <hr />
