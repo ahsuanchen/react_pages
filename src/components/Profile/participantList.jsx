@@ -239,7 +239,9 @@ export default function ParticipantList() {
                                                             : 
                                                                 <TableCell className={classes.word} align="center">
                                                                     <Tooltip title="進行Line個人推播">
-                                                                        <SendIcon className={classes.btn_have_line} button/>
+                                                                        <Button component={Link} to={"/personalLineAnnouncement?" + activityId}>
+                                                                            <SendIcon className={classes.btn_have_line}/>
+                                                                        </Button>
                                                                     </Tooltip>
                                                                 </TableCell>
                                                             }
