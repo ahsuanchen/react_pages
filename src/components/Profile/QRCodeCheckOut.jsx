@@ -105,7 +105,6 @@ export default function QRCodeCheckIn() {
     const handleSubmit = event => {
         event.preventDefault();
         console.log(scan);
-        console.log(scan);
         const registration = {
             ainum : parseInt(scan)
         }
