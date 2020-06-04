@@ -88,10 +88,12 @@ export default function QRCodeCheckIn() {
         setOpenErr(false);
         setChange(0);
     };
-    async function signIn(registration)
-    {
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(scan);
         let url =  "/api/registration/QRcodeSignIn" ;
-        await axios.post(url , registration)
+        axios.post(url , registration)
         .then(res => {
             console.log(registration);
             console.log(res);
