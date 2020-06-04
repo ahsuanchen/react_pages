@@ -592,11 +592,11 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handleCheckInModelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckInModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkInModelopen}
                                                                     onClose={handleCheckInModelClose}
@@ -652,7 +652,7 @@ export default function ManageActivity() {
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
+                                                                </Modal> */}
                                                                 <Modal
                                                                     className={classes.modal}
                                                                     open={manualCheckInModelopen}
@@ -698,11 +698,11 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handleCheckOutModelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckOutModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽退
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkOutModelopen}
                                                                     onClose={handleCheckOutModelClose}
@@ -742,7 +742,7 @@ export default function ManageActivity() {
                                                                             </Grid>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
+                                                                </Modal> */}
                                                                 <Modal
                                                                     className={classes.modal}
                                                                     open={CameraModelOutopen}
