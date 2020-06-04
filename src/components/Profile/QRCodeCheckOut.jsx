@@ -59,26 +59,21 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
-    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
-
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    const [registration, setRegistration] = useState({
-        ainum : ""
-    });
+
     const [change, setChange] = React.useState(0);  
     // 成功簽退
     const [openSuccess, setOpenSuccess] = React.useState(false);
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
-
+    const [memberName , setMemberName] = React.useState("");
     const [scan, setScan] = useState();
     function handleScan (scan) {
         if(scan){
           setScan(scan);
           setChange(1);
-          setRegistration(scan.ainum)
         }
     }
     function handleError (err) {
@@ -90,22 +85,32 @@ export default function QRCodeCheckIn() {
         setChange(0);
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        console.log(scan);
+    function signOut(registration)
+    {
         let url =  "/api/registration/QRcodeSignOut" ;
         axios.post(url , registration)
         .then(res => {
-            console.log(registration)
-            setOpenSuccess(true);
-            window.location.reload();
-            
+            console.log(res);
+            setOpenSuccess(true);            
+            setMemberName(res.data.memberName);
+            // window.location.reload();
         })
         .catch(function(error){
             setOpenErr(true);
             console.log(registration)
             console.log(error.response.status);
         });
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        console.log(scan);
+        console.log(scan);
+        const registration = {
+            ainum : parseInt(scan)
+        }
+        console.log(registration);
+        signOut(registration);
     };
 
     return (
@@ -149,7 +154,7 @@ export default function QRCodeCheckIn() {
             </div>
             <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
                 <Alert severity="success">
-                    簽退成功！
+                    會員 {memberName} 簽退成功！
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
