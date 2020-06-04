@@ -89,13 +89,12 @@ export default function QRCodeCheckIn() {
         setChange(0);
     };
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        console.log(scan);
+    function signIn(registration)
+    {
         let url =  "/api/registration/QRcodeSignIn" ;
         axios.post(url , registration)
         .then(res => {
-            console.log(registration);
+            
             console.log(res);
             setOpenSuccess(true);
             console.log()
