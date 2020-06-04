@@ -206,7 +206,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to={"/myTicket?" + registration.activity.activityId + "!" + registration.ainum}
+                                                                to={"/myTicket?" + registration.activity.activityId + "&" + registration.ainum}
                                                             >
                                                                 我的票券
                                                             </Button>
