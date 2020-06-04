@@ -87,10 +87,6 @@ export default function QRCodeCheckIn() {
         fetchDataAct();
     }, []);
 
-    function Alert(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
-
     return (
         <div className={classes.div}>
             <Header />
@@ -136,16 +132,6 @@ export default function QRCodeCheckIn() {
                         </div>  
                 </Container>
             </div>
-            {/* <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
-                    已開啟簽到！
-                </Alert>
-            </Snackbar>
-            <Snackbar open={openStop} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
-                    已關閉簽到！
-                </Alert>
-            </Snackbar> */}
         </div>
     );
 }

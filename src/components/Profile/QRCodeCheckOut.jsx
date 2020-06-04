@@ -90,25 +90,21 @@ export default function QRCodeCheckIn() {
         let url =  "/api/registration/QRcodeSignOut" ;
         axios.post(url , registration)
         .then(res => {
-            console.log(res);
             setOpenSuccess(true);            
             setMemberName(res.data.memberName);
-            // window.location.reload();
+            window.location.reload();
         })
         .catch(function(error){
             setOpenErr(true);
-            console.log(registration)
             console.log(error.response.status);
         });
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(scan);
         const registration = {
             ainum : parseInt(scan)
         }
-        console.log(registration);
         signOut(registration);
     };
 
@@ -151,13 +147,13 @@ export default function QRCodeCheckIn() {
                         </div>  
                 </Container>
             </div>
-            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
                     會員 {memberName} 簽退成功！
                 </Alert>
             </Snackbar>
-            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="error">
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
                     此QRCode不存在！
                 </Alert>
             </Snackbar>

@@ -14,6 +14,8 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -49,11 +51,28 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         margin : "auto 2%" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 60 , 
+        marginLeft : 125
     }
   }));
 
 export default function OrganizerInfo() {
     const classes = useStyles();
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    // 成功簽到
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    // 失敗(姓名字數)
+    const [openErr, setOpenErr] = React.useState(false);
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr(false);
+    };  
 
     const [member, setMember] = useState([]);
     const [organizer, setOrganizer] = useState({
@@ -100,7 +119,7 @@ export default function OrganizerInfo() {
 
         if (updateOrganizerInfo.organizerPhone.length > 11 || updateOrganizerInfo.organizerPhone.length < 9)
         {
-            alert("連絡電話格式錯誤");
+            setOpenErr(true);
         }
         else
         {
@@ -110,9 +129,7 @@ export default function OrganizerInfo() {
             url = url + member.memberEmail ;
             axios.patch(url , updateOrganizerInfo)
             .then(response => {
-                // console.log(response);
-                // console.log(updateOrganizerInfo);
-                alert("主辦單位資訊已修改");
+                setOpenSuccess(true);
                 window.location.reload();
             })
             .catch(function(error){
@@ -227,6 +244,16 @@ export default function OrganizerInfo() {
                         </div>
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    主辦單位資訊已修改！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    聯絡電話格式錯誤！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

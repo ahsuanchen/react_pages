@@ -117,8 +117,8 @@ export default function TrainingFace() {
        
         axios.post(url, formData,config)
         .then(res => {
-            console.log(res);
-            console.log(res.data);
+            // console.log(res);
+            // console.log(res.data);
             history.push({
                 pathname: "/trainingFace",
             });

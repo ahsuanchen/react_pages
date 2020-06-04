@@ -18,7 +18,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { faMapMarkerAlt, faClock } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -60,6 +62,10 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         margin : "auto 2%" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
@@ -79,6 +85,16 @@ export default function EditSignupInfo() {
     var AINum = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
     
     let history = useHistory();
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    // 更改成功
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    const SuccessClose = () => {
+        setOpenSuccess(false);
+        history.push("/signupSituation");
+    };
 
     const [member, setMember] = useState([]);
     const [activity, setActivity] = useState([]);
@@ -131,8 +147,8 @@ export default function EditSignupInfo() {
         url = url + AINum;
         axios.patch(url , updateRegistrationInfo)
         .then(res => {
-            alert("報名資料已修改");
-            history.push("/signupSituation");
+            setOpenSuccess(true);
+            
         })
         .catch(function(error){
             console.log(error.response.status);
@@ -240,6 +256,11 @@ export default function EditSignupInfo() {
                         </div>
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={SuccessClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    報名資料已修改！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
