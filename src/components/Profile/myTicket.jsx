@@ -59,14 +59,15 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
-    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1 , window.location.href.indexOf("!"))
-    var AInum = window.location.href.substring(window.location.href.lastIndexOf("!") + 1)
+    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1 , window.location.href.indexOf("&"))
+    var AInum = window.location.href.substring(window.location.href.lastIndexOf("&") + 1)
     
+    const [qrcode , setQrcode] = React.useState({
+        ainum : ""
+    });
+
     const [member, setMember] = useState([]);
     const [activity, setActivity] = useState([]);
-    const [registration, setRegistration] = useState({
-        ainum : AInum
-    });
     useEffect(() => {
         async function fetchDataAct() {
                 let url = "/api/login/name"
@@ -76,7 +77,7 @@ export default function QRCodeCheckIn() {
                     axios.get("/api/activity/" + actID)
                     .then(result => {
                         setActivity(result.data);
-                        console.log(registration.ainum);
+                        setQrcode(AInum);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -88,8 +89,6 @@ export default function QRCodeCheckIn() {
         }
         fetchDataAct();
     }, []);
-
-    const [qrcode , setQrcode] = React.useState('0');
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
