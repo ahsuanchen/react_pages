@@ -97,9 +97,10 @@ export default function QRCodeCheckIn() {
         let url =  "/api/QRcodeSignIn" ;
         axios.post(url , registration)
         .then(res => {
-            console.log(registration)
+            console.log(registration);
+            console.log(res);
             setOpenSuccess(true);
-            window.location.reload();
+            // window.location.reload();
         })
         .catch(function(error){
             setOpenErr(true);
