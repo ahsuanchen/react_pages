@@ -37,6 +37,8 @@ import TagFacesIcon from '@material-ui/icons/TagFaces';
 import KeyboardIcon from '@material-ui/icons/Keyboard';
 import CropFreeIcon from '@material-ui/icons/CropFree';
 import ComputerIcon from '@material-ui/icons/Computer';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -116,16 +118,22 @@ const useStyles = makeStyles(theme => ({
         '&:hover' : {
             color : '#00AEAE'
         } ,
-    } 
+    } ,
+    finish_part : {
+        background : "#D0D0D0" ,
+    } ,
+    alert: {
+        marginBottom : 100
+    }
   }));
 
-  function PaperComponent(props) {
+function PaperComponent(props) {
     return (
       <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'} disabled>
         <Paper style={{minWidth : '600px' , minHeight : '200px' ,}} {...props} />
       </Draggable>
     );
-  }
+}
 
 function getUserMedia(constraints) {
     // if Promise-based API is available, use it
@@ -178,6 +186,18 @@ function getStream (type) {
 export default function ManageActivity() {
     const classes = useStyles();
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    // 取消報名成功
+    const [openInfo1 , setOpenInfo1] = React.useState(false);
+    const [openInfo2 , setOpenInfo2] = React.useState(false);
+    const ErrClose = () => {
+        setOpenInfo1(false);
+        setOpenInfo2(false);
+    };  
+
     const [activity, setActivity] = useState([]);
     useEffect(() => {
         async function fetchDataAct() {
@@ -187,6 +207,7 @@ export default function ManageActivity() {
                     axios.get("/api/activity/organizer/" + res.data.memberEmail)
                     .then(result => {
                         setActivity(result.data);
+                        console.log(result);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -213,6 +234,7 @@ export default function ManageActivity() {
         url = url + ActID;
         axios.patch(url)
         .then(res => {
+            setOpenInfo1(true);
             window.location.reload();
         })
         .catch(function(error){
@@ -234,6 +256,7 @@ export default function ManageActivity() {
         url = url + ActID;
         axios.delete(url)
         .then(res => {
+            setOpenInfo2(true);
             window.location.reload();
         })
         .catch(function(error){
@@ -334,7 +357,6 @@ export default function ManageActivity() {
         setCameraModelOutopen(false);
     };
 
-
     const activity_End_or_not = new Date().getTime();
 
     return (
@@ -378,10 +400,11 @@ export default function ManageActivity() {
                                                             <TableCell className={classes.word} align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    <TableBody>
                                                     {activity.map(activity =>
-                                                    
-                                                        (activity.activityCancelTime === null
+                                                    <TableBody className={
+                                                        [(new Date(activity.activityEndDate).getTime() < activity_End_or_not)
+                                                        ? classes.finish_part : ""]}>
+                                                            {activity.activityCancelTime === null
                                                             ?
                                                         <TableRow hover>
                                                             <TableCell className={classes.word} align="center">
@@ -587,11 +610,11 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handleCheckInModelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckInModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkInModelopen}
                                                                     onClose={handleCheckInModelClose}
@@ -647,7 +670,7 @@ export default function ManageActivity() {
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
+                                                                </Modal> */}
                                                                 <Modal
                                                                     className={classes.modal}
                                                                     open={manualCheckInModelopen}
@@ -693,11 +716,11 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handleCheckOutModelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckOutModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽退
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkOutModelopen}
                                                                     onClose={handleCheckOutModelClose}
@@ -737,8 +760,8 @@ export default function ManageActivity() {
                                                                             </Grid>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
-                                                                <Modal
+                                                                </Modal> */}
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={CameraModelOutopen}
                                                                     onClose={CameraModelCheckOutClose}
@@ -753,7 +776,7 @@ export default function ManageActivity() {
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
+                                                                </Modal> */}
                                                                 <Modal
                                                                     className={classes.modal}
                                                                     open={manualCheckOutModelopen}
@@ -819,10 +842,9 @@ export default function ManageActivity() {
                                                             </TableCell>
                                                             )}
                                                         </TableRow>
-                                                        : ""
-                                                       ))}
+                                                        : ""}
                                                     </TableBody>
-
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>
@@ -833,6 +855,16 @@ export default function ManageActivity() {
                     </div>
                 </Container>
             </div>
+            <Snackbar open={openInfo1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="info" className={classes.word}>
+                    您已停止舉辦該活動！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openInfo2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="info" className={classes.word}>
+                    您已刪除該活動！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

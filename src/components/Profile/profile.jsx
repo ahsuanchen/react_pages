@@ -21,6 +21,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -32,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     } ,
     content: {
         margin: "2%",
-        overflow: "visible" ,
     },
     word : {
         fontFamily : "微軟正黑體"
@@ -40,11 +41,6 @@ const useStyles = makeStyles(theme => ({
     table_form : {
         margin: "5% auto",
     } ,
-    img: {
-        margin: "2% 0",
-        minWidth: '150px',
-        maxHeight: '200px'
-    },
     button: {
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
@@ -56,6 +52,10 @@ const useStyles = makeStyles(theme => ({
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
         margin: "2%",
+    } ,
+    alert: {
+        marginBottom : 105 , 
+        marginLeft : 125
     }
 }));
 
@@ -72,8 +72,6 @@ const RadioColor = withStyles({
 
 export default function Profile() {
     const classes = useStyles();
-
-    let history = useHistory();
 
     const [member, setMember] = useState({
         memberName : '' ,
@@ -102,6 +100,25 @@ export default function Profile() {
         fetchDataMem();
     }, []);
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    // 成功簽到
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    // 失敗(姓名字數)
+    const [openErr1, setOpenErr1] = React.useState(false);
+    // 失敗(連絡電話格式)
+    const [openErr2, setOpenErr2] = React.useState(false);
+    // 失敗(生日格式)
+    const [openErr3, setOpenErr3] = React.useState(false);
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr1(false);
+        setOpenErr2(false);
+        setOpenErr3(false);
+    };  
+
     const handleChange = updateMemInfo => event => {
         setMember({...member, [updateMemInfo]: event.target.value});
     }
@@ -122,15 +139,18 @@ export default function Profile() {
         if ((updateMemberInfo.memberName.length > 5 || updateMemberInfo.memberName.length < 2)
         || (updateMemberInfo.emergencyContact.length > 5 || updateMemberInfo.emergencyContact.length < 2))
         {
-            alert("姓名字數錯誤");
+            // alert("姓名字數錯誤");
+            setOpenErr1(true);
         }
         else if (updateMemberInfo.memberPhone.length != 10 || updateMemberInfo.emergencyContactPhone.length != 10)
         {
-            alert("連絡電話格式錯誤");
+            // alert("連絡電話格式錯誤");
+            setOpenErr2(true);
         }
         else if (new Date(updateMemberInfo.memberBirthdayString).getTime() > new Date().getTime() )
         {
-            alert("生日格式錯誤");
+            // alert("生日格式錯誤");
+            setOpenErr3(true);
         }
         else
         {
@@ -138,7 +158,8 @@ export default function Profile() {
             url = url + member.memberEmail;
             axios.patch(url , updateMemberInfo)
             .then(response => {
-                alert("個人檔案內容已修改");
+                // alert("個人檔案內容已修改");
+                setOpenSuccess(true);
                 window.location.reload();
             })
             .catch(function(error){
@@ -315,6 +336,26 @@ export default function Profile() {
                     </div>
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    個人檔案內容已修改！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    姓名字數錯誤！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    連絡電話格式錯誤！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr3} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    生日格式錯誤！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

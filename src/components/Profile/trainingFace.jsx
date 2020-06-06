@@ -56,15 +56,6 @@ const useStyles = makeStyles(theme => ({
         fontFamily : "微軟正黑體"
         //margin:"10% 1%"
     } ,
-    open_paper : {
-        maxWidth : '500px' ,
-        maxHeight : '600px' ,
-        //background : 'linear-gradient(160deg, #6C6C6C 10%, #E0E0E0 80%)' ,
-        background : '#6C6C6C' ,
-        margin : "auto" ,
-        alignItems : "center"
-    } ,
-
     file : {
         fontSize : "30px" ,
         position: "absolute" ,
@@ -126,8 +117,8 @@ export default function TrainingFace() {
        
         axios.post(url, formData,config)
         .then(res => {
-            console.log(res);
-            console.log(res.data);
+            // console.log(res);
+            // console.log(res.data);
             history.push({
                 pathname: "/trainingFace",
             });
