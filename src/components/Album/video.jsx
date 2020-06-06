@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     player_wrapper :{
         position: 'relative',
-        paddingTop: '56.25%' /* Player ratio: 100 / (1280 / 720) */
+        //paddingTop: '56.25%' /* Player ratio: 100 / (1280 / 720) */
+        paddingTop: '25%'
     },
         
     react_player :{
@@ -24,14 +25,17 @@ export default function Video() {
           <ReactPlayer
             className={classes.react_player}
             //url='https://youtu.be/68ir9IR-vDA'
-            url='./assets/images/123.mp4'
+            url='/assets/images/123.mp4'
             // width='100%'
             // height='100%'
-            width="800px"
-            height="450px"
+            width="400px"
+            height="225px"
             controls={true}
           />
         </div>
+
+        
+        
       )
     
   }
