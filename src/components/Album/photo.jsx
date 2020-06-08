@@ -2,6 +2,7 @@
 import React , { useState, useEffect }from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
@@ -12,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from '../Header/PF_header.jsx';
+import Video from 'components/Album/video.jsx';
 
 const useStyles = makeStyles(theme => ({
   div : {
@@ -39,6 +41,12 @@ const useStyles = makeStyles(theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
+  } ,
+
+  video : {
+    display: 'flex',
+    marginTop:'2%',
+    //flexWrap: 'wrap',
   } ,
 }));
 
@@ -107,6 +115,32 @@ export default function TestGridList(props) {
               })
             }
             </GridList>
+
+        </div>
+
+        {/* 影片 */}
+<br/><br/><br/>
+        <Typography variant="h4" className={classes.word}>
+            活動影片
+          </Typography>
+          <hr />
+
+        <div className={classes.video}>
+
+        {/* <ListSubheader component="div">活動影片</ListSubheader>
+         <GridList cols={3}  className={classes.gridList}>
+          <GridListTile key="Subheader" cols={0} style={{ height: 'auto' }}>
+            <ListSubheader component="div">活動影片</ListSubheader>
+          </GridListTile>
+          
+          </GridList> */}
+          <Video/>
+          
+        
+
+      
+          
+         
 
         </div>
       </Container>

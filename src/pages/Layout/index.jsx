@@ -59,6 +59,7 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 import Feedback from 'components/Activity/feedback.jsx';
 import FeedbackResponse from 'components/Activity/feedbackResponse.jsx';
 
+
 class Layout extends React.Component {
 
   render() {
@@ -121,6 +122,7 @@ class Layout extends React.Component {
       <Route path="/leftBar" component={LeftBar} />
       <Route path="/Feedback" component={Feedback}/>
       <Route path="/FeedbackResponse" component={FeedbackResponse}/>
+
       </>
     );
   }
