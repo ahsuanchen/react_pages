@@ -74,7 +74,9 @@ export default function Updatephoto() {
     const location = useLocation();
 
     const [member, setMember] = useState([]);
-    const[photo , setPhoto] = useState([]);
+    const [photo , setPhoto] = useState([]);
+    const [video , setVideo] = useState([]);
+
     useEffect(() => {
         async function fetchPhoto() {
                 const result = await axios.get("/api/photo/activityPhoto/"+activityId)
@@ -82,6 +84,15 @@ export default function Updatephoto() {
                 console.log(result.data);
         }
         fetchPhoto();
+    }, []);
+
+    useEffect(() => {
+        async function fetchVideo() {
+                const result = await axios.get("/api/photo/video/"+activityId)
+                setVideo(result.data);
+                console.log(result.data);
+        }
+        fetchVideo();
     }, []);
 
     const [organizer, setOrganizer] = useState([]);
@@ -104,6 +115,7 @@ export default function Updatephoto() {
     }, 500);
 
     }
+
     const [data , setData] = useState([]);
     const [image, setImage] = useState({preview: '', raw: ''});
 
@@ -163,9 +175,28 @@ export default function Updatephoto() {
         data:
         {
         acitivty_Id : pic.activity_Id,
-        photoId : pic.photoId
-          }
+        photoId : pic.photoId,
+
+        }
       })
+
+      refreshPage2();
+    }
+
+    const handleClickvid=(event,vid) =>{
+
+      console.log(vid);
+
+      axios.delete("/api/photo/video",
+      {
+        data:
+        {
+        acitivty_Id : vid.activity_Id,
+        videoId : vid.videoId,
+
+        }
+      })
+
       refreshPage2();
     }
 
@@ -260,7 +291,7 @@ export default function Updatephoto() {
             <div className={classes.container}>
           <GridList cols={3} cellHeight={200} className={classes.gridList}>
           <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-            <ListSubheader component="div" className={classes.word}>預覽照片</ListSubheader>
+            <ListSubheader component="div" className={classes.word}>預覽</ListSubheader>
           </GridListTile>
             {[...data].map(pic => {
               return  <GridListTile className={classes.word} cols={1} key={pic.id}>
@@ -302,6 +333,31 @@ export default function Updatephoto() {
                 })
               }
               </GridList>
+
+              <GridList cols={3} cellHeight={200} className={classes.gridList}>
+              <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+                <ListSubheader component="div" className={classes.word}>已上傳影片</ListSubheader>
+              </GridListTile>
+                {[...video].map(vid => {
+                  return  <GridListTile cols={1} key={vid.videoId}>
+                          <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+                          <GridListTileBar
+                            title={vid.name}
+                            titlePosition="top"
+                            actionIcon={
+                              <IconButton
+                                className={classes.icon}
+                                onClick={((e) => handleClickvid(e,vid))}>
+                              <DeleteIcon/>
+                              </IconButton>
+                            }
+                            actionPosition="left"
+                            className={classes.titleBar}/>
+                          </GridListTile>
+                          //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+                  })
+                }
+                </GridList>
               </div>
             :(<></>)}
           </div>
