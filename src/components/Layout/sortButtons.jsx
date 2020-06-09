@@ -56,24 +56,30 @@ export default function SortButtons() {
 
   return (
     <div className={classes.root} >
-      <span className={classes.title}>分類:</span>
+      <span className={classes.title}>類別:</span>
       <Button classes={{root:classes.test}} variant="contained">
         全部
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
-        學習
+        學術
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
-        藝文
-      </Button>
-      <Button classes={{root:classes.test}} variant="contained">
-        親子
+        資訊
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
         體驗
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
+        講座
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
         休閒
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        親子
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        藝文
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
         運動
@@ -82,10 +88,13 @@ export default function SortButtons() {
         戶外
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
-        講座
+        美食
       </Button>
       <Button classes={{root:classes.test}} variant="contained">
-        資訊
+        遊戲
+      </Button>
+      <Button classes={{root:classes.test}} variant="contained">
+        其他
       </Button>
 
     </div>

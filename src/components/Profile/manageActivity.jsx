@@ -837,7 +837,7 @@ export default function ManageActivity() {
                                                                     to={"/UpdatePhoto?" + activity.activityId}
 
                                                                 >
-                                                                    上傳/管理照片
+                                                                    管理照片/影片
                                                                 </Button>
                                                             </TableCell>
                                                             )}

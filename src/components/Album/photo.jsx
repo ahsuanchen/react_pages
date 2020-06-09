@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from '../Header/PF_header.jsx';
+import WarningIcon from '@material-ui/icons/Warning';
+import IconButton from '@material-ui/core/IconButton';
 import Video from 'components/Album/video.jsx';
 
 const useStyles = makeStyles(theme => ({
@@ -42,6 +44,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
   } ,
+  icon: {
+    color: 'white',
+  },
+  titleBar: {
+    background:
+    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
 
   video : {
     display: 'flex',
@@ -89,6 +99,22 @@ export default function TestGridList(props) {
       fetchPhoto();
   }, []);
 
+  const[video , setVideo] = useState([]);
+  useEffect(() => {
+      async function fetchVideo() {
+              const result = await axios.get("/api/photo/video/"+activityId)
+              setVideo(result.data);
+              console.log(result.data);
+      }
+      fetchVideo();
+  }, []);
+
+  async function refreshPage() {
+    setTimeout(function(){
+      window.location.reload();
+  }, 500);
+
+  }
 
   return (
   <div className={classes.div}>
@@ -126,6 +152,22 @@ export default function TestGridList(props) {
           <hr />
 
         <div className={classes.video}>
+
+        
+          <GridList cols={3}  className={classes.gridList}>
+          <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+            <ListSubheader component="div">{act.activityName}</ListSubheader>
+          </GridListTile>
+            {[...video].map(vid => {
+              return  <GridListTile cols={1} key={vid.videoId}>
+                      <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+                      </GridListTile>
+                      //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+              })
+            }
+            </GridList>
+
+        
 
         {/* <ListSubheader component="div">活動影片</ListSubheader>
          <GridList cols={3}  className={classes.gridList}>
