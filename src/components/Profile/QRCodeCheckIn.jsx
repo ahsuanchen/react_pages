@@ -58,6 +58,8 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
+    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1);
+
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -71,7 +73,7 @@ export default function QRCodeCheckIn() {
     
     function signIn(registration)
     {
-        let url =  "/api/registration/QRcodeSignIn" ;
+        let url =  "/api/registration/QRcodeSignIn/" + actID ;
         axios.post(url , registration)
         .then(res => {
             setOpenSuccess(true);            

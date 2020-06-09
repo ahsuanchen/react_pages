@@ -59,6 +59,8 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
+    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1);
+
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -69,25 +71,10 @@ export default function QRCodeCheckIn() {
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
     const [memberName , setMemberName] = React.useState("");
-    const [scan, setScan] = useState();
-    function handleScan (scan) {
-        if(scan){
-          setScan(scan);
-          setChange(1);
-        }
-    }
-    function handleError (err) {
-        console.error(err);
-    }
-    const ErrClose = () => {
-        setOpenSuccess(false);
-        setOpenErr(false);
-        setChange(0);
-    };
-
+    
     function signOut(registration)
     {
-        let url =  "/api/registration/QRcodeSignOut" ;
+        let url =  "/api/registration/QRcodeSignOut/" + actID ;
         axios.post(url , registration)
         .then(res => {
             setOpenSuccess(true);            
@@ -100,13 +87,32 @@ export default function QRCodeCheckIn() {
         });
     }
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        const registration = {
-            ainum : parseInt(scan)
+    const [scan, setScan] = useState();
+    function handleScan (scan) {
+        if(scan){
+            setScan(scan);
+            setChange(1);
+            const registration = {
+                ainum : parseInt(scan)
+            }
+            signOut(registration);
         }
-        signOut(registration);
+    }
+    function handleError (err) {
+        console.error(err);
+    }
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr(false);
+        setChange(0);
     };
+
+    
+
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+        
+    // };
 
     return (
         <div className={classes.div}>
@@ -132,7 +138,7 @@ export default function QRCodeCheckIn() {
                                         onScan={handleScan}
                                     />
                                 </div>
-                                <div className={classes.button_part}>
+                                {/* <div className={classes.button_part}>
                                     <Button
                                         // type="submit"
                                         variant="contained"
@@ -142,7 +148,7 @@ export default function QRCodeCheckIn() {
                                     >
                                         進行簽退
                                     </Button>
-                                </div>
+                                </div> */}
                             </form>
                         </div>  
                 </Container>
