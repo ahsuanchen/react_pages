@@ -1,5 +1,6 @@
 //活動照片
 import React , { useState, useEffect }from 'react';
+import ReactPlayer from 'react-player'
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -26,7 +27,12 @@ const useStyles = makeStyles(theme => ({
     margin: "2%",
     overflow: "visible"
       //boxSizing: "border-box"
-  },
+  },react_player :{
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    },
+    
   gridList: {
     width: "100%",
     height: "100%",
@@ -155,12 +161,18 @@ export default function TestGridList(props) {
 
         
           <GridList cols={3}  className={classes.gridList}>
-          <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
-            <ListSubheader component="div">{act.activityName}</ListSubheader>
-          </GridListTile>
+          
             {[...video].map(vid => {
-              return  <GridListTile cols={1} key={vid.videoId}>
-                      <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+              return  <GridListTile cols={1.5} key={vid.videoId}  >
+                      <ReactPlayer
+                        className={classes.react_player}
+                        //url='https://youtu.be/68ir9IR-vDA'
+                        url={vid.videoId}
+                        align = "center"
+                        width="500px"
+                        height="100%"
+                        controls={true}
+                      />
                       </GridListTile>
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })
@@ -176,7 +188,7 @@ export default function TestGridList(props) {
           </GridListTile>
           
           </GridList> */}
-          <Video/>
+          
           
         
 

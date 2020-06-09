@@ -142,6 +142,7 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
+                name = "username"
                 id="username"
                 label="帳號"
               />
@@ -153,6 +154,7 @@ export default function SignInSide() {
                 label="密碼"
                 type="password"
                 id="password"
+                name = "password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}

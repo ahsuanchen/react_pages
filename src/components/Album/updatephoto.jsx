@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import ReactPlayer from 'react-player'
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -42,6 +43,11 @@ const useStyles = makeStyles(theme => ({
           minHeight: 800,
           color: "#000"
       },
+      react_player :{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        },
       gridList: {
         width: "100%",
         height: "100%",
@@ -360,7 +366,16 @@ export default function Updatephoto() {
               </GridListTile>
                 {[...video].map(vid => {
                   return  <GridListTile cols={1} key={vid.videoId}>
-                          <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+                         <ReactPlayer
+                          className={classes.react_player}
+                          //url='https://youtu.be/68ir9IR-vDA'
+                          url={vid.videoId}
+                          // width='100%'
+                          // height='100%'
+                          width="400px"
+                          height="225px"
+                          controls={true}
+                          />
                           <GridListTileBar
                             title={vid.name}
                             titlePosition="top"
