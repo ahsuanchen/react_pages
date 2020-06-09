@@ -106,7 +106,7 @@ export default function TestGridList(props) {
       <Container className={classes.root}>
 
           <Typography variant="h4" className={classes.word}>
-            活動照片
+            活動照片/影片
           </Typography>
           <hr />
 

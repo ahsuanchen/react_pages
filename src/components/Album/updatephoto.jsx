@@ -209,7 +209,7 @@ export default function Updatephoto() {
           <div className={classes.root}>
 
           <Typography variant="h4" className={classes.word}>
-             管理活動相片
+             管理活動相片/影片
           <IconButton
             aria-describedby={id}
             variant="contained"
