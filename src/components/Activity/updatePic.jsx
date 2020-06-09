@@ -102,6 +102,11 @@ export default function UpdateActivity_step2() {
         activityCover:'',
     });
 
+    function goSignin()
+    {
+        history.push("/signin");
+    }
+
     let url = "api/activity/";
     url = url + act.activityId;
 
@@ -109,19 +114,19 @@ export default function UpdateActivity_step2() {
         async function fetchDataActCover() {
             await axios.get(url)
             .then(result => {
-                // if(result.data.toString().startsWith("<!DOCTYPE html>"))
-                // {
-                //     alert("您尚未登入，請先登入！")
-                //     goSignin();
-                // }
-                // else
-                // {
+                if(result.data.toString().startsWith("<!DOCTYPE html>"))
+                {
+                    alert("您尚未登入，請先登入！")
+                    goSignin();
+                }
+                else
+                {
                     
                     setAct(result.data);
                     console.log(result);
                     
             
-                // }
+                }
             })
             .catch(err => {
                 console.log(err.response.status);

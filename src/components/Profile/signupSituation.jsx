@@ -23,6 +23,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Draggable from 'react-draggable';
 import ErrorIcon from '@material-ui/icons/Error';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -68,6 +70,9 @@ const useStyles = makeStyles(theme => ({
     } ,
     finish_part : {
         background : "#D0D0D0" ,
+    } ,
+    alert: {
+        marginBottom : 100 , 
     }
   }));
 
@@ -81,6 +86,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function SignupSituation() {
     const classes = useStyles();
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    // 取消報名成功
+    const [openInfo, setOpenInfo] = React.useState(false);
+    const ErrClose = () => {
+        setOpenInfo(false);
+    };  
 
     const [registration, setRegistration] = useState([]);
     useEffect(() => {
@@ -122,6 +137,7 @@ export default function SignupSituation() {
         url = url + AInum;
         axios.patch(url)
         .then(res => {
+            setOpenInfo(true);
             window.location.reload();
         })
         .catch(function(error){
@@ -339,6 +355,11 @@ export default function SignupSituation() {
                     </div>
                 </Container>
             </div>
+            <Snackbar open={openInfo} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="info" className={classes.word}>
+                    您已取消報名該活動！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

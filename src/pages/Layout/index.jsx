@@ -40,6 +40,7 @@ import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
 import MakeAnnouncement from 'components/Profile/makeAnnouncement.jsx';
+import PersonalLineAnnouncement from 'components/Profile/personalLineAnnouncement.jsx';
 import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
 import QRCodeCheckIn from 'components/Profile/QRCodeCheckIn.jsx';
@@ -57,6 +58,7 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 
 import Feedback from 'components/Activity/feedback.jsx';
 import FeedbackResponse from 'components/Activity/feedbackResponse.jsx';
+
 
 class Layout extends React.Component {
 
@@ -102,6 +104,7 @@ class Layout extends React.Component {
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
       <Route path="/makeAnnouncement" component={MakeAnnouncement} />
+      <Route path="/personalLineAnnouncement" component={PersonalLineAnnouncement} />
       <Route path="/manualCheckIn" component={ManualCheckIn} />
       <Route path="/manualCheckOut" component={ManualCheckOut} />
       <Route path="/QRCodeCheckIn" component={QRCodeCheckIn} />
@@ -119,6 +122,7 @@ class Layout extends React.Component {
       <Route path="/leftBar" component={LeftBar} />
       <Route path="/Feedback" component={Feedback}/>
       <Route path="/FeedbackResponse" component={FeedbackResponse}/>
+
       </>
     );
   }

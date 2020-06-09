@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     } ,
     content: {
         margin: "2%",
-        overflow: "visible" ,
     },
     word : {
         fontFamily : "微軟正黑體"
@@ -42,11 +41,6 @@ const useStyles = makeStyles(theme => ({
     table_form : {
         margin: "5% auto",
     } ,
-    img: {
-        margin: "2% 0",
-        minWidth: '150px',
-        maxHeight: '200px'
-    },
     button: {
         background: 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
         color : "#fff" ,
@@ -60,7 +54,7 @@ const useStyles = makeStyles(theme => ({
         margin: "2%",
     } ,
     alert: {
-        marginBottom : 100 , 
+        marginBottom : 105 , 
         marginLeft : 125
     }
 }));
@@ -118,7 +112,6 @@ export default function Profile() {
     const [openErr2, setOpenErr2] = React.useState(false);
     // 失敗(生日格式)
     const [openErr3, setOpenErr3] = React.useState(false);
-
     const ErrClose = () => {
         setOpenSuccess(false);
         setOpenErr1(false);
@@ -344,22 +337,22 @@ export default function Profile() {
                 </Container>
             </div>
             <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
-                <Alert severity="success">
+                <Alert severity="success" className={classes.word}>
                     個人檔案內容已修改！
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
-                <Alert severity="error">
+                <Alert severity="error" className={classes.word}>
                     姓名字數錯誤！
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
-                <Alert severity="error">
+                <Alert severity="error" className={classes.word}>
                     連絡電話格式錯誤！
                 </Alert>
             </Snackbar>
             <Snackbar open={openErr3} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
-                <Alert severity="error">
+                <Alert severity="error" className={classes.word}>
                     生日格式錯誤！
                 </Alert>
             </Snackbar>

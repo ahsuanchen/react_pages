@@ -282,7 +282,7 @@ export default function Updatephoto() {
               else
               {
                 return  <GridListTile className={classes.word} cols={1} key={pic.id}>
-                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px"/>
+                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic "/>
                       </GridListTile>
               }
               
@@ -303,8 +303,8 @@ export default function Updatephoto() {
               <ListSubheader component="div" className={classes.word}>已上傳照片</ListSubheader>
             </GridListTile>
               {[...photo].map(pic => {
-                return  <GridListTile cols={1} key={pic.photoId}>
-                        <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
+                return  <GridListTile cols={1} key={pic.photoId} align = "center">
+                        <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"  />
                         <GridListTileBar
                           title={pic.name}
                           titlePosition="top"

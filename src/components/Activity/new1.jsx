@@ -25,6 +25,9 @@ import HotTubIcon from '@material-ui/icons/HotTub';
 import ChildCareIcon from '@material-ui/icons/ChildCare';
 import LandscapeIcon from '@material-ui/icons/Landscape';
 import PaletteIcon from '@material-ui/icons/Palette';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 
 const useStyles = makeStyles(theme => ({
     div: {
@@ -35,13 +38,13 @@ const useStyles = makeStyles(theme => ({
         margin : "3% auto"
     } ,
     type_part : {
-        maxWidth : "750px"
+        maxWidth : "950px"
     } ,
     card : {
         background : "#E0E0E0" ,
         maxWidth : "200px" ,
         textAlign : "center" , 
-        margin : "5% auto" ,
+        margin : "10% auto" ,
     } ,
     cardActived : {
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)',
@@ -138,7 +141,24 @@ export default function BulidActivity_step1() {
         console.log(active);
         setCardActive9(!active);
     };
-
+    //美食
+    const [cardActive10, setCardActive10] = React.useState();
+    const clickCard10 = event => {
+        const active = cardActive10;
+        setCardActive10(!active);
+    };
+    //遊戲
+    const [cardActive11, setCardActive11] = React.useState();
+    const clickCard11 = event => {
+        const active = cardActive11;
+        setCardActive11(!active);
+    };
+    //其他
+    const [cardActive12, setCardActive12] = React.useState();
+    const clickCard12 = event => {
+        const active = cardActive12;
+        setCardActive12(!active);
+    };
 
     console.log(types);
 
@@ -173,6 +193,16 @@ export default function BulidActivity_step1() {
         if(cardActive9 == true){
             types.push("戶外")
         }
+        if(cardActive10 == true){
+            types.push("美食")
+        }
+        if(cardActive11 == true){
+            types.push("遊戲")
+        }
+        if(cardActive12 == true){
+            types.push("其他")
+        }
+
         const act={
             activityTypes:types
         }
@@ -200,7 +230,7 @@ export default function BulidActivity_step1() {
             <div>
                 <Container className={classes.type_part}>
                     <Grid container direction="row">
-                        <Grid item xs={12} sm={6} md={4}>
+                        <Grid item xs={12} sm={6} md={3}>
                             <Card className={[classes.card , cardActive1 ? classes.cardActived: '']} onClick={clickCard1}>
                                 <CardActionArea>
                                     <CardMedia
@@ -211,47 +241,6 @@ export default function BulidActivity_step1() {
                                     </CardMedia>
                                     <CardContent className={classes.typeword}>
                                         學術
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                            <Card className={[classes.card , cardActive4 ? classes.cardActived: '']} onClick={clickCard4}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        title="type_4"
-                                    >
-                                        <GroupIcon className={classes.icon_part} />
-                                    </CardMedia>
-                                    <CardContent className={classes.typeword}>
-                                        講座
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                            <Card className={[classes.card , cardActive7 ? classes.cardActived: '']} onClick={clickCard7}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        title="type_7"
-                                    >
-                                        <PaletteIcon className={classes.icon_part} />
-                                    </CardMedia>
-                                    <CardContent className={classes.typeword}>
-                                        藝文
-                                    </CardContent>
-                                </CardActionArea>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={[classes.card , cardActive2 ? classes.cardActived: '']} onClick={clickCard2}>
-                                <CardActionArea>
-                                    <CardMedia
-                                        className={classes.card_content}
-                                        title="type_2"
-                                    >
-                                        <ComputerIcon className={classes.icon_part} />
-                                    </CardMedia>
-                                    <CardContent className={classes.typeword}>
-                                        資訊
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
@@ -268,31 +257,31 @@ export default function BulidActivity_step1() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            <Card className={[classes.card , cardActive8 ? classes.cardActived: '']} onClick={clickCard8}>
+                            <Card className={[classes.card , cardActive9 ? classes.cardActived: '']} onClick={clickCard9}>
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.card_content}
-                                        title="type_8"
+                                        title="type_9"
                                     >
-                                        <SportsBasketballIcon className={classes.icon_part} />
+                                        <LandscapeIcon className={classes.icon_part} />
                                     </CardMedia>
                                     <CardContent className={classes.typeword}>
-                                        運動
+                                        戶外
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
                         </Grid>
-                        <Grid item xs={12} sm={6} md={4}>
-                            <Card className={[classes.card , cardActive3 ? classes.cardActived: '']} onClick={clickCard3}>
+                        <Grid item xs={12} sm={6} md={3}>
+                            <Card className={[classes.card , cardActive2 ? classes.cardActived: '']} onClick={clickCard2}>
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.card_content}
-                                        title="type_3"
+                                        title="type_2"
                                     >
-                                        <HotTubIcon className={classes.icon_part} />
+                                        <ComputerIcon className={classes.icon_part} />
                                     </CardMedia>
                                     <CardContent className={classes.typeword}>
-                                        體驗
+                                        資訊
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
@@ -309,16 +298,98 @@ export default function BulidActivity_step1() {
                                     </CardContent>
                                 </CardActionArea>
                             </Card>
-                            <Card className={[classes.card , cardActive9 ? classes.cardActived: '']} onClick={clickCard9}>
+                            <Card className={[classes.card , cardActive10 ? classes.cardActived: '']} onClick={clickCard10}>
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.card_content}
-                                        title="type_9"
+                                        title="type_10"
                                     >
-                                        <LandscapeIcon className={classes.icon_part} />
+                                        <FastfoodIcon className={classes.icon_part} />
                                     </CardMedia>
                                     <CardContent className={classes.typeword}>
-                                        戶外
+                                        美食
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={3}>
+                            <Card className={[classes.card , cardActive3 ? classes.cardActived: '']} onClick={clickCard3}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_3"
+                                    >
+                                        <HotTubIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        體驗
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                            <Card className={[classes.card , cardActive7 ? classes.cardActived: '']} onClick={clickCard7}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_7"
+                                    >
+                                        <PaletteIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        藝文
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                            <Card className={[classes.card , cardActive11 ? classes.cardActived: '']} onClick={clickCard11}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_11"
+                                    >
+                                        <SportsEsportsIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        遊戲
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        </Grid>
+                        <Grid item xs={12} sm={6} md={3}>
+                            <Card className={[classes.card , cardActive4 ? classes.cardActived: '']} onClick={clickCard4}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_4"
+                                    >
+                                        <GroupIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        講座
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                            <Card className={[classes.card , cardActive8 ? classes.cardActived: '']} onClick={clickCard8}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_8"
+                                    >
+                                        <SportsBasketballIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        運動
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                            <Card className={[classes.card , cardActive12 ? classes.cardActived: '']} onClick={clickCard12}>
+                                <CardActionArea>
+                                    <CardMedia
+                                        className={classes.card_content}
+                                        title="type_12"
+                                    >
+                                        <MoreHorizIcon className={classes.icon_part} />
+                                    </CardMedia>
+                                    <CardContent className={classes.typeword}>
+                                        其他
                                     </CardContent>
                                 </CardActionArea>
                             </Card>

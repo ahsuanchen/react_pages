@@ -59,6 +59,8 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
+    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1);
+
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
@@ -69,11 +71,31 @@ export default function QRCodeCheckIn() {
     // 失敗(此QRCode不存在)
     const [openErr, setOpenErr] = React.useState(false);
     const [memberName , setMemberName] = React.useState("");
+    
+    function signOut(registration)
+    {
+        let url =  "/api/registration/QRcodeSignOut/" + actID ;
+        axios.post(url , registration)
+        .then(res => {
+            setOpenSuccess(true);            
+            setMemberName(res.data.memberName);
+            window.location.reload();
+        })
+        .catch(function(error){
+            setOpenErr(true);
+            console.log(error.response.status);
+        });
+    }
+
     const [scan, setScan] = useState();
     function handleScan (scan) {
         if(scan){
-          setScan(scan);
-          setChange(1);
+            setScan(scan);
+            setChange(1);
+            const registration = {
+                ainum : parseInt(scan)
+            }
+            signOut(registration);
         }
     }
     function handleError (err) {
@@ -85,33 +107,12 @@ export default function QRCodeCheckIn() {
         setChange(0);
     };
 
-    function signOut(registration)
-    {
-        let url =  "/api/registration/QRcodeSignOut" ;
-        axios.post(url , registration)
-        .then(res => {
-            console.log(res);
-            setOpenSuccess(true);            
-            setMemberName(res.data.memberName);
-            // window.location.reload();
-        })
-        .catch(function(error){
-            setOpenErr(true);
-            console.log(registration)
-            console.log(error.response.status);
-        });
-    }
+    
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        console.log(scan);
-        console.log(scan);
-        const registration = {
-            ainum : parseInt(scan)
-        }
-        console.log(registration);
-        signOut(registration);
-    };
+    // const handleSubmit = event => {
+    //     event.preventDefault();
+        
+    // };
 
     return (
         <div className={classes.div}>
@@ -137,7 +138,7 @@ export default function QRCodeCheckIn() {
                                         onScan={handleScan}
                                     />
                                 </div>
-                                <div className={classes.button_part}>
+                                {/* <div className={classes.button_part}>
                                     <Button
                                         // type="submit"
                                         variant="contained"
@@ -147,18 +148,18 @@ export default function QRCodeCheckIn() {
                                     >
                                         進行簽退
                                     </Button>
-                                </div>
+                                </div> */}
                             </form>
                         </div>  
                 </Container>
             </div>
-            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="success">
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
                     會員 {memberName} 簽退成功！
                 </Alert>
             </Snackbar>
-            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} style={{marginBottom : 150}}>
-                <Alert severity="error">
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
                     此QRCode不存在！
                 </Alert>
             </Snackbar>

@@ -179,6 +179,20 @@ export default function Homepage() {
 
     const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
+    useEffect(() => {
+        async function fetchDataAct() {
+                let url = "/api/activity"
+                await axios.get(url)
+                .then(result => {
+                    setActivity(result.data);
+                    console.log(result)
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                })
+        }
+        fetchDataAct();
+    }, []);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchData() {

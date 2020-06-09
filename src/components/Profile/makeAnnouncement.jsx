@@ -14,6 +14,8 @@ import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -49,6 +51,10 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         margin : "auto 2%" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
@@ -61,19 +67,30 @@ export default function MakeAnnouncement() {
     const [activityannounceContent , setActivityAnnounceContent] = useState("");
     const announcement = [activityannounceTitle , activityannounceContent] ;
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    // 發布成功
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    // 發布失敗
+    const [openErr, setOpenErr] = React.useState(false);
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr(false);
+    };
+
     const handleSubmit = event => {
         event.preventDefault();    
         let url = "/api/line/postMessage/announcement/" ;
         url = url + actID ;
-            axios.post(url)
+            axios.post(url , announcement)
             .then(res => {
-                alert("發布成功");
+                setOpenSuccess(true);
                 window.location.reload();
             })
             .catch(function(error){
-                alert("發布失敗");
+                setOpenErr(true);
                 console.log(error.response.status);
-                console.log(announcement);
             });
     };
 
@@ -144,6 +161,16 @@ export default function MakeAnnouncement() {
                         </div>
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    發布成功！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    發布失敗！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
