@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    maxWidth : "1080px" ,
+    Width : "90%" ,
   },
   fab: {
     position : "fixed" ,

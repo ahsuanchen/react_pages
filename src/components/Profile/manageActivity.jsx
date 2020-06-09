@@ -819,16 +819,7 @@ export default function ManageActivity() {
                                                                     to={"/UpdatePhoto?" + activity.activityId}
 
                                                                 >
-                                                                    上傳照片
-                                                                </Button>
-                                                                <br /><br />
-                                                                <Button
-                                                                    variant="contained"
-                                                                    className={classes.button}
-                                                                    component={Link}
-                                                                    to={"/UpdatePhoto?" + activity.activityId}
-                                                                >
-                                                                    管理照片
+                                                                    管理照片/影片
                                                                 </Button>
                                                             </TableCell>
                                                             )}

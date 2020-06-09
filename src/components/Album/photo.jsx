@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Zmage from 'react-zmage';
 import LeftBar from 'components/Profile/leftbar.jsx';
 import Header from '../Header/PF_header.jsx';
+import WarningIcon from '@material-ui/icons/Warning';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   div : {
@@ -40,6 +42,14 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around',
     overflow: 'hidden',
   } ,
+  icon: {
+    color: 'white',
+  },
+  titleBar: {
+    background:
+    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
+    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+  },
 }));
 
 export default function TestGridList(props) {
@@ -81,6 +91,12 @@ export default function TestGridList(props) {
       fetchPhoto();
   }, []);
 
+  async function refreshPage() {
+    setTimeout(function(){
+      window.location.reload();
+  }, 500);
+
+  }
 
   return (
   <div className={classes.div}>
@@ -90,7 +106,7 @@ export default function TestGridList(props) {
       <Container className={classes.root}>
 
           <Typography variant="h4" className={classes.word}>
-            活動照片
+            活動照片/影片
           </Typography>
           <hr />
 
