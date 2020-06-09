@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     } ,
     word : {
         fontFamily : "微軟正黑體"
-    } , 
+    } ,
     content_part : {
         display : "flex" ,
         justifyContent: "center",
@@ -98,12 +98,12 @@ export default function SignupSituation() {
                     console.log(err.response.status);
                 })
         }
-        
+
         fetchDataReg();
     }, []);
 
     const[cancel , setCancel] = useState(0);
-    
+
     const [open, setOpen] = React.useState(false);
     const handleOpen = (ainum,event) => {
         // console.log(ainum);
@@ -156,7 +156,7 @@ export default function SignupSituation() {
                                 </div>
                                 </ExpansionPanelSummary>
                                 {registration.map(registration =>
-                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) && 
+                                    ((new Date(registration.activity.activityEndDate).getTime() >= activity_End_or_not) &&
                                     registration.cancelRegistration === null )
                                     ?
                                 <ExpansionPanelDetails>
@@ -213,7 +213,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 onClick={(event) => handleOpen(registration.ainum , event)}
-                                                                
+
                                                             >
                                                                 取消報名
                                                             </Button>
@@ -301,7 +301,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to={"/ActivityPhoto?" + registration.ainum}
+                                                                to={"/ActivityPhoto?" + registration.activity.activityId}
                                                             >
                                                                 活動照片
                                                             </Button>

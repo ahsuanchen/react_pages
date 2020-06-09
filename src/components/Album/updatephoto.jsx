@@ -18,6 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Popover from '@material-ui/core/Popover';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import Zmage from 'react-zmage';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({
     root : {
