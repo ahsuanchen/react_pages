@@ -59,12 +59,9 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
-    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
-
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-    
     
     const [change, setChange] = React.useState(0);  
     // 成功簽到
@@ -77,7 +74,6 @@ export default function QRCodeCheckIn() {
         if(scan){
           setScan(scan);
           setChange(1);
-          
         }
     }
     function handleError (err) {
@@ -94,11 +90,8 @@ export default function QRCodeCheckIn() {
         let url =  "/api/registration/QRcodeSignIn" ;
         axios.post(url , registration)
         .then(res => {
-            
             console.log(res);
-            setOpenSuccess(true);
-            console.log()
-            
+            setOpenSuccess(true);            
             setMemberName(res.data.memberName);
             // window.location.reload();
         })
