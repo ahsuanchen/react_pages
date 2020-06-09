@@ -119,9 +119,9 @@ const useStyles = makeStyles(theme => ({
             color : '#00AEAE'
         } ,
     } ,
-    finish_part : {
-        background : "#D0D0D0" ,
-    } ,
+    // finish_part : {
+    //     background : "#D0D0D0" ,
+    // } ,
     alert: {
         marginBottom : 100
     }
