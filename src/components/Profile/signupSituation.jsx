@@ -303,7 +303,7 @@ export default function SignupSituation() {
                                                                 component={Link}
                                                                 to={"/ActivityPhoto?" + registration.activity.activityId}
                                                             >
-                                                                活動照片
+                                                                活動照片/影片
                                                             </Button>
                                                         </Box>
                                                         <Box lineHeight="normal" m={1}>

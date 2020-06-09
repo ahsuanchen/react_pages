@@ -114,7 +114,7 @@ const[photo , setPhoto] = useState([]);
 
     console.log(pic);
     alert("感謝您的回報!");
-    axios.delete("/api/photo/member/" + pic.AINum);
+    axios.delete("/api/photo/memberphoto/" + pic.ainum);
     refreshPage();
   }
 

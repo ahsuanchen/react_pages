@@ -56,7 +56,7 @@ export default function SortButtons() {
 
   return (
     <div className={classes.root} >
-      <span className={classes.title}>活動類別:</span>
+      <span className={classes.title}>類別:</span>
       <Button classes={{root:classes.test}} variant="contained">
         全部
       </Button>
