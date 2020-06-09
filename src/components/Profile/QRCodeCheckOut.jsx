@@ -5,7 +5,6 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 // import { Link , useHistory} from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import QrReader from 'react-qr-reader'
 import MuiAlert from "@material-ui/lab/Alert";
