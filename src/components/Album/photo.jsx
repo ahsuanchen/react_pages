@@ -99,6 +99,16 @@ export default function TestGridList(props) {
       fetchPhoto();
   }, []);
 
+  const[video , setVideo] = useState([]);
+  useEffect(() => {
+      async function fetchVideo() {
+              const result = await axios.get("/api/photo/video/"+activityId)
+              setVideo(result.data);
+              console.log(result.data);
+      }
+      fetchVideo();
+  }, []);
+
   async function refreshPage() {
     setTimeout(function(){
       window.location.reload();
@@ -114,7 +124,7 @@ export default function TestGridList(props) {
       <Container className={classes.root}>
 
           <Typography variant="h4" className={classes.word}>
-            活動照片/影片
+            活動照片
           </Typography>
           <hr />
 
@@ -142,6 +152,22 @@ export default function TestGridList(props) {
           <hr />
 
         <div className={classes.video}>
+
+        
+          <GridList cols={3}  className={classes.gridList}>
+          <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
+            <ListSubheader component="div">{act.activityName}</ListSubheader>
+          </GridListTile>
+            {[...video].map(vid => {
+              return  <GridListTile cols={1} key={vid.videoId}>
+                      <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+                      </GridListTile>
+                      //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
+              })
+            }
+            </GridList>
+
+        
 
         {/* <ListSubheader component="div">活動影片</ListSubheader>
          <GridList cols={3}  className={classes.gridList}>
