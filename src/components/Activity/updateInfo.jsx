@@ -173,7 +173,10 @@ export default function UpdateInfo() {
         sport:act.activityTypes.indexOf('運動'),
         outdoor:act.activityTypes.indexOf('戶外'),
         lecture:act.activityTypes.indexOf('講座'),
-        information:act.activityTypes.indexOf('資訊')
+        information:act.activityTypes.indexOf('資訊'),
+        food:act.activityTypes.indexOf('美食'),
+        game:act.activityTypes.indexOf('遊戲'),
+        other:act.activityTypes.indexOf('其他')
       });
       
     
@@ -522,6 +525,24 @@ export default function UpdateInfo() {
                                         <FormControlLabel
                                             control={<Checkbox checked={act.activityTypes.indexOf("資訊") !== -1} value="資訊" onChange={handleChangeType} name="information" />}
                                             label="資訊"
+                                        />
+                                        </Grid>
+                                        <Grid item> 
+                                        <FormControlLabel
+                                            control={<Checkbox checked={act.activityTypes.indexOf("美食") !== -1} value="美食" onChange={handleChangeType} name="food" />}
+                                            label="美食"
+                                        />
+                                        </Grid>
+                                        <Grid item> 
+                                        <FormControlLabel
+                                            control={<Checkbox checked={act.activityTypes.indexOf("遊戲") !== -1} value="遊戲" onChange={handleChangeType} name="game" />}
+                                            label="遊戲"
+                                        />
+                                        </Grid>
+                                        <Grid item> 
+                                        <FormControlLabel
+                                            control={<Checkbox checked={act.activityTypes.indexOf("其他") !== -1} value="其他" onChange={handleChangeType} name="other" />}
+                                            label="其他"
                                         />
                                         </Grid>
                                         </Grid>

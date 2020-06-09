@@ -59,13 +59,12 @@ const useStyles = makeStyles(theme => ({
 export default function QRCodeCheckIn() {
     const classes = useStyles();
 
-    var actID = window.location.href.substring(window.location.href.indexOf("?") + 1);
+    var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1);
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
-
-    const [change, setChange] = React.useState(0);  
+ 
     // 成功簽退
     const [openSuccess, setOpenSuccess] = React.useState(false);
     // 失敗(此QRCode不存在)
@@ -79,7 +78,6 @@ export default function QRCodeCheckIn() {
         .then(res => {
             setOpenSuccess(true);            
             setMemberName(res.data.memberName);
-            window.location.reload();
         })
         .catch(function(error){
             setOpenErr(true);
@@ -91,7 +89,6 @@ export default function QRCodeCheckIn() {
     function handleScan (scan) {
         if(scan){
             setScan(scan);
-            setChange(1);
             const registration = {
                 ainum : parseInt(scan)
             }
@@ -104,15 +101,8 @@ export default function QRCodeCheckIn() {
     const ErrClose = () => {
         setOpenSuccess(false);
         setOpenErr(false);
-        setChange(0);
     };
 
-    
-
-    // const handleSubmit = event => {
-    //     event.preventDefault();
-        
-    // };
 
     return (
         <div className={classes.div}>
@@ -130,7 +120,6 @@ export default function QRCodeCheckIn() {
                             <form className={classes.form}>
                                 <div className={classes.scanner_part}>
                                     <QrReader
-                                        // ref={qr}
                                         className={classes.scanner}
                                         facingMode="environment"
                                         delay={300}
@@ -138,17 +127,6 @@ export default function QRCodeCheckIn() {
                                         onScan={handleScan}
                                     />
                                 </div>
-                                {/* <div className={classes.button_part}>
-                                    <Button
-                                        // type="submit"
-                                        variant="contained"
-                                        disabled={change === 0 ? true : false}
-                                        onClick={handleSubmit}
-                                        className={classes.button}
-                                    >
-                                        進行簽退
-                                    </Button>
-                                </div> */}
                             </form>
                         </div>  
                 </Container>
@@ -160,7 +138,7 @@ export default function QRCodeCheckIn() {
             </Snackbar>
             <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
                 <Alert severity="error" className={classes.word}>
-                    此QRCode不存在！
+                    此QRCode非該活動之QRCode！
                 </Alert>
             </Snackbar>
         </div>
