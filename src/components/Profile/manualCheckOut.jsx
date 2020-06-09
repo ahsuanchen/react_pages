@@ -12,6 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -37,11 +39,27 @@ const useStyles = makeStyles(theme => ({
         background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
         color : "#fff" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
 export default function ManualCheckOut() {
     const classes = useStyles();
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    // 簽退成功
+    const [openSuccess, setOpenSuccess] = React.useState(false);
+    // 簽退失敗(該使用者並未報名此活動或帳號輸入錯誤)
+    const [openErr, setOpenErr] = React.useState(false);
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr(false);
+    };
 
     var actID = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
 
@@ -53,11 +71,11 @@ export default function ManualCheckOut() {
         url = url + actID + "/" + signinEmail ;
             axios.post(url)
             .then(res => {
-                alert("簽退成功");
+                setOpenSuccess(true);
                 window.location.reload();
             })
             .catch(function(error){
-                alert("該使用者並未報名此活動或帳號輸入錯誤");
+                setOpenErr(true);
                 console.log(error.response.status);
             });
     };
@@ -70,7 +88,7 @@ export default function ManualCheckOut() {
                 <Container className={classes.content}>
                         <div>
                             <Typography variant="h4" className={classes.word}>
-                                手 動 簽 退
+                                手 動 簽 退 — 帳 號 簽 退
                             </Typography>
                             <hr />
                         </div>
@@ -109,6 +127,16 @@ export default function ManualCheckOut() {
                         </div>  
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    簽退成功！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    該使用者並未報名此活動或帳號輸入錯誤！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

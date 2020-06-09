@@ -148,7 +148,7 @@ const properties = {
     //variableWidth: true
 }
 
-export default function MenuApp() {
+export default function Homepage() {
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -177,18 +177,29 @@ export default function MenuApp() {
         }
     }
 
-    const [isSign , setIsSign] = React.useState(false);
-    // const [member , setMember] = useState([]);
+    const [member , setMember] = useState([]);
     const [activity, setActivity] = useState([]);
+    useEffect(() => {
+        async function fetchDataAct() {
+                let url = "/api/activity"
+                await axios.get(url)
+                .then(result => {
+                    setActivity(result.data);
+                    console.log(result)
+                })
+                .catch(err => {
+                    console.log(err.response.status);
+                })
+        }
+        fetchDataAct();
+    }, []);
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
-        async function fetchDataOrg() {
+        async function fetchData() {
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
-                    setIsSign(true);
-                    // setMember(result.data);
-                    console.log(isSign);
+                    setMember(result.data);
                     axios.get("/api/organizer/" + result.data.memberEmail)
                     .then(result => {
                         setOrganizer(result.data);
@@ -208,22 +219,30 @@ export default function MenuApp() {
                 })
                 .catch(err => {
                     console.log(err.response.status);
-                    console.log(isSign);
                 })
         }
-        fetchDataOrg();
+        fetchData();
     }, []);
-
+    
     return (
         <div className={classes.div}>
-            <Header2/>
+            {member.memberEmail === undefined ?
+                <Header1/>
+                :
+                <Header2/> 
+            }
             <div className={classes.container}>
                 <div>
                     <Slide {...properties}>
                         {activity.map(activity =>
                         <div className={classes.slide}>
-                            <Link to="/">
-                                <img className={classes.slide_img} src={activity.activityCover} alt={activity.activityName} />
+                            <Link to={"/ActivityInformation?" + activity.activityId}>
+                                <img
+                                    className={classes.slide_img}
+                                    title={activity.activityName}
+                                    src={activity.activityCover}
+                                    alt={activity.activityName}
+                                />
                             </Link>
                         </div>
                         )}
@@ -250,6 +269,8 @@ export default function MenuApp() {
                 </div>
             </div>
             <div>
+            {member.memberEmail === undefined ? ""
+                :
                 <Grid 
                     container
                     direction="column"
@@ -277,7 +298,7 @@ export default function MenuApp() {
                         <Fade in={open}>
                             <div>
                                 <Grid container spacing={10}>
-                                    {organizer.memberEmail === null ?
+                                    {organizer.memberEmail === undefined ?
                                     <Grid item xs={12} sm={6}>
                                         <Card className={classes.choose_type} title="type_1">
                                             <CardActionArea component={Link} to="/organizer">
@@ -321,6 +342,7 @@ export default function MenuApp() {
                         </Fade>
                     </Modal>
                 </Grid>
+                }
             </div>
             <div className={classes.container}>
                 <div>
@@ -337,7 +359,7 @@ export default function MenuApp() {
                                     <CardMedia
                                         className={classes.card_media}
                                         image={activity.activityCover}
-                                        title="act_1"
+                                        title={activity.activityName}
                                     />
                                     <CardContent>
                                         <Typography variant="h6" className={classes.word}>

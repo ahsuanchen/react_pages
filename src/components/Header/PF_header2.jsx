@@ -13,12 +13,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Avatar from '@material-ui/core/Avatar';
-import Menu from '@material-ui/core/Menu';
-import PersonIcon from '@material-ui/icons/Person';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { faHome , faTasks , faQuestionCircle , faEnvelope} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from '@material-ui/core/Button';
+import { faHome , faTasks , faQuestionCircle , faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -31,43 +28,46 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
     toolbar : {
-        maxWidth: "80%" ,
-        width : "100%" ,
+        width : "95%" ,
         margin : "0 auto" ,
         display: "flex" ,
         justifyContent : "space-between"
     } ,
-    leftbar: theme.mixins.toolbar,
+    leftbar: theme.mixins.toolbar ,
     list: {
       width: "220px" ,
     } ,
     word : {
       fontFamily : "微軟正黑體"
     } ,
+    img : {
+      width: "50px" ,
+      height: "64px" ,
+    } ,
     link : {
       textDecoration : "none" ,
       color : "#9D9D9D" ,
+      fontFamily : "微軟正黑體" ,
       '&:hover' : {
         color : '#00AEAE'
       }
-    } ,
-    menu : {
-      marginTop : "3%" ,
-      width : "100%"
     }
   }));
 
-export default function MenuAppBar() {
+export default function (props) {
     const classes = useStyles();
+
     const [state, setState] = React.useState({
       left: false,
     });
+
     const toggleDrawer = (side, open) => event => {
       if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
         return;
       }
       setState({ ...state, [side]: open });
     };
+
     const sideList = side => (
       <div
         className={classes.list}
@@ -93,7 +93,7 @@ export default function MenuAppBar() {
               <ListItemIcon>
                 <FontAwesomeIcon icon={faTasks} />
               </ListItemIcon>
-              <ListItemText primary="活動總覽" className={classes.word} />
+              <ListItemText primary="活動總覽" />
             </ListItem>
             <Divider/>
             <ListItem component={Link} to="/questionInfo" button>
@@ -113,68 +113,31 @@ export default function MenuAppBar() {
       </div>
     );
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
-
     return (
         <div className={classes.div}>
             <AppBar className={classes.appbar}>
                 <Toolbar className={classes.toolbar}>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        onClick={toggleDrawer('left', true)}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" className={classes.word}>
-                        ACTFUN
-                    </Typography>
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                    >
-                      <Avatar onClick={handleClick} />
-                      <Menu
-                        className={classes.menu}
-                        elevation={0}
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                            <ListItem component={Link} to="/profile" button>
-                              <ListItemIcon>
-                                <PersonIcon/>
-                              </ListItemIcon>
-                              <ListItemText primary="個人檔案" className={classes.word} />
-                            </ListItem>
-                            <form method="post" action="/logout">
-                              <ListItem button type="submit" component="button">
-                                <ListItemIcon>
-                                  <ExitToAppIcon/>
-                                </ListItemIcon>
-                                <ListItemText primary="登出" className={classes.word} />
-                              </ListItem>
-                            </form>
-                      </Menu>
-                    </IconButton>
-                    <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
-                      {sideList('left')}
-                    </Drawer>
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    onClick={toggleDrawer('left', true)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography variant="h6">
+                    ACTFUN
+                  </Typography>
+                  <Button
+                    color="inherit"
+                    component={Link}
+                    to="/signIn"
+                    className={classes.word}
+                  >
+                    登入
+                  </Button>
+                  <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
+                    {sideList('left')}
+                  </Drawer>
                 </Toolbar>
             </AppBar>
         </div>

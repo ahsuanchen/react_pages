@@ -77,12 +77,12 @@ export default function MenuAppBar() {
       >
         <div className={classes.leftbar}>
           <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >A C T F U N</Link>
+            <Link className={classes.link} to="/homepage" >A C T F U N</Link>
           </Box>
         </div>
         <Divider/>
         <List>
-            <ListItem component={Link} to="/homepageAfterLogin" button>
+            <ListItem component={Link} to="/homepage" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faHome} />
               </ListItemIcon>
@@ -96,7 +96,7 @@ export default function MenuAppBar() {
               <ListItemText primary="活動總覽" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/" button>
+            <ListItem component={Link} to="/questionInfo" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </ListItemIcon>

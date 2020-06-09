@@ -20,6 +20,9 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import SendIcon from '@material-ui/icons/Send';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -32,11 +35,17 @@ const useStyles = makeStyles(theme => ({
     word : {
         fontFamily : "微軟正黑體"
     } ,
+    btn_have_line : {
+        color : '#00AEAE'
+    } ,
+    btn_no_line : {
+        color : "#8E8E8E" ,
+    } ,
     table : {
         margin : "auto" ,
     } ,
     content : {
-        margin : "2% 2%" ,
+        margin : "2%" ,
     } ,
     activity_part : {
         margin : "5% auto" ,
@@ -51,14 +60,33 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         margin : "2% 1%" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
 export default function ParticipantList() {
     const classes = useStyles();
 
-    var activityId = window.location.href.substring(window.location.href.lastIndexOf("?")+1)
+    var activityId = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
     let count = 0 ;
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    // 推播成功
+    const [openSuccess , setOpenSuccess] = React.useState(false);
+    // 推播失敗
+    const [openErr1 , setOpenErr1] = React.useState(false);
+    // 下載失敗(活動尚未有人報名)
+    const [openErr2 , setOpenErr2] = React.useState(false);
+    const ErrClose = () => {
+        setOpenSuccess(false);
+        setOpenErr1(false);
+        setOpenErr2(false);
+    };
 
     const handleClick = event => {
         event.preventDefault();
@@ -66,11 +94,11 @@ export default function ParticipantList() {
         url = url + activityId ;
             axios.post(url)
             .then(res => {
-                alert("推播成功");
+                setOpenSuccess(true);
                 window.location.reload();
             })
             .catch(function(error){
-                alert("推播失敗");
+                setOpenErr1(true);
                 console.log(error.response.status);
             });
     };
@@ -92,7 +120,7 @@ export default function ParticipantList() {
         event.preventDefault();
         if (registration.length === 0)
         {
-            alert("您的活動尚未有人報名")
+            setOpenErr2(true);
         }
         else
         {
@@ -110,7 +138,7 @@ export default function ParticipantList() {
                     axios.get("/api/activity/" + activityId)
                     .then(res1 => {
                         setActivity(res1.data);
-                        console.log(res1);
+                        // console.log(res1);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -211,6 +239,7 @@ export default function ParticipantList() {
                                                             <TableCell className={classes.word} align="center">聯絡電話</TableCell>
                                                             <TableCell className={classes.word} align="center">聯絡電子郵件</TableCell>
                                                             <TableCell className={classes.word} align="center">報名狀況</TableCell>
+                                                            <TableCell className={classes.word} align="center">Line個人推播</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {registration.map(registration =>
@@ -221,6 +250,21 @@ export default function ParticipantList() {
                                                             <TableCell className={classes.word} align="center">{registration.member.memberPhone}</TableCell>
                                                             <TableCell className={classes.word} align="center">{registration.member.memberEmail}</TableCell>
                                                             <TableCell className={classes.word} align="center">報名成功</TableCell>
+                                                            {registration.member.memberLineId === null ?
+                                                                <TableCell className={classes.word} align="center">
+                                                                    <Tooltip title="會員未綁定Line官方帳號">
+                                                                        <SendIcon className={classes.btn_no_line} button disabled/>
+                                                                    </Tooltip>
+                                                                </TableCell>
+                                                            : 
+                                                                <TableCell className={classes.word} align="center">
+                                                                    <Tooltip title="進行Line個人推播">
+                                                                        <Button component={Link} to={"/personalLineAnnouncement?" + registration.ainum}>
+                                                                            <SendIcon className={classes.btn_have_line}/>
+                                                                        </Button>
+                                                                    </Tooltip>
+                                                                </TableCell>
+                                                            }
                                                         </TableRow>
                                                     </TableBody>
                                                     )}
@@ -234,6 +278,21 @@ export default function ParticipantList() {
                     </div>
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    推播成功！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    推播失敗！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="warning" className={classes.word}>
+                    下載失敗，您的活動尚未有人報名！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import React , {useState , useEffect} from 'react';
 import Header from '../Header/HM_header2.jsx';
+import BottomBar from './bottomBar.jsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link , useHistory } from 'react-router-dom';
 import axios from 'axios';
@@ -36,12 +37,17 @@ const useStyles = makeStyles(theme => ({
     search_bar : {
         margin : "auto" ,
         borderRadius : "10px" ,
-        background : 'linear-gradient(50deg, #00bfa5 40%, #00acc1 85%)' ,
+        background : '#80cbc4' ,
     } ,
     inputBase : {
         minWidth : "1010px" ,
         padding : "5px 20px" ,
-        fontFamily : "微軟正黑體"
+        borderRadius : "10px" ,
+        fontFamily : "微軟正黑體" ,
+        background : '#80cbc4' ,
+    } ,
+    search_butoon : {
+        padding : "10px 0" ,
     } ,
     Typography : {
         color : "#000" ,
@@ -227,6 +233,8 @@ export default function SearchInfo() {
                    } 
                 </div>
             </div>
+            <br/>
+            <BottomBar/>
         </div>
     )
 }

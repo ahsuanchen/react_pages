@@ -35,6 +35,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import TagFacesIcon from '@material-ui/icons/TagFaces';
 import KeyboardIcon from '@material-ui/icons/Keyboard';
+import CropFreeIcon from '@material-ui/icons/CropFree';
+import ComputerIcon from '@material-ui/icons/Computer';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -108,15 +112,28 @@ const useStyles = makeStyles(theme => ({
         maxWidth : '500px' ,
         maxHeight : '600px' ,
     } ,
+    link : {
+        textDecoration : "none" ,
+        color : "#000" ,
+        '&:hover' : {
+            color : '#00AEAE'
+        } ,
+    } ,
+    finish_part : {
+        background : "#D0D0D0" ,
+    } ,
+    alert: {
+        marginBottom : 100
+    }
   }));
 
-  function PaperComponent(props) {
+function PaperComponent(props) {
     return (
       <Draggable handle="#draggable-dialog-title" cancel={'[class*="MuiDialogContent-root"]'} disabled>
         <Paper style={{minWidth : '600px' , minHeight : '200px' ,}} {...props} />
       </Draggable>
     );
-  }
+}
 
 function getUserMedia(constraints) {
     // if Promise-based API is available, use it
@@ -169,6 +186,18 @@ function getStream (type) {
 export default function ManageActivity() {
     const classes = useStyles();
 
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    // 取消報名成功
+    const [openInfo1 , setOpenInfo1] = React.useState(false);
+    const [openInfo2 , setOpenInfo2] = React.useState(false);
+    const ErrClose = () => {
+        setOpenInfo1(false);
+        setOpenInfo2(false);
+    };  
+
     const [activity, setActivity] = useState([]);
     useEffect(() => {
         async function fetchDataAct() {
@@ -178,7 +207,7 @@ export default function ManageActivity() {
                     axios.get("/api/activity/organizer/" + res.data.memberEmail)
                     .then(result => {
                         setActivity(result.data);
-                        console.log(result)
+                        console.log(result);
                     })
                     .catch(err => {
                         console.log(err.response.status);
@@ -194,7 +223,6 @@ export default function ManageActivity() {
     const [Cancel , setCancel] = useState(0);
     const [Cancelopen, setCancelOpen] = React.useState(false);
     const handleCancelOpen = (ActID , event) => {
-        console.log(ActID);
         setCancel(ActID);
         setCancelOpen(true);
     };
@@ -206,6 +234,7 @@ export default function ManageActivity() {
         url = url + ActID;
         axios.patch(url)
         .then(res => {
+            setOpenInfo1(true);
             window.location.reload();
         })
         .catch(function(error){
@@ -227,6 +256,7 @@ export default function ManageActivity() {
         url = url + ActID;
         axios.delete(url)
         .then(res => {
+            setOpenInfo2(true);
             window.location.reload();
         })
         .catch(function(error){
@@ -236,21 +266,39 @@ export default function ManageActivity() {
 
     const [sendActID , setSendActID] = useState(0);
     const [checkInModelopen, setCheckInModelOpen] = React.useState(false);
-    const handlecheckInmodelOpen = (ActID , event) => {
+    const handleCheckInModelOpen = (ActID , event) => {
         setSendActID(ActID) ;
         setCheckInModelOpen(true);
     };
-    const handlecheckInmodelClose = () => {
+    const handleCheckInModelClose = () => {
       setCheckInModelOpen(false);
     };
 
+    const [manualCheckInModelopen, setManualCheckInModelOpen] = React.useState(false);
+    const handleManualCheckInModelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setManualCheckInModelOpen(true);
+    };
+    const handleManualCheckInModelClose = () => {
+      setManualCheckInModelOpen(false);
+    };
+
     const [checkOutModelopen, setCheckOutModelOpen] = React.useState(false);
-    const handlecheckOutmodelOpen = (ActID , event) => {
+    const handleCheckOutModelOpen = (ActID , event) => {
         setSendActID(ActID) ;
         setCheckOutModelOpen(true);
     };
-    const handlecheckOutmodelClose = () => {
+    const handleCheckOutModelClose = () => {
       setCheckOutModelOpen(false);
+    };
+
+    const [manualCheckOutModelopen, setManualCheckOutModelOpen] = React.useState(false);
+    const handleManualCheckOutModelOpen = (ActID , event) => {
+        setSendActID(ActID) ;
+        setManualCheckOutModelOpen(true);
+    };
+    const handleManualCheckOutModelClose = () => {
+      setManualCheckOutModelOpen(false);
     };
 
     const [CameraModelInopen, setCameraModelInopen] = React.useState(false);
@@ -309,7 +357,6 @@ export default function ManageActivity() {
         setCameraModelOutopen(false);
     };
 
-
     const activity_End_or_not = new Date().getTime();
 
     return (
@@ -353,13 +400,17 @@ export default function ManageActivity() {
                                                             <TableCell className={classes.word} align="center">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
-                                                    <TableBody>
                                                     {activity.map(activity =>
-                                                        (activity.activityCancelTime === null
+                                                    <TableBody className={
+                                                        [(new Date(activity.activityEndDate).getTime() < activity_End_or_not)
+                                                        ? classes.finish_part : ""]}>
+                                                            {activity.activityCancelTime === null
                                                             ?
                                                         <TableRow hover>
                                                             <TableCell className={classes.word} align="center">
-                                                                {activity.activityName}
+                                                                <Link className={classes.link} to={"/ActivityInformation?" + activity.activityId}>
+                                                                    {activity.activityName}
+                                                                </Link>
                                                             </TableCell>
                                                             <TableCell className={classes.word} align="center">
                                                                 {activity.activitySpace}
@@ -559,21 +610,20 @@ export default function ManageActivity() {
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handlecheckInmodelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckInModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽到
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkInModelopen}
-                                                                    onClose={handlecheckInmodelClose}
+                                                                    onClose={handleCheckInModelClose}
                                                                     closeAfterTransition
                                                                     BackdropComponent={Backdrop}
                                                                     BackdropProps={{
                                                                     timeout: 1000,
                                                                     }}
                                                                 >
-                                                                    {/* () => FaceCheckIn(sendActID) ,  */}
                                                                     <Fade in={checkInModelopen}>
                                                                         <div>
                                                                             <Grid container spacing={10}>
@@ -590,12 +640,12 @@ export default function ManageActivity() {
                                                                                     </Card>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_2">
-                                                                                        <CardActionArea component={Link} to={"/manualCheckIn?" + activity.activityId}>
+                                                                                    <Card className={classes.choose_type} title="type_2" onClick={(event) => handleManualCheckInModelOpen(activity.activityId , event)}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent className={classes.word}>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 手動簽到
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -620,19 +670,60 @@ export default function ManageActivity() {
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
                                                                         </div>
                                                                     </Fade>
+                                                                </Modal> */}
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={manualCheckInModelopen}
+                                                                    onClose={handleManualCheckInModelClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={manualCheckInModelopen}>
+                                                                        <div>
+                                                                            <Grid container spacing={10}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_1">
+                                                                                        <CardActionArea component={Link} to={"/QRCodeCheckIn?" + activity.activityId}>
+                                                                                            <CardMedia>
+                                                                                                <CropFreeIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent className={classes.card_Title}>
+                                                                                                QRCode簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_2">
+                                                                                        <CardActionArea component={Link} to={"/manualCheckIn?" + activity.activityId}>
+                                                                                            <CardMedia>
+                                                                                                <ComputerIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent className={classes.word}>
+                                                                                                帳號簽到
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                            </Grid>
+                                                                        </div>
+                                                                    </Fade>
                                                                 </Modal>
                                                                 <br /><br />
                                                                 <Button
                                                                     variant="contained"
                                                                     className={classes.button}
-                                                                    onClick={(event) => handlecheckOutmodelOpen(activity.activityId , event)}
+                                                                    onClick={(event) => handleManualCheckOutModelOpen(activity.activityId , event)}
                                                                 >
                                                                     活動簽退
                                                                 </Button>
-                                                                <Modal
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={checkOutModelopen}
-                                                                    onClose={handlecheckOutmodelClose}
+                                                                    onClose={handleCheckOutModelClose}
                                                                     closeAfterTransition
                                                                     BackdropComponent={Backdrop}
                                                                     BackdropProps={{
@@ -655,12 +746,12 @@ export default function ManageActivity() {
                                                                                     </Card>
                                                                                 </Grid>
                                                                                 <Grid item xs={12} sm={6}>
-                                                                                    <Card className={classes.choose_type} title="type_2">
-                                                                                        <CardActionArea component={Link} to={"/manualCheckOut?" + activity.activityId}>
+                                                                                    <Card className={classes.choose_type} title="type_2" onClick={(event) => handleManualCheckOutModelOpen(activity.activityId , event)}>
+                                                                                        <CardActionArea>
                                                                                             <CardMedia>
                                                                                                 <KeyboardIcon className={classes.icon_part} />
                                                                                             </CardMedia>
-                                                                                            <CardContent className={classes.word}>
+                                                                                            <CardContent className={classes.card_Title}>
                                                                                                 手動簽退
                                                                                             </CardContent>
                                                                                         </CardActionArea>
@@ -669,8 +760,8 @@ export default function ManageActivity() {
                                                                             </Grid>
                                                                         </div>
                                                                     </Fade>
-                                                                </Modal>
-                                                                <Modal
+                                                                </Modal> */}
+                                                                {/* <Modal
                                                                     className={classes.modal}
                                                                     open={CameraModelOutopen}
                                                                     onClose={CameraModelCheckOutClose}
@@ -683,6 +774,47 @@ export default function ManageActivity() {
                                                                     <Fade in={CameraModelOutopen}>
                                                                         <div>
                                                                             <video controls autoplay style={{height:"480px" , width: "640px"}}></video>
+                                                                        </div>
+                                                                    </Fade>
+                                                                </Modal> */}
+                                                                <Modal
+                                                                    className={classes.modal}
+                                                                    open={manualCheckOutModelopen}
+                                                                    onClose={handleManualCheckOutModelClose}
+                                                                    closeAfterTransition
+                                                                    BackdropComponent={Backdrop}
+                                                                    BackdropProps={{
+                                                                    timeout: 1000,
+                                                                    }}
+                                                                >
+                                                                    <Fade in={manualCheckOutModelopen}>
+                                                                        <div>
+                                                                            <Grid container spacing={10}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_1">
+                                                                                        <CardActionArea component={Link} to={"/QRCodeCheckOut?" + activity.activityId}>
+                                                                                            <CardMedia>
+                                                                                                <CropFreeIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent className={classes.card_Title}>
+                                                                                                QRCode簽退
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Card className={classes.choose_type} title="type_2">
+                                                                                        <CardActionArea component={Link} to={"/manualCheckOut?" + activity.activityId}>
+                                                                                            <CardMedia>
+                                                                                                <ComputerIcon className={classes.icon_part} />
+                                                                                            </CardMedia>
+                                                                                            <CardContent className={classes.word}>
+                                                                                                帳號簽退
+                                                                                            </CardContent>
+                                                                                        </CardActionArea>
+                                                                                    </Card>
+                                                                                </Grid>
+                                                                            </Grid>
                                                                         </div>
                                                                     </Fade>
                                                                 </Modal>
@@ -710,10 +842,9 @@ export default function ManageActivity() {
                                                             </TableCell>
                                                             )}
                                                         </TableRow>
-                                                        : ""
-                                                       ))}
+                                                        : ""}
                                                     </TableBody>
-
+                                                    )}
                                                 </Table>
                                             </Paper>
                                         </Grid>
@@ -724,6 +855,16 @@ export default function ManageActivity() {
                     </div>
                 </Container>
             </div>
+            <Snackbar open={openInfo1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="info" className={classes.word}>
+                    您已停止舉辦該活動！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openInfo2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="info" className={classes.word}>
+                    您已刪除該活動！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }

@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)" ,
     } ,
     toolbar : {
-        maxWidth: "1080px" ,
+        maxWidth: "80%" ,
         width : "100%" ,
         margin : "0 auto" ,
         display: "flex" ,
@@ -78,12 +78,12 @@ export default function (props) {
       >
         <div className={classes.leftbar}>
           <Box lineHeight={1} m={2} >
-            <Link className={classes.link} to="/homepageAfterLogin" >A C T F U N</Link>
+            <Link className={classes.link} to="/homepage" >A C T F U N</Link>
           </Box>
         </div>
         <Divider/>
         <List>
-            <ListItem component={Link} to="/homepageAfterLogin" button>
+            <ListItem component={Link} to="/homepage" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faHome} />
               </ListItemIcon>
@@ -97,7 +97,7 @@ export default function (props) {
               <ListItemText primary="活動總覽" />
             </ListItem>
             <Divider/>
-            <ListItem component={Link} to="/" button>
+            <ListItem component={Link} to="/questionInfo" button>
               <ListItemIcon>
                 <FontAwesomeIcon icon={faQuestionCircle} />
               </ListItemIcon>

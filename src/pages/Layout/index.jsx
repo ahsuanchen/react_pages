@@ -5,7 +5,7 @@ import routess from 'routes';
 
 //import Header from 'components/Header/HM_header2.jsx';
 import News from 'pages/News/index.jsx';
-import Home from 'components/Homepage/homepageAfterLogin.jsx';
+import Home from 'components/Homepage/homepage.jsx';
 
 import ReactApp from 'components/react-app.jsx';
 import SignIn from 'components/Signs/signIn.jsx';
@@ -25,9 +25,9 @@ import UpdatePic from 'components/Activity/updatePic.jsx';
 import UpdateInfo from 'components/Activity/updateInfo.jsx';
 import UpdateDetails from 'components/Activity/updateDetails.jsx';
 // import Bar from 'components/bar.jsx';
-import HomepageAfterLogin from 'components/Homepage/homepageAfterLogin.jsx';
-import HomepageBeforeLogin from 'components/Homepage/homepageBeforeLogin.jsx';
+import Homepage from 'components/Homepage/homepage.jsx';
 import SearchInfo from 'components/Homepage/searchInfo.jsx';
+import QuestionInfo from 'components/Homepage/questionInfo.jsx';
 
 // import Test from 'components/Profile/Test.jsx';
 import Profile from 'components/Profile/profile.jsx';
@@ -35,12 +35,16 @@ import UpdatePassword from 'components/Profile/updatePassword.jsx';
 import TrainingFace from 'components/Profile/trainingFace.jsx';
 import SignupSituation from 'components/Profile/signupSituation.jsx';
 import EditSignupInfo from 'components/Profile/editSignupInformation.jsx';
+import MyTicket from 'components/Profile/myTicket.jsx'
 import OrganizerInfo from 'components/Profile/organizerInfo.jsx';
 import ManageActivity from 'components/Profile/manageActivity.jsx';
 import ParticipantList from 'components/Profile/participantList.jsx';
 import MakeAnnouncement from 'components/Profile/makeAnnouncement.jsx';
+import PersonalLineAnnouncement from 'components/Profile/personalLineAnnouncement.jsx';
 import ManualCheckIn from 'components/Profile/manualCheckIn.jsx';
 import ManualCheckOut from 'components/Profile/manualCheckOut.jsx';
+import QRCodeCheckIn from 'components/Profile/QRCodeCheckIn.jsx';
+import QRCodeCheckOut from 'components/Profile/QRCodeCheckOut.jsx';
 
 import Activity from 'pages/Activity/index.jsx'
 import ActivityAlbum from 'components/Album/album.jsx';
@@ -54,6 +58,7 @@ import LeftBar from 'components/Profile/leftbar.jsx';
 
 import Feedback from 'components/Activity/feedback.jsx';
 import FeedbackResponse from 'components/Activity/feedbackResponse.jsx';
+
 
 class Layout extends React.Component {
 
@@ -84,22 +89,26 @@ class Layout extends React.Component {
       <Route path="/updatePic" component={UpdatePic} />
       <Route path="/updateInfo" component={UpdateInfo} />
       <Route path="/updateDetails" component={UpdateDetails} />
-      <Route path="/homepageAfterLogin" component={HomepageAfterLogin} />
-      <Route path="/homepageBeforeLogin" component={HomepageBeforeLogin} />
+      <Route path="/homepage" component={Homepage} />
       <Route path="/searchInfo" component={SearchInfo} />
+      <Route path="/questionInfo" component={QuestionInfo} />
 
       {/* <Route path="/Test" component={Test} /> */}
       <Route path="/profile" component={Profile} />
       <Route path="/updatePassword" component={UpdatePassword} />
       <Route path="/signupSituation" component={SignupSituation} />
       <Route path="/editSignupInformation" component={EditSignupInfo} />
+      <Route path="/myTicket" component={MyTicket} />
       <Route path="/trainingFace" component={TrainingFace} />
 
       <Route path="/organizerInfo" component={OrganizerInfo} />
       <Route path="/manageActivity" component={ManageActivity} />
       <Route path="/makeAnnouncement" component={MakeAnnouncement} />
+      <Route path="/personalLineAnnouncement" component={PersonalLineAnnouncement} />
       <Route path="/manualCheckIn" component={ManualCheckIn} />
       <Route path="/manualCheckOut" component={ManualCheckOut} />
+      <Route path="/QRCodeCheckIn" component={QRCodeCheckIn} />
+      <Route path="/QRCodeCheckOut" component={QRCodeCheckOut} />
 
       <Route path="/ActivityAlbum" component={ActivityAlbum} />
       <Route path="/ActivityPhoto" component={ActivityPhoto} />
@@ -113,6 +122,7 @@ class Layout extends React.Component {
       <Route path="/leftBar" component={LeftBar} />
       <Route path="/Feedback" component={Feedback}/>
       <Route path="/FeedbackResponse" component={FeedbackResponse}/>
+
       </>
     );
   }

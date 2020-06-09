@@ -19,6 +19,8 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import MuiAlert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const useStyles = makeStyles(theme => ({
     div : {
@@ -50,6 +52,10 @@ const useStyles = makeStyles(theme => ({
         color : "#fff" ,
         margin : "auto 2%" ,
         fontFamily : "微軟正黑體"
+    } ,
+    alert: {
+        marginBottom : 100 , 
+        marginLeft : 125
     }
   }));
 
@@ -57,6 +63,24 @@ export default function Updatepassword() {
     const classes = useStyles();
 
     let history = useHistory();
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+    // 修改成功
+    const [openSuccess , setOpenSuccess] = React.useState(false);
+    // 修改失敗(舊密碼輸入錯誤)
+    const [openErr1 , setOpenErr1] = React.useState(false);
+    // 修改失敗(新密碼輸入不一致)
+    const [openErr2 , setOpenErr2] = React.useState(false);
+    const SuccessClose = () => {
+        setOpenSuccess(false);
+        history.push("/profile");
+    };  
+    const ErrClose = () => {
+        setOpenErr1(false);
+        setOpenErr2(false);
+    };  
 
     const [member, setMember] = useState({
         oldPassword : '' ,
@@ -102,11 +126,11 @@ export default function Updatepassword() {
         event.preventDefault();
         if (member.oldPassword != member.memberPassword)
         {
-            alert("舊密碼輸入錯誤");
+            setOpenErr1(true);
         }
         else if (member.newPassword != member.repeatnewPassword)
         {
-            alert("新密碼輸入不一致");
+            setOpenErr2(true);
         }
         else
         {
@@ -114,8 +138,7 @@ export default function Updatepassword() {
             url = url + member.oldPassword + "/" + member.newPassword;
             axios.post(url)
             .then(response => {
-                alert("密碼已修改");
-                history.push("/profile");
+                setOpenSuccess(true);
             })
             .catch(function(error){
                 console.log(error.response.status);
@@ -255,6 +278,21 @@ export default function Updatepassword() {
                         </div>  
                 </Container>
             </div>
+            <Snackbar open={openSuccess} autoHideDuration={2000} onClose={SuccessClose} className={classes.alert}>
+                <Alert severity="success" className={classes.word}>
+                    密碼已修改！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr1} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="error" className={classes.word}>
+                    舊密碼輸入錯誤！
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openErr2} autoHideDuration={2000} onClose={ErrClose} className={classes.alert}>
+                <Alert severity="warning" className={classes.word}>
+                    新密碼輸入不一致！
+                </Alert>
+            </Snackbar>
         </div>
     );
 }
