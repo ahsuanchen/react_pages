@@ -163,7 +163,7 @@ export default function TestGridList(props) {
           <GridList cols={3}  className={classes.gridList}>
           
             {[...video].map(vid => {
-              return  <GridListTile cols={1.5} key={vid.videoId}  >
+              return  <GridListTile cols={1.5} key={vid.videoId} align = "center" >
                       <ReactPlayer
                         className={classes.react_player}
                         //url='https://youtu.be/68ir9IR-vDA'
@@ -171,6 +171,7 @@ export default function TestGridList(props) {
                         align = "center"
                         width="500px"
                         height="100%"
+                        
                         controls={true}
                       />
                       </GridListTile>

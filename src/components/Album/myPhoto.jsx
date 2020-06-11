@@ -137,7 +137,7 @@ const[photo , setPhoto] = useState([]);
       <ListSubheader component="div">{act.activityName}</ListSubheader>
     </GridListTile>
       {[...photo].map(pic => {
-        return  <GridListTile cols={1} key={pic.photoId}>
+        return  <GridListTile cols={1} key={pic.photoId}  align = "center">
                 <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
                 <GridListTileBar
                   title={pic.name}

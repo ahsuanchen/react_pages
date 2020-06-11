@@ -380,15 +380,15 @@ export default function Updatephoto() {
                 <ListSubheader component="div" className={classes.word}>已上傳影片</ListSubheader>
               </GridListTile>
                 {[...video].map(vid => {
-                  return  <GridListTile cols={1} key={vid.videoId}>
+                  return  <GridListTile cols={1} key={vid.videoId} align = "center">
                          <ReactPlayer
                           className={classes.react_player}
                           //url='https://youtu.be/68ir9IR-vDA'
                           url={vid.videoId}
                           // width='100%'
                           // height='100%'
-                          width="400px"
-                          height="225px"
+                          width="500px"
+                          height="100%"
                           controls={true}
                           />
                           <GridListTileBar
