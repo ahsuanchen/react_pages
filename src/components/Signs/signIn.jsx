@@ -142,6 +142,7 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
+                name="username"
                 id="username"
                 label="帳號"
               />
@@ -151,6 +152,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 label="密碼"
+                name="password"
                 type="password"
                 id="password"
               />

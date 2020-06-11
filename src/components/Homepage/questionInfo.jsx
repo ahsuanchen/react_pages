@@ -189,7 +189,7 @@ export default function Question() {
                     嗨！您遇到甚麼問題呢？
                 </Typography>
                 <br/>
-                <Box lineHeight="normal" m={1} className={classes.search_bar}>
+                {/* <Box lineHeight="normal" m={1} className={classes.search_bar}>
                     <InputBase
                         placeholder="請輸入您遇到的問題或障礙"
                         className={classes.inputBase}
@@ -205,7 +205,7 @@ export default function Question() {
                             &nbsp;<FontAwesomeIcon icon={faSearch} style={{fontSize : "20px"}} />
                         </Button>
                     </Tooltip>
-                </Box>
+                </Box> */}
             </div>
             <div className={classes.container}>
 

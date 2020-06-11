@@ -61,6 +61,11 @@ const useStyles = makeStyles(theme => ({
         margin : "2% 1%" ,
         fontFamily : "微軟正黑體"
     } ,
+    button_end : {
+        background : '#D0D0D0' ,
+        margin : "2% 1%" ,
+        fontFamily : "微軟正黑體"
+    } ,
     alert: {
         marginBottom : 100 , 
         marginLeft : 125
@@ -72,6 +77,7 @@ export default function ParticipantList() {
 
     var activityId = window.location.href.substring(window.location.href.lastIndexOf("?") + 1)
     let count = 0 ;
+    const activity_End_or_not = new Date().getTime();
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -210,25 +216,43 @@ export default function ParticipantList() {
                                                                 活動回饋單
                                                             </Button>
                                                         </Tooltip>
-                                                        <Tooltip title="宣傳活動內容、提醒活動時間">
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                onClick={handleClick}
-                                                            >
-                                                                Line推播
-                                                            </Button>
-                                                        </Tooltip>
                                                         <Tooltip title="發行活動公告">
-                                                            <Button
-                                                                variant="contained"
-                                                                className={classes.button}
-                                                                component={Link}
-                                                                to={"/makeAnnouncement?" + activityId}
-                                                            >
-                                                                發行公告
-                                                            </Button>
-                                                        </Tooltip>
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    component={Link}
+                                                                    to={"/makeAnnouncement?" + activityId}
+                                                                >
+                                                                    發行公告
+                                                                </Button>
+                                                            </Tooltip>
+                                                        {new Date(activity.activityEndDate).getTime() >= activity_End_or_not
+                                                        ?
+                                                        <>
+                                                            <Tooltip title="宣傳活動內容、提醒活動時間">
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button}
+                                                                    onClick={handleClick}
+                                                                >
+                                                                    Line推播
+                                                                </Button>
+                                                            </Tooltip>
+                                                        </>
+                                                        :
+                                                        <>
+                                                            <Tooltip title="活動已結束">
+                                                                <Button
+                                                                    variant="contained"
+                                                                    className={classes.button_end}
+                                                                    onClick={handleClick}
+                                                                    disabled
+                                                                >
+                                                                    Line推播
+                                                                </Button>
+                                                            </Tooltip>
+                                                        </>
+                                                        }
                                                     </div>
                                                 </Box>
                                                 <Table className={classes.table}>
