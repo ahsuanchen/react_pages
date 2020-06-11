@@ -107,12 +107,12 @@ export default function Updatephoto() {
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
 
     let history = useHistory();
-    async function refreshPage() {
-      setTimeout(function(){
+    async function refreshPage(a) {
+      setTimeout(function(a){
 
         window.location.reload();
-    }, 5000);
-      setform();
+    }, a);
+      
 
     }
     async function refreshPage2() {
@@ -143,9 +143,13 @@ export default function Updatephoto() {
         let url = "/api/files/files/" + activityId;
 
         console.log(formData);
-
+        let time = 0 ;
         for await(const a of data)
         {
+          if(a.type === "video/mp4")
+          {
+            time = time + 3000;
+          }
             formData = new FormData();
 
             formData.append('file',a , a.name);
@@ -168,7 +172,8 @@ export default function Updatephoto() {
                 console.error(error);
               });
             }
-            formData = new FormData();
+            console.log(time);
+            refreshPage(data.length *100 + time);
             //alert("ok");
         }
 
@@ -189,28 +194,38 @@ export default function Updatephoto() {
       refreshPage2();
     }
 
+    async function deletee(video)
+    {
+      const a = await axios.delete("/api/photo/video/",video)
+      console.log(a);
+    }
+
     const handleClickvid=(event,vid) =>{
 
-      console.log(vid);
-
-      axios.delete("/api/photo/video",
-      {
+      const vidId = vid.videoId;
+      const vid_actId = vid.activity_Id;
+      
+      axios.delete("/api/photo/video/",{
         data:
         {
-        acitivty_Id : vid.activity_Id,
-        videoId : vid.videoId,
-
+          videoId : vidId,
+          activity_Id : vid_actId
         }
       })
+
+      console.log(video);
+      //deletee(vid);
+      //deletee(video)
+      
 
       refreshPage2();
     }
 
     const handleSubmit=(event)=> {
 
-      //setform();
-      alert("上傳中，等待畫面轉跳");
-      refreshPage();
+      setform();
+      //alert("上傳中，等待畫面轉跳");
+      //refreshPage();
     }
     const [anchorEl, setAnchorEl] = React.useState(null);
 

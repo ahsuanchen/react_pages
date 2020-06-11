@@ -375,10 +375,7 @@ export default function Homepage() {
                                     
                                 </CardActionArea>
                                 <Divider/>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#running </Link>
-                                    <Link to="/" className={classes.link}>#marathon </Link>
-                                </CardActions>
+                                
                             </Card>
                         </Grid>
                     )}
