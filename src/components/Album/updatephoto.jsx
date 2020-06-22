@@ -173,7 +173,7 @@ export default function Updatephoto() {
               });
             }
             console.log(time);
-            refreshPage(data.length *100 + time);
+            refreshPage(data.length * 500 + time);
             //alert("ok");
         }
 
@@ -387,7 +387,7 @@ export default function Updatephoto() {
                           url={vid.videoId}
                           // width='100%'
                           // height='100%'
-                          width="500px"
+                          width="400px"
                           height="100%"
                           controls={true}
                           />
