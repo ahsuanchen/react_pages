@@ -186,7 +186,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           <Typography className={classes.word}>
             {(act.activityMeal==1)?"餐點:":null}
           </Typography>
-          {(act.activityMeal==1)?
+          {(act.activityMeal=="Y")?
             <FormControl component="fieldset">
               <RadioGroup aria-label="meal" name="registrationMeal" value={registrationMeal} onChange={e=>setRegistrationMeal(e.target.value)}>
               <FormControlLabel value="2" control={<Radio />} label="葷食" />
@@ -206,7 +206,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
             rows={4}
             variant="outlined"
             onChange={e=>setRegistrationRemark(e.target.value)}/>
-          <Typography gutterBottom className={classes.word}>{(act.activityMeal==1)?null:"*此活動不提供餐點*"}</Typography>
+          <Typography gutterBottom className={classes.word}>{(act.activityMeal=="Y")?null:"*此活動不提供餐點*"}</Typography>
       </CardContent>
       <CardActions align="center">
         {(isSignup =="ok")?
