@@ -329,7 +329,7 @@ export default function SignupSituation() {
                                                                 variant="contained"
                                                                 className={classes.button}
                                                                 component={Link}
-                                                                to={"/FeedBack?" + registration.activity.activityId}
+                                                                to={"/Feedback?" + registration.activity_Id}
                                                             >
                                                                 給予回饋
                                                             </Button>

@@ -397,7 +397,7 @@ export default function ManageActivity() {
                                                             <TableCell className={classes.word} align="center">活動時間</TableCell>
                                                             <TableCell className={classes.word} align="center">可報名總額 / 已報名人數</TableCell>
                                                             <TableCell className={classes.word} align="center">活動狀況</TableCell>
-                                                            <TableCell className={classes.word} align="center">功能</TableCell>
+                                                            <TableCell className={classes.word} align="center" width = "15%">功能</TableCell>
                                                         </TableRow>
                                                     </TableHead>
                                                     {activity.map(activity =>

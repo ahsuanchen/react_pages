@@ -62,7 +62,7 @@ export default function TestGridList(props) {
           <InfoIcon/>
         </IconButton>}/>
       </GridListTile>))}
-      </GridList>
+      </GridList> 
     </div>
   );
 }

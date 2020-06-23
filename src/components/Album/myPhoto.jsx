@@ -112,7 +112,7 @@ const[photo , setPhoto] = useState([]);
 
   const handleClick=(event,pic) =>{
 
-    console.log(pic);
+    console.log(pic.ainum);
     alert("感謝您的回報!");
     axios.delete("/api/photo/memberphoto/" + pic.ainum);
     refreshPage();
@@ -137,7 +137,7 @@ const[photo , setPhoto] = useState([]);
       <ListSubheader component="div">{act.activityName}</ListSubheader>
     </GridListTile>
       {[...photo].map(pic => {
-        return  <GridListTile cols={1} key={pic.photoId}>
+        return  <GridListTile cols={1} key={pic.photoId}  align = "center">
                 <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
                 <GridListTileBar
                   title={pic.name}

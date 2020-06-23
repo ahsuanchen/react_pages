@@ -138,6 +138,7 @@ export default function BulidActivity_step1() {
     const [cardActive9, setCardActive9] = React.useState();
     const clickCard9 = event => {
         const active = cardActive9;
+        console.log(active);
         setCardActive9(!active);
     };
     //美食

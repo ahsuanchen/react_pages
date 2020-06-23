@@ -83,7 +83,7 @@ export default function Organizer() {
 
     useEffect(() =>{
     async function fetchData(){
-        const url = '/api/login/name';
+        const url = '/api/login/name/';
         const result = await axios.get(url);
         setMember(result.data);
       }
@@ -122,7 +122,7 @@ export default function Organizer() {
         if(organizer.organizerName.length > 0 && organizer.organizerEmail.length > 0 && organizer.organizerPhone.length > 0 
             && organizer.organizerAddress.length > 0 && organizer.organizerInfo.length > 0){
 
-        axios.post("/api/organizer", organizer)
+        axios.post("/api/organizer/", organizer)
           .then(res => {
             alert("yes")
             console.log(res);

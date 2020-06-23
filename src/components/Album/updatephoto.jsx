@@ -1,5 +1,6 @@
 import React ,{useState}from 'react';
 import axios from 'axios';
+import ReactPlayer from 'react-player'
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom";
@@ -42,6 +43,11 @@ const useStyles = makeStyles(theme => ({
           minHeight: 800,
           color: "#000"
       },
+      react_player :{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        },
       gridList: {
         width: "100%",
         height: "100%",
@@ -101,12 +107,12 @@ export default function Updatephoto() {
     const  [memberEmail,setMemberEmail] =  useState(localStorage.getItem('memberEmail'));
 
     let history = useHistory();
-    async function refreshPage() {
-      setTimeout(function(){
+    async function refreshPage(a) {
+      setTimeout(function(a){
 
         window.location.reload();
-    }, 5000);
-      setform();
+    }, a);
+      
 
     }
     async function refreshPage2() {
@@ -137,9 +143,13 @@ export default function Updatephoto() {
         let url = "/api/files/files/" + activityId;
 
         console.log(formData);
-
+        let time = 0 ;
         for await(const a of data)
         {
+          if(a.type === "video/mp4")
+          {
+            time = time + 3000;
+          }
             formData = new FormData();
 
             formData.append('file',a , a.name);
@@ -162,7 +172,8 @@ export default function Updatephoto() {
                 console.error(error);
               });
             }
-            formData = new FormData();
+            console.log(time);
+            refreshPage(data.length * 500 + time);
             //alert("ok");
         }
 
@@ -183,28 +194,38 @@ export default function Updatephoto() {
       refreshPage2();
     }
 
+    async function deletee(video)
+    {
+      const a = await axios.delete("/api/photo/video/",video)
+      console.log(a);
+    }
+
     const handleClickvid=(event,vid) =>{
 
-      console.log(vid);
-
-      axios.delete("/api/photo/video",
-      {
+      const vidId = vid.videoId;
+      const vid_actId = vid.activity_Id;
+      
+      axios.delete("/api/photo/video/",{
         data:
         {
-        acitivty_Id : vid.activity_Id,
-        videoId : vid.videoId,
-
+          videoId : vidId,
+          activity_Id : vid_actId
         }
       })
+
+      console.log(video);
+      //deletee(vid);
+      //deletee(video)
+      
 
       refreshPage2();
     }
 
     const handleSubmit=(event)=> {
 
-      //setform();
-      alert("上傳中，等待畫面轉跳");
-      refreshPage();
+      setform();
+      //alert("上傳中，等待畫面轉跳");
+      //refreshPage();
     }
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -222,16 +243,20 @@ export default function Updatephoto() {
 
      async function recoPhoto(){
        const url = '/api/photo/all/' + activityId ;
+       alert("辨識中...")
        const result = await axios.post(url);
-       alert(result.data);
+       alert("辨識完成!");
        }
      const handleSubmitt = (e) =>{
 
        recoPhoto();
 
-
+       
+       
+       //read the file
+       
      };
-
+     
     return (
       <div>
       <Header/>
@@ -275,7 +300,7 @@ export default function Updatephoto() {
           <hr/>
           <Button variant="outlined" className={classes.word}>
               新增檔案
-              <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*" multiple/>
+              <input type="file"  className={classes.btn_file} onChange={handleChange} id="upload-button" accept="image/*,.mp4" multiple/>
           </Button>
 
           <Button
@@ -294,9 +319,25 @@ export default function Updatephoto() {
             <ListSubheader component="div" className={classes.word}>預覽</ListSubheader>
           </GridListTile>
             {[...data].map(pic => {
-              return  <GridListTile className={classes.word} cols={1} key={pic.id}>
-                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="250px"/>
+              console.log(pic);
+              if(pic.type === "video/mp4")
+              {
+                return  <GridListTile className={classes.word} cols={1} key={pic.id}>
+                  <video width="400" controls>
+                    <source src={URL.createObjectURL(pic)} type="video/mp4"/>
+                          Your browser does not support HTML5 video.
+                  </video>
+                
+               
+                </GridListTile>
+              }
+              else
+              {
+                return  <GridListTile className={classes.word} cols={1} key={pic.id}>
+                      <img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic "/>
                       </GridListTile>
+              }
+              
                       //<img key = {pic.id} src = {URL.createObjectURL(pic)} alt ="no pic " width="30%" height="30%"></img>
               })
             }
@@ -314,8 +355,8 @@ export default function Updatephoto() {
               <ListSubheader component="div" className={classes.word}>已上傳照片</ListSubheader>
             </GridListTile>
               {[...photo].map(pic => {
-                return  <GridListTile cols={1} key={pic.photoId}>
-                        <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"/>
+                return  <GridListTile cols={1} key={pic.photoId} align = "center">
+                        <Zmage key = {pic.photoId} src = {pic.photoId} alt ="no pic " width="250px"  />
                         <GridListTileBar
                           title={pic.name}
                           titlePosition="top"
@@ -339,8 +380,17 @@ export default function Updatephoto() {
                 <ListSubheader component="div" className={classes.word}>已上傳影片</ListSubheader>
               </GridListTile>
                 {[...video].map(vid => {
-                  return  <GridListTile cols={1} key={vid.videoId}>
-                          <Zmage key = {vid.videoId} src = {vid.videoId} alt ="no pic " width="250px"/>
+                  return  <GridListTile cols={1} key={vid.videoId} align = "center">
+                         <ReactPlayer
+                          className={classes.react_player}
+                          //url='https://youtu.be/68ir9IR-vDA'
+                          url={vid.videoId}
+                          // width='100%'
+                          // height='100%'
+                          width="400px"
+                          height="100%"
+                          controls={true}
+                          />
                           <GridListTileBar
                             title={vid.name}
                             titlePosition="top"

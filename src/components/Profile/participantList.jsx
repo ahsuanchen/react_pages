@@ -151,8 +151,13 @@ export default function ParticipantList() {
                     })
                     axios.get("/api/registration/activity/" + activityId)
                     .then(res2 => {
-                        setRegistration(res2.data);
+                        if(res2.data.length===0)
+                        console.log(123);
+                        else{
+                             setRegistration(res2.data);
                         console.log(res2)
+                        }
+                       
                     })
                     .catch(err => {
                         console.log(err.response.status);

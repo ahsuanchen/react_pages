@@ -196,6 +196,14 @@ export default function Homepage() {
     const [organizer, setOrganizer] = useState([]);
     useEffect(() => {
         async function fetchData() {
+            axios.get("/api/activity")
+                    .then(res => {
+                        setActivity(res.data);
+                        // console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err.response.status);
+                    })
                 let url = "/api/login/name"
                 await axios.get(url)
                 .then(result => {
@@ -208,14 +216,7 @@ export default function Homepage() {
                     .catch(err => {
                         console.log(err.response.status);
                     })
-                    axios.get("/api/activity")
-                    .then(res => {
-                        setActivity(res.data);
-                        // console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err.response.status);
-                    })
+                    
                 })
                 .catch(err => {
                     console.log(err.response.status);
@@ -374,10 +375,7 @@ export default function Homepage() {
                                     
                                 </CardActionArea>
                                 <Divider/>
-                                <CardActions>
-                                    <Link to="/" className={classes.link}>#running </Link>
-                                    <Link to="/" className={classes.link}>#marathon </Link>
-                                </CardActions>
+                                
                             </Card>
                         </Grid>
                     )}

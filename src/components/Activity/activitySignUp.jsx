@@ -45,7 +45,7 @@ export default function ActivityInfo() {
   useEffect(() =>{
     async function fetchData(){
 
-      const result = await axios.get("api/login/name")
+      const result = await axios.get("/api/login/name/")
       .then(result => {
         setMember(result.data);
         console.log(result.data);
@@ -92,7 +92,7 @@ export default function ActivityInfo() {
 const [member_Email,setMember_Email] = useState("");
 const [activity_Id,setActivity_Id] = useState("");
 const [registrationRemark,setRegistrationRemark] = useState("");
-const [registrationMeal,setRegistrationMeal] = useState("");
+const [registrationMeal,setRegistrationMeal] = useState("0");
 
     console.log(member);
     //將要顯示的欄位利用物件導向的方式從activity中抓出 Ex{act.activityName} = activity的名稱
@@ -110,7 +110,7 @@ const [registrationMeal,setRegistrationMeal] = useState("");
 
   const handleSubmit = (event) =>{
 
-    alert("報名成功");
+    
 
     const Registration =
     {
@@ -124,10 +124,12 @@ const [registrationMeal,setRegistrationMeal] = useState("");
     axios.post("/api/registration/",Registration)
     .then( res => {
       console.log("ok");
+      alert("報名成功");
 
     }).catch(function(error)
   {
     console.log(error);
+    alert("無法報名，可能因為該活動與您報名過的其他活動時間衝突或報名活動人數已達上限");
   });
 
 
@@ -183,8 +185,8 @@ const [registrationMeal,setRegistrationMeal] = useState("");
           InputProps={{
             readOnly: true,
           }}/>
-          <Typography className={classes.word}>
-            {(act.activityMeal==1)?"餐點:":null}
+          <Typography>
+            {(act.activityMeal=="Y")?"餐點:":null}
           </Typography>
           {(act.activityMeal=="Y")?
             <FormControl component="fieldset">

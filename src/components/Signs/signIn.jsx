@@ -155,6 +155,7 @@ export default function SignInSide() {
                 name="password"
                 type="password"
                 id="password"
+                name = "password"
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
